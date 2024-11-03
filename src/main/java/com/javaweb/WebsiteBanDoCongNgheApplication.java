@@ -18,7 +18,5 @@ public class WebsiteBanDoCongNgheApplication {
         filterRegistrationBean.setFilter(new CustomSiteMeshFilter()); // adding sitemesh filter ??
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
-
-
     }
 }
