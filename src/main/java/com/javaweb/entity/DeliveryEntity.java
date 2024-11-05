@@ -23,8 +23,13 @@ public class DeliveryEntity extends BaseEntity{
     @Column(columnDefinition = "DECIMAL(10, 2)")
     private Double price;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
+    @Lob
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "carrier_id")
+    private CarrierEntity carrier;
 
     private Boolean isDeleted = false;
 

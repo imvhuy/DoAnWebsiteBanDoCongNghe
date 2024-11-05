@@ -30,6 +30,38 @@
     <link rel="apple-touch-icon-precomposed" href="/admin/images/favicon.png">
 </head>
 <body id="page-top">
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Header với nền #ff6f1b và chữ trắng -->
+            <div class="modal-header" style="background-color: #ff6f1b; color: white; font-size: 1.5rem;">
+                <h5 class="modal-title" id="messageModalLabel">Notify</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <!-- Nội dung với chữ trắng trên nền cam -->
+            <div class="modal-body" style="background-color: #ffe4e1; color: black; font-size: 1.5rem;">
+                <!-- Nội dung thông báo -->
+                ${message}
+            </div>
+            <!-- Footer với nút Đóng màu đen và chữ trắng -->
+            <div class="modal-footer" style="background-color: #ffe4e1;">
+                <button type="button" class="tf-button style-1" data-bs-dismiss="modal" style="background-color: #ffab53; color: white;">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Kiểm tra nếu có message và hiển thị modal -->
+<c:if test="${not empty message}">
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            messageModal.show();
+        });
+    </script>
+</c:if>
 <!-- #wrapper -->
 <div id="wrapper">
     <!-- #page -->
@@ -44,14 +76,18 @@
             </div>
             <!-- /preload -->
             <%@ include file="/common/admin/menu.jsp"%>
+            <div class="content-wrapper" style="height: 100vh; overflow-y: auto;">
+                <sitemesh:write property="body"/>
+
+            </div>
         </div>
-        <sitemesh:write property="body" />
         <!-- /layout-wrap -->
     </div>
     <!-- /#page -->
 </div>
 <!-- /#wrapper -->
 <!-- Javascript -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/admin/js/jquery.min.js"></script>
 <script src="/admin/js/bootstrap.min.js"></script>
 <script src="/admin/js/bootstrap-select.min.js"></script>
