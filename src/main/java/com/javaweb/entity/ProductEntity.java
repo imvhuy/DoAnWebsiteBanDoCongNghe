@@ -42,9 +42,12 @@ public class ProductEntity extends BaseEntity {
 
     private Long styleValueId;
 
-    private Long StoreId;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")  // Khóa ngoại liên kết với Store
+    private StoreEntity store;
 
 }

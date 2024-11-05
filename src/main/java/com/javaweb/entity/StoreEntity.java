@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -43,6 +45,7 @@ public class StoreEntity extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "commissionid")
     private CommissionEntity commission;
-
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<ProductEntity> products;
 
 }
