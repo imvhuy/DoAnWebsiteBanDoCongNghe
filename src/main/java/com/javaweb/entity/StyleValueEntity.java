@@ -31,4 +31,6 @@ public class StyleValueEntity extends BaseEntity{
     @JoinColumn(name = "cartItemId")
     private CartItemEntity cartItem;
 
+
+
 }
