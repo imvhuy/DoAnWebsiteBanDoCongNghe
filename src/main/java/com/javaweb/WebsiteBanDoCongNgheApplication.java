@@ -1,12 +1,17 @@
 package com.javaweb;
 
 import com.javaweb.config.CustomSiteMeshFilter;
+import com.javaweb.config.StorageProperties;
+import com.javaweb.service.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class WebsiteBanDoCongNgheApplication {
 
     public static void main(String[] args) {
@@ -18,5 +23,13 @@ public class WebsiteBanDoCongNgheApplication {
         filterRegistrationBean.setFilter(new CustomSiteMeshFilter()); // adding sitemesh filter ??
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
+    }
+
+    // thêm cấu hình storage
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args -> {
+            storageService.init();
+        });
     }
 }

@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="store")
 public class StoreEntity extends BaseEntity{
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
