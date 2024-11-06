@@ -70,7 +70,7 @@ public class CategoryController {
             //copy từ entity sang cateModel
             BeanUtils.copyProperties(entity, cateModel);
             //đấy dữ liệu ra view
-            model.addAttribute("Category", cateModel);
+            model.addAttribute("category", cateModel);
             return new ModelAndView("admin/categories/addOrEdit", model);
         }
         model.addAttribute("message", "Category is not existed!!!!");

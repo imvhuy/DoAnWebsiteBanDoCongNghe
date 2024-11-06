@@ -385,7 +385,7 @@
                                method="POST"
                                modelAttribute="carrier"
                                class="form-new-product form-style-1">
-
+<input type="hidden" value="${category.id}" name="id">
                         <fieldset class="name">
                             <div class="body-title">Carrier Name</div>
                             <form:input path="name" class="flex-grow" type="text"
