@@ -43,8 +43,8 @@ public class CarrierController {
             model.addAttribute("message", message);
         }
         // chuyển dữ liệu từ list lên biến categories
-        model.addAttribute("carriers", list);
-        return new ModelAndView("/admin/carriers/list", model);
+        model.addAttribute("carrier", list);
+        return new ModelAndView("forward:/admin/carriers/searchpaginated", model);
     }
 
     @GetMapping("add")
