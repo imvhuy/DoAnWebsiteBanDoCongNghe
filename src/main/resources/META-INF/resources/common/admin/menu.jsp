@@ -30,7 +30,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="sub-menu-item">
-                                <a href="product-list.html" class="">
+                                    <a href= "<c:url value = '/admin/products'/>" class = "">
                                     <div class="text">All Products</div>
                                 </a>
                             </li>
