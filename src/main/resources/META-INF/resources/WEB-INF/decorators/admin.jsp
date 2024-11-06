@@ -78,7 +78,6 @@
             <%@ include file="/common/admin/menu.jsp"%>
             <div class="content-wrapper" style="height: 100vh; overflow-y: auto;">
                 <sitemesh:write property="body"/>
-
             </div>
         </div>
         <!-- /layout-wrap -->
