@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class UserEntity extends BaseEntity {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,7 +28,7 @@ public class UserEntity extends BaseEntity {
     private String lastName;
 
     @Column(name = "username", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -39,7 +39,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "isemailactive")
     private Boolean isEmailActive;
 
-    @Column(name = "address", columnDefinition = "nvarchar(255) not null")
+    @Column(name = "address", columnDefinition = "nvarchar(255)")
     private String address;
 
     @Column(name = "avatar", columnDefinition =  "nvarchar(500)")
@@ -54,6 +54,7 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
