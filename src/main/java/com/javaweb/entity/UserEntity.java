@@ -39,8 +39,8 @@ public class UserEntity extends BaseEntity {
     @Column(name = "isemailactive")
     private Boolean isEmailActive;
 
-    @Column(name = "address", columnDefinition = "nvarchar(255)")
-    private String address;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AddressEntity> addressEntities = new ArrayList<>();
 
     @Column(name = "avatar", columnDefinition =  "nvarchar(500)")
     private String avatar;

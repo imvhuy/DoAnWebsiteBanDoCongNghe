@@ -7,7 +7,6 @@ import com.javaweb.entity.UserEntity;
 import com.javaweb.model.UserModel;
 import com.javaweb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +41,8 @@ public class UserInfoService implements UserDetailsService {
         for(RoleEntity role: userModel.getRoles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
         }
+        String fullname = "";
+        fullname = userEntity.getFirstName() + " " + userEntity.getLastName();
         UserInfoUserDetails myUserDetail = new UserInfoUserDetails(username, userModel.getPassword(), authorities);
         return myUserDetail;
     }

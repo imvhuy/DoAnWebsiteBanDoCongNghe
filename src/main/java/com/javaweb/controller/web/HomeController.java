@@ -31,11 +31,11 @@ public class HomeController {
         return mav;
     }
 
-//    @GetMapping(value="/product")
-//    public ModelAndView buidingList(){
-//        ModelAndView mav = new ModelAndView("/web/product");
-//        return mav;
-//    }
+    @GetMapping(value="/product")
+    public ModelAndView buidingList(){
+        ModelAndView mav = new ModelAndView("/web/product");
+        return mav;
+    }
 
     @GetMapping(value="/news")
     public ModelAndView news(){
@@ -55,31 +55,19 @@ public class HomeController {
         return mav;
     }
 
-//    @PostMapping(value = "/login")
-//    public ModelAndView login(String username, String password, RedirectAttributes model) {
-//        UserModel user = userService.findByUserNameAndStatus(username, 1);
-//        String message = "";
-//        if (userService.authenticate(username, password)) {
-//            return new ModelAndView("redirect:/web/home");
-//        } else {
-//            model.addFlashAttribute( "message", "Username or password is Wrong");
-//        }
-//        return new ModelAndView("redirect:/login?error");
-//    }
-//
-//    @GetMapping(value = "/access-denied")
-//    public ModelAndView accessDenied() {
-//        return new ModelAndView("redirect:/login?accessDenied");
-//    }
+    @GetMapping(value = "/access-denied")
+    public ModelAndView accessDenied() {
+        return new ModelAndView("redirect:/home?accessDenied");
+    }
 
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null) {
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//        return new ModelAndView("redirect:/trang-chu");
-//    }
+    @GetMapping(value = "/logout")
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return new ModelAndView("redirect:/home");
+    }
 
 }
 

@@ -6,22 +6,20 @@ import com.javaweb.service.impl.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
@@ -44,6 +42,12 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
+    // Thêm HttpSessionEventPublisher để xử lý các sự kiện session khi hết hạn
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -64,15 +68,25 @@ public class SecurityConfig{
                         .successHandler(myAuthenticationSuccessHandler())
                         .failureUrl("/login?incorrectAccount").permitAll()
                 );
-        httpSecurity.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID").permitAll());
+        httpSecurity.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/home").deleteCookies("JSESSIONID").permitAll());
         httpSecurity.exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));
-        httpSecurity.sessionManagement(session -> session.maximumSessions(1).expiredUrl("/login?sessionTimeout"));
+        httpSecurity.sessionManagement(session -> session
+                .sessionFixation().migrateSession() // Ngăn tái sử dụng session cũ
+                .maximumSessions(1)
+                .expiredUrl("/login?sessionTimeout")
+        );
         return httpSecurity.build();
     }
 
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new CustomSuccessHandler();
+    }
+
+    @Bean
+    public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+
+        return new SavedRequestAwareAuthenticationSuccessHandler();
     }
 
     // Tùy chỉnh HttpFirewall để cho phép URL có dấu "//"
@@ -87,4 +101,6 @@ public class SecurityConfig{
     public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall allowUrlEncodedDoubleSlashHttpFirewall) {
         return web -> web.httpFirewall(allowUrlEncodedDoubleSlashHttpFirewall); // Áp dụng HttpFirewall tùy chỉnh
     }
+
+
 }

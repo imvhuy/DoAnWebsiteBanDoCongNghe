@@ -61,7 +61,7 @@
     <div class="px_15 lg-px_40">
         <div class="row wrapper-header align-items-center" style="height: 90px;">
             <div class="col-xl-2 col-md-4 col-6 text-center">
-                <a href="index.html" class="logo-header">
+                <a href="/home" class="logo-header">
                     <img src="/web/images/logo/logo.jpg" alt="logo" class="logo" style="max-height: 40px;">
                 </a>
             </div>
@@ -143,7 +143,7 @@
                         <c:choose>
                             <c:when test="${pageContext.request.userPrincipal != null}">
                                 <div class="dropdown">
-                                    <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 16px; padding: 3px;">
+                                    <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px; padding: 3px;">
                                         <i class="icon icon-account"></i>
                                         <span>${pageContext.request.userPrincipal.name}</span>
                                     </a>
@@ -158,7 +158,7 @@
                             </c:when>
                             <c:otherwise>
                                 <a href="#login" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                                    <i class="icon icon-account"></i> Login
+                                    <i class="icon icon-account"></i>
                                 </a>
                             </c:otherwise>
                         </c:choose>
@@ -292,7 +292,7 @@
                 <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
             </div>
             <div class="tf-login-form">
-                <form class="" action="/login" accept-charset="utf-8">
+                <form class="" action="/login" method="post"  accept-charset="utf-8">
                     <div class="tf-field style-1">
                         <input class="tf-field-input tf-input" placeholder=" " type="text" id="username" name="username" required>
                         <label class="tf-field-label">Username *</label>
