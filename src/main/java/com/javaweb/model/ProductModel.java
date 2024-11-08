@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductModel {
     private Long id;
 
-    private String productName;
+    private String name;
 
     private String description;
 

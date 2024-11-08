@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
-    List<ProductEntity> findByProductNameContaining(String productName);
-   Page<ProductEntity> findByProductNameContaining(String productName, Pageable pageable);
+    List<ProductEntity> findByNameContaining(String Name);
+   Page<ProductEntity> findByNameContaining(String Name, Pageable pageable);
 
     Page<ProductEntity> findAll(Pageable pageable);
     List<ProductEntity> findAll(Sort sort);

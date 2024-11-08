@@ -19,7 +19,7 @@ public class ProductEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private String name;
 
     @Column(columnDefinition = "LONGTEXT")
     @Lob

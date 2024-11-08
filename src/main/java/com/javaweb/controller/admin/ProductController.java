@@ -47,7 +47,7 @@ public class ProductController {
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
         ProductModel productModel = new ProductModel();
-        model.addAttribute("productName", productModel);
+        model.addAttribute("product", productModel);
         return new ModelAndView("admin/products/addOrEdit", model);
     }
     @GetMapping("edit/{id}")

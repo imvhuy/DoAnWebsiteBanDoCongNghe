@@ -21,9 +21,9 @@ public interface IProductService {
 
     Optional<ProductEntity> findById(Long id);
 
-    List<ProductEntity> findByNameContaining(String productName);
+    List<ProductEntity> findByNameContaining(String Name);
     //tim kiem va phan trang
-    Page<ProductEntity> findByNameContaining(String productName, Pageable pageable);
+    Page<ProductEntity> findByNameContaining(String Name, Pageable pageable);
 
     Page<ProductEntity> findAll(Pageable pageable);
     List<ProductEntity> findAll(Sort sort);

@@ -45,12 +45,12 @@
                                     </a>
                                     <ul class="sub-menu" style="display: block;">
                                         <li class="sub-menu-item active">
-                                            <a href="product-list.html" class="">
+                                            <a href= "<c:url value = '/admin/products'/>" class="">
                                                 <div class="text">All Products</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="add-product.html" class="">
+                                            <a href= "<c:url value = '/admin/products/add'/>" class="">
                                                 <div class="text">Add Product</div>
                                             </a>
                                         </li>
@@ -712,7 +712,9 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <a class="tf-button style-1 w208" href="add-product.html"><i class="icon-plus"></i>Add new</a>
+                                    <a class="tf-button style-1 w208" href= "<c:url value = '/admin/products/add'/>">
+                                        <i class="icon-plus"></i>Add New Product
+                                    </a>
                                 </div>
                                 <div class="wg-table table-product-list">
                                     <ul class="table-title flex gap20 mb-14">
@@ -747,24 +749,24 @@
                                                         <a href="add-attributes.html" class="body-title-2">${product.id}</a>
                                                     </div>
                                                     <div class="name">
-                                                        <a href="add-attributes.html" class="body-title-2">${product.productName}</a>
+                                                        <a href="add-attributes.html" class="body-title-2">${product.name}</a>
                                                     </div>
                                                     <div class="body-text">${product.price}</div>
 
                                                     <!-- Action Buttons -->
                                                     <div class="list-icon-function">
                                                         <div class="item eye">
-                                                            <a href="<c:url value='/admin/carriers/view/${product.id}'/>">
+                                                            <a href="<c:url value='/admin/products/view/${product.id}'/>">
                                                                 <i class="icon-eye"></i>
                                                             </a>
                                                         </div>
                                                         <div class="item edit">
-                                                            <a href="<c:url value='/admin/carriers/edit/${product.id}'/>">
+                                                            <a href="<c:url value='/admin/products/edit/${product.id}'/>">
                                                                 <i class="icon-edit-3"></i>
                                                             </a>
                                                         </div>
                                                         <div class="item trash">
-                                                            <a href="<c:url value='/admin/carriers/delete/${product.id}'/>">
+                                                            <a href="<c:url value='/admin/products/delete/${product.id}'/>">
                                                                 <i class="icon-trash-2"></i>
                                                             </a>
                                                         </div>

@@ -47,11 +47,11 @@ public class ProductServiceImpl implements IProductService {
         else {
             Optional<ProductEntity> opt = findById(entity.getId());
             if (opt.isPresent()) {
-                if(StringUtils.isEmpty(entity.getProductName())) {
-                    entity.setProductName(opt.get().getProductName());
+                if(StringUtils.isEmpty(entity.getName())) {
+                    entity.setName(opt.get().getName());
                 }
                 else {
-                    entity.setProductName(entity.getProductName());
+                    entity.setName(entity.getName());
                 }
             }
         }
@@ -64,13 +64,13 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductEntity> findByNameContaining(String productName) {
-        return productRepository.findByProductNameContaining(productName);
+    public List<ProductEntity> findByNameContaining(String Name) {
+        return productRepository.findByNameContaining(Name);
     }
 
     @Override
-    public Page<ProductEntity> findByNameContaining(String productName, Pageable pageable) {
-        return productRepository.findByProductNameContaining(productName, pageable);
+    public Page<ProductEntity> findByNameContaining(String Name, Pageable pageable) {
+        return productRepository.findByNameContaining(Name, pageable);
     }
 
     @Override

@@ -375,28 +375,35 @@
                             <i class="icon-chevron-right"></i>
                         </li>
                         <li>
-                            <a href="#"><div class="text-tiny">Carriers</div></a>
+                            <a href="#"><div class="text-tiny">Products</div></a>
                         </li>
                     </ul>
                 </div>
                 <!-- new-attribute -->
                 <div class="wg-box">
-                    <form:form action="/admin/carriers/saveOrUpdate"
+                    <form:form action="/admin/products/saveOrUpdate"
                                method="POST"
-                               modelAttribute="carrier"
+                               modelAttribute="product"
                                class="form-new-product form-style-1">
 
                         <fieldset class="name">
-                            <div class="body-title">Carrier Name</div>
+                            <div class="body-title">Product Name</div>
                             <form:input path="name" class="flex-grow" type="text"
-                                        placeholder="Attribute name" tabindex="0" value = "${carrier.name}"
+                                        placeholder="Attribute name" tabindex="0" value = "${product.name}"
                                         aria-required="true" required="true"/>
                         </fieldset>
 
                         <fieldset class="name">
                             <div class="body-title">Price</div>
                             <form:input path="price" class="flex-grow" type="text"
-                                        placeholder="Attribute value" value = "${carrier.price}" tabindex="0"
+                                        placeholder="Attribute value" value = "${product.price}" tabindex="0"
+                                        aria-required="true" required="true"/>
+                        </fieldset>
+
+                        <fieldset class="name">
+                            <div class="body-title">Price</div>
+                            <form:input path="price" class="flex-grow" type="text"
+                                        placeholder="Attribute value" value = "${product.price}" tabindex="0"
                                         aria-required="true" required="true"/>
                         </fieldset>
                         <button class="tf-button w208" type="submit">Save</button>
