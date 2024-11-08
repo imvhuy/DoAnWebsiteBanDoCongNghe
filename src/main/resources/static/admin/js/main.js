@@ -108,13 +108,7 @@
     }
   }
 
-  var icon_function = function () {
-    if ($('div').hasClass("list-icon-function")) {
-      $(".list-icon-function .trash").on("click", function (e) {
-        $(this).parents(".item-row").remove();
-      })
-    }
-  }
+
 
   var box_search=function(){
         
@@ -219,7 +213,6 @@
     collapse_menu();
     showpass();
     select_colors_theme();
-    icon_function();
     box_search();
     variant_picker();
     flatAccordion(".flat-accordion");

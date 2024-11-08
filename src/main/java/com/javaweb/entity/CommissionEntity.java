@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="commission")
-public class CommissionEntity {
+public class CommissionEntity extends BaseEntity{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +20,11 @@ public class CommissionEntity {
     @Column(columnDefinition = "NVARCHAR(255)")
     private String name;
     private Double cost;
+
+    @Column(columnDefinition = "LONGTEXT")
+    @Lob
     private String description;
+
     private Boolean isDeleted;
 
     @OneToOne(mappedBy = "commission")

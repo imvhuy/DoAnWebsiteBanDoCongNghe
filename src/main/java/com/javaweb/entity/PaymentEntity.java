@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name="Payment")
 
 public class PaymentEntity extends BaseEntity {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
