@@ -72,16 +72,16 @@
 										<div class="icon">
 											<i class="icon-layers"></i>
 										</div>
-										<div class="text">Category</div>
+										<div class="text">commission</div>
 								</a>
 									<ul class="sub-menu" style="display: block;">
 										<li class="sub-menu-item active"><a
-											href="category-list.html" class="">
-												<div class="text">Category list</div>
+											href="commission-list.html" class="">
+												<div class="text">commission list</div>
 										</a></li>
-										<li class="sub-menu-item"><a href="new-category.html"
+										<li class="sub-menu-item"><a href="new-commission.html"
 											class="">
-												<div class="text">New category</div>
+												<div class="text">New commission</div>
 										</a></li>
 									</ul></li>
 								<li class="menu-item has-children"><a
@@ -694,7 +694,7 @@
 						<div class="main-content-wrap">
 							<div
 								class="flex items-center flex-wrap justify-between gap20 mb-30">
-								<h3>All category</h3>
+								<h3>All commission</h3>
 								<ul
 									class="breadcrumbs flex items-center flex-wrap justify-start gap10">
 									<li><a href="index.html"><div class="text-tiny">Dashboard</div></a>
@@ -703,38 +703,39 @@
 									<li><a href="#"><div class="text-tiny">Product</div></a></li>
 									<li><i class="icon-chevron-right"></i></li>
 									<li>
-										<div class="text-tiny">All category</div>
+										<div class="text-tiny">All commission</div>
 									</li>
 								</ul>
 							</div>
-							<!-- all-category -->
+							<!-- all-commission -->
 							<div class="wg-box">
 								<div class="flex items-center justify-between gap10 flex-wrap">
 									<div class="wg-filter flex-grow">
 										<div class="show">
 											<div class="text-tiny">Showing</div>
 											<div class="select">
-												<form method="GET" action="/admin/categorys/searchpaginated">
+												<form method="GET"
+													action="/admin/commissions/searchpaginated">
 													<div
 														class="flex items-center justify-between flex-wrap gap10">
 														<div class="text-tiny">
 															<select name="size" id="size"
 																onchange="this.form.submit()">
 																<option value="3"
-																	<c:if test="${categoryPage.size == 3}">selected</c:if>>3</option>
+																	<c:if test="${commissionPage.size == 3}">selected</c:if>>3</option>
 																<option value="5"
-																	<c:if test="${categoryPage.size == 5}">selected</c:if>>5</option>
+																	<c:if test="${commissionPage.size == 5}">selected</c:if>>5</option>
 																<option value="10"
-																	<c:if test="${categoryPage.size == 10}">selected</c:if>>10</option>
+																	<c:if test="${commissionPage.size == 10}">selected</c:if>>10</option>
 																<option value="15"
-																	<c:if test="${categoryPage.size == 15}">selected</c:if>>15</option>
+																	<c:if test="${commissionPage.size == 15}">selected</c:if>>15</option>
 																<option value="20"
-																	<c:if test="${categoryPage.size == 20}">selected</c:if>>20</option>
+																	<c:if test="${commissionPage.size == 20}">selected</c:if>>20</option>
 															</select>
 														</div>
 														<input type="hidden" name="name" value="${name}" /> <input
 															type="hidden" name="page"
-															value="${categoryPage.number + 1}" />
+															value="${commissionPage.number + 1}" />
 													</div>
 												</form>
 											</div>
@@ -747,8 +748,9 @@
 													required="">
 											</fieldset>
 											<!-- Hidden fields Äá» giá»¯ láº¡i cÃ¡c thÃ´ng tin nhÆ° kÃ­ch thÆ°á»c trang vÃ  sá» trang -->
-											<input type="hidden" name="size" value="${categoryPage.size}" />
-											<input type="hidden" name="page" value="1" />
+											<input type="hidden" name="size"
+												value="${commissionPage.size}" /> <input type="hidden"
+												name="page" value="1" />
 											<!-- Äáº·t láº¡i vá» trang Äáº§u khi tÃ¬m kiáº¿m má»i -->
 											<div class="button-submit">
 												<button class="" type="submit">
@@ -757,16 +759,23 @@
 											</div>
 										</form>
 									</div>
-									<a class="tf-button style-1 w208" href="<c:url value = '/admin/categories/add'/>"><i
+									<a class="tf-button style-1 w208"
+										href="<c:url value = '/admin/commissions/add'/>"><i
 										class="icon-plus"></i>Add new </a>
 								</div>
-								<div class="wg-table table-all-category">
+								<div class="wg-table table-all-commission">
 									<ul class="table-title flex gap20 mb-14">
 										<li>
-											<div class="body-title">Category</div>
+											<div class="body-title">ID</div>
 										</li>
 										<li>
-											<div class="body-title">ID</div>
+											<div class="body-title">Commission</div>
+										</li>
+										<li>
+											<div class="body-title">Cost</div>
+										</li>
+										<li>
+											<div class="body-title">Description</div>
 										</li>
 										<li>
 											<div class="body-title">Action</div>
@@ -774,33 +783,32 @@
 									</ul>
 
 									<ul class="flex flex-column">
-										<c:forEach var="category" items="${categoryPage.content}">
+										<c:forEach var="commission" items="${commissionPage.content}">
 											<li class="wg-product item-row gap20">
+											<div class="body-text text-main-dark mt-4">${commission.id }</div>
 												<div class="name">
-													<div class="image">
-														<img src="images/categories/cate1.png" alt="">
-													</div>
 													<div class="title line-clamp-2 mb-0">
-														<a href="#" class="body-text">${category.name }</a>
+														<a href="#" class="body-text">${commission.name }</a>
 													</div>
 												</div>
-												<div class="body-text text-main-dark mt-4">${category.id }</div>
+												<div class="body-text text-main-dark mt-4">${commission.cost }</div>
+												<div class="body-text text-main-dark mt-4">${commission.description }</div>
 												<div class="list-icon-function">
 													<div class="item eye">
 														<a
-															href="<c:url value='/admin/categories/view/${category.id}'/>">
+															href="<c:url value='/admin/commissions/view/${commission.id}'/>">
 															<i class="icon-eye"></i>
 														</a>
 													</div>
 													<div class="item edit">
 														<a
-															href="<c:url value='/admin/categories/edit/${category.id}'/>">
+															href="<c:url value='/admin/commissions/edit/${commission.id}'/>">
 															<i class="icon-edit-3"></i>
 														</a>
 													</div>
 													<div class="item trash">
 														<a href="#" data-toggle="modal" data-target="#deleteModal"
-															data-id="${category.id}"> <i class="icon-trash-2"></i>
+															data-id="${commission.id}"> <i class="icon-trash-2"></i>
 														</a>
 													</div>
 												</div>
@@ -858,10 +866,10 @@
 																				.addEventListener(
 																						"click",
 																						function() {
-																							var categoryId = button
+																							var commissionId = button
 																									.getAttribute("data-id");
-																							var deleteUrl = "/admin/categories/delete/"
-																									+ categoryId;
+																							var deleteUrl = "/admin/commissions/delete/"
+																									+ commissionId;
 																							document
 																									.getElementById(
 																											"confirmDelete")
@@ -885,17 +893,17 @@
 								</div>
 								<div class="divider"></div>
 								<div class="flex items-center justify-between flex-wrap gap10">
-									<div class="text-tiny">Showing ${categoryPage.size}
+									<div class="text-tiny">Showing ${commissionPage.size}
 										entries</div>
 
-									<c:if test="${categoryPage.totalPages > 0}">
+									<c:if test="${commissionPage.totalPages > 0}">
 										<ul class="wg-pagination">
 											<!-- Previous Page Link -->
 											<li><a
-												href="<c:url value='/admin/categories/searchpaginated'>
+												href="<c:url value='/admin/commissions/searchpaginated'>
                             <c:param name='name' value='${name}'/>
-                            <c:param name='size' value='${categoryPage.size}'/>
-                            <c:param name='page' value='${categoryPage.number > 1 ? categoryPage.number : 1}'/>
+                            <c:param name='size' value='${commissionPage.size}'/>
+                            <c:param name='page' value='${commissionPage.number > 1 ? commissionPage.number : 1}'/>
                         </c:url>">
 													<i class="icon-chevron-left"></i>
 											</a></li>
@@ -903,11 +911,11 @@
 											<!-- Page Numbers -->
 											<c:forEach var="pageNumber" items="${pageNumbers}">
 												<li
-													class="<c:if test='${pageNumber == categoryPage.number + 1}'>active</c:if>">
+													class="<c:if test='${pageNumber == commissionPage.number + 1}'>active</c:if>">
 													<a
-													href="<c:url value='/admin/categories/searchpaginated'>
+													href="<c:url value='/admin/commissions/searchpaginated'>
                                 <c:param name='name' value='${name}'/>
-                                <c:param name='size' value='${categoryPage.size}'/>
+                                <c:param name='size' value='${commissionPage.size}'/>
                                 <c:param name='page' value='${pageNumber}'/>
                             </c:url>">${pageNumber}</a>
 												</li>
@@ -915,10 +923,10 @@
 
 											<!-- Next Page Link -->
 											<li><a
-												href="<c:url value='/admin/categories/searchpaginated'>
+												href="<c:url value='/admin/commissions/searchpaginated'>
                             <c:param name='name' value='${name}'/>
-                            <c:param name='size' value='${categoryPage.size}'/>
-                            <c:param name='page' value='${categoryPage.number + 2 <= categoryPage.totalPages ? categoryPage.number + 2 : categoryPage.totalPages}'/>
+                            <c:param name='size' value='${commissionPage.size}'/>
+                            <c:param name='page' value='${commissionPage.number + 2 <= commissionPage.totalPages ? commissionPage.number + 2 : commissionPage.totalPages}'/>
                         </c:url>">
 													<i class="icon-chevron-right"></i>
 											</a></li>
@@ -926,7 +934,7 @@
 									</c:if>
 								</div>
 							</div>
-							<!-- /all-category -->
+							<!-- /all-commission -->
 						</div>
 						<!-- /main-content-wrap -->
 					</div>

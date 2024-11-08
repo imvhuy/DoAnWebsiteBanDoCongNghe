@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import com.javaweb.entity.CommissionEntity;
 
 public interface ICommissionService {
-	void delete(CommissionEntity entity);
     void deleteById(Long id);
 
     long count();
