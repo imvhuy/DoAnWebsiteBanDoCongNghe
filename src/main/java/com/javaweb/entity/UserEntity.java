@@ -21,11 +21,8 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstname", columnDefinition = "nvarchar(255) not null")
-    private String firstName;
-
-    @Column(name = "lastname", columnDefinition = "nvarchar(255) not null")
-    private String lastName;
+    @Column(name = "fullname", columnDefinition = "nvarchar(255) not null")
+    private String fullName;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;

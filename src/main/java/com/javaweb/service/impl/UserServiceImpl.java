@@ -51,7 +51,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserModel findByUserName(String userName) {
         UserModel result = new UserModel();
-        Optional<UserEntity> user = userRepository.findByUsername(userName);
+        UserEntity user = userRepository.findByUsername(userName);
         if(user != null) {
             BeanUtils.copyProperties(user, result);
         }

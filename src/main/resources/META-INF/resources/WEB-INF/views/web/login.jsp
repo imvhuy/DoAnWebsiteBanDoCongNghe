@@ -7,18 +7,18 @@
 </div>
 <!-- /page-title -->
 
-<c:if test="${message != null}" >
-<div class="container">
-    <!-- <h1 class="form-heading">login Form</h1> -->
-    <div class="login-form">
-        <div class="main-div">
-            <div class="alert alert-danger">
-                ${message}
-            </div>
-        </div>
-    </div>
-</div>
-</c:if>
+<%--<c:if test="${message != null}" >--%>
+<%--<div class="container">--%>
+<%--    <!-- <h1 class="form-heading">login Form</h1> -->--%>
+<%--    <div class="login-form">--%>
+<%--        <div class="main-div">--%>
+<%--            <div class="alert alert-danger">--%>
+<%--                ${message}--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--</c:if>--%>
 <section class="flat-spacing-10">
     <div class="container">
         <div class="tf-grid-layout lg-col-2 tf-login-wrap">

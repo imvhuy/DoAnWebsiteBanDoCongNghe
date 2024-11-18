@@ -148,7 +148,7 @@
                                         <span>${pageContext.request.userPrincipal.name}</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a></li>
                                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
                                         <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                         <li><hr class="dropdown-divider"></li>

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface IUserService {
     UserModel findByUserNameAndStatus(String name, int status);
-    UserModel findByUserName(String userName);
+    UserModel findByUserName(String username);
 
     UserModel findUserById(long id);
     @Transactional

@@ -41,8 +41,6 @@ public class UserInfoService implements UserDetailsService {
         for(RoleEntity role: userModel.getRoles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
         }
-        String fullname = "";
-        fullname = userEntity.getFirstName() + " " + userEntity.getLastName();
         UserInfoUserDetails myUserDetail = new UserInfoUserDetails(username, userModel.getPassword(), authorities);
         return myUserDetail;
     }

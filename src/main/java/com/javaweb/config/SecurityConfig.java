@@ -25,11 +25,11 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig{
     private static final String[] WHITE_LIST_URL = {"/home", "/login",
-            "/user/new",
+            "/user/**",
             "/WEB-INF/**",
             "/common/**",
             "/admin/**",
-            "/web/**"};
+            "/web/**", "/error"};
     @Autowired
     IUserRepository userRepository;
     @Bean
