@@ -54,6 +54,11 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;
 
+    // Quan hệ One-to-Many với VoucherCustomer
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VoucherCustomerEntity> voucherCustomerEntities;
+
+    
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
