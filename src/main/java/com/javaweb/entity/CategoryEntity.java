@@ -19,7 +19,7 @@ public class CategoryEntity extends BaseEntity {
     private Long id;
 
     @Column(columnDefinition = "nvarchar(50) not null unique")
-    private String categoryName;
+    private String name;
 
     @Column(columnDefinition = "nvarchar(50) unique")
     private String slug;
