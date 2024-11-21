@@ -24,6 +24,18 @@
 
 </head>
 <body>
+<!-- Kiểm tra nếu có message và hiển thị modal -->
+<c:if test="${not empty message}">
+    <div class="container">
+        <div class="login-form">
+            <div class="main-div">
+                <div class="alert alert-danger">
+                        ${message}
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
 <%@ include file = "/common/web/header.jsp" %>
 <sitemesh:write property="body" />
 <%@ include file = "/common/web/footer.jsp" %>

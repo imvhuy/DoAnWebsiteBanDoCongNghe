@@ -75,46 +75,44 @@ public class ProfileController {
     }
 
     @PostMapping("saveOrUpdate/{username}")
-    public ModelAndView save(@Valid AddressModel address, @PathVariable String username, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView save(
+            @Valid AddressModel address,
+            @PathVariable String username,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
 
-        AddressEntity entity = new AddressEntity();
         if (result.hasErrors()) {
             return new ModelAndView("user/address");
         }
-        UserModel user = userService.findByUserName(username);
-        UserEntity userEntity = new UserEntity();
-        BeanUtils.copyProperties(user, userEntity);
-        address.setUser(userEntity);
-        BeanUtils.copyProperties(address, entity);
+
         try {
-            if (address.getId() == null) {
-                addressService.save(entity);
-                if (entity.getIsDefault() == true) {
-                    entity = addressService.setDefaultAddress(user.getId(), entity.getId());
-                    addressService.save(entity);
-                }
+            UserModel user = userService.findByUserName(username);
+            UserEntity userEntity = new UserEntity();
+            BeanUtils.copyProperties(user, userEntity);
+
+            AddressEntity entity = new AddressEntity();
+            address.setUser(userEntity);
+            BeanUtils.copyProperties(address, entity);
+
+            // Lưu địa chỉ và thiết lập nếu là địa chỉ mặc định
+            addressService.save(entity);
+            if (Boolean.TRUE.equals(entity.getIsDefault())) {
+                addressService.setDefaultAddress(user.getId(), entity.getId());
             }
-            else {
-                if (entity.getIsDefault() == true) {
-                    entity = addressService.setDefaultAddress(user.getId(), entity.getId());
-                    addressService.save(entity);
-                }
-            }
-            // gọi hàm save trong service
-            //đưa thông báo về cho biến message
-            String message = "";
-            if (address.getId() != null) {
-                message = "Address is Edited!!!!!!!!";
-            } else {
-                message = "Address is saved!!!!!!!!";
-            }
+
+            // Thông báo trạng thái
+            String message = (address.getId() != null)
+                    ? "Address is Edited!!!!!!!!"
+                    : "Address is saved!!!!!!!!";
             redirectAttributes.addFlashAttribute("message", message);
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        //redirect ve URL controller
+
         return new ModelAndView("redirect:/profile/address/" + username);
     }
+
 
     @GetMapping("/address/delete")
     public ModelAndView deleteAddress(@RequestParam("username") String username,

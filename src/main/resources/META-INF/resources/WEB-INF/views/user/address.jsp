@@ -150,9 +150,9 @@
                                 <div class="box-field mb-3">
                                     <label for="ward" class="mb_10 fw-4 text-start d-block text_black-2">Ward</label>
                                     <div class="select-custom">
-                                        <select name="ward" class="tf-select w-100" id="ward">
+                                        <select name="ward" class="tf-select w-100" id="ward" onchange="updateSelectedLocation()">
                                             <option value="">Select Ward</option>
-                                            <c:forEach var="ward" items="${wards}">
+                                            <c:forEach var="ward" items="${wards}" >
                                                 <option value="${ward.code_with_type}">${ward.name_with_type}</option>
                                             </c:forEach>
                                         </select>

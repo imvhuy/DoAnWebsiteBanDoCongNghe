@@ -12,11 +12,7 @@
             <!-- Thông tin tài khoản -->
             <div class="account-info">
                 <!-- ID -->
-                <div class="account-field mb_15">
-                    <label class="field-label fw-4 text_black-2">ID:</label>
-                    <span class="field-value">${user.id}</span>
-                </div>
-
+                <input class="tf-field-input tf-input" hidden type="text" id="id" name="id" value="${user.id}">
                 <!-- Full Name -->
                 <div class="account-field mb_15">
                     <label class="field-label fw-4 text_black-2">Full Name:</label>
@@ -35,28 +31,16 @@
                     <span class="field-value">${user.isEmailActive ? 'Active' : 'Inactive'}</span>
                 </div>
 
-                <!-- Roles -->
-                <div class="account-field mb_15">
-                    <label class="field-label fw-4 text_black-2">Roles:</label>
-                    <span class="field-value">
-                        <c:forEach var="role" items="${user.roles}">
-                            ${role.name}
-                            <c:if test="${!role.last}">, </c:if>
-                        </c:forEach>
-                    </span>
+                <!-- Nút mở modal để sửa -->
+                <div class="mb_20">
+                    <button type="button" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center" data-bs-toggle="modal" data-bs-target="#editAccountModal">
+                        Edit Account
+                    </button>
                 </div>
-            </div>
-
-            <!-- Nút mở modal để sửa -->
-            <div class="mb_20">
-                <button type="button" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center" data-bs-toggle="modal" data-bs-target="#editAccountModal">
-                    Edit Account
-                </button>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <!-- Modal Sửa Thông Tin Tài Khoản -->
@@ -88,12 +72,6 @@
                     <div class="tf-field style-1 mb_15">
                         <input class="tf-field-input tf-input" type="text" id="editAvatar" name="avatar" value="${user.avatar}">
                         <label class="tf-field-label fw-4 text_black-2" for="editAvatar">Avatar</label>
-                    </div>
-
-                    <!-- Roles -->
-                    <div class="tf-field style-1 mb_15">
-                        <input class="tf-field-input tf-input" type="text" id="editRoles" name="roles" value="${user.roles}">
-                        <label class="tf-field-label fw-4 text_black-2" for="editRoles">Roles</label>
                     </div>
 
                     <!-- Nút Lưu -->

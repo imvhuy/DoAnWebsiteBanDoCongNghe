@@ -54,6 +54,12 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("/web/login");
         return mav;
     }
+    @GetMapping(value = "/register")
+    public ModelAndView registerPage() {
+        ModelAndView mav = new ModelAndView("/web/register");
+        return mav;
+    }
+
 
     @GetMapping(value = "/access-denied")
     public ModelAndView accessDenied() {
