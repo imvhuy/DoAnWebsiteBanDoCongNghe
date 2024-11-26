@@ -73,6 +73,7 @@ public class UserServiceImpl implements IUserService {
     public UserModel insert(UserModel userModel) {
         RoleEntity roleEntity = roleRepository.findByName(userModel.getRoleName());
         UserEntity userEntity = userConverter.convertToEntity(userModel);
+        userEntity.setFullName(userModel.getFullName());
         userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
         userEntity.setStatus(1);
         userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));

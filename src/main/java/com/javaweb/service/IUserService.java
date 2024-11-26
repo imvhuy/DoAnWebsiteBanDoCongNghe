@@ -15,7 +15,6 @@ public interface IUserService {
     UserModel findByUserName(String username);
 
     UserModel findUserById(long id);
-    @Transactional
     UserModel insert(UserModel userModel);
     UserModel update(Long id, UserEntity userEntity);
     void delete(long[] ids);
