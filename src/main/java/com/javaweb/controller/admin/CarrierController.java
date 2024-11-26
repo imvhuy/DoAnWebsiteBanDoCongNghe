@@ -1,25 +1,21 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.entity.CarrierEntity;
-import com.javaweb.entity.CategoryEntity;
 import com.javaweb.model.CarrierModel;
-import com.javaweb.model.Response;
-import com.javaweb.service.CarrierService;
+import com.javaweb.service.ICarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,14 +27,16 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/admin/carriers")
+@EnableMethodSecurity
 public class CarrierController {
     @Autowired
-    private CarrierService carrierService;
+    private ICarrierService ICarrierService;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service
-        List<CarrierEntity> list = carrierService.findAll();
+        List<CarrierEntity> list = ICarrierService.findAll();
         if (!StringUtils.isEmpty(message)) {
             model.addAttribute("message", message);
         }
@@ -57,7 +55,7 @@ public class CarrierController {
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCarrier = carrierService.findById(id);
+        Optional<CarrierEntity> optCarrier = ICarrierService.findById(id);
         CarrierModel cateModel = new CarrierModel();
         //kiểm tra sự tồn tại của category
         if (optCarrier.isPresent()) {
@@ -83,7 +81,7 @@ public class CarrierController {
         BeanUtils.copyProperties(carrierModel, entity);
         try {
             // gọi hàm save trong service
-            carrierService.save(entity);
+            ICarrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
             if (carrierModel.getId() != null) {
@@ -102,12 +100,12 @@ public class CarrierController {
 
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCategory = carrierService.findById(id);
+        Optional<CarrierEntity> optCategory = ICarrierService.findById(id);
         if (optCategory.isEmpty()) {
             model.addFlashAttribute("message", "Carriers is not exits!!!!");
             return new ModelAndView("redirect:/admin/carriers");
         }
-        carrierService.deleteById(id);
+        ICarrierService.deleteById(id);
         model.addFlashAttribute("message", "Carriers is deleted!!!!");
         return new ModelAndView("redirect:/admin/carriers");
     }
@@ -117,9 +115,9 @@ public class CarrierController {
         List<CarrierEntity> list = null;
         // có nội dung truyền về không, name là tùy chọn khi required=false
         if (StringUtils.hasText(name)) {
-            list = carrierService.findByNameContaining(name);
+            list = ICarrierService.findByNameContaining(name);
         } else {
-            list = carrierService.findAll();
+            list = ICarrierService.findAll();
         }
         model.addAttribute("categories", list);
         return "admin/carriers/search";
@@ -130,17 +128,17 @@ public class CarrierController {
                          @RequestParam(name = "name", required = false) String name,
                          @RequestParam("page") Optional<Integer> page,
                          @RequestParam("size") Optional<Integer> size) {
-        int count = (int) carrierService.count();
+        int count = (int) ICarrierService.count();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("name"));
         Page<CarrierEntity> resultPage = null;
         if (StringUtils.hasText(name)) {
-            resultPage = carrierService.findByNameContaining(name, pageable);
+            resultPage = ICarrierService.findByNameContaining(name, pageable);
             model.addAttribute("name", name);
         }
         else{
-            resultPage = carrierService.findAll(pageable);
+            resultPage = ICarrierService.findAll(pageable);
         }
         int totalPages = resultPage.getTotalPages();
         if (totalPages > 0) {

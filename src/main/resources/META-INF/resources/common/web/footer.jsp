@@ -11,7 +11,7 @@
                         <div class="footer-infor">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="images/logo/logo-white.svg" alt="">
+                                    <img src="/web/images/logo/logo-white.svg" alt="">
                                 </a>
                             </div>
                             <ul>
@@ -109,24 +109,6 @@
                                     </div>
                                     <div id="subscribe-msg"></div>
                                 </form>
-                                <div class="tf-cur">
-                                    <div class="tf-currencies">
-                                        <select class="image-select center style-default type-currencies color-white">
-                                            <option data-thumbnail="images/country/fr.svg">EUR <span>€ | France</span></option>
-                                            <option data-thumbnail="images/country/de.svg">EUR <span>€ | Germany</span></option>
-                                            <option selected data-thumbnail="images/country/us.svg">USD <span>$ | United States</span></option>
-                                            <option data-thumbnail="images/country/vn.svg">VND <span>₫ | Vietnam</span></option>
-                                        </select>
-                                    </div>
-                                    <div class="tf-languages">
-                                        <select class="image-select center style-default type-languages color-white">
-                                            <option>English</option>
-                                            <option>العربية</option>
-                                            <option>简体中文</option>
-                                            <option>اردو</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,11 +122,11 @@
                         <div class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
                             <div class="footer-menu_item">© 2024 Ecomus Store. All Rights Reserved</div>
                             <div class="tf-payment">
-                                <img src="images/payments/visa.png" alt="">
-                                <img src="images/payments/img-1.png" alt="">
-                                <img src="images/payments/img-2.png" alt="">
-                                <img src="images/payments/img-3.png" alt="">
-                                <img src="images/payments/img-4.png" alt="">
+                                <img src="/web/images/payments/visa.png" alt="">
+                                <img src="/web/images/payments/img-1.png" alt="">
+                                <img src="/web/images/payments/img-2.png" alt="">
+                                <img src="/web/images/payments/img-3.png" alt="">
+                                <img src="/web/images/payments/img-4.png" alt="">
                             </div>
                         </div>
                     </div>

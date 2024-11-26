@@ -1,7 +1,6 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.CarrierEntity;
-import com.javaweb.entity.CategoryEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
-public interface CarrierService {
+public interface ICarrierService {
     void delete(CarrierEntity entity);
     void deleteById(Long id);
 

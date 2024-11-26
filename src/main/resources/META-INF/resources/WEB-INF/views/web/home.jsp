@@ -138,8 +138,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/bark-phone-blue.jpg" src="images/products/bark-phone-blue.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/bark-phone-blue2.jpg" src="images/products/bark-phone-blue2.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/bark-phone-blue.jpg" src="/web/images/products/bark-phone-blue.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/bark-phone-blue2.jpg" src="/web/images/products/bark-phone-blue2.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -169,27 +169,27 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">Blue</span>
                                         <span class="swatch-value bg_blue-2"></span>
-                                        <img class="lazyload" data-src="images/products/bark-phone-blue.jpg" src="images/products/bark-phone-blue.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/bark-phone-blue.jpg" src="/web/images/products/bark-phone-blue.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/bark-phone-black.jpg" src="images/products/bark-phone-black.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/bark-phone-black.jpg" src="/web/images/products/bark-phone-black.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Orange</span>
                                         <span class="swatch-value bg_orange-3"></span>
-                                        <img class="lazyload" data-src="images/products/bark-phone-orange.jpg" src="images/products/bark-phone-orange.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/bark-phone-orange.jpg" src="/web/images/products/bark-phone-orange.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Green</span>
                                         <span class="swatch-value bg_green"></span>
-                                        <img class="lazyload" data-src="images/products/bark-phone-green.jpg" src="images/products/bark-phone-green.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/bark-phone-green.jpg" src="/web/images/products/bark-phone-green.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Light Brown</span>
                                         <span class="swatch-value bg_light-brown"></span>
-                                        <img class="lazyload" data-src="images/products/bark-phone-light-brown.jpg" src="images/products/bark-phone-light-brown.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/bark-phone-light-brown.jpg" src="/web/images/products/bark-phone-light-brown.jpg" alt="image-product">
                                     </li>
                                 </ul>
                             </div>
@@ -199,8 +199,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/cable-black.jpg" src="images/products/cable-black.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/cable-black2.jpg" src="images/products/cable-black2.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/cable-black.jpg" src="/web/images/products/cable-black.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/cable-black2.jpg" src="/web/images/products/cable-black2.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -230,22 +230,22 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/cable-black.jpg" src="images/products/cable-black.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-black.jpg" src="/web/images/products/cable-black.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">White</span>
                                         <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="images/products/cable-white.jpg" src="images/products/cable-white.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-white.jpg" src="/web/images/products/cable-white.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Cream</span>
                                         <span class="swatch-value bg_cream"></span>
-                                        <img class="lazyload" data-src="images/products/cable-cream.jpg" src="images/products/cable-cream.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-cream.jpg" src="/web/images/products/cable-cream.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Grey</span>
                                         <span class="swatch-value bg_grey"></span>
-                                        <img class="lazyload" data-src="images/products/cable-grey.jpg" src="images/products/cable-grey.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-grey.jpg" src="/web/images/products/cable-grey.jpg" alt="image-product">
                                     </li>
                                 </ul>
                             </div>
@@ -255,8 +255,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/headphone-white.jpg" src="images/products/headphone-white.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/headphone-red.jpg" src="images/products/headphone-red.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/headphone-white.jpg" src="/web/images/products/headphone-white.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/headphone-red.jpg" src="/web/images/products/headphone-red.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -286,17 +286,17 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">White</span>
                                         <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="images/products/headphone-white.jpg" src="images/products/headphone-white.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/headphone-white.jpg" src="/web/images/products/headphone-white.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Red</span>
                                         <span class="swatch-value bg_red"></span>
-                                        <img class="lazyload" data-src="images/products/headphone-red2.jpg" src="images/products/headphone-red2.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/headphone-red2.jpg" src="/web/images/products/headphone-red2.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/headphone-black.jpg" src="images/products/headphone-black.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/headphone-black.jpg" src="/web/images/products/headphone-black.jpg" alt="image-product">
                                     </li>
 
                                 </ul>
@@ -307,8 +307,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/albert-black.jpg" src="images/products/albert-black.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/albert-white.jpg" src="images/products/albert-white.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/albert-black.jpg" src="/web/images/products/albert-black.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/albert-white.jpg" src="/web/images/products/albert-white.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -338,17 +338,17 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/albert-black.jpg" src="images/products/albert-black.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/albert-black.jpg" src="/web/images/products/albert-black.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Orange</span>
                                         <span class="swatch-value bg_orange-3"></span>
-                                        <img class="lazyload" data-src="images/products/albert-orange.jpg" src="images/products/albert-orange.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/albert-orange.jpg" src="/web/images/products/albert-orange.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">White</span>
                                         <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="images/products/albert-white2.jpg" src="images/products/albert-white2.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/albert-white2.jpg" src="/web/images/products/albert-white2.jpg" alt="image-product">
                                     </li>
                                 </ul>
                             </div>
@@ -358,8 +358,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/wireless-charging-white.jpg" src="images/products/wireless-charging-white.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/wireless-charging-white.jpg" src="images/products/wireless-charging-white.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -389,12 +389,12 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">White</span>
                                         <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="images/products/wireless-charging-white.jpg" src="images/products/wireless-charging-white.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/wireless-charging-black.jpg" src="images/products/wireless-charging-black.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/wireless-charging-black.jpg" src="/web/images/products/wireless-charging-black.jpg" alt="image-product">
                                     </li>
                                 </ul>
                             </div>
@@ -404,8 +404,8 @@
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="images/products/cable-black3.jpg" src="images/products/cable-black3.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="images/products/cable-white2.jpg" src="images/products/cable-white2.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="/web/images/products/cable-black3.jpg" src="/web/images/products/cable-black3.jpg" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="/web/images/products/cable-white2.jpg" src="/web/images/products/cable-white2.jpg" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -435,12 +435,12 @@
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">Black</span>
                                         <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="images/products/cable-black3.jpg" src="images/products/cable-black3.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-black3.jpg" src="/web/images/products/cable-black3.jpg" alt="image-product">
                                     </li>
                                     <li class="list-color-item color-swatch">
                                         <span class="tooltip">White</span>
                                         <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="images/products/cable-white3.jpg" src="images/products/cable-white3.jpg" alt="image-product">
+                                        <img class="lazyload" data-src="/web/images/products/cable-white3.jpg" src="/web/images/products/cable-white3.jpg" alt="image-product">
                                     </li>
                                 </ul>
                             </div>
@@ -467,7 +467,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="images/collections/cable.svg" alt="collection-img" src="images/collections/cable.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/cable.svg" alt="collection-img" src="/web/images/collections/cable.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Cables</a>
@@ -477,7 +477,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="images/collections/screen-protection.svg" alt="collection-img" src="images/collections/screen-protection.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/screen-protection.svg" alt="collection-img" src="/web/images/collections/screen-protection.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Screen protection</a>
@@ -487,7 +487,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="images/collections/chargers.svg" alt="collection-img" src="images/collections/chargers.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/chargers.svg" alt="collection-img" src="/web/images//collections/chargers.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Chargers</a>
@@ -497,7 +497,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="/web/images/collections/audio.svg" alt="collection-img" src="images/collections/audio.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/audio.svg" alt="collection-img" src="/web/images//collections/audio.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Audio</a>
@@ -507,7 +507,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="/web/images/collections/wireless-chargers.svg" alt="collection-img" src="images/collections/wireless-chargers.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/wireless-chargers.svg" alt="collection-img" src="/web/images//collections/wireless-chargers.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Wireless Chargers</a>
@@ -517,7 +517,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="/web/images/collections/magSafe.svg" alt="collection-img" src="images/collections/magSafe.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/magSafe.svg" alt="collection-img" src="/web/images//collections/magSafe.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">MagSafe</a>
@@ -527,7 +527,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="/web/images/collections/gaming.svg" alt="collection-img" src="images/collections/gaming.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/gaming.svg" alt="collection-img" src="/web/images//collections/gaming.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Gaming</a>
@@ -537,7 +537,7 @@
                     <div class="swiper-slide">
                         <div class="collection-item-circle hover-img">
                             <a href="shop-collection-sub.html" class="collection-image img-style">
-                                <img class=" lazyloaded" data-src="images/collections/storage.svg" alt="collection-img" src="images/collections/storage.svg">
+                                <img class=" lazyloaded" data-src="/web/images/collections/storage.svg" alt="collection-img" src="/web/images/collections/storage.svg">
                             </a>
                             <div class="collection-content text-center">
                                 <a href="shop-collection-sub.html" class="link title fw-5 text-line-clamp-1">Storage</a>

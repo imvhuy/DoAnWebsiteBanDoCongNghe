@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CarrierRepository extends JpaRepository<CarrierEntity, Long> {
+public interface ICarrierRepository extends JpaRepository<CarrierEntity, Long> {
     List<CarrierEntity> findByNameContaining(String name);
     Page<CarrierEntity> findByNameContaining(String name, Pageable pageable);
 

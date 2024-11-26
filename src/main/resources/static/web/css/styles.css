@@ -19553,5 +19553,18 @@ blockquote .text {
     right: 0;
   }
 }
+.account-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Tạo hình tròn cho ảnh */
+  object-fit: cover; /* Đảm bảo ảnh luôn nằm gọn trong khung hình tròn */
+  border: 2px solid #ddd; /* Đường viền cho avatar */
+}
 
 /*# sourceMappingURL=styles.css.map */

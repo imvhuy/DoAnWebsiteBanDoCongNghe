@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class UserEntity extends BaseEntity {
-
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstname", columnDefinition = "nvarchar(255) not null")
-    private String firstName;
-
-    @Column(name = "lastname", columnDefinition = "nvarchar(255) not null")
-    private String lastName;
+    @Column(name = "fullname", columnDefinition = "nvarchar(255) not null")
+    private String fullName;
 
     @Column(name = "username", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -39,8 +37,8 @@ public class UserEntity extends BaseEntity {
     @Column(name = "isemailactive")
     private Boolean isEmailActive;
 
-    @Column(name = "address", columnDefinition = "nvarchar(255) not null")
-    private String address;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AddressEntity> addressEntities = new ArrayList<>();
 
     @Column(name = "avatar", columnDefinition =  "nvarchar(500)")
     private String avatar;
@@ -54,6 +52,7 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
