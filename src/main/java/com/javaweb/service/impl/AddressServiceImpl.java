@@ -1,7 +1,7 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.dto.AddressDTO;
 import com.javaweb.entity.AddressEntity;
-import com.javaweb.model.AddressModel;
 import com.javaweb.repository.IAddressRepository;
 import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IAddressService;
@@ -55,11 +55,11 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public AddressModel findAddressModelById(Long id) {
+    public AddressDTO findAddressModelById(Long id) {
         Optional<AddressEntity> addressEntity = addressRepository.findById(id);
         if (addressEntity.isPresent()) {
             String[] parts = addressEntity.get().getAddress().split(", ");
-            AddressModel addressModel = new AddressModel();
+            AddressDTO addressModel = new AddressDTO();
             BeanUtils.copyProperties(addressEntity.get(), addressModel);
             if (parts.length == 4) {
                 addressModel.setStreet(parts[0].trim());

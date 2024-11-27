@@ -1,8 +1,7 @@
 package com.javaweb;
 
 import com.javaweb.config.CustomSiteMeshFilter;
-import com.javaweb.config.StorageProperties;
-import com.javaweb.service.StorageService;
+
 
 import java.util.Optional;
 
@@ -30,12 +29,12 @@ public class WebsiteBanDoCongNgheApplication {
     }
 
     // thêm cấu hình storage
-    @Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args -> {
-            storageService.init();
-        });
-    }
+//    @Bean
+//    CommandLineRunner init(StorageService storageService) {
+//        return (args -> {
+//            storageService.init();
+//        });
+//    }
     
 
     

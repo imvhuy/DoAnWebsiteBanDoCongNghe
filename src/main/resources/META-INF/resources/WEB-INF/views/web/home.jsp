@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ include file="/common/taglib.jsp" %>
+
 <!-- preload -->
 <div class="preload preload-container">
     <div class="preload-logo">
@@ -122,7 +125,7 @@
 <section class="flat-spacing-2">
     <div class="container">
         <div class="flat-title flex-row justify-content-between gap-10 flex-wrap px-0">
-            <span class="title wow fadeInUp" data-wow-delay="0s">Hot Deals</span>
+            <span class="title wow fadeInUp" data-wow-delay="0s">Latest Products</span>
             <div class="tf-countdown-v3 wow fadeInUp" data-wow-delay="0s">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M13.5631 11.7661L10.7746 9.67465V5.41441C10.7746 4.98605 10.4283 4.6398 9.99996 4.6398C9.5716 4.6398 9.22535 4.98605 9.22535 5.41441V10.062C9.22535 10.306 9.34 10.5361 9.5352 10.6817L12.6336 13.0055C12.7673 13.1062 12.9302 13.1606 13.0975 13.1604C13.3338 13.1604 13.5662 13.0543 13.718 12.8498C13.9752 12.5081 13.9055 12.0225 13.5631 11.7661Z" fill="currentColor"></path>
@@ -134,12 +137,13 @@
         <div class="wrap-carousel wrap-sw-3">
             <div dir="ltr" class="swiper tf-sw-product-sell wrap-sw-over" data-preview="4" data-tablet="3" data-mobile="2" data-space-lg="30" data-space-md="15" data-pagination="2" data-pagination-md="3" data-pagination-lg="3">
                 <div class="swiper-wrapper">
+                 <c:forEach var="product" items="${products}">
                     <div class="swiper-slide" lazy="true">
                         <div class="card-product style-8 border-0 bg_grey-11">
                             <div class="card-product-wrapper">
                                 <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/bark-phone-blue.jpg" src="/web/images/products/bark-phone-blue.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/bark-phone-blue2.jpg" src="/web/images/products/bark-phone-blue2.jpg" alt="image-product">
+                                    <img class="lazyload img-product" data-src="${product.image}" src="${product.image}" alt="image-product">
+                                    <img class="lazyload img-hover" data-src="${product.image}" src="${product.image}" alt="image-product">
                                 </a>
                                 <div class="list-product-btn absolute-2">
                                     <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
@@ -163,8 +167,8 @@
                                 </div>
                             </div>
                             <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">Case with MagSafe</a>
-                                <span class="price">$19.99</span>
+                                <a href="product-detail.html" class="title link">${product.productName}</a>
+                                <span class="price">${product.price}</span>
                                 <ul class="list-color-product justify-content-center">
                                     <li class="list-color-item color-swatch active">
                                         <span class="tooltip">Blue</span>
@@ -195,257 +199,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="card-product style-8 border-0 bg_grey-11">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/cable-black.jpg" src="/web/images/products/cable-black.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/cable-black2.jpg" src="/web/images/products/cable-black2.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">MagSafe 3 Cable</a>
-                                <span class="price">$39.00</span>
-                                <ul class="list-color-product justify-content-center">
-                                    <li class="list-color-item color-swatch active">
-                                        <span class="tooltip">Black</span>
-                                        <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-black.jpg" src="/web/images/products/cable-black.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">White</span>
-                                        <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-white.jpg" src="/web/images/products/cable-white.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Cream</span>
-                                        <span class="swatch-value bg_cream"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-cream.jpg" src="/web/images/products/cable-cream.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Grey</span>
-                                        <span class="swatch-value bg_grey"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-grey.jpg" src="/web/images/products/cable-grey.jpg" alt="image-product">
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="card-product style-8 border-0 bg_grey-11">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/headphone-white.jpg" src="/web/images/products/headphone-white.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/headphone-red.jpg" src="/web/images/products/headphone-red.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">Beats Studio Buds</a>
-                                <span class="price">$199.00</span>
-                                <ul class="list-color-product justify-content-center">
-                                    <li class="list-color-item color-swatch active">
-                                        <span class="tooltip">White</span>
-                                        <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="/web/images/products/headphone-white.jpg" src="/web/images/products/headphone-white.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Red</span>
-                                        <span class="swatch-value bg_red"></span>
-                                        <img class="lazyload" data-src="/web/images/products/headphone-red2.jpg" src="/web/images/products/headphone-red2.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Black</span>
-                                        <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="/web/images/products/headphone-black.jpg" src="/web/images/products/headphone-black.jpg" alt="image-product">
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="card-product style-8 border-0 bg_grey-11">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/albert-black.jpg" src="/web/images/products/albert-black.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/albert-white.jpg" src="/web/images/products/albert-white.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">Blue Ocean Band</a>
-                                <span class="price">$9.00</span>
-                                <ul class="list-color-product justify-content-center">
-                                    <li class="list-color-item color-swatch active">
-                                        <span class="tooltip">Black</span>
-                                        <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="/web/images/products/albert-black.jpg" src="/web/images/products/albert-black.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Orange</span>
-                                        <span class="swatch-value bg_orange-3"></span>
-                                        <img class="lazyload" data-src="/web/images/products/albert-orange.jpg" src="/web/images/products/albert-orange.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">White</span>
-                                        <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="/web/images/products/albert-white2.jpg" src="/web/images/products/albert-white2.jpg" alt="image-product">
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="card-product style-8 border-0 bg_grey-11">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">3-in-1 Wireless Charging</a>
-                                <span class="price">$199.00</span>
-                                <ul class="list-color-product justify-content-center">
-                                    <li class="list-color-item color-swatch active">
-                                        <span class="tooltip">White</span>
-                                        <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="/web/images/products/wireless-charging-white.jpg" src="/web/images/products/wireless-charging-white.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">Black</span>
-                                        <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="/web/images/products/wireless-charging-black.jpg" src="/web/images/products/wireless-charging-black.jpg" alt="image-product">
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="card-product style-8 border-0 bg_grey-11">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" data-src="/web/images/products/cable-black3.jpg" src="/web/images/products/cable-black3.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" data-src="/web/images/products/cable-white2.jpg" src="/web/images/products/cable-white2.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">USB-C Charge Cable</a>
-                                <span class="price">$69.99</span>
-                                <ul class="list-color-product justify-content-center">
-                                    <li class="list-color-item color-swatch active">
-                                        <span class="tooltip">Black</span>
-                                        <span class="swatch-value bg_dark"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-black3.jpg" src="/web/images/products/cable-black3.jpg" alt="image-product">
-                                    </li>
-                                    <li class="list-color-item color-swatch">
-                                        <span class="tooltip">White</span>
-                                        <span class="swatch-value bg_white"></span>
-                                        <img class="lazyload" data-src="/web/images/products/cable-white3.jpg" src="/web/images/products/cable-white3.jpg" alt="image-product">
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="nav-sw disable-line nav-next-slider nav-next-product box-icon w_46 round"><span class="icon icon-arrow-left"></span></div>

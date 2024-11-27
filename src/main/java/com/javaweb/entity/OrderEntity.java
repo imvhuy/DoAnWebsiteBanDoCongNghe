@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import org.hibernate.mapping.Join;
 
 @Entity
@@ -35,8 +38,10 @@ public class OrderEntity extends BaseEntity{
     private Double amountToGD;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "order")
     private UserEntity user;
-
+    
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItemEntity> orderItems;
 
 }

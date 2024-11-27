@@ -25,9 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javaweb.dto.CategoryDTO;
 import com.javaweb.entity.CategoryEntity;
-import com.javaweb.model.CategoryModel;
-import com.javaweb.model.CategoryModel;
 import com.javaweb.service.ICategoryService;
 
 import jakarta.validation.Valid;
@@ -54,7 +53,7 @@ public class CategoryController {
     
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CategoryModel categoryModel = new CategoryModel();
+        CategoryDTO categoryModel = new CategoryDTO();
         model.addAttribute("category", categoryModel);
         return new ModelAndView("admin/categories/addOrEdit", model);
     }
@@ -63,7 +62,7 @@ public class CategoryController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
         Optional<CategoryEntity> optCategory = categoryService.findById(id);
-        CategoryModel cateModel = new CategoryModel();
+        CategoryDTO cateModel = new CategoryDTO();
         //kiểm tra sự tồn tại của category
         if (optCategory.isPresent()) {
             CategoryEntity entity = optCategory.get();
@@ -79,7 +78,7 @@ public class CategoryController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CategoryModel CategoryModel, BindingResult result) {
+                                     @Valid @ModelAttribute CategoryDTO CategoryModel, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/categories/addOrEdit");
         }

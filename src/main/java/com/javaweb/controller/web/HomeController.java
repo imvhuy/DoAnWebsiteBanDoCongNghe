@@ -1,13 +1,24 @@
 package com.javaweb.controller.web;
 
-import com.javaweb.model.Response;
-import com.javaweb.model.UserModel;
+import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.ResponseDTO;
+import com.javaweb.dto.UserDTO;
+import com.javaweb.entity.ProductEntity;
+import com.javaweb.service.IProductService;
 import com.javaweb.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -24,11 +35,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
     @Autowired
     IUserService userService;
+    @Autowired
+    IProductService productService;
+    
 
     @GetMapping(value = "home")
     public ModelAndView home() {
-        ModelAndView mav = new ModelAndView("web/home");
-        return mav;
+    	
+    	//lấy date hiện tại
+    	LocalDate localDate = LocalDate.now();
+    	Date sqlDate = Date.valueOf(localDate);
+    	List<ProductDTO> products = productService.findLatestProductInThisMonth(sqlDate);
+    	// lay top 20 san pham ban chay
+    	 Pageable pageable = PageRequest.of(0, 20);
+    	List<ProductDTO> topSellingProducts = productService.findTopSellingProducts(pageable);
+    	 ModelAndView mav = new ModelAndView("web/home");
+    	 mav.addObject("products", products); // Truyền đối tượng products vào view
+
+    	  return mav;
     }
 
     @GetMapping(value="/product")

@@ -1,9 +1,9 @@
 package com.javaweb.controller.user;
 
+import com.javaweb.dto.AddressDTO;
+import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.AddressModel;
-import com.javaweb.model.UserModel;
 import com.javaweb.service.IAddressService;
 import com.javaweb.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,16 +57,16 @@ public class ProfileController {
 
     @GetMapping("/address/{username}")
     public ModelAndView address(@PathVariable("username") String username, ModelMap model) {
-        UserModel user = userService.findByUserName(username);
+        UserDTO user = userService.findByUserName(username);
         List<AddressEntity> addresses = addressService.getAddressesByUserId(user.getId());
 
         // Sắp xếp danh sách sao cho địa chỉ mặc định (isDefault = true) đứng đầu
         addresses.sort(Comparator.comparing(AddressEntity::getIsDefault).reversed());
 
         // Chuyển đổi AddressEntity thành AddressModel
-        List<AddressModel> addressModels = new ArrayList<>();
+        List<AddressDTO> addressModels = new ArrayList<>();
         for (AddressEntity address : addresses) {
-            AddressModel addressModel = addressService.findAddressModelById(address.getId());
+            AddressDTO addressModel = addressService.findAddressModelById(address.getId());
             addressModels.add(addressModel);
         }
         model.addAttribute("currentPage", "address");
@@ -76,7 +76,7 @@ public class ProfileController {
 
     @PostMapping("saveOrUpdate/{username}")
     public ModelAndView save(
-            @Valid AddressModel address,
+            @Valid AddressDTO address,
             @PathVariable String username,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
@@ -86,7 +86,7 @@ public class ProfileController {
         }
 
         try {
-            UserModel user = userService.findByUserName(username);
+            UserDTO user = userService.findByUserName(username);
             UserEntity userEntity = new UserEntity();
             BeanUtils.copyProperties(user, userEntity);
 
@@ -120,7 +120,7 @@ public class ProfileController {
                                       RedirectAttributes redirectAttributes) {
         try {
             // Kiểm tra xem người dùng có tồn tại không
-            UserModel user = userService.findByUserName(username);
+            UserDTO user = userService.findByUserName(username);
             if (user == null) {
                 redirectAttributes.addFlashAttribute("message", "User not found.");
                 return new ModelAndView("redirect:/profile/address/" + username);

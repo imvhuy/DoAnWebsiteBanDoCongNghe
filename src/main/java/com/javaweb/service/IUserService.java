@@ -1,7 +1,8 @@
 package com.javaweb.service;
 
+import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.UserModel;
+
 import org.apache.catalina.User;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.data.domain.Pageable;
@@ -11,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface IUserService {
-    UserModel findByUserNameAndStatus(String name, int status);
-    UserModel findByUserName(String username);
+    UserDTO findByUserNameAndStatus(String name, int status);
+    UserDTO findByUserName(String username);
 
-    UserModel findUserById(long id);
-    UserModel insert(UserModel userModel);
-    UserModel update(Long id, UserEntity userEntity);
+    UserDTO findUserById(long id);
+    UserDTO insert(UserDTO userModel);
+    UserDTO update(Long id, UserEntity userEntity);
     void delete(long[] ids);
     Boolean authenticate(String username, String password);
 }

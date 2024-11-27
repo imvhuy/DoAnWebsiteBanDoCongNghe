@@ -1,9 +1,9 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.converter.UserConverter;
+import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.UserModel;
 import com.javaweb.repository.IRoleRepository;
 import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IUserService;
@@ -39,8 +39,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional
-    public UserModel findByUserNameAndStatus(String name, int status) {
-        UserModel result = new UserModel();
+    public UserDTO findByUserNameAndStatus(String name, int status) {
+        UserDTO result = new UserDTO();
         UserEntity user = userRepository.findByUsernameAndStatus(name, status);
         if(user != null) {
             BeanUtils.copyProperties(user, result);
@@ -49,8 +49,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserModel findByUserName(String userName) {
-        UserModel result = new UserModel();
+    public UserDTO findByUserName(String userName) {
+        UserDTO result = new UserDTO();
         UserEntity user = userRepository.findByUsername(userName);
         if(user != null) {
             BeanUtils.copyProperties(user, result);
@@ -59,8 +59,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserModel findUserById(long id) {
-        UserModel result = new UserModel();
+    public UserDTO findUserById(long id) {
+        UserDTO result = new UserDTO();
         Optional<UserEntity> user = userRepository.findById(id);
         if(user != null) {
             BeanUtils.copyProperties(user, result);
@@ -70,19 +70,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional
-    public UserModel insert(UserModel userModel) {
+    public UserDTO insert(UserDTO userModel) {
         RoleEntity roleEntity = roleRepository.findByName(userModel.getRoleName());
         UserEntity userEntity = userConverter.convertToEntity(userModel);
         userEntity.setFullName(userModel.getFullName());
         userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
         userEntity.setStatus(1);
         userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        UserModel result = userConverter.convertToModel(userRepository.save(userEntity));
+        UserDTO result = userConverter.convertToModel(userRepository.save(userEntity));
         return result;
     }
 
     @Override
-    public UserModel update(Long id, UserEntity userEntity) {
+    public UserDTO update(Long id, UserEntity userEntity) {
         return null;
     }
 

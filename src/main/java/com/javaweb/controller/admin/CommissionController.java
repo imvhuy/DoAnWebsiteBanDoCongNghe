@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javaweb.dto.CommissionDTO;
 import com.javaweb.entity.CommissionEntity;
-import com.javaweb.model.CommissionModel;
 import com.javaweb.service.ICommissionService;
 
 import jakarta.validation.Valid;
@@ -52,7 +52,7 @@ public class CommissionController {
     
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CommissionModel CommissionModel = new CommissionModel();
+        CommissionDTO CommissionModel = new CommissionDTO();
         model.addAttribute("commission", CommissionModel);
         return new ModelAndView("admin/commissions/addOrEdit", model);
     }
@@ -61,7 +61,7 @@ public class CommissionController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
         Optional<CommissionEntity> optcommission = commissionService.findById(id);
-        CommissionModel cateModel = new CommissionModel();
+        CommissionDTO cateModel = new CommissionDTO();
         //kiểm tra sự tồn tại của commission
         if (optcommission.isPresent()) {
             CommissionEntity entity = optcommission.get();
@@ -77,7 +77,7 @@ public class CommissionController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CommissionModel CommissionModel, BindingResult result) {
+                                     @Valid @ModelAttribute CommissionDTO CommissionModel, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/commissions/addOrEdit");
         }
