@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!-- Top bar -->
 <div class="tf-top-bar bg_dark line">
     <div class="px_15 lg-px_40">
@@ -56,13 +56,15 @@
     .search-form button i {
         font-size: 1.2em;
     }
+
     /* Container chính */
     .menu-container {
         display: flex;
         border: 1px solid #ddd;
         background-color: #fff;
         width: 100%;
-        max-width: 1200px;
+        padding: 5px; /* Quá lớn hoặc không cân đối */
+        max-width: 1400px;
         margin: 0 auto;
         position: relative;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -76,11 +78,13 @@
 
     /* Khi có nội dung, hiển thị menu-right */
     .menu-right {
-        width: calc(100% - 300px);
+        width: 100%; /* Hoặc tăng giá trị phù hợp với kích thước mong muốn */
         padding: 15px;
         background-color: #fff;
-        flex: 3;
+        flex: 1; /* Sử dụng flex để dãn đều với các thành phần khác */
+        box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng */
     }
+
 
     .menu-content {
         display: none; /* Ẩn tất cả nội dung chi tiết */
@@ -118,16 +122,12 @@
 
     /* Cột trong Mega Menu */
     .menu-column {
+        width: 200px;
         background: #f9f9f9;
         padding: 15px;
         border-radius: 5px;
         border: 1px solid #ddd;
     }
-    /*@media (min-width: 768px) {*/
-    /*    .menu-column {*/
-    /*        width: 120%; !* Mỗi cột chiếm 1/3 chiều rộng của Mega Menu trên màn hình lớn *!*/
-    /*    }*/
-    /*}*/
 
     .menu-column h4 {
         font-size: 18px; /* Tăng kích thước tiêu đề */
@@ -193,6 +193,21 @@
         color: #007bff;
     }
 
+    .category-item {
+        background-color: transparent; /* Xóa màu nền */
+        padding: 0; /* Loại bỏ padding nếu không cần */
+        margin: 0; /* Căn chỉnh để không bị lệch */
+        text-align: left; /* Căn chỉnh chữ về bên trái */
+        font-size: 14px; /* Kích thước chữ đồng đều */
+        font-weight: normal; /* Đảm bảo không bị nhấn mạnh */
+        line-height: 1.6; /* Đặt khoảng cách dòng phù hợp */
+    }
+
+    .category-item:hover {
+        background-color: #ddd; /* Chỉ áp dụng hiệu ứng nền khi hover (nếu cần) */
+        cursor: pointer;
+    }
+
     </style>
     <div class="px_15 lg-px_40">
         <div class="row wrapper-header align-items-center" style="height: 90px;">
@@ -207,7 +222,8 @@
                 <a href="#mobileMenu" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
                     <!-- SVG icon for mobile menu -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16" fill="none">
-                        <path d="M2.00056 2.28571H16.8577C17.1608 2.28571 17.4515 2.16531 17.6658 1.95098C17.8802 1.73665 18.0006 1.44596 18.0006 1.14286C18.0006 0.839753 17.8802 0.549063 17.6658 0.334735C17.4515 0.120408 17.1608 0 16.8577 0H2.00056C1.69745 0 1.40676 0.120408 1.19244 0.334735C0.978109 0.549063 0.857702 0.839753 0.857702 1.14286C0.857702 1.44596 0.978109 1.73665 1.19244 1.95098C1.40676 2.16531 1.69745 2.28571 2.00056 2.28571ZM0.857702 8C0.857702 7.6969 0.978109 7.40621 1.19244 7.19188C1.40676 6.97755 1.69745 6.85714 2.00056 6.85714H22.572C22.8751 6.85714 23.1658 6.97755 23.3801 7.19188C23.5944 7.40621 23.7148 7.6969 23.7148 8C23.7148 8.30311 23.5944 8.59379 23.3801 8.80812C23.1658 9.02245 22.8751 9.14286 22.572 9.14286H2.00056C1.69745 9.14286 1.40676 9.02245 1.19244 8.80812C0.978109 8.59379 0.857702 8.30311 0.857702 8ZM0.857702 14.8571C0.857702 14.554 0.978109 14.2633 1.19244 14.049C1.40676 13.8347 1.69745 13.7143 2.00056 13.7143H12.2863C12.5894 13.7143 12.8801 13.8347 13.0944 14.049C13.3087 14.2633 13.4291 14.554 13.4291 14.8571C13.4291 15.1602 13.3087 15.4509 13.0944 15.6653C12.8801 15.8796 12.5894 16 12.2863 16H2.00056C1.69745 16 1.40676 15.8796 1.19244 15.6653C0.978109 15.4509 0.857702 15.1602 0.857702 14.8571Z" fill="currentColor"></path>
+                        <path d="M2.00056 2.28571H16.8577C17.1608 2.28571 17.4515 2.16531 17.6658 1.95098C17.8802 1.73665 18.0006 1.44596 18.0006 1.14286C18.0006 0.839753 17.8802 0.549063 17.6658 0.334735C17.4515 0.120408 17.1608 0 16.8577 0H2.00056C1.69745 0 1.40676 0.120408 1.19244 0.334735C0.978109 0.549063 0.857702 0.839753 0.857702 1.14286C0.857702 1.44596 0.978109 1.73665 1.19244 1.95098C1.40676 2.16531 1.69745 2.28571 2.00056 2.28571ZM0.857702 8C0.857702 7.6969 0.978109 7.40621 1.19244 7.19188C1.40676 6.97755 1.69745 6.85714 2.00056 6.85714H22.572C22.8751 6.85714 23.1658 6.97755 23.3801 7.19188C23.5944 7.40621 23.7148 7.6969 23.7148 8C23.7148 8.30311 23.5944 8.59379 23.3801 8.80812C23.1658 9.02245 22.8751 9.14286 22.572 9.14286H2.00056C1.69745 9.14286 1.40676 9.02245 1.19244 8.80812C0.978109 8.59379 0.857702 8.30311 0.857702 8ZM0.857702 14.8571C0.857702 14.554 0.978109 14.2633 1.19244 14.049C1.40676 13.8347 1.69745 13.7143 2.00056 13.7143H12.2863C12.5894 13.7143 12.8801 13.8347 13.0944 14.049C13.3087 14.2633 13.4291 14.554 13.4291 14.8571C13.4291 15.1602 13.3087 15.4509 13.0944 15.6653C12.8801 15.8796 12.5894 16 12.2863 16H2.00056C1.69745 16 1.40676 15.8796 1.19244 15.6653C0.978109 15.4509 0.857702 15.1602 0.857702 14.8571Z"
+                              fill="currentColor"></path>
                     </svg>
                 </a>
             </div>
@@ -217,14 +233,16 @@
                 <nav class="box-navigation text-center">
                     <ul class="box-nav-ul d-flex align-items-center gap-30">
                         <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Home<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Home<i
+                                    class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu">
                                 <div class="container">
                                     <div class="row-demo">
                                         <div class="demo-item">
                                             <a href="index.html">
                                                 <div class="demo-image position-relative">
-                                                    <img class="lazyload" data-src="/web/images/demo/home-01.jpg" src="/web/images/demo/home-01.jpg" alt="home-01">
+                                                    <img class="lazyload" data-src="/web/images/demo/home-01.jpg"
+                                                         src="/web/images/demo/home-01.jpg" alt="home-01">
                                                     <div class="demo-label">
                                                         <span class="demo-new">New</span>
                                                         <span>Trend</span>
@@ -239,103 +257,26 @@
                             </div>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Shop<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Showroom<i
+                                    class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu">
                                 <!-- Submenu content -->
                             </div>
                         </li>
                         <li class="menu-item">
                             <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu" style="width: 1639px; left: 20px">
-                                <!-- Submenu content -->
+                            <div class="sub-menu mega-menu">
                                 <div class="menu-container">
                                     <!-- Danh sách danh mục bên trái -->
                                     <div class="menu-left">
-                                        <ul class="categories">
-                                            <li class="category-item" data-category="dienthoai">Điện thoại, Tablet</li>
-                                            <li class="category-item" data-category="laptop">Laptop</li>
-                                            <li class="category-item" data-category="amthanh">Âm thanh</li>
-                                            <li class="category-item" data-category="dongho">Đồng hồ, Camera</li>
-                                            <li class="category-item" data-category="phukien">Phụ kiện</li>
+                                        <ul class="categories" id="category-list">
+                                            <!-- Danh mục sẽ được load qua Ajax -->
                                         </ul>
                                     </div>
 
                                     <!-- Nội dung chi tiết bên phải (mặc định ẩn) -->
-                                    <div class="menu-right hidden">
-                                        <!-- Nội dung cho "Điện thoại, Tablet" -->
-                                        <div class="menu-content" id="dienthoai">
-                                            <div class="menu-row">
-                                                <div class="menu-column">
-                                                    <h4>Hãng điện thoại</h4>
-                                                    <ul>
-                                                        <li><a href="#">iPhone</a></li>
-                                                        <li><a href="#">Samsung</a></li>
-                                                        <li><a href="#">Xiaomi</a></li>
-                                                        <li><a href="#">OPPO</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="menu-column">
-                                                    <h4>Mức giá điện thoại</h4>
-                                                    <ul>
-                                                        <li><a href="#">Dưới 2 triệu</a></li>
-                                                        <li><a href="#">Từ 2 - 4 triệu</a></li>
-                                                        <li><a href="#">Từ 4 - 7 triệu</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="menu-column">
-                                                    <h4>Mức giá điện thoại</h4>
-                                                    <ul>
-                                                        <li><a href="#">Dưới 2 triệu</a></li>
-                                                        <li><a href="#">Từ 2 - 4 triệu</a></li>
-                                                        <li><a href="#">Từ 4 - 7 triệu</a></li>
-                                                        <li><a href="#">Từ 7 - 13 triệu</a></li>
-                                                        <li><a href="#">Từ 13 - 20 triệu</a></li>
-                                                        <li><a href="#">Trên 20 triệu</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="menu-column">
-                                                    <h4>Điện thoại HOT</h4>
-                                                    <ul>
-                                                        <li><a href="#">iPhone 16 Series <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">iPhone 15 Pro Max</a></li>
-                                                        <li><a href="#">Galaxy Z Fold6</a></li>
-                                                        <li><a href="#">Galaxy Z Flip6</a></li>
-                                                        <li><a href="#">Galaxy S24 FE <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">OPPO FIND X8 <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">Realme 13+ 5G <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">Tecno Camon 30S</a></li>
-                                                        <li><a href="#">Xiaomi 14T Pro</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="menu-column">
-                                                    <h4>Hãng máy tính bảng</h4>
-                                                    <ul>
-                                                        <li><a href="#">iPad</a></li>
-                                                        <li><a href="#">Samsung</a></li>
-                                                        <li><a href="#">Xiaomi</a></li>
-                                                        <li><a href="#">Huawei</a></li>
-                                                        <li><a href="#">Lenovo</a></li>
-                                                        <li><a href="#">Nokia</a></li>
-                                                        <li><a href="#">Teclast</a></li>
-                                                        <li><a href="#">Máy đọc sách</a></li>
-                                                        <li><a href="#">Kindle</a></li>
-                                                        <li><a href="#">Boox</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="menu-column">
-                                                    <h4>Máy tính bảng HOT</h4>
-                                                    <ul>
-                                                        <li><a href="#">iPad Air 2024</a></li>
-                                                        <li><a href="#">iPad Pro 2024</a></li>
-                                                        <li><a href="#">iPad mini 7 <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">Galaxy Tab S10 Series <span class="new-badge">Mới</span></a></li>
-                                                        <li><a href="#">Galaxy Tab S9 FE 5G</a></li>
-                                                        <li><a href="#">Xiaomi Pad 6 256GB</a></li>
-                                                        <li><a href="#">Huawei Matepad 11.5''S</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="menu-right hidden" id="category-content">
+                                        <!-- Nội dung sẽ được tải qua Ajax -->
                                     </div>
                                 </div>
                             </div>
@@ -343,18 +284,22 @@
 
 
                         <li class="menu-item search-bar">
-                            <form class="search-form" action="search-results.html" method="get" style="padding: 0 10px;">
-                                <input type="text" placeholder="Search..." onclick="openCanvasSearch()" class="form-control">
+                            <form class="search-form" action="search-results.html" method="get"
+                                  style="padding: 0 10px;">
+                                <input type="text" placeholder="Search..." onclick="openCanvasSearch()"
+                                       class="form-control">
                             </form>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i
+                                    class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu submenu-default">
                                 <!-- Submenu content -->
                             </div>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Blog<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Blog<i
+                                    class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu submenu-default">
                                 <!-- Submenu content -->
                             </div>
@@ -371,21 +316,28 @@
                         <c:choose>
                             <c:when test="${pageContext.request.userPrincipal != null}">
                                 <div class="dropdown">
-                                    <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px; padding: 3px;">
+                                    <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown"
+                                       data-bs-toggle="dropdown" aria-expanded="false"
+                                       style="font-size: 14px; padding: 3px;">
                                         <i class="icon icon-account"></i>
                                         <span>${pageContext.request.userPrincipal.name}</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a>
+                                        </li>
                                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
                                         <li><a class="dropdown-item" href="/settings">Settings</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li><a class="dropdown-item" href="<c:url value='/logout' />">Logout</a></li>
                                     </ul>
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <a href="#login" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                                <a href="#login" data-bs-toggle="modal" class="nav-icon-item"
+                                   style="font-size: 16px; padding: 3px;">
                                     <i class="icon icon-account"></i>
                                 </a>
                             </c:otherwise>
@@ -395,12 +347,15 @@
                     <!-- Các phần khác: wishlist, cart -->
                     <li class="nav-wishlist">
                         <a href="wishlist.html" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-heart"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">0</span>
+                            <i class="icon icon-heart"></i><span class="count-box bg-dark"
+                                                                 style="font-size: 10px; width: 16px; height: 16px;">0</span>
                         </a>
                     </li>
                     <li class="nav-cart">
-                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-bag"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">2</span>
+                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"
+                           style="font-size: 16px; padding: 3px;">
+                            <i class="icon icon-bag"></i><span class="count-box bg-dark"
+                                                               style="font-size: 10px; width: 16px; height: 16px;">2</span>
                         </a>
                     </li>
                 </ul>
@@ -413,7 +368,8 @@
 <!-- /Header -->
 
 <!-- canvasSearch -->
-<div class="offcanvas offcanvas-end canvas-search" id="canvasSearch" style="width: 100% !important; max-width: 1000px; padding-top: 55px; margin: 0 auto; top: 20px; left: 0; border: 0 !important; transform: none;">
+<div class="offcanvas offcanvas-end canvas-search" id="canvasSearch"
+     style="width: 100% !important; max-width: 1000px; padding-top: 55px; margin: 0 auto; top: 20px; left: 0; border: 0 !important; transform: none;">
     <div class="canvas-wrapper">
         <header class="tf-search-head">
             <div class="title fw-5">
@@ -425,7 +381,8 @@
             <div class="tf-search-sticky">
                 <form class="tf-mini-search-frm">
                     <fieldset class="text">
-                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value="" aria-required="true" required="">
+                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
+                               aria-required="true" required="">
                     </fieldset>
                     <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
@@ -502,15 +459,6 @@
     </div>
 </div>
 <!-- /canvasSearch -->
-
-
-<script>
-    function openCanvasSearch() {
-        const canvasSearch = new bootstrap.Offcanvas(document.getElementById('canvasSearch'));
-        canvasSearch.show();
-    }
-</script>
-
 <!-- modal login -->
 <div class="modal modalCentered fade form-sign-in modal-part-content" id="login">
     <div class="modal-dialog modal-dialog-centered">
@@ -520,13 +468,15 @@
                 <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
             </div>
             <div class="tf-login-form">
-                <form class="" action="/login" method="post"  accept-charset="utf-8">
+                <form class="" action="/login" method="post" accept-charset="utf-8">
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" id="username" name="username" required>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" id="username" name="username"
+                               required>
                         <label class="tf-field-label">Username *</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="password" id= "password" name="password" required>
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id="password"
+                               name="password" required>
                         <label class="tf-field-label">Password *</label>
                     </div>
                     <div>
@@ -626,6 +576,54 @@
 </div>
 
 <script>
+    function openCanvasSearch() {
+        const canvasSearch = new bootstrap.Offcanvas(document.getElementById('canvasSearch'));
+        canvasSearch.show();
+    }
+</script>
+
+<script type="text/javascript" src="/web/js/jquery.min.js"></script>
+<script>
+    // Gọi danh sách các danh mục
+    $(document).ready(function() {
+        // Tải danh sách danh mục từ server
+        $.ajax({
+            url: '/api/categories',
+            method: 'GET',
+            success: function(categories) {
+                console.log('Categories:', categories);
+                // Hiển thị danh sách danh mục
+                categories.forEach(function(category) {
+                    $('#category-list').append(`
+                    <li class="category-item" data-category-id="${category.id}">${category.name}</li>
+                `);
+                });
+            }
+        });
+
+        // Xử lý sự kiện khi người dùng click vào danh mục
+        $(document).on('click', '.category-item', function() {
+            var categoryId = $(this).data('category-id');
+
+            // Tải các thuộc tính của danh mục
+            $.ajax({
+                url: '/api/categories/' + categoryId + '/attributes',
+                method: 'GET',
+                success: function(attributes) {
+                    var content = '<ul>';
+                    attributes.forEach(function(attribute) {
+                        content += `<li>${attribute.name}</li>`;
+                    });
+                    content += '</ul>';
+
+                    // Hiển thị nội dung thuộc tính bên phải
+                    $('#category-content').html(content).removeClass('hidden');
+                }
+            });
+        });
+    });
+
+
     // Lấy các danh mục bên trái
     document.addEventListener('DOMContentLoaded', () => {
         // Lấy các danh mục bên trái
@@ -656,44 +654,19 @@
     });
 
 </script>
+
 <!-- /modal login -->
 
-<%--<script>document.addEventListener('DOMContentLoaded', function () {--%>
-<%--    const searchInput = document.getElementById('inp$earch');--%>
-<%--    const closeButton = document.getElementById('btn-close-search');--%>
-<%--    const searchAutocomplete = document.getElementById('search_autocomplete');--%>
-
-<%--    // Hiển thị nút xóa khi người dùng nhập văn bản--%>
-<%--    searchInput.addEventListener('input', function () {--%>
-<%--        if (searchInput.value.trim() !== '') {--%>
-<%--            closeButton.style.display = 'inline';--%>
-<%--            searchAutocomplete.classList.remove('is-hidden');--%>
-<%--        } else {--%>
-<%--            closeButton.style.display = 'none';--%>
-<%--            searchAutocomplete.classList.add('is-hidden');--%>
-<%--        }--%>
-<%--    });--%>
-
-<%--    // Xóa văn bản khi nhấn vào nút xóa--%>
-<%--    closeButton.addEventListener('click', function () {--%>
-<%--        searchInput.value = '';--%>
-<%--        closeButton.style.display = 'none';--%>
-<%--        searchAutocomplete.classList.add('is-hidden');--%>
-<%--    });--%>
-
-<%--    // Ẩn gợi ý tìm kiếm khi nhấp ra ngoài ô tìm kiếm--%>
-<%--    document.addEventListener('click', function (event) {--%>
-<%--        if (!event.target.closest('.search-form')) {--%>
-<%--            searchAutocomplete.classList.add('is-hidden');--%>
-<%--        }--%>
-<%--    });--%>
-
-<%--    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)--%>
-<%--    document.querySelector('.search-form').addEventListener('submit', function (event) {--%>
-<%--        if (searchInput.value.trim() === '') {--%>
-<%--            event.preventDefault();--%>
-<%--        }--%>
-<%--    });--%>
-<%--});--%>
-<%--</script>--%>
+<script>document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('inp$earch');
+    const closeButton = document.getElementById('btn-close-search');
+    const searchAutocomplete = document.getElementById('search_autocomplete');
+    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)
+    document.querySelector('.search-form').addEventListener('submit', function (event) {
+        if (searchInput.value.trim() === '') {
+            event.preventDefault();
+        }
+    });
+});
+</script>
 

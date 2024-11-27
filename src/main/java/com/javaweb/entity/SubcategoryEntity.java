@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "stylevalue")
-public class StyleValueEntity extends BaseEntity{
+@Table(name = "subcategory")
+public class SubcategoryEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,19 +18,15 @@ public class StyleValueEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", columnDefinition = "NVARCHAR(255) NOT NULL")
     private String name;
 
-    private Boolean isDeleted = false;
+    private String type;
 
     @ManyToOne
-    @JoinColumn(name = "styleid")
-    private StyleEntity styleEntity;
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "cartItemId")
-    private CartItemEntity cartItem;
-
+    private Boolean isDeleted;
 
 
 }
