@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!-- Top bar -->
 <div class="tf-top-bar bg_dark line">
     <div class="px_15 lg-px_40">
@@ -21,7 +22,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- /Top bar -->
 <!-- Header -->
@@ -55,6 +55,142 @@
 
     .search-form button i {
         font-size: 1.2em;
+    }
+    /* Container chính */
+    .menu-container {
+        display: flex;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+    /* Mặc định ẩn menu-right */
+    .hidden {
+        display: none;
+    }
+
+    /* Khi có nội dung, hiển thị menu-right */
+    .menu-right {
+        width: calc(100% - 300px);
+        padding: 15px;
+        background-color: #fff;
+        flex: 3;
+    }
+
+    .menu-content {
+        display: none; /* Ẩn tất cả nội dung chi tiết */
+    }
+
+    .menu-content.active {
+        display: block; /* Hiển thị nội dung khi có lớp active */
+    }
+
+    .menu-right.active {
+        display: flex; /* Hiển thị khi cần */
+    }
+
+    /* Mega Menu chính */
+    .mega-menu {
+        position: absolute;
+        top: 100%; /* Xuất hiện ngay dưới menu chính */
+        left: 50%; /* Căn giữa theo chiều ngang */
+        transform: translateX(-50%); /* Dịch chuyển menu về giữa */
+        width: 100%; /* Rộng hơn (chiếm 90% màn hình) */
+        background-color: #fff;
+        padding: 30px; /* Tăng padding để nhìn rộng rãi hơn */
+        border-radius: 8px; /* Bo góc để nhìn mềm mại hơn */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        z-index: 1000; /* Đảm bảo menu nằm trên các thành phần khác */
+    }
+
+    /* Bố cục bên trong Mega Menu */
+    .menu-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 cột đều nhau */
+        gap: 20px; /* Khoảng cách giữa các cột */
+    }
+
+    /* Cột trong Mega Menu */
+    .menu-column {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    /*@media (min-width: 768px) {*/
+    /*    .menu-column {*/
+    /*        width: 120%; !* Mỗi cột chiếm 1/3 chiều rộng của Mega Menu trên màn hình lớn *!*/
+    /*    }*/
+    /*}*/
+
+    .menu-column h4 {
+        font-size: 18px; /* Tăng kích thước tiêu đề */
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .menu-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-column ul li {
+        margin-bottom: 8px; /* Tăng khoảng cách giữa các mục */
+    }
+
+    .menu-column ul li a {
+        text-decoration: none;
+        color: #555;
+        font-size: 14px;
+    }
+
+    .menu-column ul li a:hover {
+        color: #007bff;
+    }
+
+    /* Badge "Mới" */
+    .new-badge {
+        background-color: red;
+        color: white;
+        padding: 2px 6px;
+        font-size: 12px;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    /* Danh mục bên trái */
+    .menu-left {
+        background-color: #f5f5f5;
+        padding: 15px;
+        width: 20%; /* Đảm bảo menu bên trái nhỏ hơn phần nội dung */
+        min-width: 200px;
+    }
+
+    .menu-left ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .menu-left ul li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+        text-align: left;
+        font-size: 16px; /* Tăng kích thước danh mục */
+        font-weight: bold;
+    }
+
+    .menu-left ul li:hover {
+        background-color: #ddd;
+        color: #007bff;
     }
 
     </style>
@@ -109,11 +245,103 @@
                             </div>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Products<i class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu">
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i class="icon icon-arrow-down"></i></a>
+                            <div class="sub-menu mega-menu" style="width: 1639px; left: 20px">
                                 <!-- Submenu content -->
+                                <div class="menu-container">
+                                    <!-- Danh sách danh mục bên trái -->
+                                    <div class="menu-left">
+                                        <ul class="categories">
+                                            <li class="category-item" data-category="dienthoai">Điện thoại, Tablet</li>
+                                            <li class="category-item" data-category="laptop">Laptop</li>
+                                            <li class="category-item" data-category="amthanh">Âm thanh</li>
+                                            <li class="category-item" data-category="dongho">Đồng hồ, Camera</li>
+                                            <li class="category-item" data-category="phukien">Phụ kiện</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Nội dung chi tiết bên phải (mặc định ẩn) -->
+                                    <div class="menu-right hidden">
+                                        <!-- Nội dung cho "Điện thoại, Tablet" -->
+                                        <div class="menu-content" id="dienthoai">
+                                            <div class="menu-row">
+                                                <div class="menu-column">
+                                                    <h4>Hãng điện thoại</h4>
+                                                    <ul>
+                                                        <li><a href="#">iPhone</a></li>
+                                                        <li><a href="#">Samsung</a></li>
+                                                        <li><a href="#">Xiaomi</a></li>
+                                                        <li><a href="#">OPPO</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="menu-column">
+                                                    <h4>Mức giá điện thoại</h4>
+                                                    <ul>
+                                                        <li><a href="#">Dưới 2 triệu</a></li>
+                                                        <li><a href="#">Từ 2 - 4 triệu</a></li>
+                                                        <li><a href="#">Từ 4 - 7 triệu</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="menu-column">
+                                                    <h4>Mức giá điện thoại</h4>
+                                                    <ul>
+                                                        <li><a href="#">Dưới 2 triệu</a></li>
+                                                        <li><a href="#">Từ 2 - 4 triệu</a></li>
+                                                        <li><a href="#">Từ 4 - 7 triệu</a></li>
+                                                        <li><a href="#">Từ 7 - 13 triệu</a></li>
+                                                        <li><a href="#">Từ 13 - 20 triệu</a></li>
+                                                        <li><a href="#">Trên 20 triệu</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="menu-column">
+                                                    <h4>Điện thoại HOT</h4>
+                                                    <ul>
+                                                        <li><a href="#">iPhone 16 Series <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">iPhone 15 Pro Max</a></li>
+                                                        <li><a href="#">Galaxy Z Fold6</a></li>
+                                                        <li><a href="#">Galaxy Z Flip6</a></li>
+                                                        <li><a href="#">Galaxy S24 FE <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">OPPO FIND X8 <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">Realme 13+ 5G <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">Tecno Camon 30S</a></li>
+                                                        <li><a href="#">Xiaomi 14T Pro</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="menu-column">
+                                                    <h4>Hãng máy tính bảng</h4>
+                                                    <ul>
+                                                        <li><a href="#">iPad</a></li>
+                                                        <li><a href="#">Samsung</a></li>
+                                                        <li><a href="#">Xiaomi</a></li>
+                                                        <li><a href="#">Huawei</a></li>
+                                                        <li><a href="#">Lenovo</a></li>
+                                                        <li><a href="#">Nokia</a></li>
+                                                        <li><a href="#">Teclast</a></li>
+                                                        <li><a href="#">Máy đọc sách</a></li>
+                                                        <li><a href="#">Kindle</a></li>
+                                                        <li><a href="#">Boox</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="menu-column">
+                                                    <h4>Máy tính bảng HOT</h4>
+                                                    <ul>
+                                                        <li><a href="#">iPad Air 2024</a></li>
+                                                        <li><a href="#">iPad Pro 2024</a></li>
+                                                        <li><a href="#">iPad mini 7 <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">Galaxy Tab S10 Series <span class="new-badge">Mới</span></a></li>
+                                                        <li><a href="#">Galaxy Tab S9 FE 5G</a></li>
+                                                        <li><a href="#">Xiaomi Pad 6 256GB</a></li>
+                                                        <li><a href="#">Huawei Matepad 11.5''S</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </li>
+
+
                         <li class="menu-item search-bar">
                             <form class="search-form" action="search-results.html" method="get" style="padding: 0 10px;">
                                 <input type="text" placeholder="Search..." onclick="openCanvasSearch()" class="form-control">
@@ -396,6 +624,38 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Lấy các danh mục bên trái
+    document.addEventListener('DOMContentLoaded', () => {
+        // Lấy các danh mục bên trái
+        const categoryItems = document.querySelectorAll('.category-item');
+        // Lấy menu bên phải
+        const menuRight = document.querySelector('.menu-right');
+        // Lấy tất cả nội dung bên phải
+        const menuContents = document.querySelectorAll('.menu-content');
+
+        // Xử lý sự kiện khi nhấn vào danh mục
+        categoryItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const category = item.getAttribute('data-category');
+
+                // Ẩn tất cả nội dung bên phải
+                menuContents.forEach((content) => {
+                    content.classList.remove('active');
+                });
+
+                // Hiển thị nội dung tương ứng
+                const activeContent = document.getElementById(category);
+                if (activeContent) {
+                    menuRight.classList.add('active'); // Hiển thị menu bên phải
+                    activeContent.classList.add('active'); // Hiển thị nội dung tương ứng
+                }
+            });
+        });
+    });
+
+</script>
 <!-- /modal login -->
 
 <%--<script>document.addEventListener('DOMContentLoaded', function () {--%>

@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface ICarrierService {
     void delete(CarrierEntity entity);
     void deleteById(Long id);
-
     long count();
 
     List<CarrierEntity> findAll();

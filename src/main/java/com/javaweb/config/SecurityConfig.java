@@ -24,7 +24,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
-    private static final String[] WHITE_LIST_URL = {"/home", "/login",
+    private static final String[] WHITE_LIST_URL = {"/**", "/home", "/login",
             "/user/**",
             "/WEB-INF/**",
             "/common/**",
