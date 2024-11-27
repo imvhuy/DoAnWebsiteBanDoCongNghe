@@ -5,23 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "cart_item")
-public class CartItemEntity extends BaseEntity{
+@Entity
+@Table(name = "subcategory")
+public class SubcategoryEntity extends BaseEntity {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
+    private String type;
+
     @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private CartEntity cart;
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
+
+    private Boolean isDeleted;
 
 
 }

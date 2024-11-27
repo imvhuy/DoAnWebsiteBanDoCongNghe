@@ -1,10 +1,12 @@
 package com.javaweb.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,5 +28,12 @@ public class CategoryEntity extends BaseEntity {
     @Column(name = "image", columnDefinition = "nvarchar(500) null")
     private String image;
     private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "categoryEntity")
+    private List<ProductEntity> products;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
+    private List<SubcategoryEntity> attributeEntities;
 
 }

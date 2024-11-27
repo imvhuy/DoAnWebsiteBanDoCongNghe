@@ -24,6 +24,8 @@ public interface ICategoryService {
 
 	Page<CategoryEntity> findByNameContaining(String name, Pageable pageable);
 
-	List<CategoryEntity> findByNameContaining(String name);
+    List<CategoryEntity> getAllCategories();
+
+    List<CategoryEntity> findByNameContaining(String name);
 
 }
