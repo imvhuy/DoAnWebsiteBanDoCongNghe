@@ -28,7 +28,6 @@ public class SecurityConfig{
             "/user/**",
             "/WEB-INF/**",
             "/common/**",
-            "/admin/**",
             "/web/**", "/error"};
     @Autowired
     IUserRepository userRepository;
@@ -36,6 +35,7 @@ public class SecurityConfig{
     UserDetailsService userDetailsService() {
         return new UserInfoService(userRepository);
     }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -62,7 +62,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/admin/**").permitAll()
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.loginPage("/login")
                         .successHandler(myAuthenticationSuccessHandler())

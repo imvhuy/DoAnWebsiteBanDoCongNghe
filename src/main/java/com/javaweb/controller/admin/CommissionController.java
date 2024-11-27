@@ -21,80 +21,78 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.javaweb.entity.CategoryEntity;
-import com.javaweb.model.CategoryModel;
-import com.javaweb.model.CategoryModel;
-import com.javaweb.service.ICategoryService;
+import com.javaweb.entity.CommissionEntity;
+import com.javaweb.model.CommissionModel;
+import com.javaweb.service.ICommissionService;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/admin/categories")
-public class CategoryController {
+@RequestMapping(value = "/admin/commissions")
+public class CommissionController {
 	
 	@Autowired
-    private ICategoryService categoryService;
+    private ICommissionService commissionService;
 	
     
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service
-        List<CategoryEntity> list = categoryService.findAll();
+        List<CommissionEntity> list = commissionService.findAll();
         if (!StringUtils.isEmpty(message)) {
             model.addAttribute("message", message);
         }
-        // chuyển dữ liệu từ list lên biến categories
-        model.addAttribute("categories", list);
-        return new ModelAndView("forward:/admin/categories/searchpaginated", model);
+        // chuyển dữ liệu từ list lên biến commissions
+        model.addAttribute("commissions", list);
+        return new ModelAndView("forward:/admin/commissions/searchpaginated", model);
     }
     
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CategoryModel categoryModel = new CategoryModel();
-        model.addAttribute("category", categoryModel);
-        return new ModelAndView("admin/categories/addOrEdit", model);
+        CommissionModel CommissionModel = new CommissionModel();
+        model.addAttribute("commission", CommissionModel);
+        return new ModelAndView("admin/commissions/addOrEdit", model);
     }
 
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
-        Optional<CategoryEntity> optCategory = categoryService.findById(id);
-        CategoryModel cateModel = new CategoryModel();
-        //kiểm tra sự tồn tại của category
-        if (optCategory.isPresent()) {
-            CategoryEntity entity = optCategory.get();
+        Optional<CommissionEntity> optcommission = commissionService.findById(id);
+        CommissionModel cateModel = new CommissionModel();
+        //kiểm tra sự tồn tại của commission
+        if (optcommission.isPresent()) {
+            CommissionEntity entity = optcommission.get();
             //copy từ entity sang cateModel
             BeanUtils.copyProperties(entity, cateModel);
             //đấy dữ liệu ra view
-            model.addAttribute("category", cateModel);
-            return new ModelAndView("admin/categories/addOrEdit", model);
+            model.addAttribute("commission", cateModel);
+            return new ModelAndView("admin/commissions/addOrEdit", model);
         }
-        model.addAttribute("message", "Category is not existed!!!!");
-        return new ModelAndView("admin/categories", model);
+        model.addAttribute("message", "commission is not existed!!!!");
+        return new ModelAndView("admin/commissions", model);
     }
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CategoryModel CategoryModel, BindingResult result) {
+                                     @Valid @ModelAttribute CommissionModel CommissionModel, BindingResult result) {
         if (result.hasErrors()) {
-            return new ModelAndView("admin/categories/addOrEdit");
+            return new ModelAndView("admin/commissions/addOrEdit");
         }
-        CategoryEntity entity = new CategoryEntity();
+        CommissionEntity entity = new CommissionEntity();
         //copy từ Model sang Entity
-        BeanUtils.copyProperties(CategoryModel, entity);
+        BeanUtils.copyProperties(CommissionModel, entity);
         try {
             // gọi hàm save trong service
-            categoryService.save(entity);
+            commissionService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
-            if (CategoryModel.getId() != null) {
-                message = "Category is Edited!!!!!!!!";
+            if (CommissionModel.getId() != null) {
+                message = "commission is Edited!!!!!!!!";
             } else {
-                message = "Category is saved!!!!!!!!";
+                message = "commission is saved!!!!!!!!";
             }
             model.addFlashAttribute("message", message);
         }
@@ -102,32 +100,32 @@ public class CategoryController {
             System.out.println(e);
         }
         //redirect ve URL controller
-        return new ModelAndView("redirect:/admin/categories");
+        return new ModelAndView("redirect:/admin/commissions");
     }
 
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
-        Optional<CategoryEntity> optCategory = categoryService.findById(id);
-        if (optCategory.isEmpty()) {
-            model.addFlashAttribute("message", "categories is not exits!!!!");
-            return new ModelAndView("redirect:/admin/categories");
+        Optional<CommissionEntity> optcommission = commissionService.findById(id);
+        if (optcommission.isEmpty()) {
+            model.addFlashAttribute("message", "commissions is not exits!!!!");
+            return new ModelAndView("redirect:/admin/commissions");
         }
-        categoryService.deleteById(id);
-        model.addFlashAttribute("message", "categories is deleted!!!!");
-        return new ModelAndView("redirect:/admin/categories");
+        commissionService.deleteById(id);
+        model.addFlashAttribute("message", "commissions is deleted!!!!");
+        return new ModelAndView("redirect:/admin/commissions");
     }
 
     @GetMapping("search")
     public String search(ModelMap model, @RequestParam(name = "name", required = false) String name) {
-        List<CategoryEntity> list = null;
+        List<CommissionEntity> list = null;
         // có nội dung truyền về không, name là tùy chọn khi required=false
         if (StringUtils.hasText(name)) {
-            list = categoryService.findByNameContaining(name);
+            list = commissionService.findByNameContaining(name);
         } else {
-            list = categoryService.findAll();
+            list = commissionService.findAll();
         }
-        model.addAttribute("categories", list);
-        return "admin/categories/search";
+        model.addAttribute("commissions", list);
+        return "admin/commissions/search";
     }
 
     @RequestMapping("searchpaginated")
@@ -135,17 +133,17 @@ public class CategoryController {
                          @RequestParam(name = "name", required = false) String name,
                          @RequestParam("page") Optional<Integer> page,
                          @RequestParam("size") Optional<Integer> size) {
-        int count = (int) categoryService.count();
+        int count = (int) commissionService.count();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("name"));
-        Page<CategoryEntity> resultPage = null;
+        Page<CommissionEntity> resultPage = null;
         if (StringUtils.hasText(name)) {
-            resultPage = categoryService.findByNameContaining(name, pageable);
+            resultPage = commissionService.findByNameContaining(name, pageable);
             model.addAttribute("name", name);
         }
         else{
-            resultPage = categoryService.findAll(pageable);
+            resultPage = commissionService.findAll(pageable);
         }
         int totalPages = resultPage.getTotalPages();
         if (totalPages > 0) {
@@ -157,7 +155,7 @@ public class CategoryController {
             }
             List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
-        }   model.addAttribute("categoryPage", resultPage);
-        return "admin/categories/list";
+        }   model.addAttribute("commissionPage", resultPage);
+        return "admin/commissions/list";
     }
 }

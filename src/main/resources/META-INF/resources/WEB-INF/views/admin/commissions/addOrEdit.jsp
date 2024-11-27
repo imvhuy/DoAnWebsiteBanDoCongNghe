@@ -375,35 +375,42 @@
                             <i class="icon-chevron-right"></i>
                         </li>
                         <li>
-                            <a href="#"><div class="text-tiny">Carriers</div></a>
+                            <a href="#"><div class="text-tiny">commission</div></a>
+                            
                         </li>
                     </ul>
                 </div>
                 <!-- new-attribute -->
                 <div class="wg-box">
-                    <form:form action="/admin/carriers/saveOrUpdate"
+                    <form:form action="/admin/commissions/saveOrUpdate"
                                method="POST"
-                               modelAttribute="carrier"
+                               modelAttribute="commission"
                                class="form-new-product form-style-1">
-<input type="hidden" value="${category.id}" name="id">
+						<input type="hidden" value="${commission.id}" name="id">
                         <fieldset class="name">
-                            <div class="body-title">Carrier Name</div>
+                            <div class="body-title">Commission Name</div>
                             <form:input path="name" class="flex-grow" type="text"
-                                        placeholder="Attribute name" tabindex="0" value = "${carrier.name}"
+                                        placeholder="Attribute name" tabindex="0" value = "${commission.name}"
+                                        aria-required="true" required="true"/>
+                        </fieldset>
+                           <fieldset class="name">
+                            <div class="body-title">Cost</div>
+                            <form:input path="cost" class="flex-grow" type="text"
+                                        placeholder="Attribute name" tabindex="0" value = "${commission.cost}"
                                         aria-required="true" required="true"/>
                         </fieldset>
 
                         <fieldset class="name">
-                            <div class="body-title">Price</div>
-                            <form:input path="price" class="flex-grow" type="text"
-                                        placeholder="Attribute value" value = "${carrier.price}" tabindex="0"
+                            <div class="body-title">Description</div>
+                            <form:input path="description" class="flex-grow" type="text"
+                                        placeholder="Attribute value" value = "${commission.description}" tabindex="0"
                                         aria-required="true" required="true"/>
                         </fieldset>
                         <button class="tf-button w208" type="submit">Save</button>
                     </form:form>
                 </div>
 
-                <!-- /new-category -->
+                <!-- /new-commission -->
             </div>
             <!-- /main-content-wrap -->
         </div>
