@@ -25,11 +25,15 @@ public class ProductEntity extends BaseEntity {
     @Lob
     private String description;
 
-    private Double price;
+    private Long price;
 
-    private Double promotionalPrice;
+    private String color;
 
-    private Long quantity;
+    @Column(columnDefinition = "LONGTEXT")
+    @Lob
+    private String configuration;
+
+    private Long promotionalPrice;
 
     private Long sold;
 
@@ -39,17 +43,19 @@ public class ProductEntity extends BaseEntity {
 
     private String video;
 
-//    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
-//    private List<GalleryEntity> galleryEntities;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
 
-    private Long styleValueId;
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    private List<GalleryEntity> galleryEntities;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<StoreProductEntity> productStore;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")  // Khóa ngoại liên kết với Store
-    private StoreEntity store;
+
 
 }

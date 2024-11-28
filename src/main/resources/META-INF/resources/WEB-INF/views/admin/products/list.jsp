@@ -1,6 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<style>
+.body-title {
+width: 152px; /* Cố định chiều rộng */
+height: 20px; /* Cố định chiều cao */
+color: #000; /* Màu chữ (cần điều chỉnh theo thiết kế của bạn) */
+font-size: 14px; /* Kích thước chữ */
+font-family: "Albert Sans", sans-serif; /* Font chữ */
+line-height: 20px; /* Đảm bảo căn chỉnh dòng với chiều cao */
+overflow: hidden; /* Ẩn nội dung vượt quá */
+white-space: nowrap; /* Không xuống dòng */
+text-overflow: ellipsis; /* Hiển thị dấu "..." nếu nội dung quá dài */
+display: block; /* Đảm bảo là block-level element */
+}
 
+</style>
 <!-- #wrapper -->
 <div id="wrapper">
     <!-- #page -->
@@ -718,23 +732,18 @@
                                 </div>
                                 <div class="wg-table table-product-list">
                                     <ul class="table-title flex gap20 mb-14">
+                                        <li style="width: 152px; height: 20px;">
+                                            <div class="body-title">Product ID</div>
+                                        </li>
                                         <li>
                                             <div class="body-title">Product Name</div>
                                         </li>
                                         <li>
-                                            <div class="body-title">Product ID</div>
-                                        </li>
-                                        <li>
                                             <div class="body-title">Price</div>
                                         </li>
+
                                         <li>
-                                            <div class="body-title">Quantity</div>
-                                        </li>
-                                        <li>
-                                            <div class="body-title">Promotion Price</div>
-                                        </li>
-                                        <li>
-                                            <div class="body-title">Start date</div>
+                                            <div class="body-title">Sold</div>
                                         </li>
                                         <li>
                                             <div class="body-title">Action</div>
@@ -742,24 +751,23 @@
                                     </ul>
                                     <ul class="flex flex-column">
                                         <!-- Table Body -->
-                                        <ul class="flex flex-column">
                                             <c:forEach var="product" items="${products}">
-                                                <li class="attribute-item item-row flex items-center justify-between gap20">
-                                                    <div class="name">
-                                                        <a href="add-attributes.html" class="body-title-2">${product.id}</a>
+                                                <li class="wg-product item-row gap20">
+                                                    <div class="name" style="width: 152px; height: 20px;">
+                                                        <a class="body-title-2">${product.id}</a>
                                                     </div>
                                                     <div class="name">
-                                                        <a href="add-attributes.html" class="body-title-2">${product.name}</a>
+                                                        <a  class="body-title-2">${product.name}</a>
                                                     </div>
-                                                    <div class="body-text">${product.price}</div>
+                                                    <div class="name">
+                                                        <a class="body-title-2">${product.price}</a>
+                                                    </div>
 
+                                                    <div class="name">
+                                                        <a  class="body-title-2">${product.sold}</a>
+                                                    </div>
                                                     <!-- Action Buttons -->
                                                     <div class="list-icon-function">
-                                                        <div class="item eye">
-                                                            <a href="<c:url value='/admin/products/view/${product.id}'/>">
-                                                                <i class="icon-eye"></i>
-                                                            </a>
-                                                        </div>
                                                         <div class="item edit">
                                                             <a href="<c:url value='/admin/products/edit/${product.id}'/>">
                                                                 <i class="icon-edit-3"></i>
@@ -772,13 +780,8 @@
                                                         </div>
                                                     </div>
                                                 </li>
-
-                                                <li>
-
-                                                </li>
                                             </c:forEach>
                                         </ul>
-                                    </ul>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="flex items-center justify-between flex-wrap gap10">
@@ -822,3 +825,16 @@
     <!-- /#page -->
 </div>
 <!-- /#wrapper -->
+
+<!-- Thêm đoạn này vào đầu nội dung trang -->
+<c:if test="${not empty message}">
+    <div class="alert alert-success" role="alert">
+        ${message}
+    </div>
+</c:if>
+
+<c:if test="${not empty error}">
+    <div class="alert alert-danger" role="alert">
+        ${error}
+    </div>
+</c:if>

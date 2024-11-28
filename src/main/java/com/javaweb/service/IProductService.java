@@ -1,7 +1,9 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.CarrierEntity;
+import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
+import com.javaweb.model.ProductModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +19,8 @@ public interface IProductService {
 
     List<ProductEntity> findAll();
 
+    ProductEntity getProductById(Long id);
+
     <S extends ProductEntity> S save(S entity);
 
     Optional<ProductEntity> findById(Long id);
@@ -31,5 +35,8 @@ public interface IProductService {
     List<ProductEntity> findAllById(Iterable<Long> id);
     void deleteAll();
 
+    List<GalleryEntity> getGalleryByProductId(Long id);
+
+    ProductModel convertToModel(ProductEntity entity);
 }
 

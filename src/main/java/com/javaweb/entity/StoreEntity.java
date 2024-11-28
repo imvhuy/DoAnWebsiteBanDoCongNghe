@@ -26,10 +26,6 @@ public class StoreEntity extends BaseEntity{
     @Column(name = "bio")
     private String bio;
 
-    @OneToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private UserEntity user;
-
     @Column(name = "isActive")
     private Boolean isActive;
 
@@ -45,10 +41,12 @@ public class StoreEntity extends BaseEntity{
     @Column(name = "rating")
     private int  rating;
 
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<StoreProductEntity> storeProduct;
+
     @OneToOne
     @JoinColumn(name = "commissionid")
     private CommissionEntity commission;
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-    private List<ProductEntity> products;
+
 
 }
