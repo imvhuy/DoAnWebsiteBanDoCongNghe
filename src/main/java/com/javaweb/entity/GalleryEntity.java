@@ -23,4 +23,6 @@ public class GalleryEntity extends BaseEntity{
 
     private String image;
 
+    private String type;
+
 }

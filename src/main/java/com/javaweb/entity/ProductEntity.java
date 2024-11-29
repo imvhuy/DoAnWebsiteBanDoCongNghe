@@ -27,7 +27,7 @@ public class ProductEntity extends BaseEntity {
     @Lob
     private String description;
 
-    private Double price;
+    private Long price;
 
     private String color;
 
