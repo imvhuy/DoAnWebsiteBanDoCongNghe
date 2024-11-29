@@ -20,5 +20,7 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUsername(String userName);
     List<UserEntity> findByIdIn(List<Long> id);
     Boolean existsByUsername(String userName);
+    Optional<UserEntity>  findById(Long id);
+    
 
 }

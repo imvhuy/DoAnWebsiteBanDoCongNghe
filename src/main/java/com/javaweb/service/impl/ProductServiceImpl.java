@@ -23,4 +23,9 @@ public class ProductServiceImpl implements IProductService{
 	public List<ProductDTO> findTopSellingProducts(Pageable pageable){
 		 return productRepository.findTopSellingProducts(pageable);
 	 }
+	 
+	 @Override
+	public List<ProductDTO> findTopTotalRatingProducts(Pageable pageable){
+		 return productRepository.findTopTotalRatingProducts(pageable);
+	 }
 }

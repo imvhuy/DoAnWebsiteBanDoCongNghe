@@ -13,4 +13,6 @@ public interface IProductService {
 
 	List<ProductDTO> findTopSellingProducts(Pageable pageable);
 
+	List<ProductDTO> findTopTotalRatingProducts(Pageable pageable);
+
 }

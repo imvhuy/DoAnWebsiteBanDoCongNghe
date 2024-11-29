@@ -1,18 +1,20 @@
 package com.javaweb.controller.web;
 
-import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.*;
 import com.javaweb.dto.ResponseDTO;
 import com.javaweb.dto.UserDTO;
+import com.javaweb.entity.FavoriteProductEntity;
 import com.javaweb.entity.ProductEntity;
-import com.javaweb.service.IProductService;
-import com.javaweb.service.IUserService;
+import com.javaweb.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class HomeController {
     @Autowired
     IProductService productService;
     
+    @Autowired
+    IFavoriteProductService favortieProductService;
+    
 
     @GetMapping(value = "home")
     public ModelAndView home() {
@@ -47,10 +52,16 @@ public class HomeController {
     	Date sqlDate = Date.valueOf(localDate);
     	List<ProductDTO> products = productService.findLatestProductInThisMonth(sqlDate);
     	// lay top 20 san pham ban chay
-    	 Pageable pageable = PageRequest.of(0, 20);
+    	 Pageable pageable = PageRequest.of(0, 10);
     	List<ProductDTO> topSellingProducts = productService.findTopSellingProducts(pageable);
+    	//lay top 20 san pham danh gia cao
+	   	List<ProductDTO> topTotalRatingProducts = productService.findTopTotalRatingProducts(pageable);
+
     	 ModelAndView mav = new ModelAndView("web/home");
+    	 
     	 mav.addObject("products", products); // Truyền đối tượng products vào view
+    	 mav.addObject("topSellingProducts", topSellingProducts);
+    	 mav.addObject("topTotalRatingProducts", topTotalRatingProducts);
 
     	  return mav;
     }
@@ -97,6 +108,57 @@ public class HomeController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return new ModelAndView("redirect:/home");
+    }
+    
+    
+ // API để thêm sản phẩm vào favortie product
+    @PostMapping("/add-favorite-product")
+    public ResponseEntity<?> addToWishlist(@RequestBody FavoriteProductDTO favortieProductDTO) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();  
+    	//
+    	Long productId = favortieProductDTO.getProductId();
+    	Long userId = userService.findByUserName(username).getId();
+    	FavoriteProductEntity fvProduct = favortieProductService.findFavoriteProductEntityByProductIdAndUserId(productId, userId);
+    	boolean success = false;
+    	if(fvProduct == null)
+    	{
+    		success = favortieProductService.addFavoriteProduct(productId,userId);
+    	}
+        
+        // Tạo một Map để trả về phản hồi
+        Map<String, Object> response = new HashMap<>();
+        if (success) {
+            response.put("message", "Product added to wishlist");
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Failed to add to wishlist");
+            response.put("success", false);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+    
+    @PostMapping("/remove-favorite-product")
+    public ResponseEntity<?> removeFromWishlist(@RequestBody FavoriteProductDTO favortieProductDTO) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();  
+    	//
+    	Long productId = favortieProductDTO.getProductId();
+    	Long userId = userService.findByUserName(username).getId();
+    	//
+        boolean success = favortieProductService.removeFavoriteProduct(productId,userId);
+        // Tạo một Map để trả về phản hồi
+        Map<String, Object> response = new HashMap<>();
+        if (success) {
+            response.put("message", "Product removed from wishlist");
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Failed to remove  from wishlist");
+            response.put("success", false);
+            return ResponseEntity.status(500).body(response);
+        }
     }
 
 }

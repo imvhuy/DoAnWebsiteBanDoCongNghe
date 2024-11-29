@@ -6,6 +6,7 @@ public class ProductDTO {
     private Double price;
     private String image;
     private Long totalSold;
+    private Long rating;
 
     // Constructor
     public ProductDTO(Long productId, String productName, Double price, String image,Long totalSold) {
@@ -15,8 +16,30 @@ public class ProductDTO {
         this.image = image;
         this.totalSold = totalSold;
     }
+    // Constructor
+    public ProductDTO(Long productId, String productName, Double price, String image) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.image = image;
+    }
+    //constructor cho lay TopTotalRatingProducts
+    public ProductDTO(Long productId, String productName,Long rating, String image,Double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.image = image;
+        
+    }
 
-    // Getters and Setters
+
+    public Long getRating() {
+		return rating;
+	}
+	public void setRating(Long rating) {
+		this.rating = rating;
+	}
+	// Getters and Setters
     public Long getProductId() {
         return productId;
     }

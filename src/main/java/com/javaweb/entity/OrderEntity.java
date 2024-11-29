@@ -38,7 +38,7 @@ public class OrderEntity extends BaseEntity{
     private Double amountToGD;
 
     @ManyToOne
-    @JoinColumn(name = "order")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -60,5 +60,8 @@ public class ProductEntity extends BaseEntity {
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItemEntity> orderItems;
+    
+    @OneToMany(mappedBy = "product")
+    private List<FavoriteProductEntity> favortieProductEntitys;
 
 }
