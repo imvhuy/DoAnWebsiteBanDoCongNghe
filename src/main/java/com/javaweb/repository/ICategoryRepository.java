@@ -2,7 +2,6 @@ package com.javaweb.repository;
 
 import java.util.List;
 
-import com.javaweb.controller.web.CategoryController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,4 +17,5 @@ public interface ICategoryRepository  extends JpaRepository<CategoryEntity, Long
     Page<CategoryEntity> findAll(Pageable pageable);
     List<CategoryEntity> findAll(Sort sort);
     List<CategoryEntity> findAllById(Iterable<Long> ids);
+    CategoryEntity findBySlugAndIsDeleted(String slug,boolean isDeleted);
 }

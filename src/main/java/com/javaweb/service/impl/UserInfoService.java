@@ -4,7 +4,7 @@ import com.javaweb.config.UserInfoUserDetails;
 import com.javaweb.converter.UserConverter;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.UserModel;
+import com.javaweb.dto.UserDTO;
 import com.javaweb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,12 +36,12 @@ public class UserInfoService implements UserDetailsService {
         if(userEntity == null){
             throw new UsernameNotFoundException("Username not found");
         }
-        UserModel userModel = userConverter.convertToModel(userEntity);
+        UserDTO userDTO = userConverter.convertToModel(userEntity);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for(RoleEntity role: userModel.getRoles()){
+        for(RoleEntity role: userDTO.getRoles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
         }
-        UserInfoUserDetails myUserDetail = new UserInfoUserDetails(username, userModel.getPassword(), authorities);
+        UserInfoUserDetails myUserDetail = new UserInfoUserDetails(username, userDTO.getPassword(), authorities);
         return myUserDetail;
     }
 }

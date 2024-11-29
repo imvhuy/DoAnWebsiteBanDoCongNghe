@@ -28,4 +28,6 @@ public interface ICategoryService {
 
     List<CategoryEntity> findByNameContaining(String name);
 
+	CategoryEntity findCategoryEntityBySlug(String slug, boolean isDelete);
+
 }

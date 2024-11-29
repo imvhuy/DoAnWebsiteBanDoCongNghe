@@ -1,5 +1,6 @@
 package com.javaweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,21 +20,21 @@ public class CategoryEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(columnDefinition = "nvarchar(50) not null unique")
     private String name;
-
-    @Column(columnDefinition = "nvarchar(50) unique")
     private String slug;
     @Column(name = "image", columnDefinition = "nvarchar(500) null")
     private String image;
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "categoryEntity")
+
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
     private List<ProductEntity> products;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
-    private List<SubcategoryEntity> attributeEntities;
+    @JsonIgnore
+    private List<SubcategoryEntity> subcategoryEntities;
 
 }

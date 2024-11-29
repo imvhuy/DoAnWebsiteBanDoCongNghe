@@ -1,22 +1,15 @@
-package com.javaweb.model;
-
-import com.javaweb.entity.StoreEntity;
+package com.javaweb.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class CommissionModel  extends BaseModel{
-
+public class CategoryDTO extends BaseDTO {
     private Long id;
     private String name;
-    private Double cost;
-    private String description;
+    private String slug;
+    private String image;
     private Boolean isDeleted;
-    private StoreEntity store;
-
 }

@@ -1,11 +1,11 @@
-package com.javaweb.controller.web;
+package com.javaweb.controller.api;
 
 import com.javaweb.entity.SubcategoryEntity;
 import com.javaweb.entity.SubcategoryValueEntity;
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.service.ISubCategoryService;
-import com.javaweb.service.ISubcategoryValueService;
 import com.javaweb.service.ICategoryService;
+import com.javaweb.service.ISubCategoryValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +17,15 @@ import java.util.List;
 
 @RestController(value = "CategoryOfWeb")
 @RequestMapping("/api")
-public class CategoryController {
+public class CategoryAPIController {
     @Autowired
     private ICategoryService categoryService;
 
     @Autowired
-    private ISubCategoryService attributeService;
+    private ISubCategoryService subCategoryService;
 
     @Autowired
-    private ISubcategoryValueService attributeValueService;
+    private ISubCategoryValueService subcategoryValueService;
 
 
     // Endpoint lấy danh sách danh mục
@@ -35,18 +35,15 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
-    // Endpoint lấy các kiểu (Style) theo ID danh mục
-    @GetMapping("/categories/{categoryId}/attributes")
-    public ResponseEntity<List<SubcategoryEntity>> getAttributeByCategoryId(@PathVariable Long categoryId) {
-
-        List<SubcategoryEntity> styles = attributeService.getAttributeByCategoryId(categoryId);
-        return ResponseEntity.ok(styles);
+    @GetMapping("/categories/{categoryId}/subcategories")
+    public ResponseEntity<List<SubcategoryEntity>> getSubcategoryByCategoryId(@PathVariable Long categoryId) {
+        List<SubcategoryEntity> subcategoryEntities = subCategoryService.getSubcategoryByCategoryId(categoryId);
+        return ResponseEntity.ok(subcategoryEntities);
     }
 
-    // Endpoint lấy các giá trị kiểu (StyleValue) theo ID kiểu
-    @GetMapping("/attributes/{attributeId}/attribute-values")
-    public ResponseEntity<List<SubcategoryValueEntity>> getStyleValuesByStyleId(@PathVariable Long attributeId) {
-        List<SubcategoryValueEntity> styleValues = attributeValueService.getAttributeValuesByAttributeId(attributeId);
-        return ResponseEntity.ok(styleValues);
+    @GetMapping("/subcategories/{subcategoryId}/subcategory-values")
+    public ResponseEntity<List<SubcategoryValueEntity>> getSubcategoryValuesBySubcategoryId(@PathVariable Long subcategoryId) {
+        List<SubcategoryValueEntity> subcategoryValueEntities = subcategoryValueService.getSubcategoryValueBySubcategoryId(subcategoryId);
+        return ResponseEntity.ok(subcategoryValueEntities);
     }
 }

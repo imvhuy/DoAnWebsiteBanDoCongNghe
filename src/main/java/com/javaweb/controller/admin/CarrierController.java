@@ -1,7 +1,7 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.entity.CarrierEntity;
-import com.javaweb.model.CarrierModel;
+import com.javaweb.dto.CarrierDTO;
 import com.javaweb.service.ICarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -47,7 +47,7 @@ public class CarrierController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CarrierModel categoryModel = new CarrierModel();
+        CarrierDTO categoryModel = new CarrierDTO();
         model.addAttribute("carrier", categoryModel);
         return new ModelAndView("admin/carriers/addOrEdit", model);
     }
@@ -56,7 +56,7 @@ public class CarrierController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
         Optional<CarrierEntity> optCarrier = ICarrierService.findById(id);
-        CarrierModel cateModel = new CarrierModel();
+        CarrierDTO cateModel = new CarrierDTO();
         //kiểm tra sự tồn tại của category
         if (optCarrier.isPresent()) {
             CarrierEntity entity = optCarrier.get();
@@ -72,7 +72,7 @@ public class CarrierController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CarrierModel carrierModel, BindingResult result) {
+                                     @Valid @ModelAttribute CarrierDTO carrierModel, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/carriers/addOrEdit");
         }

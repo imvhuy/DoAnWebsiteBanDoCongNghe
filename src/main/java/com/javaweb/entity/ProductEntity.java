@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class ProductEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private String name;
 
     @Column(columnDefinition = "LONGTEXT")
     @Lob
@@ -35,8 +37,6 @@ public class ProductEntity extends BaseEntity {
 
     private Double promotionalPrice;
 
-    private Long quantity;
-
     private Long sold;
 
     private Boolean isActive;
@@ -49,13 +49,24 @@ public class ProductEntity extends BaseEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<GalleryEntity> galleryEntities;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<StoreProductEntity> productStore;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_sub_category_value",  // Tên bảng nối
+            joinColumns = @JoinColumn(name = "product_id"),  // Cột khóa ngoại cho Product
+            inverseJoinColumns = @JoinColumn(name = "sub_cat_value_id")  // Cột khóa ngoại cho SubCategoryValue
+    )
+    private Set<SubcategoryValueEntity> subCategoryValues;
 
 }

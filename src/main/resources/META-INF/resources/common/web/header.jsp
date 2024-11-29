@@ -24,191 +24,187 @@
     </div>
 </div>
 <!-- /Top bar -->
+<style>/* Search form in navigation */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    width: 350px;
+}
+
+.search-form button {
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-form button i {
+    font-size: 1.2em;
+}
+
+/* Container chính */
+.menu-container {
+    display: flex;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    width: 100%;
+    padding: 5px; /* Quá lớn hoặc không cân đối */
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Mặc định ẩn menu-right */
+.hidden {
+    display: none;
+}
+
+/* Khi có nội dung, hiển thị menu-right */
+.menu-right {
+    width: 100%; /* Hoặc tăng giá trị phù hợp với kích thước mong muốn */
+    padding: 15px;
+    background-color: #fff;
+    flex: 1; /* Sử dụng flex để dãn đều với các thành phần khác */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng */
+}
+
+
+.menu-content.active {
+    display: block; /* Hiển thị nội dung khi có lớp active */
+}
+
+.menu-right.active {
+    display: flex; /* Hiển thị khi cần */
+}
+
+/* Mega Menu chính */
+.mega-menu {
+    position: absolute;
+    top: 100%; /* Xuất hiện ngay dưới menu chính */
+    left: 50%; /* Căn giữa theo chiều ngang */
+    transform: translateX(-50%); /* Dịch chuyển menu về giữa */
+    width: 100%; /* Rộng hơn (chiếm 90% màn hình) */
+    background-color: #fff;
+    padding: 30px; /* Tăng padding để nhìn rộng rãi hơn */
+    border-radius: 8px; /* Bo góc để nhìn mềm mại hơn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    z-index: 1000; /* Đảm bảo menu nằm trên các thành phần khác */
+}
+
+/* Bố cục bên trong Mega Menu */
+.menu-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 cột đều nhau */
+    gap: 20px; /* Khoảng cách giữa các cột */
+}
+
+/* Cột trong Mega Menu */
+.menu-column {
+    width: 200px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.menu-column h4 {
+    font-size: 18px; /* Tăng kích thước tiêu đề */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.menu-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-column ul li {
+    margin-bottom: 8px; /* Tăng khoảng cách giữa các mục */
+}
+
+.menu-column ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+.menu-column ul li a:hover {
+    color: #007bff;
+}
+
+/* Badge "Mới" */
+.new-badge {
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+/* Danh mục bên trái */
+.menu-left {
+    background-color: #f5f5f5;
+    padding: 15px;
+    width: 20%; /* Đảm bảo menu bên trái nhỏ hơn phần nội dung */
+    min-width: 200px;
+}
+
+.menu-left ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-left ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px; /* Tăng kích thước danh mục */
+    font-weight: bold;
+}
+
+.menu-left ul li:hover {
+    background-color: #ddd;
+    color: #007bff;
+}
+
+.category-item {
+    background-color: transparent; /* Xóa màu nền */
+    padding: 0; /* Loại bỏ padding nếu không cần */
+    margin: 0; /* Căn chỉnh để không bị lệch */
+    text-align: left; /* Căn chỉnh chữ về bên trái */
+    font-size: 14px; /* Kích thước chữ đồng đều */
+    font-weight: normal; /* Đảm bảo không bị nhấn mạnh */
+    line-height: 1.6; /* Đặt khoảng cách dòng phù hợp */
+}
+
+.category-item:hover {
+    background-color: #ddd; /* Chỉ áp dụng hiệu ứng nền khi hover (nếu cần) */
+    cursor: pointer;
+}
+
+</style>
 <!-- Header -->
 <header id="header" class="header-default">
-    <style>/* Search form in navigation */
-    .search-bar {
-        display: flex;
-        align-items: center;
-    }
-
-    .search-form {
-        display: flex;
-        align-items: center;
-    }
-
-    .search-form input {
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        border-radius: 4px 0 0 4px;
-        outline: none;
-        width: 350px;
-    }
-
-    .search-form button {
-        background-color: transparent;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-    }
-
-    .search-form button i {
-        font-size: 1.2em;
-    }
-
-    /* Container chính */
-    .menu-container {
-        display: flex;
-        border: 1px solid #ddd;
-        background-color: #fff;
-        width: 100%;
-        padding: 5px; /* Quá lớn hoặc không cân đối */
-        max-width: 1400px;
-        margin: 0 auto;
-        position: relative;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-
-    /* Mặc định ẩn menu-right */
-    .hidden {
-        display: none;
-    }
-
-    /* Khi có nội dung, hiển thị menu-right */
-    .menu-right {
-        width: 100%; /* Hoặc tăng giá trị phù hợp với kích thước mong muốn */
-        padding: 15px;
-        background-color: #fff;
-        flex: 1; /* Sử dụng flex để dãn đều với các thành phần khác */
-        box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng */
-    }
-
-
-    .menu-content {
-        display: none; /* Ẩn tất cả nội dung chi tiết */
-    }
-
-    .menu-content.active {
-        display: block; /* Hiển thị nội dung khi có lớp active */
-    }
-
-    .menu-right.active {
-        display: flex; /* Hiển thị khi cần */
-    }
-
-    /* Mega Menu chính */
-    .mega-menu {
-        position: absolute;
-        top: 100%; /* Xuất hiện ngay dưới menu chính */
-        left: 50%; /* Căn giữa theo chiều ngang */
-        transform: translateX(-50%); /* Dịch chuyển menu về giữa */
-        width: 100%; /* Rộng hơn (chiếm 90% màn hình) */
-        background-color: #fff;
-        padding: 30px; /* Tăng padding để nhìn rộng rãi hơn */
-        border-radius: 8px; /* Bo góc để nhìn mềm mại hơn */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ddd;
-        z-index: 1000; /* Đảm bảo menu nằm trên các thành phần khác */
-    }
-
-    /* Bố cục bên trong Mega Menu */
-    .menu-row {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 cột đều nhau */
-        gap: 20px; /* Khoảng cách giữa các cột */
-    }
-
-    /* Cột trong Mega Menu */
-    .menu-column {
-        width: 200px;
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
-
-    .menu-column h4 {
-        font-size: 18px; /* Tăng kích thước tiêu đề */
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .menu-column ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .menu-column ul li {
-        margin-bottom: 8px; /* Tăng khoảng cách giữa các mục */
-    }
-
-    .menu-column ul li a {
-        text-decoration: none;
-        color: #555;
-        font-size: 14px;
-    }
-
-    .menu-column ul li a:hover {
-        color: #007bff;
-    }
-
-    /* Badge "Mới" */
-    .new-badge {
-        background-color: red;
-        color: white;
-        padding: 2px 6px;
-        font-size: 12px;
-        border-radius: 3px;
-        margin-left: 5px;
-    }
-
-    /* Danh mục bên trái */
-    .menu-left {
-        background-color: #f5f5f5;
-        padding: 15px;
-        width: 20%; /* Đảm bảo menu bên trái nhỏ hơn phần nội dung */
-        min-width: 200px;
-    }
-
-    .menu-left ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .menu-left ul li {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        cursor: pointer;
-        text-align: left;
-        font-size: 16px; /* Tăng kích thước danh mục */
-        font-weight: bold;
-    }
-
-    .menu-left ul li:hover {
-        background-color: #ddd;
-        color: #007bff;
-    }
-
-    .category-item {
-        background-color: transparent; /* Xóa màu nền */
-        padding: 0; /* Loại bỏ padding nếu không cần */
-        margin: 0; /* Căn chỉnh để không bị lệch */
-        text-align: left; /* Căn chỉnh chữ về bên trái */
-        font-size: 14px; /* Kích thước chữ đồng đều */
-        font-weight: normal; /* Đảm bảo không bị nhấn mạnh */
-        line-height: 1.6; /* Đặt khoảng cách dòng phù hợp */
-    }
-
-    .category-item:hover {
-        background-color: #ddd; /* Chỉ áp dụng hiệu ứng nền khi hover (nếu cần) */
-        cursor: pointer;
-    }
-
-    </style>
     <div class="px_15 lg-px_40">
         <div class="row wrapper-header align-items-center" style="height: 90px;">
             <div class="col-xl-2 col-md-4 col-6 text-center">
@@ -264,8 +260,9 @@
                             </div>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu">
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i
+                                    class="icon icon-arrow-down"></i></a>
+                            <div class="sub-menu mega-menu" style="padding-top: 0px;top: 90px;">
                                 <div class="menu-container">
                                     <!-- Danh sách danh mục bên trái -->
                                     <div class="menu-left">
@@ -275,9 +272,9 @@
                                     </div>
 
                                     <!-- Nội dung chi tiết bên phải (mặc định ẩn) -->
-                                    <div class="menu-right hidden" id="category-content">
-                                        <!-- Nội dung sẽ được tải qua Ajax -->
-                                    </div>
+                                    <div id="category-content" class="menu-right hidden"></div>
+                                    <div id="subcategory-value-content" class="menu-column hidden"></div>
+
                                 </div>
                             </div>
                         </li>
@@ -362,8 +359,6 @@
             </div>
         </div>
     </div>
-
-
 </header>
 <!-- /Header -->
 
@@ -584,73 +579,107 @@
 
 <script type="text/javascript" src="/web/js/jquery.min.js"></script>
 <script>
-    // Gọi danh sách các danh mục
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Tải danh sách danh mục từ server
         $.ajax({
             url: '/api/categories',
             method: 'GET',
-            success: function(categories) {
+            dataType: 'json',
+            success: function (categories) {
                 console.log('Categories:', categories);
                 // Hiển thị danh sách danh mục
-                categories.forEach(function(category) {
-                    $('#category-list').append(`
-                    <li class="category-item" data-category-id="${category.id}">${category.name}</li>
-                `);
+                categories.forEach(function (category) {
+                    $('#category-list').append(' <li class="category-item" data-category-id="' + category.id + '" data-category-slug="' + category.slug + '">' + '<a href="/products/' + category.slug + '">' + category.name + '</a> </li>');
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log("Error:", status, error); // In ra lỗi nếu có
+            }
+        });
+
+        // Xử lý sự kiện khi người dùng click vào danh mục chính
+        $(document).on('mouseenter', '.category-item', function () {
+            var categoryId = $(this).data("category-id");  // Lấy ID của danh mục chính
+            var categoryContent = '';  // Biến chứa nội dung HTML của danh mục con
+            var categoryName = $(this).data("category-slug");  // Giả sử bạn có data-category-name trong HTML của danh mục chính
+
+            // Kiểm tra xem phần tử đã được tải danh mục con chưa
+            if (!$(this).hasClass('loaded')) {
+                // Đánh dấu phần tử đã được xử lý
+                $('.category-item').removeClass('loaded'); // Xóa trạng thái "loaded" của tất cả các danh mục
+                $(this).addClass('loaded'); // Đánh dấu phần tử này đã được xử lý
+
+                // Ẩn tất cả nội dung cũ
+                $('.menu-content').removeClass('active').addClass('hidden');
+
+                // Tải các danh mục con của danh mục chính
+                $.ajax({
+                    url: '/api/categories/' + categoryId + '/subcategories',
+                    method: 'GET',
+                    success: function (subcategories) {
+                        // Xây dựng nội dung cho danh mục chính
+                        categoryContent = '<div class="menu-content" id="category-' + categoryId + '">';
+                        categoryContent += '<div class="menu-row">'; // Dòng chứa các danh mục con
+
+                        subcategories.forEach(function (subcategory) {
+                            // Tạo một div cho mỗi menu-column (danh mục con)
+                            var subcategoryContent = '<div class="menu-column">';
+                            subcategoryContent += '<h4>' + subcategory.name + '</h4>';
+
+                            // Tải các giá trị thuộc tính của danh mục con
+                            $.ajax({
+                                url: '/api/subcategories/' + subcategory.id + '/subcategory-values',
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function (subcategoryValue) {
+                                    var subcategoryValueContent = '<ul>';
+                                    subcategoryValue.forEach(function (value) {
+                                        // Tạo URL theo cấu trúc /danh-muc/slug
+                                        var subcategorySlug = value.slug;  // Giả sử mỗi value có slug
+                                        var categorySlug = categoryName;
+
+                                        // Tạo đường dẫn mới với danh mục và slug
+                                        var link = '/' + categorySlug + '/' + subcategorySlug;
+
+                                        subcategoryValueContent += '<li><a href="' + link + '">' + value.value + '</a></li>';
+                                    });
+                                    subcategoryValueContent += '</ul>';
+
+                                    // Thêm giá trị thuộc tính vào nội dung của danh mục con
+                                    subcategoryContent += subcategoryValueContent;
+                                    subcategoryContent += '</div>'; // Đóng div của menu-column
+
+                                    // Thêm nội dung của danh mục con vào danh mục chính
+                                    categoryContent += subcategoryContent;
+
+                                    // Khi tất cả dữ liệu đã được tải và xử lý xong, cập nhật giao diện
+                                    $('#category-content').html(categoryContent).removeClass('hidden').addClass('active');
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log("Error fetching attribute values:", status, error);
+                                }
+                            });
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error fetching subcategories:", status, error);
+                    }
                 });
             }
         });
 
-        // Xử lý sự kiện khi người dùng click vào danh mục
-        $(document).on('click', '.category-item', function() {
-            var categoryId = $(this).data('category-id');
-
-            // Tải các thuộc tính của danh mục
-            $.ajax({
-                url: '/api/categories/' + categoryId + '/attributes',
-                method: 'GET',
-                success: function(attributes) {
-                    var content = '<ul>';
-                    attributes.forEach(function(attribute) {
-                        content += `<li>${attribute.name}</li>`;
-                    });
-                    content += '</ul>';
-
-                    // Hiển thị nội dung thuộc tính bên phải
-                    $('#category-content').html(content).removeClass('hidden');
-                }
-            });
-        });
-    });
 
 
-    // Lấy các danh mục bên trái
-    document.addEventListener('DOMContentLoaded', () => {
-        // Lấy các danh mục bên trái
-        const categoryItems = document.querySelectorAll('.category-item');
-        // Lấy menu bên phải
-        const menuRight = document.querySelector('.menu-right');
-        // Lấy tất cả nội dung bên phải
-        const menuContents = document.querySelectorAll('.menu-content');
 
-        // Xử lý sự kiện khi nhấn vào danh mục
-        categoryItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                const category = item.getAttribute('data-category');
-
-                // Ẩn tất cả nội dung bên phải
-                menuContents.forEach((content) => {
-                    content.classList.remove('active');
-                });
-
-                // Hiển thị nội dung tương ứng
-                const activeContent = document.getElementById(category);
-                if (activeContent) {
-                    menuRight.classList.add('active'); // Hiển thị menu bên phải
-                    activeContent.classList.add('active'); // Hiển thị nội dung tương ứng
-                }
-            });
-        });
+// Hiển thị danh mục khi người dùng nhấn vào
+//         $(document).on('mouseenter', '.category-item', function () {
+//             var categoryId = $(this).data("category-id");  // Lấy ID của danh mục
+//             var categoryContentId = '#category-' + categoryId;
+//
+//             // Ẩn tất cả các nội dung cũ
+//             $('.menu-content').removeClass('active');
+//             $(categoryContentId).addClass('active'); // Hiển thị danh mục tương ứng
+//         });
     });
 
 </script>

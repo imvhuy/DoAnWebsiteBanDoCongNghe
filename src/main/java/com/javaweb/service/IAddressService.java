@@ -1,8 +1,7 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.AddressEntity;
-import com.javaweb.entity.CarrierEntity;
-import com.javaweb.model.AddressModel;
+import com.javaweb.dto.AddressDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,7 @@ public interface IAddressService {
     // Lấy địa chỉ mặc định
     Optional<AddressEntity> getDefaultAddress(Long userId);
     Optional<AddressEntity> findById(Long id);
-    AddressModel findAddressModelById(Long id);
+    AddressDTO findAddressModelById(Long id);
 
     void deleteAddressById(Long addressId);
 }

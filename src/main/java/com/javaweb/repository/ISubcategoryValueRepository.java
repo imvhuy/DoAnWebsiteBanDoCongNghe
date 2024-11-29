@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ISubcategoryValueRepository extends JpaRepository<SubcategoryValueEntity, Long> {
-    List<SubcategoryValueEntity> findBySubcategoryEntity_Id(Long attributeId);
+    List<SubcategoryValueEntity> findBySubcategoryEntity_Id(Long subcategoryId);
 }
