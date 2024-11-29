@@ -19,13 +19,13 @@ public class ProductEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private String name;
 
     @Column(columnDefinition = "LONGTEXT")
     @Lob
     private String description;
 
-    private Double price;
+    private Long price;
 
     private String color;
 
@@ -35,7 +35,11 @@ public class ProductEntity extends BaseEntity {
 
     private Double promotionalPrice;
 
-    private Long quantity;
+    @Column(columnDefinition = "LONGTEXT")
+    @Lob
+    private String configuration;
+
+    private Long promotionalPrice;
 
     private Long sold;
 
@@ -63,5 +67,7 @@ public class ProductEntity extends BaseEntity {
     
     @OneToMany(mappedBy = "product")
     private List<FavoriteProductEntity> favortieProductEntitys;
+
+
 
 }
