@@ -1,7 +1,7 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.entity.GalleryEntity;
-import com.javaweb.repository.GalleryRepository;
+import com.javaweb.repository.IGalleryRepository;
 import com.javaweb.service.IGalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,31 +13,31 @@ import java.util.Optional;
 public class GalleryServiceImpl implements IGalleryService {
 
     @Autowired
-    private GalleryRepository galleryRepository;
+    private IGalleryRepository IGalleryRepository;
 
     public Optional<GalleryEntity> findByProductAndType(Long productId, String type) {
-        return galleryRepository.findByProductEntityIdAndType(productId, type);
+        return IGalleryRepository.findByProductEntityIdAndType(productId, type);
     }
 
     public GalleryEntity save(GalleryEntity gallery) {
-        return galleryRepository.save(gallery);
+        return IGalleryRepository.save(gallery);
     }
 
     // Thêm ảnh vào sản phẩm
     @Override
     public void addGalleryImage(GalleryEntity galleryEntity) {
-        galleryRepository.save(galleryEntity); // Save a single gallery image
+        IGalleryRepository.save(galleryEntity); // Save a single gallery image
     }
 
 
     @Override
     public void saveAll(List<GalleryEntity> galleryEntities) {
-        galleryRepository.saveAll(galleryEntities);
+        IGalleryRepository.saveAll(galleryEntities);
     }
 
     // Xóa ảnh khỏi sản phẩm
     @Override
     public void deleteGalleryImage(Long id) {
-        galleryRepository.deleteById(id);
+        IGalleryRepository.deleteById(id);
     }
 }

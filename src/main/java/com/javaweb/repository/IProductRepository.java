@@ -1,6 +1,5 @@
 package com.javaweb.repository;
 
-import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +17,6 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
     List<ProductEntity> findByNameContaining(String Name);
     List<ProductEntity> findAll(Sort sort);
     List<ProductEntity> findAllById(Iterable<Long> ids);
-
-
+    long count();
+    Page<ProductEntity> findByCategoryEntity_IdAndIsActive(Long id, boolean isActive, Pageable pageable);
 }

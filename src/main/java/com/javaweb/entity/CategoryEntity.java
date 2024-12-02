@@ -29,7 +29,7 @@ public class CategoryEntity extends BaseEntity {
 
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
 
     @ToString.Exclude

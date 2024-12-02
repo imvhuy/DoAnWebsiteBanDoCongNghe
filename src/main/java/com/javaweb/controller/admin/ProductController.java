@@ -6,13 +6,10 @@ import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 
-import com.javaweb.model.ProductModel;
-import com.javaweb.repository.StoreProductRepository;
+import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IProductService;
 import com.javaweb.service.impl.CategoryServiceImpl;
 import com.javaweb.service.impl.GalleryServiceImpl;
-import com.javaweb.service.impl.ProductServiceImpl;
-import jakarta.validation.Path;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -49,7 +44,7 @@ public class ProductController {
     @Autowired
     private CategoryServiceImpl categoryServiceImpl;
     @Autowired
-    private StoreProductRepository storeProductRepository;
+    private IStoreProductRepository IStoreProductRepository;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -68,10 +63,10 @@ public class ProductController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        ProductModel productModel = new ProductModel();
+        com.javaweb.model.ProductDTO productDTO = new com.javaweb.model.ProductDTO();
         List<CategoryEntity> categories = categoryServiceImpl.findAll(); // Giả sử bạn có CategoryService
         model.addAttribute("categories", categories); // Truyền danh sách vào model
-        model.addAttribute("product", productModel);
+        model.addAttribute("product", productDTO);
         return new ModelAndView("admin/products/addOrEdit", model);
     }
     @GetMapping("edit/{id}")
@@ -79,17 +74,17 @@ public class ProductController {
         Optional<ProductEntity> opt = productService.findById(id);
         if (opt.isPresent()) {
             ProductEntity entity = opt.get();
-            ProductModel productModel = new ProductModel();
-            BeanUtils.copyProperties(entity, productModel);
+            com.javaweb.model.ProductDTO productDTO = new com.javaweb.model.ProductDTO();
+            BeanUtils.copyProperties(entity, productDTO);
 
             // Lấy tổng quantity từ bảng storeproduct
-            Long totalQuantity = storeProductRepository.getTotalQuantityByProductId(id);
-            productModel.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
+            Long totalQuantity = IStoreProductRepository.getTotalQuantityByProductId(id);
+            productDTO.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
 
             // Set category info
             if (entity.getCategoryEntity() != null) {
-                productModel.setCategoryId(entity.getCategoryEntity().getId());
-                productModel.setCategoryName(entity.getCategoryEntity().getName());
+                productDTO.setCategoryId(entity.getCategoryEntity().getId());
+                productDTO.setCategoryName(entity.getCategoryEntity().getName());
             }
 
             // Lấy danh sách ảnh từ gallery theo product_id
@@ -103,21 +98,21 @@ public class ProductController {
                 // Set URL ảnh vào các trường tương ứng của ProductModel
                 switch (type.toLowerCase()) {
                     case "right":
-                        productModel.setRightImage(imageUrl);
+                        productDTO.setRightImage(imageUrl);
                         break;
                     case "left":
-                        productModel.setLeftImage(imageUrl);
+                        productDTO.setLeftImage(imageUrl);
                         break;
                     case "behind":
-                        productModel.setBehindImage(imageUrl);
+                        productDTO.setBehindImage(imageUrl);
                         break;
                     case "front":
-                        productModel.setFrontImage(imageUrl);
+                        productDTO.setFrontImage(imageUrl);
                         break;
                 }
             }
 
-            model.addAttribute("product", productModel);
+            model.addAttribute("product", productDTO);
             return new ModelAndView("admin/products/addOrEdit", model);
         }
         model.addAttribute("message", "Product not found");
@@ -126,7 +121,7 @@ public class ProductController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes redirectAttributes,
-                               @Valid @ModelAttribute("product") ProductModel productModel,
+                               @Valid @ModelAttribute("product") com.javaweb.model.ProductDTO productDTO,
                                BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/products/addOrEdit");
@@ -135,11 +130,11 @@ public class ProductController {
         try {
             ProductEntity entity = new ProductEntity();
             // Copy dữ liệu từ model sang entity
-            BeanUtils.copyProperties(productModel, entity);
+            BeanUtils.copyProperties(productDTO, entity);
 
             // Set category nếu có
-            if (productModel.getCategoryId() != null) {
-                CategoryEntity category = categoryServiceImpl.findById(productModel.getCategoryId())
+            if (productDTO.getCategoryId() != null) {
+                CategoryEntity category = categoryServiceImpl.findById(productDTO.getCategoryId())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
                 entity.setCategoryEntity(category);
             }
@@ -148,7 +143,7 @@ public class ProductController {
             entity = productService.save(entity);
 
             // Thêm thông báo thành công
-            String successMessage = productModel.getId() == null ?
+            String successMessage = productDTO.getId() == null ?
                 "Product added successfully!" : "Product updated successfully!";
             redirectAttributes.addFlashAttribute("message", successMessage);
 

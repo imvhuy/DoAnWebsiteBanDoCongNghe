@@ -2,8 +2,7 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
-import com.javaweb.model.ProductModel;
-import com.javaweb.repository.GalleryRepository;
+import com.javaweb.repository.IGalleryRepository;
 import com.javaweb.repository.IProductRepository;
 import com.javaweb.service.IProductService;
 import org.springframework.beans.BeanUtils;
@@ -24,14 +23,19 @@ public class ProductServiceImpl implements IProductService {
     private IProductRepository productRepository;
 
     @Autowired
-    private GalleryRepository galleryRepository;
+    private IGalleryRepository IGalleryRepository;
 
     public List<GalleryEntity> getGalleryByProductId(Long productId) {
-        return galleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
+        return IGalleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
     }
     @Override
     public void delete(ProductEntity entity) {
         productRepository.delete(entity);
+    }
+
+    @Override
+    public Page<ProductEntity> findByCategoryEntity_IdAndIsActive(Long categoryId, boolean IsActive, Pageable pageable) {
+        return productRepository.findByCategoryEntity_IdAndIsActive(categoryId, IsActive, pageable);
     }
 
     @Override
@@ -121,8 +125,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductModel convertToModel(ProductEntity entity) {
-        ProductModel model = new ProductModel();
+    public com.javaweb.model.ProductDTO convertToModel(ProductEntity entity) {
+        com.javaweb.model.ProductDTO model = new com.javaweb.model.ProductDTO();
         BeanUtils.copyProperties(entity, model);
         
         // Map gallery images

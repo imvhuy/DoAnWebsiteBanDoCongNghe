@@ -28,7 +28,7 @@ public class SecurityConfig{
             "/user/**",
             "/WEB-INF/**",
             "/common/**",
-            "/web/**", "/error"};
+            "/web/**", "/error", "/api/**"};
     @Autowired
     IUserRepository userRepository;
     @Bean

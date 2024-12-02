@@ -2,9 +2,6 @@ package com.javaweb.model;
 
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
-import com.javaweb.entity.ReviewEntity;
-import com.javaweb.entity.StoreEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +13,7 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductModel {
+public class ProductDTO {
     private Long id;
     private String name;
     private String description;

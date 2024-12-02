@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,11 +23,15 @@ public class SubcategoryEntity extends BaseEntity {
 
     private String name;
 
-    private String type;
+    private String slug;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "subcategoryEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SubcategoryValueEntity> subcategoryValue;
 
     private Boolean isDeleted;
 
