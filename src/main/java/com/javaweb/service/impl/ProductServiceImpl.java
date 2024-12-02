@@ -2,64 +2,59 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
-import com.javaweb.model.ProductModel;
-import com.javaweb.repository.GalleryRepository;
-import com.javaweb.repository.ProductRepository;
+import com.javaweb.repository.IGalleryRepository;
+import com.javaweb.repository.IProductRepository;
 import com.javaweb.service.IProductService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements IProductService {
     @Autowired
-    private ProductRepository productRepository;
+    private IProductRepository IProductRepository;
 
     @Autowired
-    private GalleryRepository galleryRepository;
+    private IGalleryRepository IGalleryRepository;
 
     public List<GalleryEntity> getGalleryByProductId(Long productId) {
-        return galleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
+        return IGalleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
     }
     @Override
     public void delete(ProductEntity entity) {
-        productRepository.delete(entity);
+        IProductRepository.delete(entity);
     }
 
     @Override
     public void deleteById(Long id) {
-        productRepository.deleteById(id);
+        IProductRepository.deleteById(id);
     }
 
     @Override
     public long count() {
-        return productRepository.count();
+        return IProductRepository.count();
     }
 
     @Override
     public List<ProductEntity> findAll() {
-        return productRepository.findAll();
+        return IProductRepository.findAll();
     }
 
     @Override
     public ProductEntity getProductById(Long id) {
-        Optional<ProductEntity> product = productRepository.findById(id);
+        Optional<ProductEntity> product = IProductRepository.findById(id);
         return product.orElseThrow(() -> new RuntimeException("Product not found"));
     }
     @Override
     public <S extends ProductEntity> S save(S entity) {
-        if (entity.getId() == null) {
+        if (entity.getId() == null || entity.getId() == 0) {
             // Thêm mới
-            return productRepository.save(entity);
+            return IProductRepository.save(entity);
         } else {
             // Cập nhật
             Optional<ProductEntity> existingProduct = findById(entity.getId());
@@ -73,68 +68,55 @@ public class ProductServiceImpl implements IProductService {
                 existing.setColor(entity.getColor());
                 existing.setConfiguration(entity.getConfiguration());
                 existing.setPromotionalPrice(entity.getPromotionalPrice());
-                existing.setSold(entity.getSold());
                 existing.setIsActive(entity.getIsActive());
                 existing.setIsSelling(entity.getIsSelling());
                 existing.setVideo(entity.getVideo());
                 existing.setCategoryEntity(entity.getCategoryEntity());
                 
                 // Lưu xuống database
-                return (S) productRepository.save(existing);
+                return (S) IProductRepository.save(existing);
             }
         }
-        return productRepository.save(entity);
+        return IProductRepository.save(entity);
     }
 
     @Override
     public Optional<ProductEntity> findById(Long id) {
-        return productRepository.findById(id);
+        return IProductRepository.findById(id);
     }
 
     @Override
     public List<ProductEntity> findByNameContaining(String Name) {
-        return productRepository.findByNameContaining(Name);
+        return IProductRepository.findByNameContaining(Name);
     }
 
     @Override
     public Page<ProductEntity> findByNameContaining(String Name, Pageable pageable) {
-        return productRepository.findByNameContaining(Name, pageable);
+        return IProductRepository.findByNameContaining(Name, pageable);
     }
 
     @Override
     public Page<ProductEntity> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+        return IProductRepository.findAll(pageable);
     }
 
     @Override
     public List<ProductEntity> findAll(Sort sort) {
-        return productRepository.findAll(sort);
+        return IProductRepository.findAll(sort);
     }
 
     @Override
     public List<ProductEntity> findAllById(Iterable<Long> id) {
-        return productRepository.findAllById(id);
+        return IProductRepository.findAllById(id);
     }
 
     @Override
     public void deleteAll() {
-        productRepository.deleteAll();
+        IProductRepository.deleteAll();
     }
 
     @Override
-    public ProductModel convertToModel(ProductEntity entity) {
-        ProductModel model = new ProductModel();
-        BeanUtils.copyProperties(entity, model);
-        
-        // Map gallery images
-        Map<String, String> gallery = new HashMap<>();
-        if (entity.getGalleryEntities() != null) {
-            for (GalleryEntity galleryEntity : entity.getGalleryEntities()) {
-                gallery.put(galleryEntity.getType(), galleryEntity.getImage());
-            }
-        }
-        model.setGallery(gallery);
-        
-        return model;
+    public ProductEntity findByIdProductID(Long productId) {
+        return IProductRepository.findById(productId).orElse(null);
     }
 }

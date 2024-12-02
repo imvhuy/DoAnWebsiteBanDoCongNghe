@@ -1,16 +1,22 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
-import jakarta.persistence.Column;
+import com.javaweb.entity.StoreEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CategoryModel extends BaseModel{
+
+public class CommissionDTO extends BaseDTO {
+
     private Long id;
     private String name;
-    private String slug;
-    private String image;
+    private Double cost;
+    private String description;
     private Boolean isDeleted;
+    private StoreEntity store;
+
 }

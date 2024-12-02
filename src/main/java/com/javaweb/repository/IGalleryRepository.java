@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GalleryRepository extends JpaRepository<GalleryEntity, Long> {
+public interface IGalleryRepository extends JpaRepository<GalleryEntity, Long> {
     List<GalleryEntity> findByProductEntityId(Long productId);
     Optional<GalleryEntity> findByProductEntityIdAndType(Long productId, String type);
 }

@@ -1,25 +1,19 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.entity.CarrierEntity;
-import com.javaweb.entity.CategoryEntity;
-import com.javaweb.model.CarrierModel;
-import com.javaweb.model.Response;
+import com.javaweb.dto.CarrierDTO;
 import com.javaweb.service.CarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -49,7 +43,7 @@ public class CarrierController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CarrierModel categoryModel = new CarrierModel();
+        CarrierDTO categoryModel = new CarrierDTO();
         model.addAttribute("carrier", categoryModel);
         return new ModelAndView("admin/carriers/addOrEdit", model);
     }
@@ -58,7 +52,7 @@ public class CarrierController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
         Optional<CarrierEntity> optCarrier = carrierService.findById(id);
-        CarrierModel cateModel = new CarrierModel();
+        CarrierDTO cateModel = new CarrierDTO();
         //kiểm tra sự tồn tại của category
         if (optCarrier.isPresent()) {
             CarrierEntity entity = optCarrier.get();
@@ -74,19 +68,19 @@ public class CarrierController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CarrierModel carrierModel, BindingResult result) {
+                                     @Valid @ModelAttribute CarrierDTO carrierDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/carriers/addOrEdit");
         }
         CarrierEntity entity = new CarrierEntity();
         //copy từ Model sang Entity
-        BeanUtils.copyProperties(carrierModel, entity);
+        BeanUtils.copyProperties(carrierDTO, entity);
         try {
             // gọi hàm save trong service
             carrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
-            if (carrierModel.getId() != null) {
+            if (carrierDTO.getId() != null) {
                 message = "Category is Edited!!!!!!!!";
             } else {
                 message = "Category is saved!!!!!!!!";
