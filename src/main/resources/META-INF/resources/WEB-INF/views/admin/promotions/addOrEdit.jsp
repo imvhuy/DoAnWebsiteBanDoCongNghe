@@ -85,7 +85,7 @@
 				</div>
 				<c:if test="${param.view != 'true'}">
 					<div class="bot">
-						<button class="tf-button w180" type="submit">Add Promotion</button>
+						<button class="tf-button w180" type="submit">${voucher.id == null ? 'Add Promotion' : 'Update Promotion'}</button>
 					</div>
 				</c:if>
 			</form>

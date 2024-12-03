@@ -86,7 +86,8 @@
 								class="attribute-item item-row flex items-center justify-between gap20">
 
 								<div class="name">
-									<a href="<c:url value='/admin/promotions/edit/${voucher.id}'/>"
+									<a 
+											href="<c:url value='/admin/promotions/edit/${voucher.id}'><c:param name='view' value='true'/></c:url>"
 										class="body-title-2">${voucher.description}</a>
 								</div>
 								<div class="body-text">${voucher.discount}%</div>
