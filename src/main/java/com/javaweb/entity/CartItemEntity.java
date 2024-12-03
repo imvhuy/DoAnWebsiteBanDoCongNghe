@@ -23,5 +23,7 @@ public class CartItemEntity extends BaseEntity{
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
 
+//    @OneToMany(mappedBy = "cartItem")
+//    private List<StyleValueEntity> styleValueEntities;
 
 }

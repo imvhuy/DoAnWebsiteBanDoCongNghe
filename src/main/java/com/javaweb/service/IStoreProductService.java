@@ -14,4 +14,8 @@ public interface IStoreProductService {
 	public List<ProductEntity> getProductsByStore(Long storeId);
 //	public Page<ProductEntity> findProductsByStoreAndPage(Long storeId, Pageable pageable);
 	public StoreProductEntity findById(Long storeproductID);
+
+    Long getTotalQuantityByProductId(Long productId);
+
+    Long getTotalSoldByProductId(Long productId);
 }

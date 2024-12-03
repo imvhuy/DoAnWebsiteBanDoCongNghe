@@ -25,5 +25,7 @@ public class StoreProductEntity {
 
     private Integer quantity;
 
-    private Integer Sold;
+    private Integer sold;
+
+
 }

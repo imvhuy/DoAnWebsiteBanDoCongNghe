@@ -29,12 +29,13 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="sub-menu-item">
-                                <a href="product-list.html" class="">
+                                <a href= "<c:url value = '/admin/products'/>">
                                     <div class="text">All Products</div>
                                 </a>
+
                             </li>
                             <li class="sub-menu-item">
-                                <a href="add-product.html" class="">
+                                <a href= "<c:url value = '/admin/products/add'/>">
                                     <div class="text">Add Product</div>
                                 </a>
                             </li>
@@ -103,24 +104,6 @@
                             <li class="sub-menu-item">
                                 <a href="oder-tracking.html" class="">
                                     <div class="text">Order tracking</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-children">
-                        <a href="javascript:void(0);" class="menu-item-button">
-                            <div class="icon"><i class="icon-file-plus"></i></div>
-                            <div class="text">Carrier</div>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="sub-menu-item">
-                                <a href= "<c:url value = '/admin/carriers'/>" class = "">
-                                    <div class="text">All Carrier</div>
-                                </a>
-                            </li>
-                            <li class="sub-menu-item">
-                                <a href="add-product.html" class="">
-                                    <div class="text">Add Carrier</div>
                                 </a>
                             </li>
                         </ul>

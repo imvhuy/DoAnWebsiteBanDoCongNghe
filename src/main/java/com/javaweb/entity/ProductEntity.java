@@ -19,13 +19,13 @@ public class ProductEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private String name;
 
     @Column(columnDefinition = "LONGTEXT")
     @Lob
     private String description;
 
-    private Double price;
+    private Long price;
 
     private String color;
 
@@ -33,9 +33,7 @@ public class ProductEntity extends BaseEntity {
     @Lob
     private String configuration;
 
-    private Double promotionalPrice;
-
-    private Long quantity;
+    private Long promotionalPrice;
 
 
     private Boolean isActive;
@@ -56,5 +54,7 @@ public class ProductEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
+
+
 
 }
