@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,8 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstname", columnDefinition = "nvarchar(255) not null")
-    private String firstName;
-
-    @Column(name = "lastname", columnDefinition = "nvarchar(255) not null")
-    private String lastName;
+    @Column(name = "fullname", columnDefinition = "nvarchar(255) not null")
+    private String fullName;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -54,11 +52,6 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;
 
-    // Quan hệ One-to-Many với VoucherCustomer
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VoucherCustomerEntity> voucherCustomerEntities;
-
-    
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

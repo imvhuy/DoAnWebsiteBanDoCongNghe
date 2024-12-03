@@ -29,7 +29,9 @@ public class SecurityConfig{
             "/WEB-INF/**",
             "/common/**",
             "/admin/**",
-            "/web/**"};
+            "/web/**",
+            };
+    		
     @Autowired
     IUserRepository userRepository;
     @Bean

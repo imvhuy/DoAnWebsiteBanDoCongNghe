@@ -1,4 +1,4 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public abstract class BaseModel implements Serializable {
+public abstract class BaseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Date createdDate;

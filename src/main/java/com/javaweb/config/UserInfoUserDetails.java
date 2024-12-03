@@ -1,7 +1,8 @@
 package com.javaweb.config;
 
+import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.UserModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

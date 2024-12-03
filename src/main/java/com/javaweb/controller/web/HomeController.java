@@ -1,7 +1,7 @@
 package com.javaweb.controller.web;
 
-import com.javaweb.model.Response;
-import com.javaweb.model.UserModel;
+import com.javaweb.dto.ResponseDTO;
+import com.javaweb.dto.UserDTO;
 import com.javaweb.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
