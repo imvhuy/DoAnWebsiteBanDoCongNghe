@@ -11,18 +11,18 @@ import java.util.Optional;
 
 import com.javaweb.entity.ProductEntity;
 import com.javaweb.entity.StoreProductEntity;
-import com.javaweb.repository.StoreProductRepository;
+import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IStoreProductService;
 
 @Service
 public class StoreProductServiceImpl implements IStoreProductService {
 
 	@Autowired
-    private StoreProductRepository storeProductRepository;
+    private IStoreProductRepository storeProductRepository;
 	
 	@Override
-	public Page<StoreProductEntity> findByStoreIdAndProductName(Long storeId, String productName, Pageable pageable) {
-		return storeProductRepository.findByStoreIdAndProduct_ProductNameContaining(storeId, productName, pageable);
+	public Page<StoreProductEntity> findByStoreIdAndProductName(Long storeId, String name, Pageable pageable) {
+		return storeProductRepository.findByStoreIdAndProduct_NameContaining(storeId, name, pageable);
 	}
 
 	@Override
@@ -57,6 +57,16 @@ public class StoreProductServiceImpl implements IStoreProductService {
             throw new RuntimeException("StoreProduct with ID " + storeproductID + " not found");
             // Hoặc bạn có thể trả về null, hoặc ném một ngoại lệ khác tùy nhu cầu
         }
+    }
+
+    @Override
+    public Long getTotalQuantityByProductId(Long productId) {
+        return storeProductRepository.getTotalQuantityByProductId(productId);
+    }
+
+    @Override
+    public Long getTotalSoldByProductId(Long productId) {
+        return storeProductRepository.getTotalSoldByProductId(productId);
     }
 
 }

@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!-- main-content -->
 <div class="main-content">
 	<style>
 .image {
-	width: 368px; /* Kích thước hình ảnh */
+	width: 190px ; /* Kích thước hình ảnh */
+	height: 368px;
+	border-radius: 10%; /* Làm tròn ảnh */
+	overflow: hidden; /* Ẩn phần ảnh ngoài khu vực tròn */
+
+	/* Khoảng cách giữa các ảnh (có thể điều chỉnh theo nhu cầu) */
+}
+.image2 {
+	width: 368px ; /* Kích thước hình ảnh */
 	height: 368px;
 	border-radius: 10%; /* Làm tròn ảnh */
 	overflow: hidden; /* Ẩn phần ảnh ngoài khu vực tròn */
@@ -24,6 +33,7 @@
 	height: 100%;
 	object-fit: cover; /* Cắt ảnh theo tỷ lệ hợp lý */
 }
+
 </style>
 	<div class="main-content-inner">
 		<div class="main-content-wrap">
@@ -47,41 +57,90 @@
 				<div class="wg-box">
 					<div class="left">
 						<h5 class="mb-4">Product Information</h5>
-						<div class="body-text">View the information below to know about
-							the product details</div>
-						<h5 class="mb-4">Product Avatar</h5>
+						<div class="body-text">View the information below to know
+							about the product details</div>
+						<h5 class="mb-4">Product Images</h5>
 						<div class="container">
+							<!-- Left Image -->
 							<div class="image">
-								<!-- Hiển thị ảnh đại diện sản phẩm nếu có, nếu không thì dùng ảnh mặc định -->
-								<img
-									src="${product.galleryEntities != null && !product.galleryEntities.isEmpty() ? product.galleryEntities[0].image : 'images/products/product-1.jpg'}"
-									alt="Product Avatar">
+								<c:choose>
+									<c:when test="${not empty product.galleryEntities}">
+										<c:forEach var="gallery" items="${product.galleryEntities}">
+											<c:if test="${gallery.type == 'left'}">
+												<img src="/admin/images/products/${gallery.image}"
+													alt="Left Image" class="image" style="max-width: 200px;" />
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<img src="images/products/product-1.jpg" alt="Left Image"
+											class="image" style="max-width: 200px;" />
+									</c:otherwise>
+								</c:choose>
 							</div>
-							<div class="image">
-								<!-- Hiển thị ảnh đại diện sản phẩm nếu có, nếu không thì dùng ảnh mặc định -->
-								<img
-									src="${product.galleryEntities != null && !product.galleryEntities.isEmpty() ? product.galleryEntities[1].image : 'images/products/product-1.jpg'}"
-									alt="Product Avatar">
-							</div>
-						</div>
-						<div class="container">
 
+							<!-- Right Image -->
 							<div class="image">
-								<!-- Hiển thị ảnh đại diện sản phẩm nếu có, nếu không thì dùng ảnh mặc định -->
-								<img
-									src="${product.galleryEntities != null && !product.galleryEntities.isEmpty() ? product.galleryEntities[3].image : 'images/products/product-1.jpg'}"
-									alt="Product Avatar">
+								<c:choose>
+									<c:when test="${not empty product.galleryEntities}">
+										<c:forEach var="gallery" items="${product.galleryEntities}">
+											<c:if test="${gallery.type == 'right'}">
+												<img src="/admin/images/products/${gallery.image}"
+													alt="Right Image" class="image" style="max-width: 200px;" />
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<img src="images/products/product-1.jpg" alt="Right Image"
+											class="image" style="max-width: 200px;" />
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
+
+						<!-- Front Behind Image -->
+						<div class="container">
+							<div class="image2">
+								<c:choose>
+									<c:when test="${not empty product.galleryEntities}">
+										<c:forEach var="gallery" items="${product.galleryEntities}">
+											<c:if test="${gallery.type == 'front'}">
+												<img src="/admin/images/products/${gallery.image}"
+													alt="Front Image" class="image2" style="max-width: 368px; margin: 20px;" />
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<img src="images/products/product-1.jpg" alt="Front Image"
+											class="image2" style="width: 368px; margin: 20px;" />
+									</c:otherwise>
+								</c:choose>
+							</div>
+
+						</div>
+
 
 					</div>
 
 					<div class="right flex-grow">
-						<fieldset class="name mb-24">
-							<div class="body-title mb-10">Product Name</div>
-							<input class="flex-grow" type="text" placeholder="Product Name"
-								name="productName" value="${product.productName}" readonly>
-						</fieldset>
+						<div class="cols gap24">
+							<fieldset class="name mb-24">
+								<div class="body-title mb-10">Product Name</div>
+								<input class="flex-grow" type="text" placeholder="Product Name"
+									name="name" value="${product.name}" readonly>
+							</fieldset>
+							<fieldset class="name mb-24">
+								<div class="body-title mb-10">Product Category</div>
+								<input class="flex-grow" type="text"
+									placeholder="Product Category" name="name"
+									value="${product.categoryEntity.name}" readonly>
+							</fieldset>
+							<fieldset class="name mb-24">
+								<div class="body-title mb-10">Product Color</div>
+								<input class="flex-grow" type="text" placeholder="Product Color"
+									name="name" value="${product.color}" readonly>
+							</fieldset>
+						</div>
 						<fieldset class="description mb-24">
 							<div class="body-title mb-10">Description</div>
 							<textarea class="flex-grow auto-width" placeholder="Description"
@@ -131,7 +190,7 @@
 					</div>
 					<div class="wg-box">
 					
-					<h5>You can see the Product's status below.</h5>
+						<h5>You can see the Product's status below.</h5>
 						<fieldset class="status mb-24">
 							<div class="body-title mb-10">Product Status</div>
 							<div class="radio-buttons">
@@ -173,6 +232,9 @@
 								</div>
 							</div>
 						</fieldset>
+						<iframe width="560" height="315" src="${product.video}" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
 					</div>
 
 
@@ -183,7 +245,42 @@
 				</div>
 			</form>
 
+			<script>
+				// Hàm preview hình ảnh khi người dùng chọn ảnh
+				function previewImage(input, previewId) {
+					var file = input.files[0];
+					if (file) {
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							var preview = document.getElementById(previewId);
+							preview.src = e.target.result;
+							preview.style.display = 'block';
+						};
+						reader.readAsDataURL(file);
+					}
+				}
 
+				window.onload = function() {
+					// Hiển thị ảnh đã tải lên trong các preview
+					var imageTypes = [ 'right', 'left', 'front' ];
+
+					imageTypes.forEach(function(type) {
+						var inputElement = document.getElementById(type
+								+ 'Image');
+						var previewElement = document.getElementById(type
+								+ 'Preview');
+
+						if (previewElement && previewElement.src) {
+							previewElement.style.display = 'block'; // Hiển thị ảnh nếu đã có
+						}
+
+						// Nếu có file được chọn, hiển thị ảnh preview ngay lập tức
+						if (inputElement.files && inputElement.files[0]) {
+							previewImage(inputElement, type + 'Preview');
+						}
+					});
+				};
+			</script>
 
 
 		</div>

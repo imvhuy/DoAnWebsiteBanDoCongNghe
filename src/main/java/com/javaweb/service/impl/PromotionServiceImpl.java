@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.javaweb.entity.VoucherEntity;
-import com.javaweb.repository.PromotionRepository;
+import com.javaweb.repository.IPromotionRepository;
 import com.javaweb.service.PromotionService;
 @Service
 
 public class PromotionServiceImpl implements PromotionService {
-	private final PromotionRepository promotionRepository;
+	private final IPromotionRepository promotionRepository;
 	@Autowired
-	public PromotionServiceImpl(PromotionRepository promotionRepository) {
+	public PromotionServiceImpl(IPromotionRepository promotionRepository) {
 	    this.promotionRepository = promotionRepository;
 	}
 

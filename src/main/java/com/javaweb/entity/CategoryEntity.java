@@ -34,11 +34,7 @@ public class CategoryEntity extends BaseEntity {
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
     private List<SubcategoryEntity> attributeEntities;
 
-    @OneToMany(mappedBy = "categoryEntity")
-    private List<ProductEntity> products;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
-    private List<SubcategoryEntity> attributeEntities;
+
 
 }

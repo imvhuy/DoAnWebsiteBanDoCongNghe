@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaweb.entity.VoucherEntity;
 @Repository
-public interface PromotionRepository extends JpaRepository<VoucherEntity, Long> {
+public interface IPromotionRepository extends JpaRepository<VoucherEntity, Long> {
 
 	List<VoucherEntity> findByDescriptionContainingIgnoreCase(String description);
 	Page<VoucherEntity> findByDescriptionContainingIgnoreCase(String description, Pageable pageable);

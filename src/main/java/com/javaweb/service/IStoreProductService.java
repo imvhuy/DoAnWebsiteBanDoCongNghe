@@ -9,7 +9,7 @@ import com.javaweb.entity.*;
 
 public interface IStoreProductService {
 
-	public Page<StoreProductEntity> findByStoreIdAndProductName(Long storeId, String productName, Pageable pageable);
+	public Page<StoreProductEntity> findByStoreIdAndProductName(Long storeId, String name, Pageable pageable);
 	public Page<StoreProductEntity> findByStoreId(Long storeId, Pageable pageable);
 	public List<ProductEntity> getProductsByStore(Long storeId);
 //	public Page<ProductEntity> findProductsByStoreAndPage(Long storeId, Pageable pageable);

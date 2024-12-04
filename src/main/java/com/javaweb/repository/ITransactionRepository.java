@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaweb.entity.TransactionEntity;
 @Repository
-public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
+public interface ITransactionRepository extends JpaRepository<TransactionEntity, Long> {
 
     @Query("SELECT t FROM TransactionEntity t WHERE t.payment.user.id = :userId")
     List<TransactionEntity> findByUserId(Long userId);

@@ -9,13 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.entity.CommissionEntity;
-import com.javaweb.repository.CommissionRepository;
+import com.javaweb.repository.ICommissionRepository;
 import com.javaweb.service.ICommissionService;
 @Service
 public class CommissionServiceImpl implements ICommissionService {
 
 	@Autowired
-    private CommissionRepository commissionRepository;
+    private ICommissionRepository commissionRepository;
 	
 	public CommissionEntity saveCommission(CommissionEntity commissionEntity) {
 	    // Kiểm tra nếu commissionEntity đã có ID thì sẽ cập nhật, nếu không thì tạo mới

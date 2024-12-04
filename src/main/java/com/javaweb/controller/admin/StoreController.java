@@ -2,6 +2,7 @@ package com.javaweb.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.javaweb.dto.GalleryDTO;
 import com.javaweb.entity.*;
+import com.javaweb.service.ICommissionService;
+import com.javaweb.service.IGalleryService;
 import com.javaweb.service.IProductService;
 import com.javaweb.service.IStoreLevelService;
 import com.javaweb.service.IStoreProductService;
@@ -40,7 +44,10 @@ public class StoreController {
 	@Autowired
 	
 	private IProductService productService;
-
+	@Autowired
+	private ICommissionService commissionService;
+	@Autowired
+	private IGalleryService galleryServiceImpl;
 	// Hiển thị danh sách cửa hàng với phân trang và tìm kiếm theo tên cửa hàng
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@GetMapping // Cập nhật đường dẫn cho phù hợp với base URL
@@ -95,11 +102,12 @@ public class StoreController {
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id, RedirectAttributes model) {
         Optional<StoreEntity> optionalStore = storeService.findById(id);
+        
         if (optionalStore.isEmpty()) {
             return new ModelAndView("redirect:/admin/stores");
         }
         storeService.deleteById(id);  // Xóa voucher
-        
+        commissionService.deleteById(optionalStore.get().getCommission().getId());
         return new ModelAndView("redirect:/admin/stores");  // Quay lại danh sách promotion
     }
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -175,7 +183,7 @@ public class StoreController {
 	public String checkProduct(@PathVariable Long storeId,
 	                           @RequestParam(defaultValue = "1") int page,
 	                           @RequestParam(defaultValue = "10") int size,
-	                           @RequestParam(value = "productName", required = false) String productName,
+	                           @RequestParam(value = "name", required = false) String name,
 	                           Model model) {
 	    // Đảm bảo page bắt đầu từ 1
 	    page = Math.max(page, 1); // Đảm bảo page không nhỏ hơn 1
@@ -184,9 +192,9 @@ public class StoreController {
 	    Page<StoreProductEntity> storeProductPage;
 
 	    // Kiểm tra nếu có tham số productName, tìm kiếm theo tên sản phẩm
-	    if (productName != null && !productName.trim().isEmpty()) {
-	        storeProductPage = storeProductService.findByStoreIdAndProductName(storeId, productName, pageable);
-	        model.addAttribute("productName", productName); // Truyền giá trị tìm kiếm vào model
+	    if (name != null && !name.trim().isEmpty()) {
+	        storeProductPage = storeProductService.findByStoreIdAndProductName(storeId, name, pageable);
+	        model.addAttribute("name", name); // Truyền giá trị tìm kiếm vào model
 	    } else {
 	        storeProductPage = storeProductService.findByStoreId(storeId, pageable); // Lấy tất cả sản phẩm của cửa hàng nếu không có tìm kiếm
 	    }
@@ -223,11 +231,20 @@ public class StoreController {
             model.addAttribute("error", "Product not found");
             return new ModelAndView("error/404", model); // View lỗi 404
         }
+        
+        // Lấy danh sách ảnh từ GalleryEntity dựa trên product ID
+        List<GalleryEntity> galleryList = galleryServiceImpl.findByProductId(product.getId());
+        
+        // Chuyển đổi từ GalleryEntity thành DTO nếu cần thiết
+        List<GalleryDTO> galleryDTOList = galleryList.stream()
+                .map(gallery -> new GalleryDTO(gallery.getImage(), gallery.getType()))
+                .collect(Collectors.toList());
 
         // Thêm thông tin sản phẩm vào ModelMap để view có thể sử dụng
         model.addAttribute("product", product);
         model.addAttribute("storeProductEntity", storeProductEntity);        
         model.addAttribute("storeID", storeProductEntity.getStore().getId());
+        model.addAttribute("galleries", galleryDTOList);  // Thêm danh sách ảnh vào model
         // Trả về ModelAndView với tên view "productdetail" và dữ liệu model đã được thêm
         return new ModelAndView("admin/stores/productdetail", model);
 	}

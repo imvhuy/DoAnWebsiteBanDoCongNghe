@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.entity.TransactionEntity;
-import com.javaweb.repository.TransactionRepository;
+import com.javaweb.repository.ITransactionRepository;
 import com.javaweb.service.ITransactionService;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 public class TransactionServiceImpl implements ITransactionService {
 
 	 @Autowired
-	    private TransactionRepository transactionRepository;
+	    private ITransactionRepository transactionRepository;
 
 	 @Override
 	    public List<TransactionEntity> getTransactionsByUserId(Long userId) {

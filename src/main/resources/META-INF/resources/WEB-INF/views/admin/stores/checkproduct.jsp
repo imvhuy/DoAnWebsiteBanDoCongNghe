@@ -40,8 +40,8 @@
 						<form class="form-search" method="GET"
 							action="/admin/stores/checkproduct/${storeId}">
 							<fieldset class="name">
-								<input type="text" placeholder="Search.." name="productName"
-									value="${productName}">
+								<input type="text" placeholder="Search.." name="name"
+									value="${name}">
 							</fieldset>
 							<input type="hidden" name="size" value="${size}" /> <input
 								type="hidden" name="page" value="1" />
@@ -69,14 +69,15 @@
 						<c:forEach var="StoreProduct" items="${StoreProducts}">
 							<li class="wg-product item-row">
 								<div class="name flex-grow">
-									<div class="image">
-										<img
-											src="${StoreProduct.product.galleryEntities != null && !StoreProduct.product.galleryEntities.isEmpty() ? StoreProduct.product.galleryEntities[0].image : 'images/products/product-1.jpg'}"
-											alt="Product Image">
-									</div>
+										<c:forEach var="gallery" items="${StoreProduct.product.galleryEntities}">
+											<c:if test="${gallery.type == 'front'}">
+												<img src="/admin/images/products/${gallery.image}"
+													alt="Left Image" class="image" style="max-width: 200px;" />
+											</c:if>
+										</c:forEach>
 									<div>
 										<div class="title">
-											<a href="/admin/stores/viewProduct/${StoreProduct.id}" class="body-title-2">${StoreProduct.product.productName}</a>
+											<a href="/admin/stores/viewProduct/${StoreProduct.id}" class="body-title-2">${StoreProduct.product.name}</a>
 										</div>
 
 									</div>
