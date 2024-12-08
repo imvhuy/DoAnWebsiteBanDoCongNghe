@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public interface IProductService {
 
     List<GalleryEntity> getGalleryByProductId(Long id);
 
-    com.javaweb.model.ProductDTO convertToModel(ProductEntity entity);
+    ProductDTO convertToModel(ProductEntity entity);
 
     List<ProductEntity> findAllByCategoryEntity_IdAndIsActive(Long categoryId, Boolean isActive);
 
@@ -48,5 +49,7 @@ public interface IProductService {
     Page<ProductEntity> filterProductsByCategoryAndValue(Long id, Map<String, String> params, Pageable page);
 
     long findMinMaxPriceByCategory(Long categoryId);
+
+    List<ProductEntity> findByNameContainingIgnoreCase(String query);
 }
 

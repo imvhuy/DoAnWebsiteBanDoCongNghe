@@ -2,6 +2,7 @@ package com.javaweb.controller.admin;
 
 
 
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
@@ -63,7 +64,7 @@ public class ProductController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        com.javaweb.model.ProductDTO productDTO = new com.javaweb.model.ProductDTO();
+        ProductDTO productDTO = new ProductDTO();
         List<CategoryEntity> categories = categoryServiceImpl.findAll(); // Giả sử bạn có CategoryService
         model.addAttribute("categories", categories); // Truyền danh sách vào model
         model.addAttribute("product", productDTO);
@@ -74,7 +75,7 @@ public class ProductController {
         Optional<ProductEntity> opt = productService.findById(id);
         if (opt.isPresent()) {
             ProductEntity entity = opt.get();
-            com.javaweb.model.ProductDTO productDTO = new com.javaweb.model.ProductDTO();
+            ProductDTO productDTO = new ProductDTO();
             BeanUtils.copyProperties(entity, productDTO);
 
             // Lấy tổng quantity từ bảng storeproduct
@@ -121,7 +122,7 @@ public class ProductController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes redirectAttributes,
-                               @Valid @ModelAttribute("product") com.javaweb.model.ProductDTO productDTO,
+                               @Valid @ModelAttribute("product") ProductDTO productDTO,
                                BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/products/addOrEdit");

@@ -26,4 +26,5 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
     // Query để lấy giá thấp nhất và cao nhất của sản phẩm
     @Query("SELECT MAX(p.price) FROM ProductEntity p WHERE (:categoryId IS NULL OR p.categoryEntity.id = :categoryId)")
     Long findMinMaxPriceByCategory(Long categoryId);
+    List<ProductEntity> findByNameContainingIgnoreCase(String name);
 }

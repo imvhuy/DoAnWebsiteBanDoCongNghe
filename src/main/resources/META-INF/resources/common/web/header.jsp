@@ -96,7 +96,76 @@
 .category-item a:active {
     color: #0056b3; /* Màu chữ khi click */
 }
+.canvas-search {
+    width: 90vw !important;   /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1000px;        /* Giới hạn tối đa */
+    height: 90vh;             /* Chiều cao động */
+    max-height: 100vh;
+    padding-top: 55px;
+    margin: auto;
+    top: 5%;                 /* Căn giữa màn hình */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0 !important;
+    overflow-y: auto;        /* Cuộn khi cần */
+}
+.canvas-search {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px) translateX(-50%);
+    transition: all 0.4s ease;
+}
 
+.canvas-search.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateX(-50%);
+}
+.tf-search-head .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tf-search-content {
+    padding: 20px;
+}
+
+.tf-loop-item {
+    margin-bottom: 20px;
+}
+
+.tf-quicklink-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.tf-search-suggestions {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none; /* Ẩn mặc định */
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+/* Phần gợi ý chung */
+.tf-search-suggestions {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none; /* Ẩn mặc định */
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px;
+}
 
 </style>
 <!-- Header -->
@@ -265,13 +334,13 @@
                 </div>
             </div>
             <div class="tf-search-sticky">
-                <form class="tf-mini-search-frm">
+                <form class="tf-mini-search-frm" id="searchForm">
                     <fieldset class="text">
-                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
-                               aria-required="true" required="">
+                        <input type="text" placeholder="Search" name="text" id="searchInput" required>
                     </fieldset>
-                    <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
+                <!-- Kết quả gợi ý -->
+                <div id="searchSuggestions" class="tf-search-suggestions"></div>
             </div>
         </header>
         <div class="canvas-body p-0">
@@ -279,64 +348,14 @@
                 <div class="tf-cart-hide-has-results">
                     <div class="tf-col-quicklink">
                         <div class="tf-search-content-title fw-5">Quick link</div>
-                        <ul class="tf-quicklink-list">
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Fashion</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Men</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Women</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Accessories</a>
-                            </li>
+                        <ul class="tf-quicklink-list" id="quick-link">
+                            <!-- Danh sách danh mục sẽ được thêm vào đây -->
                         </ul>
                     </div>
                     <div class="tf-col-content">
                         <div class="tf-search-content-title fw-5">Need some inspiration?</div>
-                        <div class="tf-search-hidden-inner">
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-3.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Cotton jersey top</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="compare-at-price">$10.00</div>
-                                        <div class="price-on-sale fw-6">$8.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Mini crossbody bag</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="price fw-6">$18.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-1.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Oversized Printed T-shirt</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="price fw-6">$18.00</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="tf-search-hidden-inner" id="product-suggestions" >
+                            <!-- Các sản phẩm gợi ý sẽ được chèn vào đây -->
                         </div>
                     </div>
                 </div>
@@ -477,10 +496,14 @@
             method: 'GET',
             dataType: 'json',
             success: function (categories) {
-                console.log('Categories:', categories);
                 // Hiển thị danh sách danh mục
                 categories.forEach(function (category) {
                     $('#category-list').append(' <li class="category-item" data-category-id="' + category.id + '" data-category-slug="' + category.slug + '">' + '<a href="/products/' + category.slug + '">' + category.name + '</a> </li>');
+                });
+                categories.forEach(function (category) {
+                    $('#quick-link').append('<li class="tf-quicklink-item" data-category-id="' + category.id + '" data-category-slug="' + category.slug + '" style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">' +
+                        '<a href="/products/' + category.slug + '">' + category.name + '</a>' +
+                        '</li>');
                 });
             },
             error: function (xhr, status, error) {
@@ -488,104 +511,50 @@
             }
         });
     });
+    $(document).ready(function() {
+        // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
+        $('#searchInput').on('input', function() {
+            var query = $(this).val(); // Lấy giá trị của ô tìm kiếm
 
-        // Xử lý sự kiện khi người dùng click vào danh mục chính
-        // $(document).on('mouseenter', '.category-item', function () {
-        //     var categoryId = $(this).data("category-id");  // Lấy ID của danh mục chính
-        //     var categoryContent = '';  // Biến chứa nội dung HTML của danh mục con
-        //     var categoryName = $(this).data("category-slug");  // Giả sử bạn có data-category-name trong HTML của danh mục chính
-        //
-        //     // Kiểm tra xem phần tử đã được tải danh mục con chưa
-        //     if (!$(this).hasClass('loaded')) {
-        //         // Đánh dấu phần tử đã được xử lý
-        //         $('.category-item').removeClass('loaded'); // Xóa trạng thái "loaded" của tất cả các danh mục
-        //         $(this).addClass('loaded'); // Đánh dấu phần tử này đã được xử lý
-        //
-        //         // Ẩn tất cả nội dung cũ
-        //         $('.menu-content').removeClass('active').addClass('hidden');
-        //
-        //         // Tải các danh mục con của danh mục chính
-        //         $.ajax({
-        //             url: '/api/categories/' + categoryId + '/subcategories',
-        //             method: 'GET',
-        //             success: function (subcategories) {
-        //                 // Xây dựng nội dung cho danh mục chính
-        //                 categoryContent = '<div class="menu-content" id="category-' + categoryId + '">';
-        //                 categoryContent += '<div class="menu-row">'; // Dòng chứa các danh mục con
-        //
-        //                 subcategories.forEach(function (subcategory) {
-        //                     // Tạo một div cho mỗi menu-column (danh mục con)
-        //                     var subcategoryContent = '<div class="menu-column">';
-        //                     subcategoryContent += '<h4>' + subcategory.name + '</h4>';
-        //
-        //                     // Tải các giá trị thuộc tính của danh mục con
-        //                     $.ajax({
-        //                         url: '/api/subcategories/' + subcategory.id + '/subcategory-values',
-        //                         method: 'GET',
-        //                         dataType: 'json',
-        //                         success: function (subcategoryValue) {
-        //                             var subcategoryValueContent = '<ul>';
-        //                             subcategoryValue.forEach(function (value) {
-        //                                 // Tạo URL theo cấu trúc /danh-muc/slug
-        //                                 var subcategorySlug = value.slug;  // Giả sử mỗi value có slug
-        //                                 var categorySlug = categoryName;
-        //
-        //                                 // Tạo đường dẫn mới với danh mục và slug
-        //                                 var link = '/' + categorySlug + '/' + subcategorySlug;
-        //
-        //                                 subcategoryValueContent += '<li><a href="/products' + link + '">' + value.value + '</a></li>';
-        //                             });
-        //                             subcategoryValueContent += '</ul>';
-        //
-        //                             // Thêm giá trị thuộc tính vào nội dung của danh mục con
-        //                             subcategoryContent += subcategoryValueContent;
-        //                             subcategoryContent += '</div>'; // Đóng div của menu-column
-        //
-        //                             // Thêm nội dung của danh mục con vào danh mục chính
-        //                             categoryContent += subcategoryContent;
-        //
-        //                             // Khi tất cả dữ liệu đã được tải và xử lý xong, cập nhật giao diện
-        //                             $('#category-content').html(categoryContent).removeClass('hidden').addClass('active');
-        //                         },
-        //                         error: function (xhr, status, error) {
-        //                             console.log("Error fetching attribute values:", status, error);
-        //                         }
-        //                     });
-        //                 });
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.log("Error fetching subcategories:", status, error);
-        //             }
-        //         });
-        //     }
-        // });
+            if (query.length >= 2) {
+                // Gọi API tìm kiếm gợi ý sản phẩm
+                $.ajax({
+                    url: '/api/products', // Địa chỉ API tìm kiếm
+                    method: 'GET',
+                    data: { query: query },
+                    success: function(data) {
+                        var suggestions = '';
+                        if (data.length > 0) {
+                            // Hiển thị sản phẩm gợi ý
+                            var limitedProducts = data.slice(0, 3);
+                            limitedProducts.forEach(function(product) {
+                                suggestions += '<div class="tf-loop-item">';
+                                suggestions += '<div class="image">';
+                                suggestions += '<a href="/products/' + product.id + '">';
+                                suggestions += '<img src="' + product.imageUrl + '" alt="' + product.name + '">';
+                                suggestions += '</a></div>';
+                                suggestions += '<div class="content">';
+                                suggestions += '<a href="/products/' + product.id + '">' + product.name + '</a>';
+                                suggestions += '<div class="tf-product-info-price">';
+                                suggestions += '<div class="price fw-6">$' + product.price + '</div>';
+                                suggestions += '</div></div></div>';
+                            });
+                        } else {
+                            suggestions = '<div>No products found</div>';
+                        }
 
+                        // Cập nhật các sản phẩm gợi ý vào phần tử #product-suggestions
+                        $('#product-suggestions').html(suggestions);
+                    },
+                });
+            } else {
+                // Xóa kết quả gợi ý nếu chuỗi tìm kiếm quá ngắn
+                $('#product-suggestions').empty();
+            }
+        });
 
-    // Hiển thị danh mục khi người dùng nhấn vào
-    //         $(document).on('mouseenter', '.category-item', function () {
-    //             var categoryId = $(this).data("category-id");  // Lấy ID của danh mục
-    //             var categoryContentId = '#category-' + categoryId;
-    //
-    //             // Ẩn tất cả các nội dung cũ
-    //             $('.menu-content').removeClass('active');
-    //             $(categoryContentId).addClass('active'); // Hiển thị danh mục tương ứng
-    //         });
-
-
-</script>
-
-<!-- /modal login -->
-
-<script>document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('inp$earch');
-    const closeButton = document.getElementById('btn-close-search');
-    const searchAutocomplete = document.getElementById('search_autocomplete');
-    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)
-    document.querySelector('.search-form').addEventListener('submit', function (event) {
-        if (searchInput.value.trim() === '') {
-            event.preventDefault();
-        }
     });
-});
+
 </script>
+
 

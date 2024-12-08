@@ -1,4 +1,4 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
