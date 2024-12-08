@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IProductService {
@@ -41,5 +42,11 @@ public interface IProductService {
     com.javaweb.model.ProductDTO convertToModel(ProductEntity entity);
 
     List<ProductEntity> findAllByCategoryEntity_IdAndIsActive(Long categoryId, Boolean isActive);
+
+    Page<ProductEntity> searchProducts(Map<String, String> params, Pageable page);
+
+    Page<ProductEntity> filterProductsByCategoryAndValue(Long id, Map<String, String> params, Pageable page);
+
+    long findMinMaxPriceByCategory(Long categoryId);
 }
 

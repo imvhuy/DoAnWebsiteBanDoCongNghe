@@ -63,10 +63,10 @@ public class ProductEntity extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "product_sub_category_value",  // Tên bảng nối
+            name = "product_sub_cat_value",  // Tên bảng nối
             joinColumns = @JoinColumn(name = "product_id"),  // Cột khóa ngoại cho Product
             inverseJoinColumns = @JoinColumn(name = "sub_cat_value_id")  // Cột khóa ngoại cho SubCategoryValue
     )
-    private Set<SubcategoryValueEntity> subCategoryValues;
+    private List<SubcategoryValueEntity> subCategoryValues;
 
 }

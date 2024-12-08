@@ -37,6 +37,7 @@ public class SubcategoryValueEntity extends BaseEntity{
     @JoinColumn(name = "cart_item_id")
     private CartItemEntity cartItem;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "subCategoryValues")
     private Set<ProductEntity> products;
 

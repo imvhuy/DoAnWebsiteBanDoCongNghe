@@ -1,11 +1,13 @@
 package com.javaweb.controller.api;
 
-import com.javaweb.dto.FilterRequest;
 import com.javaweb.entity.ProductEntity;
 import com.javaweb.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,10 @@ public class ProductAPIController {
     private IProductService productService;
 
     @PostMapping("/filter")
-    public ResponseEntity<List<ProductEntity>> filterProducts(@RequestParam Map<String, List<String>> subcategoryMap) {
+    public ResponseEntity<List<ProductEntity>> filterProducts(@RequestBody Map<String, List<String>> subcategoryMap) {
         // Giả sử bạn có một phương thức trong service để lọc sản phẩm theo danh sách các categoryValues
 //        List<ProductEntity> filteredProducts = productService.filterProductsByCategoryValues(filterRequest.getCategoryValues());
+
 
         return ResponseEntity.ok(new ArrayList<ProductEntity>());
     }

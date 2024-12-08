@@ -2,20 +2,20 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
+import com.javaweb.entity.SubcategoryValueEntity;
 import com.javaweb.repository.IGalleryRepository;
 import com.javaweb.repository.IProductRepository;
+import com.javaweb.repository.ISubcategoryValueRepository;
 import com.javaweb.service.IProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -24,6 +24,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private IGalleryRepository IGalleryRepository;
+
+    @Autowired
+    private ISubcategoryValueRepository subcategoryValueRepository;
 
     public List<GalleryEntity> getGalleryByProductId(Long productId) {
         return IGalleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
@@ -144,4 +147,100 @@ public class ProductServiceImpl implements IProductService {
     public List<ProductEntity> findAllByCategoryEntity_IdAndIsActive(Long categoryId, Boolean isActive) {
         return productRepository.findAllByCategoryEntity_IdAndIsActive(categoryId, isActive);
     }
-}
+
+    @Override
+    public Page<ProductEntity> searchProducts(Map<String, String> params, Pageable page) {
+        List<SubcategoryValueEntity> subcategoryValueEntities = new ArrayList<>();
+        params.forEach((key, value) -> {
+            if (value != null && !value.isEmpty()) {
+                SubcategoryValueEntity tmp = subcategoryValueRepository.findBySlug(value);
+                subcategoryValueEntities.add(tmp);
+            }
+        });
+        Page<ProductEntity> result = productRepository.findBySubCategoryValues(subcategoryValueEntities, page);
+        return result;
+    }
+
+    @Override
+    public Page<ProductEntity> filterProductsByCategoryAndValue(Long id, Map<String, String> params, Pageable page) {
+            Set<ProductEntity> result = new HashSet<>();
+            List<Set<ProductEntity>> productSets = new ArrayList<>();
+
+            // Biến lưu trữ khoảng giá
+            Long minPrice = null;
+            Long maxPrice = null;
+            String available = "";
+            // Duyệt qua tất cả các parameter
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+
+                if (value != null && !value.isEmpty()) {
+                    switch (key) {
+                        case "minPrice":
+                            minPrice = Long.parseLong(value);
+                            break;
+                        case "maxPrice":
+                            maxPrice = Long.parseLong(value);
+                            break;
+                        case "availability":
+                            available = value;
+                        default:
+                            // Tìm SubcategoryValueEntity dựa trên giá trị của parameter
+                            SubcategoryValueEntity tmp = subcategoryValueRepository.findBySlug(value);
+                            if (tmp != null) {
+                                productSets.add(new HashSet<>(tmp.getProducts()));
+                            }
+                            break;
+                    }
+                }
+            }
+
+            // Nếu có ít nhất một danh sách sản phẩm, lấy giao giữa các danh sách
+            if (!productSets.isEmpty()) {
+                result.addAll(productSets.get(0));
+                for (int i = 1; i < productSets.size(); i++) {
+                    result.retainAll(productSets.get(i));
+                }
+            }
+            else {
+                productSets.add(new HashSet<>(productRepository.findAll()));
+                result.addAll(productSets.get(0));
+            }
+
+            // Lọc sản phẩm theo khoảng giá nếu có
+            if (minPrice != null || maxPrice != null) {
+                Long finalMinPrice = minPrice;
+                Long finalMaxPrice = maxPrice;
+                result.removeIf(product -> {
+                    Long price = product.getPrice();
+                    return (finalMinPrice != null && price < finalMinPrice) || (finalMaxPrice != null && price > finalMaxPrice);
+                });
+            }
+            if (available.contains("san-hang")) {
+                result.removeIf(ProductEntity::getIsSelling);
+            }
+            else {
+                result.removeIf(ProductEntity -> !ProductEntity.getIsSelling());
+            }
+
+            // Chuyển Set sang List
+            List<ProductEntity> resultList = new ArrayList<>(result);
+
+            // Tính toán thông tin phân trang
+            int start = (int) page.getOffset();
+            int end = Math.min(start + page.getPageSize(), resultList.size());
+
+            // Kiểm tra nếu không có sản phẩm trong trang yêu cầu
+            if (start > resultList.size()) {
+                return new PageImpl<>(Collections.emptyList(), page, resultList.size());
+            }
+
+            // Tạo Page từ danh sách đã phân trang
+            return new PageImpl<>(resultList.subList(start, end), page, resultList.size());
+        }
+        @Override
+        public long findMinMaxPriceByCategory(Long categoryId) {
+            return productRepository.findMinMaxPriceByCategory(categoryId);
+        }
+    }

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- page-title -->
@@ -14,213 +15,178 @@
 </div>
 <!-- /page-title -->
 <style>
-    /*.tf-shop-control {*/
-    /*    display: flex;*/
-    /*    flex-wrap: wrap;*/
-    /*    justify-content: flex-start;*/
-    /*    align-items: center;*/
-    /*    margin-bottom: 20px;*/
-    /*}*/
-    /*@media (min-width: 1150px) {*/
-    /*    .tf-dropdown-sort {*/
-    /*        padding: 10px 18px;*/
-    /*        min-width: 100px;*/
-    /*    }*/
-    /*}*/
+
+    .price-filter-box h3 {
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .price-values {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #333;
+    }
 
 </style>
-<section class="flat-spacing-1">
+<section class="flat-spacing-2">
     <div class="container">
-            <div class="tf-control-sorting d-flex justify-content-end">
-                <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
+        <form action="${pageContext.request.contextPath}/products/${categoryslug}" method="get" id="facet-filter-form">
+            <div class="tf-shop-control grid-4 align-items-center">
+                <div class="tf-dropdown-sort">
                     <div class="btn-select">
-                        <span class="text-sort-value">Featured</span>
+                        <span class="text-sort-value" id="availability-selected">Select Availability</span>
                         <span class="icon icon-arrow-down"></span>
                     </div>
                     <div class="dropdown-menu">
-                        <div class="select-item active">
-                            <span class="text-value-item">Featured</span>
+                        <div class="select-item" onclick="selectFilter('availability', 'san-hang', 'Sẵn hàng')">
+                            <span class="text-value-item">Sẵn hàng</span>
                         </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Best selling</span>
+                        <div class="select-item" onclick="selectFilter('availability', 'het-hang', 'Hết hàng')">
+                            <span class="text-value-item">Hết hàng</span>
                         </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Alphabetically, A-Z</span>
+                    </div>
+                    <!-- Hidden input để giữ giá trị được chọn -->
+                    <input type="hidden" name="availability" id="availability-input">
+                </div>
+
+                <!-- Price Range Filter -->
+                <div class="price-filter-box tf-dropdown-sort">
+                    <div class="btn-select">
+                        <span class="text-sort-value" id="price-selected">Chọn giá</span>
+                        <span class="icon icon-arrow-down"></span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <h3>Chọn khoảng giá</h3>
+
+                        <!-- Thanh trượt giá -->
+                        <input type="range" id="priceRange" min="0" max="${maxPrice}" step="1" value="${maxPrice}">
+
+                        <!-- Hiển thị giá trị đã chọn -->
+                        <div class="price-values">
+                            <span id="minPrice">0 VNĐ</span> -
+                            <span id="maxPrice">${maxPrice} VNĐ</span>
                         </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Alphabetically, Z-A</span>
-                        </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Price, low to high</span>
-                        </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Price, high to low</span>
-                        </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Date, old to new</span>
-                        </div>
-                        <div class="select-item">
-                            <span class="text-value-item">Date, new to old</span>
-                        </div>
+
+                        <!-- Input ẩn để truyền dữ liệu về controller -->
+                        <input type="hidden" name="minPrice" id="minPrice-input">
+                        <input type="hidden" name="maxPrice" id="maxPrice-input">
                     </div>
                 </div>
-            </div>
-        <div class="tf-row-flex">
-            <div class="tf-shop-sidebar wrap-sidebar-mobile">
 
-                <form action="#" id="facet-filter-form" class="facet-filter-form">
 
-                    <!-- Availability Widget -->
-                    <div class="widget-facet">
-                        <div class="facet-title" data-bs-target="#availability" data-bs-toggle="collapse"
-                             aria-expanded="true" aria-controls="availability">
-                            <span>Availability</span>
-                            <span class="icon icon-arrow-up"></span>
-                        </div>
-                        <div id="availability" class="collapse show">
-                            <ul class="tf-filter-group current-scrollbar mb_36">
-                                <li class="list-item d-flex gap-12 align-items-center">
-                                    <input type="radio" name="availability" class="tf-check" id="availability-1">
-                                    <label for="availability-1" class="label"><span>In stock</span>&nbsp;<span>(14)</span></label>
-                                </li>
-                                <li class="list-item d-flex gap-12 align-items-center">
-                                    <input type="radio" name="availability" class="tf-check" id="availability-2">
-                                    <label for="availability-2" class="label"><span>Out of stock</span>&nbsp;<span>(2)</span></label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <!-- Price Widget -->
-                    <div class="widget-facet wrap-price">
-                        <div class="facet-title" data-bs-target="#price" data-bs-toggle="collapse" aria-expanded="true"
-                             aria-controls="price">
-                            <span>Price</span>
-                            <span class="icon icon-arrow-up"></span>
+                <!-- Filter dropdown for each subcategory -->
+                <c:forEach var="subcategory" items="${subcategories}">
+                    <div class="tf-dropdown-sort">
+                        <div class="btn-select">
+                            <span class="text-sort-value" id="${subcategory.slug}-selected">Select ${subcategory.name}</span>
+                            <span class="icon icon-arrow-down"></span>
                         </div>
-                        <div id="price" class="collapse show">
-                            <div class="widget-price filter-price">
-                                <div class="tow-bar-block">
-                                    <div class="progress-price"></div>
+                        <div class="dropdown-menu">
+                            <c:forEach var="subcategoryValue" items="${subcategory.subcategoryValue}">
+                                <div class="select-item" onclick="selectFilter('${subcategory.slug}', '${subcategoryValue.slug}', '${subcategoryValue.value}')">
+                                    <span class="text-value-item">${subcategoryValue.value}</span>
                                 </div>
-                                <div class="range-input">
-                                    <input class="range-min" type="range" min="0" max="300" value="0"/>
-                                    <input class="range-max" type="range" min="0" max="300" value="300"/>
-                                </div>
-                                <div class="box-title-price">
-                                    <span class="title-price">Price :</span>
-                                    <div class="caption-price">
-                                        <div>
-                                            <span>$</span>
-                                            <span class="min-price">0</span>
-                                        </div>
-                                        <span>-</span>
-                                        <div>
-                                            <span>$</span>
-                                            <span class="max-price">300</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Subcategory Widgets -->
-                    <c:forEach var="subcategory" items="${subcategories}">
-                        <div class="widget-facet">
-                            <div class="facet-title" data-bs-target="#${subcategory.id}" data-bs-toggle="collapse"
-                                 aria-expanded="true" aria-controls="${subcategory.id}">
-                                <span>${subcategory.name}</span>
-                                <span class="icon icon-arrow-up"></span>
-                            </div>
-                            <div id="${subcategory.id}" class="collapse show">
-                                <ul class="tf-filter-group current-scrollbar mb_36">
-                                    <c:forEach var="subcategoryValue" items="${subcategory.subcategoryValue}">
-                                        <li class="list-item d-flex gap-12 align-items-center">
-                                            <input type="checkbox" name="${subcategory.slug}" class="tf-check" id="${subcategoryValue.id}">
-                                            <label for="${subcategoryValue.id}" class="label">
-                                                <span id="subCategoryValue">${subcategoryValue.value}</span>&nbsp;
-                                            </label>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </form>
-            </div>
-            <div class="tf-shop-content wrapper-control-shop">
-                <div class="meta-filter-shop"></div>
-                <div class="grid-layout wrapper-shop" data-grid="grid-4">
-                    <!-- Lặp qua danh sách sản phẩm -->
-                    <c:forEach var="product" items="${productPages.content}">
-                        <div class="card-product" data-price="${product.price}">
-                            <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    <img class="lazyload img-product" src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg" alt="image-product">
-                                    <img class="lazyload img-hover" src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg" alt="image-product">
-                                </a>
-                                <div class="list-product-btn absolute-2">
-                                    <a href="#quick_add" data-bs-toggle="modal"
-                                       class="box-icon bg_white quick-add tf-btn-loading">
-                                        <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Quick Add</span>
-                                    </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                       class="box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <a href="#quick_view" data-bs-toggle="modal"
-                                       class="box-icon bg_white quickview tf-btn-loading">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-product-info">
-                                <a href="product-detail.html" class="title link">${product.name}</a>
-                                <span class="price">${product.price}</span>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <!-- pagination -->
-                <ul class="tf-pagination-wrap tf-pagination-list tf-pagination-btn">
-                    <c:if test="${productPages.totalPages > 0}">
-                        <ul class="wg-pagination">
-                            <!-- Page Numbers -->
-                            <c:forEach var="pageNumber" items="${pageNumbers}">
-                                <li class="pagination-link animate-hover-btn <c:if test='${pageNumber == productPages.number + 1}'>active</c:if>">
-                                    <a href="<c:url value='/products'>
-                                <c:param name='name' value='${name}'/>
-                                <c:param name='page' value='${pageNumber}'/>
-                            </c:url>" style="width: 40px;height: 30px;text-align: center;">${pageNumber}</a>
-                                </li>
                             </c:forEach>
+                        </div>
+                        <!-- Hidden input to hold the selected value -->
+                        <input type="hidden" name="${subcategory.slug}" id="${subcategory.slug}-input">
+                    </div>
+                </c:forEach>
 
-                            <!-- Next Page Link -->
-                            <li class="pagination-link">
-                                <a href="<c:url value='/products'>
-                            <c:param name='name' value='${name}'/>
-                            <c:param name='page' value='${productPages.number + 2 <= productPages.totalPages ? productPages.number + 2 : productPages.totalPages}'/>
-                        </c:url>" style="width: 40px;height: 30px;text-align: center;">
-                                    <i class="icon icon-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </c:if>
-                </ul>
-
+                <!-- Submit Button for applying filters -->
+                <div class="tf-control-sorting d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                </div>
             </div>
+        </form>
         </div>
-    </div>
+        <div class="wrapper-control-shop">
+            <div class="meta-filter-shop"></div>
+            <div class="grid-layout wrapper-shop" data-grid="grid-4">
+                <c:forEach var="product" items="${productPages.content}">
+                    <div class="card-product" data-price="${product.price}">
+                        <div class="card-product-wrapper">
+                            <a href="product-detail.html" class="product-img">
+                                <img class="lazyload img-product"
+                                     src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg"
+                                     alt="image-product">
+                                <img class="lazyload img-hover"
+                                     src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg"
+                                     alt="image-product">
+                            </a>
+                            <div class="list-product-btn absolute-2">
+                                <a href="#quick_add" data-bs-toggle="modal"
+                                   class="box-icon bg_white quick-add tf-btn-loading">
+                                    <span class="icon icon-bag"></span>
+                                    <span class="tooltip">Quick Add</span>
+                                </a>
+                                <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
+                                    <span class="icon icon-heart"></span>
+                                    <span class="tooltip">Add to Wishlist</span>
+                                    <span class="icon icon-delete"></span>
+                                </a>
+                                <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
+                                   class="box-icon bg_white compare btn-icon-action">
+                                    <span class="icon icon-compare"></span>
+                                    <span class="tooltip">Add to Compare</span>
+                                    <span class="icon icon-check"></span>
+                                </a>
+                                <a href="#quick_view" data-bs-toggle="modal"
+                                   class="box-icon bg_white quickview tf-btn-loading">
+                                    <span class="icon icon-view"></span>
+                                    <span class="tooltip">Quick View</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-product-info">
+                            <a href="product-detail.html" class="title link">${product.name}</a>
+                            <span class="price">${product.price}</span>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <!-- pagination -->
+            <ul class="tf-pagination-wrap tf-pagination-list tf-pagination-btn">
+                <c:if test="${productPages.totalPages > 0}">
+                    <ul class="wg-pagination">
+                        <!-- Page Numbers -->
+                        <c:forEach var="pageNumber" items="${pageNumbers}">
+                            <li class="pagination-link animate-hover-btn <c:if test='${pageNumber == productPages.number + 1}'>active</c:if>">
+                                <a href="<c:url value='/products/${category.slug}'>
+                                <c:param name='page' value='${pageNumber}'/>
+                                <c:forEach var="key" items="${params}">
+                                    <c:param name="${key.key}" value="${key.value}" />
+                                </c:forEach>
+                             </c:url>"
+                                   style="width: 40px;height: 30px;text-align: center;">${pageNumber}</a>
+                            </li>
+                        </c:forEach>
+
+                        <!-- Next Page Link -->
+                        <li class="pagination-link">
+                            <a href="<c:url value='/products/${category.slug}'>
+                            <c:param name='page' value='${productPages.number + 2 <= productPages.totalPages ? productPages.number + 2 : productPages.totalPages}'/>
+                            <c:forEach var="key" items="${params}">
+                                <c:param name="${key.key}" value="${key.value}" />
+                            </c:forEach>
+                         </c:url>"
+                               style="width: 40px;height: 30px;text-align: center;">
+                                <i class="icon icon-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </c:if>
+            </ul>
+
+        </div>
 </section>
 
 <script type="text/javascript" src="/web/js/jquery.min.js"></script>
@@ -245,37 +211,49 @@
         // Cập nhật giá trị hiển thị trong dropdown
         dropdown.querySelector('.text-sort-value').textContent = value;
     }
-    document.querySelectorAll('.tf-check').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            // Lấy tất cả các giá trị của các checkbox đã chọn
-            let subcategoryMap = {};
 
-            document.querySelectorAll('.tf-check:checked').forEach(function (checkedCheckbox) {
-                let subcategoryId = checkedCheckbox.name; // subcategoryId là name của checkbox
-                let selectedValue = checkedCheckbox.nextElementSibling.querySelector('span').textContent; // Lấy giá trị từ <span>
+    function selectFilter(filterName, filterValue, filterText) {
+        // Cập nhật giá trị được chọn hiển thị trong dropdown
+        document.getElementById(filterName + '-selected').innerText = filterText;
 
-                // Nếu subcategoryId đã có trong map, thêm selectedValue vào mảng
-                if (!subcategoryMap[subcategoryId]) {
-                    subcategoryMap[subcategoryId] = [];
-                }
-                subcategoryMap[subcategoryId].push(selectedValue);
-            });
+        // Cập nhật giá trị vào input ẩn
+        document.getElementById(filterName + '-input').value = filterValue;
+    }
+    document.getElementById('facet-filter-form').addEventListener('submit', function (e) {
+        const inputs = this.querySelectorAll('input[type="hidden"]');
 
-            // Tạo query string từ đối tượng subcategoryMap
-            let params = [];
-            for (let key in subcategoryMap) {
-                // Mỗi key là subcategoryId, giá trị là một danh sách các selectedValues
-                subcategoryMap[key].forEach(function(value) {
-                    params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-                });
+        inputs.forEach(input => {
+            if (!input.value || input.value.trim() === '') {
+                input.removeAttribute('name'); // Loại bỏ name để không gửi tham số
             }
-
-            // Tạo URL với các tham số query
-            let url = '/products?'+ params.join('&');
-
-            // Gửi yêu cầu GET đến server
-            window.location.href = url; // Chuyển hướng đến URL với query string
         });
     });
+
+    // Cập nhật giá trị khi thay đổi thanh trượt
+    const priceRange = document.getElementById("priceRange");
+    const minPriceDisplay = document.getElementById("minPrice");
+    const maxPriceDisplay = document.getElementById("maxPrice");
+    const minPriceInput = document.getElementById("minPrice-input");
+    const maxPriceInput = document.getElementById("maxPrice-input");
+
+    priceRange.addEventListener("input", function () {
+        const value = priceRange.value;
+
+        // Cập nhật giá trị hiển thị
+        minPriceDisplay.textContent = formatPrice(0);
+        maxPriceDisplay.textContent = formatPrice(value);
+
+        // Cập nhật input ẩn
+        minPriceInput.value = 0;
+        maxPriceInput.value = value;
+
+        // Cập nhật giá trị hiển thị trong dropdown
+        document.getElementById('price-selected').textContent = '0 - ' + value + ' VND';
+    });
+
+    // Hàm định dạng tiền tệ
+    function formatPrice(price) {
+        return price.toLocaleString('vi-VN') + ' VNĐ';
+    }
 
 </script>
