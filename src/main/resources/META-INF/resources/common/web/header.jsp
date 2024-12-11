@@ -334,13 +334,12 @@
                 </div>
             </div>
             <div class="tf-search-sticky">
-                <form class="tf-mini-search-frm" id="searchForm">
+                <form action="${pageContext.request.contextPath}/products" class="tf-mini-search-frm" id="searchForm">
                     <fieldset class="text">
                         <input type="text" placeholder="Search" name="text" id="searchInput" required>
                     </fieldset>
+                    <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
-                <!-- Kết quả gợi ý -->
-                <div id="searchSuggestions" class="tf-search-suggestions"></div>
             </div>
         </header>
         <div class="canvas-body p-0">

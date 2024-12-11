@@ -62,7 +62,7 @@
                         <span class="text-sort-value" id="price-selected">Chọn giá</span>
                         <span class="icon icon-arrow-down"></span>
                     </div>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" style="padding-left: 10px;padding-right: 10px;">
                         <h3>Chọn khoảng giá</h3>
 
                         <!-- Thanh trượt giá -->
@@ -248,12 +248,14 @@
         maxPriceInput.value = value;
 
         // Cập nhật giá trị hiển thị trong dropdown
-        document.getElementById('price-selected').textContent = '0 - ' + value + ' VND';
+        document.getElementById('price-selected').textContent = '0 - ' + formatPrice(value);
     });
 
-    // Hàm định dạng tiền tệ
     function formatPrice(price) {
-        return price.toLocaleString('vi-VN') + ' VNĐ';
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0
+        }).format(price);
     }
-
 </script>

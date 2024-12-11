@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -51,10 +52,19 @@ public class ProductController {
         Page<ProductEntity> resultPage = null;
         CategoryEntity category = categoryService.findCategoryEntityBySlug(categorySlug, false);
         // Lấy giá trị giá thấp nhất và cao nhất của sản phẩm theo danh mục (nếu có)
-        long minMaxPrice = productService.findMinMaxPriceByCategory(category.getId());
-        long maxPrice = minMaxPrice;
+        long maxPrice = 0;
+        try {
+            long minMaxPrice = productService.findMinMaxPriceByCategory(category.getId());
+            maxPrice = minMaxPrice;
+            model.addAttribute("maxPrice", maxPrice);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (maxPrice == 0) {
+            model.addAttribute("maxPrice", 50000000);
+        }
         model.addAttribute("params", filters);
-        model.addAttribute("maxPrice", maxPrice);
+
         model.addAttribute("category", category);
         if (!filters.isEmpty()) {
             resultPage = productService.filterProductsByCategoryAndValue(category.getId(), filters, pageable);
@@ -109,7 +119,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ModelAndView getAllProduct(@RequestParam(name = "name", required = false) String name,
+    public ModelAndView getAllProduct(@RequestParam(name = "text", required = false) String name,
                                       @RequestParam("page") Optional<Integer> page, Model model) {
         int count = (int) productService.count();
         int currentPage = page.orElse(1);
@@ -133,7 +143,11 @@ public class ProductController {
             List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+        ProductEntity productEntity = new ProductEntity();
+        productEntity = resultPage.getContent().get(0);
+        List<SubcategoryEntity> subcategoryEntities = subcategoryService.getSubcategoryByCategoryId(productEntity.getCategoryEntity().getId());
+        model.addAttribute("subcategories", subcategoryEntities);
         model.addAttribute("productPages", resultPage);
-        return new ModelAndView("redirect:/products/filter");
+        return new ModelAndView("/web/product/list");
     }
 }
