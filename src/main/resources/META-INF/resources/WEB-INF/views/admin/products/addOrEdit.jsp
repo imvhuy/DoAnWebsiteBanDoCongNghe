@@ -141,6 +141,33 @@
         height: auto;  /* Duy trì tỷ lệ ảnh */
         margin-top: 10px;
     }
+    .cols-lg {
+        display: flex;
+        gap: 22px; /* Khoảng cách giữa các field */
+        flex-wrap: wrap; /* Đảm bảo responsive nếu cần */
+        width: 100%
+    }
+
+    fieldset {
+        flex: 1; /* Mỗi field chiếm đều không gian */
+        min-width: 200px; /* Đảm bảo kích thước tối thiểu */
+    }
+
+    .body-title {
+        font-weight: bold;
+        margin-bottom: 5px; /* Khoảng cách giữa tiêu đề và input */
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+    form:input {
+        width: 100%; /* Chiều rộng của input */
+        padding: 10px; /* Tạo khoảng cách bên trong */
+        border: 1px solid #ccc; /* Đường viền */
+        border-radius: 5px; /* Góc bo tròn */
+    }
 
 
 
@@ -1015,19 +1042,23 @@
                                                     value="${product.promotionalPrice}" aria-required="true"
                                                     required="true"/>
                                     </fieldset>
-                                    <fieldset class="sold">
-                                        <div class="body-title">Total Sold</div>
-                                        <form:input path="totalSold" class="body-title mb-10" type="number"
-                                                    placeholder="Sold"
-                                                    value="${product.totalSold}"
-                                                    readonly="true"/>
-                                    </fieldset>
-                                    <fieldset class="quantity">
-                                        <div class="body-title">Total Quantity</div>
-                                        <form:input path="totalQuantity" class="body-title mb-10" type="number"
-                                                    placeholder="Total Quantity" value="${product.totalQuantity}"
-                                                    readonly="true"/>
-                                    </fieldset>
+                                    <c:if test="${not empty product.id}">
+                                        <!-- Total Sold -->
+                                        <fieldset class="sold">
+                                            <div class="body-title">Total Sold</div>
+                                            <form:input path="totalSold" class="body-title mb-10" type="number"
+                                                        placeholder="Sold"
+                                                        value="${product.totalSold}"
+                                                        readonly="true"/>
+                                        </fieldset>
+                                        <!-- Total Quantity -->
+                                        <fieldset class="quantity">
+                                            <div class="body-title">Total Quantity</div>
+                                            <form:input path="totalQuantity" class="body-title mb-10" type="number"
+                                                        placeholder="Total Quantity" value="${product.totalQuantity}"
+                                                        readonly="true"/>
+                                        </fieldset>
+                                    </c:if>
                                 </div>
                                 <fieldset class="configuration">
                                     <div class="body-title">Configuration</div>

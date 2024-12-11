@@ -12,8 +12,37 @@ overflow: hidden; /* Ẩn nội dung vượt quá */
 white-space: nowrap; /* Không xuống dòng */
 text-overflow: ellipsis; /* Hiển thị dấu "..." nếu nội dung quá dài */
 display: block; /* Đảm bảo là block-level element */
+
+
 }
 
+html, body {
+    height: 100%;
+    overflow: auto; /* Cho phép cuộn toàn bộ trang */
+    overflow-x: hidden
+}
+
+.main-content, .main-content-wrap {
+    height: auto; /* Cho phép chiều cao tự động */
+    min-height: 100vh; /* Tối thiểu bằng chiều cao màn hình */
+    overflow-y: auto; /* Cho phép cuộn dọc */
+}
+
+#wrapper, #page, .layout-wrap {
+    height: auto; /* Chiều cao tự động */
+    overflow: visible; /* Hiển thị toàn bộ nội dung */
+}
+
+.main-content-inner {
+    position: relative; /* Tránh dùng fixed hoặc absolute */
+}
+
+.wg-box {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 </style>
 <!-- #wrapper -->
 <div id="wrapper">
