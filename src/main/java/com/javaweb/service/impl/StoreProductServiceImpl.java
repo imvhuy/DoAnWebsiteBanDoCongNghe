@@ -68,5 +68,8 @@ public class StoreProductServiceImpl implements IStoreProductService {
     public Long getTotalSoldByProductId(Long productId) {
         return storeProductRepository.getTotalSoldByProductId(productId);
     }
-
+    @Override
+    public void save(StoreProductEntity storeProduct) {
+        storeProductRepository.save(storeProduct);
+    }
 }

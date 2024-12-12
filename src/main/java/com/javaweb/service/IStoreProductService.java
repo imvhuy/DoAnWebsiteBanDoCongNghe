@@ -18,4 +18,6 @@ public interface IStoreProductService {
     Long getTotalQuantityByProductId(Long productId);
 
     Long getTotalSoldByProductId(Long productId);
+    
+    public void save(StoreProductEntity storeProduct);
 }

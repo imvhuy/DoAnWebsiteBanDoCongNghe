@@ -9,7 +9,7 @@
 		<!-- main-content-wrap -->
 		<div class="main-content-wrap">
 			<div class="flex items-center flex-wrap justify-between gap20 mb-30">
-				<h3>All Product in ${storeName} </h3>
+				<h3>All Product in ${storeName}</h3>
 
 				<ul
 					class="breadcrumbs flex items-center flex-wrap justify-start gap10">
@@ -52,6 +52,10 @@
 							</div>
 						</form>
 					</div>
+					<a class="tf-button style-1 w208"
+						href="<c:url value='/admin/stores/addProduct/${storeId}'/>"> <i
+						class="icon-plus"></i>Add New Product
+					</a>
 				</div>
 
 				<!-- Danh sách sản phẩm -->
@@ -69,21 +73,25 @@
 						<c:forEach var="StoreProduct" items="${StoreProducts}">
 							<li class="wg-product item-row">
 								<div class="name flex-grow">
-										<c:forEach var="gallery" items="${StoreProduct.product.galleryEntities}">
-											<c:if test="${gallery.type == 'front'}">
-												<img src="/admin/images/products/${gallery.image}"
-													alt="Left Image" class="image" style="max-width: 200px;" />
-											</c:if>
-										</c:forEach>
+									<c:forEach var="gallery"
+										items="${StoreProduct.product.galleryEntities}">
+										<c:if test="${gallery.type == 'front'}">
+											<img src="/admin/images/products/${gallery.image}"
+												alt="Left Image" class="image" style="max-width: 200px;" />
+										</c:if>
+									</c:forEach>
 									<div>
 										<div class="title">
-											<a href="/admin/stores/viewProduct/${StoreProduct.id}" class="body-title-2">${StoreProduct.product.name}</a>
+											<a
+												href="/admin/stores/viewProduct/${StoreProduct.product.id}"
+												class="body-title-2">${StoreProduct.product.name}</a>
 										</div>
 
 									</div>
 								</div>
 								<div class="body-text">
-									<fmt:formatNumber value="${StoreProduct.product.price}" pattern="#,###" />
+									<fmt:formatNumber value="${StoreProduct.product.price}"
+										pattern="#,###" />
 									VND
 								</div>
 								<div class="body-text">${StoreProduct.product.categoryEntity.name}</div>
