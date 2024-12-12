@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.javaweb.dto.ProductDetailDTO;
+import com.javaweb.dto.GalleryDTO;
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.dto.ReviewDTO;
 import com.javaweb.entity.*;
 import com.javaweb.repository.IReviewRepository;
@@ -48,49 +50,38 @@ public class ProductDetailController {
     	Optional<ProductEntity> opt = productService.findById(id);
         if (opt.isPresent()) {
             ProductEntity entity = opt.get();
-            ProductDetailDTO productDetailDTO = new ProductDetailDTO();
-            BeanUtils.copyProperties(entity, productDetailDTO);
+            ProductDTO productDTO = new ProductDTO();
+            BeanUtils.copyProperties(entity, productDTO);
 
             // Lấy tổng quantity từ bảng storeproduct
             Long totalQuantity = storeProductService.getTotalQuantityByProductId(id);
-            productDetailDTO.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
+            productDTO.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
 
             // Set category info
             if (entity.getCategoryEntity() != null) {
-                productDetailDTO.setCategoryId(entity.getCategoryEntity().getId());
-                productDetailDTO.setCategoryName(entity.getCategoryEntity().getName());
+            	productDTO.setCategoryId(entity.getCategoryEntity().getId());
+            	productDTO.setCategoryName(entity.getCategoryEntity().getName());
             }
-
-            // Lấy danh sách ảnh từ gallery theo product_id
+         // Lấy danh sách ảnh từ gallery theo product_id
             List<GalleryEntity> galleryList = productService.getGalleryByProductId(id);
             
-            // Map ảnh theo type
-            for (GalleryEntity gallery : galleryList) {
-                String type = gallery.getType();
-                String imageUrl = gallery.getImage(); // URL ảnh từ database
-                
-                // Set URL ảnh vào các trường tương ứng của productDetailDTO
-                switch (type.toLowerCase()) {
-                    case "right":
-                        productDetailDTO.setRightImage(imageUrl);
-                        break;
-                    case "left":
-                        productDetailDTO.setLeftImage(imageUrl);
-                        break;
-                    case "behind":
-                        productDetailDTO.setBehindImage(imageUrl);
-                        break;
-                    case "front":
-                        productDetailDTO.setFrontImage(imageUrl);
-                        break;
-                }
-            }
+           System.out.println("1111111111111111: " + galleryList.size());
+            // Chuyển đổi danh sách GalleryEntity thành GalleryDTO
+            List<GalleryDTO> galleryDTOList = galleryList.stream()
+                    .map(gallery -> new GalleryDTO(gallery.getImage(),gallery.getType() ))
+                    .collect(Collectors.toList());
+
+            // Set danh sách ảnh vào productDTO
+            productDTO.setGalleries(galleryDTOList);
+            System.out.println("222222222222222: " + productDTO.getGalleries().size());
             //xu ly product configuration
-            List<Map<String, String>> configList = convertToList(productDetailDTO.getConfiguration());
+            List<Map<String, String>> configList = convertToList(productDTO.getConfiguration());
             //lay tat ca reviews cua product
             List<ReviewDTO> reviews = reviewService.findReviewsByProductId(id);
             // lấy tổng số luongj reviews
             long totalReviews = reviewService.countTotalReviews();	
+            //lấy tổng số lượng sản phẩm
+            Long total = storeProductService.getTotalQuantityByProductId(id);
          // Lấy giá trị trung bình của rating
             Double averageRating = reviewService.calculateAverageRating(id);
             averageRating = Math.round(averageRating * 10.0) / 10.0;
@@ -114,8 +105,9 @@ public class ProductDetailController {
             sortedList.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey())); // Sắp xếp giảm dần
             ModelAndView mav = new ModelAndView("/web/product-detail");
             mav.addObject("configList", configList);
-            mav.addObject("product", productDetailDTO); 
+            mav.addObject("product", productDTO); 
             mav.addObject("reviews", reviews);
+            mav.addObject("total", total);
             mav.addObject("totalReviews", totalReviews);
             mav.addObject("averageRating", averageRating);
             mav.addObject("ratingMap", sortedList);
@@ -151,11 +143,9 @@ public class ProductDetailController {
     @PostMapping("/submit-reply")
     public String submitReply(@RequestParam("replyContent") String replyContent,
                               @RequestParam("parentId") Long parentId,@RequestParam("productId") Long productId) {
-    	System.out.println("currentUser 11111111111111111111111111111: ");
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();  
     	//lay userId
-        System.out.println("username1111111111111111 :" + username);
     	UserEntity  currentUser = userService.findByUserNameEntity(username);
     	ReviewEntity reviewParent = reviewService.findReviewEntityById(parentId);
     	ProductEntity product = productService.getProductById(productId);
@@ -167,7 +157,6 @@ public class ProductDetailController {
         reply.setUser(currentUser);
         reply.setProduct(product);
         reply.setCreatedDate(Date.valueOf(LocalDate.now()));
-        System.out.println("currentUser 22222222222222222222222: ");
         // Lưu câu trả lời vào cơ sở dữ liệu
         reviewService.saveReviewEntity(reply);
 

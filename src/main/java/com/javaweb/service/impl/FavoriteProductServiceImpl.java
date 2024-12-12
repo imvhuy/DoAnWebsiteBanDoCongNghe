@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.repository.*;
 import com.javaweb.service.IFavoriteProductService;
 import com.javaweb.entity.*;
@@ -19,7 +19,7 @@ public class FavoriteProductServiceImpl  implements IFavoriteProductService{
 	@Autowired
     private IProductRepository productRepository;
 	@Override
-	public List<ProductDTO> findFavoriteProductsByUser(Long userId){
+	public List<ProductDetailDTO> findFavoriteProductsByUser(Long userId){
 		return favoriteProductRepository.findFavoriteProductsByUser(userId);
 	}
 	

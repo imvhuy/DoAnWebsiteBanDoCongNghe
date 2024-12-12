@@ -142,87 +142,40 @@
 									<div class="swiper-wrapper stagger-wrap">
 										<!-- beige -->
 										<!-- front -->
-										<div class="swiper-slide stagger-item" data-color="beige">
-											<div class="item">
-												<img class="lazyload" data-src="${product.frontImage }"
-													src="${product.frontImage }" alt="img-product">
-											</div>
-										</div>
-										<!-- behind -->
-										<div class="swiper-slide stagger-item" data-color="beige">
-											<div class="item">
-												<img class="lazyload" data-src="${product.behindImage }"
-													src="${product.behindImage }" alt="img-product">
-											</div>
-										</div>
-										<!-- right -->
-										<div class="swiper-slide stagger-item" data-color="beige">
-											<div class="item">
-												<img class="lazyload" data-src="${product.rightImage }"
-													src="${product.rightImage }" alt="img-product">
-											</div>
-										</div>
-										<!-- left -->
-										<div class="swiper-slide stagger-item" data-color="beige">
-											<div class="item">
-												<img class="lazyload" data-src="${product.leftImage }"
-													src="${product.leftImage }" alt="img-product">
-											</div>
-										</div>
+										<c:if test="${not empty product.galleries}">
+											<c:forEach var="gallery" items="${product.galleries}">
+												<div class="swiper-slide stagger-item" data-color="beige">
+													<div class="item">
+														<img class="lazyload"
+															data-src="/admin/images/products/${gallery.image}"
+															src="/admin/images/products/${gallery.image}"
+															alt="img-product">
+													</div>
+												</div>
+											</c:forEach>
+										</c:if>
 									</div>
 								</div>
 								<div dir="ltr" class="swiper tf-product-media-main"
 									id="gallery-swiper-started">
 									<div class="swiper-wrapper">
 										<!-- product -->
-										<!-- front -->
-										<div class="swiper-slide" data-color="beige">
-											<a href="images/shop/products/p-d1.png" target="_blank"
-												class="item" data-pswp-width="770px"
-												data-pswp-height="1075px"> <img
-												class="tf-image-zoom lazyload"
-												data-zoom="${product.frontImage }"
-												data-src="${product.frontImage }"
-												src="${product.frontImage }" alt="">
-											</a>
-										</div>
-										<!-- end front -->
-										<!-- behind -->
-										<div class="swiper-slide" data-color="beige">
-											<a href="images/shop/products/p-d1.png" target="_blank"
-												class="item" data-pswp-width="770px"
-												data-pswp-height="1075px"> <img
-												class="tf-image-zoom lazyload"
-												data-zoom="${product.behindImage }"
-												data-src="${product.behindImage }"
-												src="${product.behindImage }" alt="">
-											</a>
-										</div>
-										<!-- end behind -->
-										<!-- right -->
-										<div class="swiper-slide" data-color="beige">
-											<a href="images/shop/products/p-d1.png" target="_blank"
-												class="item" data-pswp-width="770px"
-												data-pswp-height="1075px"> <img
-												class="tf-image-zoom lazyload"
-												data-zoom="${product.rightImage }"
-												data-src="${product.rightImage }"
-												src="${product.rightImage }" alt="">
-											</a>
-										</div>
-										<!-- end right -->
-										<!-- left -->
-										<div class="swiper-slide" data-color="beige">
-											<a href="images/shop/products/p-d1.png" target="_blank"
-												class="item" data-pswp-width="770px"
-												data-pswp-height="1075px"> <img
-												class="tf-image-zoom lazyload"
-												data-zoom="${product.leftImage }"
-												data-src="${product.leftImage }" src="${product.leftImage }"
-												alt="">
-											</a>
-										</div>
-										<!-- end front -->
+										<c:if test="${not empty product.galleries}">
+											<c:forEach var="gallery" items="${product.galleries}">
+												<!-- begin image -->
+												<div class="swiper-slide" data-color="beige">
+													<a href="images/shop/products/p-d1.png" target="_blank"
+														class="item" data-pswp-width="770px"
+														data-pswp-height="1075px"> <img
+														class="tf-image-zoom lazyload"
+														data-zoom="/admin/images/products/${gallery.image}"
+														data-src="/admin/images/products/${gallery.image}"
+														src="/admin/images/products/${gallery.image}" alt="">
+													</a>
+												</div>
+											</c:forEach>
+										</c:if>
+										<!-- end image -->
 										<!--end  product -->
 									</div>
 									<div class="swiper-button-next button-style-arrow thumbs-next"></div>
@@ -443,10 +396,10 @@
 											<h5 class="">${totalReviews}Comments</h5>
 										</div>
 										<!-- Nút ẩn/hiện phần bình luận -->
-											<button class="btn-toggle-comments"
-												onclick="toggleComments()">Hide comments</button>
+										<button class="btn-toggle-comments" onclick="toggleComments()">Hide
+											comments</button>
 										<div class="reply-comment-wrap">
-											
+
 											<!-- Duyệt qua các review chính -->
 											<c:forEach var="review" items="${reviews}">
 												<!-- Kiểm tra xem đây có phải là review chính hay không (parent_id == null) -->

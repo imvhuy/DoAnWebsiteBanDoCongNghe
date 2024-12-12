@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.javaweb.dto.ProductDTO;
 import com.javaweb.dto.ProductDetailDTO;
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.repository.IProductRepository;
 import com.javaweb.service.IProductService;
 
@@ -34,17 +34,17 @@ public class ProductServiceImpl implements IProductService{
 	@Autowired
     private IProductRepository productRepository;
 	@Override
-	public List<ProductDTO> findLatestProductInThisMonth(Date date){
+	public List<ProductDetailDTO> findLatestProductInThisMonth(Date date){
 		return productRepository.findLatestProductInThisMonth(date);
 	}
 	
 	 @Override
-	public List<ProductDTO> findTopSellingProducts(Pageable pageable){
+	public List<ProductDetailDTO> findTopSellingProducts(Pageable pageable){
 		 return productRepository.findTopSellingProducts(pageable);
 	 }
 	 
 	 @Override
-	public List<ProductDTO> findTopTotalRatingProducts(Pageable pageable){
+	public List<ProductDetailDTO> findTopTotalRatingProducts(Pageable pageable){
 		 return productRepository.findTopTotalRatingProducts(pageable);
 	 }
 
@@ -146,8 +146,8 @@ public class ProductServiceImpl implements IProductService{
 	    }
 
 	    @Override
-	    public ProductDetailDTO convertToDTO(ProductEntity entity) {
-	        ProductDetailDTO model = new ProductDetailDTO();
+	    public ProductDTO convertToDTO(ProductEntity entity) {
+	        ProductDTO model = new ProductDTO();
 	        BeanUtils.copyProperties(entity, model);
 	        
 	        // Map gallery images

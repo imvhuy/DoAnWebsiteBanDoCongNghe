@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.service.IFavoriteProductService;
 import com.javaweb.service.IProductService;
 import com.javaweb.service.IUserService;
@@ -34,7 +34,7 @@ public class FavoriteProductController {
     	//lay userId
     	Long userId = userService.findByUserName(username).getId();
     	// lay danh sach favorite products
-    	List<ProductDTO> products = favortieProductService.findFavoriteProductsByUser(userId);
+    	List<ProductDetailDTO> products = favortieProductService.findFavoriteProductsByUser(userId);
     	
         ModelAndView modelAndView = new ModelAndView("/user/favorite-products");
         modelAndView.addObject("products", products);

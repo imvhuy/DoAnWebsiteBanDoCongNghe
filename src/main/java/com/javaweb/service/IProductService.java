@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import com.javaweb.dto.ProductDTO;
 import com.javaweb.dto.ProductDetailDTO;
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
@@ -20,11 +20,11 @@ import java.util.Optional;
 
 public interface IProductService {
 
-	List<ProductDTO> findLatestProductInThisMonth(Date date);
+	List<ProductDetailDTO> findLatestProductInThisMonth(Date date);
 
-	List<ProductDTO> findTopSellingProducts(Pageable pageable);
+	List<ProductDetailDTO> findTopSellingProducts(Pageable pageable);
 
-	List<ProductDTO> findTopTotalRatingProducts(Pageable pageable);
+	List<ProductDetailDTO> findTopTotalRatingProducts(Pageable pageable);
 
     void delete(ProductEntity entity);
     void deleteById(Long id);
@@ -51,7 +51,7 @@ public interface IProductService {
 
     List<GalleryEntity> getGalleryByProductId(Long id);
 
-    ProductDetailDTO convertToDTO(ProductEntity entity);
+    ProductDTO convertToDTO(ProductEntity entity);
 
 	Long countTotalAvailableQuantityOfProduct(Long id);
     

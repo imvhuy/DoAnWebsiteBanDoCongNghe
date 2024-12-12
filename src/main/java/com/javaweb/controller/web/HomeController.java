@@ -50,12 +50,12 @@ public class HomeController {
     	//lấy date hiện tại
     	LocalDate localDate = LocalDate.now();
     	Date sqlDate = Date.valueOf(localDate);
-    	List<ProductDTO> products = productService.findLatestProductInThisMonth(sqlDate);
+    	List<ProductDetailDTO> products = productService.findLatestProductInThisMonth(sqlDate);
     	// lay top 20 san pham ban chay
     	 Pageable pageable = PageRequest.of(0, 10);
-    	List<ProductDTO> topSellingProducts = productService.findTopSellingProducts(pageable);
+    	List<ProductDetailDTO> topSellingProducts = productService.findTopSellingProducts(pageable);
     	//lay top 20 san pham danh gia cao
-	   	List<ProductDTO> topTotalRatingProducts = productService.findTopTotalRatingProducts(pageable);
+	   	List<ProductDetailDTO> topTotalRatingProducts = productService.findTopTotalRatingProducts(pageable);
 
     	 ModelAndView mav = new ModelAndView("web/home");
     	 

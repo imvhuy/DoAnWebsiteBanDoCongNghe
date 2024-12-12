@@ -11,7 +11,6 @@ import com.javaweb.dto.*;
 
 @Repository
 public interface ICartRepository extends JpaRepository<CartEntity, Long>{
-	// Truy vấn tính tổng đánh giá của từng sản phẩm
     @Query("SELECT new com.javaweb.dto.CartProductDTO(p.id, p.name, p.price, g.image,ci.quantity) " + 
     		"FROM CartItemEntity ci " +
     		"JOIN ci.cart  c "+

@@ -2,12 +2,12 @@ package com.javaweb.service;
 
 import java.util.List;
 
-import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.entity.FavoriteProductEntity;
 
 public interface IFavoriteProductService {
 
-	List<ProductDTO> findFavoriteProductsByUser(Long userId);
+	List<ProductDetailDTO> findFavoriteProductsByUser(Long userId);
 
 	boolean addFavoriteProduct(Long productId, Long userId);
 

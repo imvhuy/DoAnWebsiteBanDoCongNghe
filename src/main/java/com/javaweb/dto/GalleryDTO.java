@@ -17,5 +17,9 @@ public class GalleryDTO {
     private String image;
 
     private String type;
+    public GalleryDTO( String image, String type) {
+        this.image = image;
+        this.type = type;
+    }
 
 }
