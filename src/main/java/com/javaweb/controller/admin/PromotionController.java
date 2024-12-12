@@ -21,8 +21,8 @@ public class PromotionController {
 
     @Autowired
     private PromotionService promotionService;
+    
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
     // Hiển thị danh sách các voucher với phân trang và tìm kiếm theo tên
     @GetMapping
     public String list(@RequestParam(defaultValue = "0") int page,

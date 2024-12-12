@@ -119,4 +119,8 @@ public class ProductServiceImpl implements IProductService {
     public ProductEntity findByIdProductID(Long productId) {
         return IProductRepository.findById(productId).orElse(null);
     }
+    @Override
+    public Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable) {
+        return IProductRepository.findByNameContainingIgnoreCase(name, pageable);
+    }
 }

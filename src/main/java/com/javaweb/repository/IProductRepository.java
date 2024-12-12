@@ -16,4 +16,5 @@ public interface IProductRepository extends JpaRepository<ProductEntity,Long> {
     Page<ProductEntity> findAll(Pageable pageable);
     List<ProductEntity> findAll(Sort sort);
     List<ProductEntity> findAllById(Iterable<Long> ids);
+    Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }
