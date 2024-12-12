@@ -83,7 +83,7 @@
 									<div>
 										<div class="title">
 											<a
-												href="/admin/stores/viewProduct/${StoreProduct.product.id}"
+												href="/admin/stores/viewProduct/${StoreProduct.id}"
 												class="body-title-2">${StoreProduct.product.name}</a>
 										</div>
 
