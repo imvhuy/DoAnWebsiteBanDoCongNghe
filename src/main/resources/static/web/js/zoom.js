@@ -1,6 +1,7 @@
 
-import PhotoSwipeLightbox from './photoswipe-lightbox.esm.min.js';
-import PhotoSwipe from './photoswipe.esm.min.js';
+import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
+import PhotoSwipe from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js';
+
 
 if ($(".thumbs-slider").length > 0) {
     var direction = $(".tf-product-media-thumbs").data("direction");

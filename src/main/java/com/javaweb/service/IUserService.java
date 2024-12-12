@@ -22,4 +22,5 @@ public interface IUserService {
     UserDTO update(Long id, UserEntity userEntity);
     void delete(long[] ids);
     Boolean authenticate(String username, String password);
+	UserEntity findByUserNameEntity(String userName);
 }

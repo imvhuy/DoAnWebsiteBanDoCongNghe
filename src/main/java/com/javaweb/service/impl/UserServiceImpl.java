@@ -91,4 +91,8 @@ public class UserServiceImpl implements IUserService {
     public void delete(long[] ids) {
 
     }
+    @Override
+	public UserEntity findByUserNameEntity(String userName) {
+    	return userRepository.findByUsername(userName);
+    }
 }

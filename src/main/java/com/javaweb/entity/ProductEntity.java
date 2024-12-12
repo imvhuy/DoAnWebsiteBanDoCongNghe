@@ -35,13 +35,6 @@ public class ProductEntity extends BaseEntity {
 
     private Double promotionalPrice;
 
-    @Column(columnDefinition = "LONGTEXT")
-    @Lob
-    private String configuration;
-
-    private Long promotionalPrice;
-
-    private Long sold;
 
     private Boolean isActive;
 
@@ -67,6 +60,7 @@ public class ProductEntity extends BaseEntity {
     
     @OneToMany(mappedBy = "product")
     private List<FavoriteProductEntity> favortieProductEntitys;
+    
 
 
 

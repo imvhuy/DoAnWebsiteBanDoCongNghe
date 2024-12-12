@@ -705,7 +705,7 @@
                             </div>
                         </div>
                         <div class="card-product-info text-center" >
-                            <a href="product-detail.html" class="title link">${product.productName}</a>
+                            <a href="product-detail.html" class="title link">${product.name}</a>
                             <span class="price">${product.price}</span>
                         </div>
                     </div>

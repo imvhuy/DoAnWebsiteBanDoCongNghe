@@ -1246,6 +1246,8 @@ label {
 
 .flat-spacing-2 {
   padding: 45px 0 70px;
+  padding-left : 300px;
+  padding-right : 300px;
 }
 
 .flat-spacing-3 {

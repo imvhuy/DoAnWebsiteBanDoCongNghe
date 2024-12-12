@@ -1,4 +1,4 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductModel {
+public class ProductDetailDTO {
     private Long id;
     private String name;
     private String description;

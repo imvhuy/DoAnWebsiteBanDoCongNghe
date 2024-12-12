@@ -1,4 +1,4 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
 import com.javaweb.entity.ProductEntity;
 import jakarta.persistence.JoinColumn;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GalleryModel extends BaseModel{
+public class GalleryDTO {
     private Long id;
 
 

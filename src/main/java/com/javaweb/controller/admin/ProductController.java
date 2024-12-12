@@ -2,12 +2,12 @@ package com.javaweb.controller.admin;
 
 
 
+import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 
-import com.javaweb.model.ProductModel;
-import com.javaweb.repository.StoreProductRepository;
+import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IProductService;
 import com.javaweb.service.impl.CategoryServiceImpl;
 import com.javaweb.service.impl.GalleryServiceImpl;
@@ -49,7 +49,7 @@ public class ProductController {
     @Autowired
     private CategoryServiceImpl categoryServiceImpl;
     @Autowired
-    private StoreProductRepository storeProductRepository;
+    private IStoreProductRepository storeProductRepository;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -68,7 +68,7 @@ public class ProductController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        ProductModel productModel = new ProductModel();
+        ProductDetailDTO productModel = new ProductDetailDTO();
         List<CategoryEntity> categories = categoryServiceImpl.findAll(); // Giả sử bạn có CategoryService
         model.addAttribute("categories", categories); // Truyền danh sách vào model
         model.addAttribute("product", productModel);
@@ -79,7 +79,7 @@ public class ProductController {
         Optional<ProductEntity> opt = productService.findById(id);
         if (opt.isPresent()) {
             ProductEntity entity = opt.get();
-            ProductModel productModel = new ProductModel();
+            ProductDetailDTO productModel = new ProductDetailDTO();
             BeanUtils.copyProperties(entity, productModel);
 
             // Lấy tổng quantity từ bảng storeproduct
@@ -126,7 +126,7 @@ public class ProductController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes redirectAttributes,
-                               @Valid @ModelAttribute("product") ProductModel productModel,
+                               @Valid @ModelAttribute("product") ProductDetailDTO productModel,
                                BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/products/addOrEdit");

@@ -14,8 +14,6 @@ import com.javaweb.service.impl.UserServiceImpl;
 @RestController
 @RequestMapping(value = "/admin/users")
 public class UserController {
-
-<<<<<<< HEAD
     @Autowired
     IUserService userService = new UserServiceImpl();
 
@@ -25,6 +23,4 @@ public class UserController {
         userModel = userService.insert(user);
         return ResponseEntity.ok(userModel);
     }
-=======
->>>>>>> f963f1395014420e7925704a1c241444eeaffc18
 }

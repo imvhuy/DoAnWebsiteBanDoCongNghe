@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.javaweb.dto.ProductDTO;
-
+import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
-import com.javaweb.model.ProductModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +51,10 @@ public interface IProductService {
 
     List<GalleryEntity> getGalleryByProductId(Long id);
 
-    ProductModel convertToModel(ProductEntity entity);
+    ProductDetailDTO convertToDTO(ProductEntity entity);
+
+	Long countTotalAvailableQuantityOfProduct(Long id);
+    
 
 }
 

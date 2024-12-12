@@ -1,83 +1,42 @@
 package com.javaweb.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class ProductDTO {
-	private Long productId;
-    private String productName;
-    private Double price;
+	private Long id;
+    private String name;
+    private Long price;
     private String image;
     private Long totalSold;
-    private Long rating;
+    private Double rating;
 
-    // Constructor
-    public ProductDTO(Long productId, String productName, Double price, String image,Long totalSold) {
-        this.productId = productId;
-        this.productName = productName;
+    public ProductDTO(Long id, String name, Long price, String image, Long totalSold) {
+        this.id = id;
+        this.name = name;
         this.price = price;
         this.image = image;
         this.totalSold = totalSold;
     }
-    // Constructor
-    public ProductDTO(Long productId, String productName, Double price, String image) {
-        this.productId = productId;
-        this.productName = productName;
+
+    public ProductDTO(Long id, String name, Long price, String image) {
+        this.id = id;
+        this.name = name;
         this.price = price;
         this.image = image;
     }
-    //constructor cho lay TopTotalRatingProducts
-    public ProductDTO(Long productId, String productName,Long rating, String image,Double price) {
-        this.productId = productId;
-        this.productName = productName;
+
+    public ProductDTO(Long id, String name,Double rating, String image, Long price) {
+        this.id = id;
+        this.name = name;
         this.price = price;
         this.image = image;
-        
+        this.rating = rating;
     }
 
 
-    public Long getRating() {
-		return rating;
-	}
-	public void setRating(Long rating) {
-		this.rating = rating;
-	}
-	// Getters and Setters
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-	public Long getTotalSold() {
-		return totalSold;
-	}
-
-	public void setTotalSold(Long totalSold) {
-		this.totalSold = totalSold;
-	}
-    
 }

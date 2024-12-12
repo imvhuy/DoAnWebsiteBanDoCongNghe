@@ -1,7 +1,7 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.entity.GalleryEntity;
-import com.javaweb.repository.GalleryRepository;
+import com.javaweb.repository.IGalleryRepository;
 import com.javaweb.service.IGalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class GalleryServiceImpl implements IGalleryService {
 
     @Autowired
-    private GalleryRepository galleryRepository;
+    private IGalleryRepository galleryRepository;
 
     public Optional<GalleryEntity> findByProductAndType(Long productId, String type) {
         return galleryRepository.findByProductEntityIdAndType(productId, type);

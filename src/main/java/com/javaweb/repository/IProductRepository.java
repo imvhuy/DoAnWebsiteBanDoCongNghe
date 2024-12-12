@@ -3,7 +3,9 @@ package com.javaweb.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +16,7 @@ import com.javaweb.entity.ProductEntity;
 
 @Repository
 public interface IProductRepository extends JpaRepository<ProductEntity, Long>{
-	@Query("SELECT new com.javaweb.dto.ProductDTO(p.id, p.productName, p.price, g.image) " +
+	@Query("SELECT new com.javaweb.dto.ProductDTO(p.id, p.name, p.price, g.image) " +
 		       "FROM ProductEntity p " +
 		       "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
 		       "WHERE g.type = 'front' " +
@@ -23,21 +25,36 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long>{
 		List<ProductDTO> findLatestProductInThisMonth(@Param("date") Date date);
 
 	 @Query("SELECT new com.javaweb.dto.ProductDTO(" +
-	           "p.id, p.productName, p.price, g.image, SUM(oi.count)) " +
+	           "p.id, p.name, p.price, g.image, SUM(oi.count)) " +
 	           "FROM OrderItemEntity oi " +
 	           "JOIN oi.product p " +
 	           "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
-	           "GROUP BY p.id, p.productName, p.price, g.image " +
+	           "GROUP BY p.id, p.name, p.price, g.image " +
 	           "ORDER BY SUM(oi.count) DESC")
 	    List<ProductDTO> findTopSellingProducts(Pageable pageable);
 	 
 	// Truy vấn tính tổng đánh giá của từng sản phẩm
-	    @Query("SELECT  new com.javaweb.dto.ProductDTO(p.id , p.productName, SUM(r.rating), g.image, p.price) " +
+	    @Query("SELECT  new com.javaweb.dto.ProductDTO(p.id , p.name, AVG(r.rating), g.image, p.price) " +
 	           "FROM ProductEntity p " +
 	           "LEFT JOIN ReviewEntity r ON r.product = p " +
 	           "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
-	           "GROUP BY p.id, p.productName, p.price, g.image "+
-		         "ORDER BY SUM(r.rating) DESC")
+	           "GROUP BY p.id, p.name, p.price, g.image "+
+		         "ORDER BY AVG(r.rating) DESC")
 	    List<ProductDTO> findTopTotalRatingProducts(Pageable pageable);
+	    
+		// Truy vấn tính tổng đánh giá của từng sản phẩm
+	    @Query("SELECT  MAX(quantity) " +
+		"FROM ProductEntity p "+
+	    "JOIN p.productStore ps " +
+		"WHERE p.id = :id")
+	    Long countTotalAvailableQuantityOfProduct(@Param("id") Long id);
+	    
+	    
+	    List<ProductEntity> findByNameContaining(String Name);
+	    Page<ProductEntity> findByNameContaining(String Name, Pageable pageable);
+
+	     Page<ProductEntity> findAll(Pageable pageable);
+	     List<ProductEntity> findAll(Sort sort);
+	     List<ProductEntity> findAllById(Iterable<Long> ids);
 
 }

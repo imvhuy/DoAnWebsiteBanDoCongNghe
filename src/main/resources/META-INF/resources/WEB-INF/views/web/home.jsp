@@ -150,7 +150,7 @@
                                         <span class="icon icon-bag"></span>
                                         <span class="tooltip">Quick Add</span>
                                     </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.productId})">
+                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
                                         <span class="icon icon-heart"></span>
                                         <span class="tooltip">Add to Wishlist</span>
                                         <span class="icon icon-delete"></span>
@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                             <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">${product.productName}</a>
+                                <a href="product-detail.html" class="title link">${product.name}</a>
                                 <span class="price">${product.price}</span>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                                         <span class="icon icon-bag"></span>
                                         <span class="tooltip">Quick Add</span>
                                     </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.productId})">
+                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
                                         <span class="icon icon-heart"></span>
                                         <span class="tooltip">Add to Wishlist</span>
                                         <span class="icon icon-delete"></span>
@@ -228,7 +228,7 @@
                                 </div>
                             </div>
                             <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">${product.productName}</a>
+                                <a href="product-detail.html" class="title link">${product.name}</a>
                                 <span class="price">${product.price}</span>
                             </div>
                         </div>
@@ -272,7 +272,7 @@
                                         <span class="icon icon-bag"></span>
                                         <span class="tooltip">Quick Add</span>
                                     </a>
-                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.productId})">
+                                    <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
                                         <span class="icon icon-heart"></span>
                                         <span class="tooltip">Add to Wishlist</span>
                                         <span class="icon icon-delete"></span>
@@ -289,7 +289,7 @@
                                 </div>
                             </div>
                             <div class="card-product-info text-center">
-                                <a href="product-detail.html" class="title link">${product.productName}</a>
+                                <a href="product-detail.html" class="title link">${product.name}</a>
                                 <span class="price">${product.price}</span>
                             </div>
                         </div>
@@ -418,7 +418,7 @@ function toggleWishlistIcon(element, productId) {
     }
 }
     function addToFavoriteProducts(productId) {
-        const data = { productId: productId};
+        const data = { id: productId};
 
         // Gửi yêu cầu POST tới API của Spring Boot
         fetch('/add-favorite-product', {
@@ -451,7 +451,7 @@ function toggleWishlistIcon(element, productId) {
     
     function removeFromFavoriteProducts(productId) {
         // Tạo đối tượng dữ liệu gửi lên server
-        const data = { productId: productId};
+        const data = { id: productId};
 
         // Gửi yêu cầu POST tới API của Spring Boot
         fetch('/remove-favorite-product', {

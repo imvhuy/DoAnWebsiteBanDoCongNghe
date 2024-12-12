@@ -14,7 +14,7 @@ import com.javaweb.entity.*;
 public interface IFavoriteProductRepository extends JpaRepository<FavoriteProductEntity, Long>{
 	
 	
-	@Query ("SELECT new com.javaweb.dto.ProductDTO(p.id, p.productName, p.price, g.image) " +
+	@Query ("SELECT new com.javaweb.dto.ProductDTO(p.id, p.name, p.price, g.image) " +
 			"FROM  FavoriteProductEntity fp " +
 			"JOIN fp.product p " +
 			"JOIN fp.user u " +
