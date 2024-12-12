@@ -34,4 +34,7 @@ public class CategoryEntity extends BaseEntity {
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
     private List<SubcategoryEntity> attributeEntities;
 
+
+
+
 }

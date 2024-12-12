@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ include file ="/common/taglib.jsp"%>
+<%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>UTE Tech</title>
 
     <meta name="author" content="themesflat.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     <!-- font -->
     <link rel="stylesheet" href="/web/fonts/fonts.css">
     <!-- Icons -->
@@ -43,6 +41,5 @@
 <script type="text/javascript" src="/web/js/wow.min.js"></script>
 <script type="text/javascript" src="/web/js/multiple-modal.js"></script>
 <script type="text/javascript" src="/web/js/main.js"></script>
-</body>
 </body>
 </html>

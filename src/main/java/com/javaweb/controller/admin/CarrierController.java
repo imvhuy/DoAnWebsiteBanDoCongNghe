@@ -1,6 +1,9 @@
 package com.javaweb.controller.admin;
 
+import com.javaweb.dto.CarrierDTO;
+import com.javaweb.dto.ResponseDTO;
 import com.javaweb.entity.CarrierEntity;
+import com.javaweb.entity.CategoryEntity;
 import com.javaweb.dto.CarrierDTO;
 import com.javaweb.service.CarrierService;
 import jakarta.validation.Valid;
@@ -10,6 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -25,10 +32,12 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/admin/carriers")
+@EnableMethodSecurity
 public class CarrierController {
     @Autowired
     private CarrierService carrierService;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service

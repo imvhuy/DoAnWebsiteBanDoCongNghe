@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+
 <!-- Top bar -->
 <div class="tf-top-bar bg_dark line">
     <div class="px_15 lg-px_40">
@@ -56,86 +56,131 @@
     .search-form button i {
         font-size: 1.2em;
     }
+
     </style>
     <div class="px_15 lg-px_40">
-        <div class="row wrapper-header align-items-center">
+        <div class="row wrapper-header align-items-center" style="height: 90px;">
             <div class="col-xl-2 col-md-4 col-6 text-center">
-                <a href="index.html" class="logo-header">
-                    <img src="/web/images/logo/logo.jpg" alt="logo" class="logo">
+                <a href="/home" class="logo-header">
+                    <img src="/web/images/logo/logo.jpg" alt="logo" class="logo" style="max-height: 40px;">
                 </a>
             </div>
+
+            <!-- Mobile Menu Icon -->
             <div class="col-md-4 col-3 tf-lg-hidden">
                 <a href="#mobileMenu" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
                     <!-- SVG icon for mobile menu -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16" fill="none">
+                        <path d="M2.00056 2.28571H16.8577C17.1608 2.28571 17.4515 2.16531 17.6658 1.95098C17.8802 1.73665 18.0006 1.44596 18.0006 1.14286C18.0006 0.839753 17.8802 0.549063 17.6658 0.334735C17.4515 0.120408 17.1608 0 16.8577 0H2.00056C1.69745 0 1.40676 0.120408 1.19244 0.334735C0.978109 0.549063 0.857702 0.839753 0.857702 1.14286C0.857702 1.44596 0.978109 1.73665 1.19244 1.95098C1.40676 2.16531 1.69745 2.28571 2.00056 2.28571ZM0.857702 8C0.857702 7.6969 0.978109 7.40621 1.19244 7.19188C1.40676 6.97755 1.69745 6.85714 2.00056 6.85714H22.572C22.8751 6.85714 23.1658 6.97755 23.3801 7.19188C23.5944 7.40621 23.7148 7.6969 23.7148 8C23.7148 8.30311 23.5944 8.59379 23.3801 8.80812C23.1658 9.02245 22.8751 9.14286 22.572 9.14286H2.00056C1.69745 9.14286 1.40676 9.02245 1.19244 8.80812C0.978109 8.59379 0.857702 8.30311 0.857702 8ZM0.857702 14.8571C0.857702 14.554 0.978109 14.2633 1.19244 14.049C1.40676 13.8347 1.69745 13.7143 2.00056 13.7143H12.2863C12.5894 13.7143 12.8801 13.8347 13.0944 14.049C13.3087 14.2633 13.4291 14.554 13.4291 14.8571C13.4291 15.1602 13.3087 15.4509 13.0944 15.6653C12.8801 15.8796 12.5894 16 12.2863 16H2.00056C1.69745 16 1.40676 15.8796 1.19244 15.6653C0.978109 15.4509 0.857702 15.1602 0.857702 14.8571Z" fill="currentColor"></path>
+                    </svg>
                 </a>
             </div>
+
+            <!-- Navigation Menu -->
             <div class="col-xl-5 tf-md-hidden">
                 <nav class="box-navigation text-center">
                     <ul class="box-nav-ul d-flex align-items-center gap-30">
-                        <!-- Home menu item -->
                         <li class="menu-item">
-                            <a href="#" class="item-link">Home<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Home<i class="icon icon-arrow-down"></i></a>
+                            <div class="sub-menu mega-menu">
+                                <div class="container">
+                                    <div class="row-demo">
+                                        <div class="demo-item">
+                                            <a href="index.html">
+                                                <div class="demo-image position-relative">
+                                                    <img class="lazyload" data-src="/web/images/demo/home-01.jpg" src="/web/images/demo/home-01.jpg" alt="home-01">
+                                                    <div class="demo-label">
+                                                        <span class="demo-new">New</span>
+                                                        <span>Trend</span>
+                                                    </div>
+                                                </div>
+                                                <span class="demo-name">Home Fashion 01</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Submenu content -->
+                            </div>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Shop<i class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu">
                                 <!-- Submenu content -->
                             </div>
                         </li>
-                        <!-- Shop menu item -->
                         <li class="menu-item">
-                            <a href="#" class="item-link">Shop<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Products<i class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu">
                                 <!-- Submenu content -->
                             </div>
                         </li>
-                        <!-- Products menu item -->
-                        <li class="menu-item">
-                            <a href="#" class="item-link">Products<i class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu">
-                                <!-- Submenu content -->
-                            </div>
-                        </li>
-                        <!-- Search bar in the middle of the menu -->
                         <li class="menu-item search-bar">
-                            <form class="search-form" action="search-results.html" method="get">
-                                <!-- Search button in the header menu -->
-                                <li class="menu-item search-bar">
-                                    <form class="search-form" onsubmit="event.preventDefault(); openCanvasSearch();">
-                                        <input type="text" placeholder="Search..." onclick="openCanvasSearch()" class="form-control">
-                                    </form>
-                                </li>
+                            <form class="search-form" action="search-results.html" method="get" style="padding: 0 10px;">
+                                <input type="text" placeholder="Search..." onclick="openCanvasSearch()" class="form-control">
                             </form>
                         </li>
-                        <!-- Pages menu item -->
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu submenu-default">
                                 <!-- Submenu content -->
                             </div>
                         </li>
-                        <!-- Blog menu item -->
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link">Blog<i class="icon icon-arrow-down"></i></a>
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Blog<i class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu submenu-default">
                                 <!-- Submenu content -->
                             </div>
-                        </li>
-                        <!-- Buy now menu item -->
-                        <li class="menu-item">
-                            <a href="https://themeforest.net/item/ecomus-ultimate-html5-template/53417990?s_rank=3" class="item-link">Buy now</a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
+            <!-- Icons for Account, Wishlist, Cart -->
             <div class="col-xl-5 col-md-4 col-3">
                 <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
-                    <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-account"></i></a></li>
-                    <li class="nav-compare"><a href="compare.html" class="nav-icon-item"><i class="icon icon-compare"></i></a></li>
-                    <li class="nav-wishlist"><a href="wishlist.html" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box bg-dark">0</span></a></li>
-                    <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i><span class="count-box bg-dark">2</span></a></li>
+                    <!-- Kiểm tra nếu người dùng đã đăng nhập -->
+                    <li class="nav-account">
+                        <c:choose>
+                            <c:when test="${pageContext.request.userPrincipal != null}">
+                                <div class="dropdown">
+                                    <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px; padding: 3px;">
+                                        <i class="icon icon-account"></i>
+                                        <span>${pageContext.request.userPrincipal.name}</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+                                        <li><a class="dropdown-item" href="/settings">Settings</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="<c:url value='/logout' />">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#login" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                                    <i class="icon icon-account"></i>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+
+                    <!-- Các phần khác: wishlist, cart -->
+                    <li class="nav-wishlist">
+                        <a href="wishlist.html" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                            <i class="icon icon-heart"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-cart">
+                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                            <i class="icon icon-bag"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">2</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
+
+
 </header>
 <!-- /Header -->
 
@@ -184,7 +229,7 @@
                             <div class="tf-loop-item">
                                 <div class="image">
                                     <a href="product-detail.html">
-                                        <img src="images/products/white-3.jpg" alt="">
+                                        <img src="/web/images/products/white-3.jpg" alt="">
                                     </a>
                                 </div>
                                 <div class="content">
@@ -198,7 +243,7 @@
                             <div class="tf-loop-item">
                                 <div class="image">
                                     <a href="product-detail.html">
-                                        <img src="images/products/white-2.jpg" alt="">
+                                        <img src="/web/images/products/white-2.jpg" alt="">
                                     </a>
                                 </div>
                                 <div class="content">
@@ -211,7 +256,7 @@
                             <div class="tf-loop-item">
                                 <div class="image">
                                     <a href="product-detail.html">
-                                        <img src="images/products/white-1.jpg" alt="">
+                                        <img src="/web/images/products/white-1.jpg" alt="">
                                     </a>
                                 </div>
                                 <div class="content">
@@ -247,13 +292,13 @@
                 <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
             </div>
             <div class="tf-login-form">
-                <form class="" action="https://themesflat.co/html/ecomus/my-account.html" accept-charset="utf-8">
+                <form class="" action="/login" method="post"  accept-charset="utf-8">
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
-                        <label class="tf-field-label">Email *</label>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" id="username" name="username" required>
+                        <label class="tf-field-label">Username *</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id= "password" name="password" required>
                         <label class="tf-field-label">Password *</label>
                     </div>
                     <div>
@@ -353,42 +398,42 @@
 </div>
 <!-- /modal login -->
 
-<script>document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('inp$earch');
-    const closeButton = document.getElementById('btn-close-search');
-    const searchAutocomplete = document.getElementById('search_autocomplete');
+<%--<script>document.addEventListener('DOMContentLoaded', function () {--%>
+<%--    const searchInput = document.getElementById('inp$earch');--%>
+<%--    const closeButton = document.getElementById('btn-close-search');--%>
+<%--    const searchAutocomplete = document.getElementById('search_autocomplete');--%>
 
-    // Hiển thị nút xóa khi người dùng nhập văn bản
-    searchInput.addEventListener('input', function () {
-        if (searchInput.value.trim() !== '') {
-            closeButton.style.display = 'inline';
-            searchAutocomplete.classList.remove('is-hidden');
-        } else {
-            closeButton.style.display = 'none';
-            searchAutocomplete.classList.add('is-hidden');
-        }
-    });
+<%--    // Hiển thị nút xóa khi người dùng nhập văn bản--%>
+<%--    searchInput.addEventListener('input', function () {--%>
+<%--        if (searchInput.value.trim() !== '') {--%>
+<%--            closeButton.style.display = 'inline';--%>
+<%--            searchAutocomplete.classList.remove('is-hidden');--%>
+<%--        } else {--%>
+<%--            closeButton.style.display = 'none';--%>
+<%--            searchAutocomplete.classList.add('is-hidden');--%>
+<%--        }--%>
+<%--    });--%>
 
-    // Xóa văn bản khi nhấn vào nút xóa
-    closeButton.addEventListener('click', function () {
-        searchInput.value = '';
-        closeButton.style.display = 'none';
-        searchAutocomplete.classList.add('is-hidden');
-    });
+<%--    // Xóa văn bản khi nhấn vào nút xóa--%>
+<%--    closeButton.addEventListener('click', function () {--%>
+<%--        searchInput.value = '';--%>
+<%--        closeButton.style.display = 'none';--%>
+<%--        searchAutocomplete.classList.add('is-hidden');--%>
+<%--    });--%>
 
-    // Ẩn gợi ý tìm kiếm khi nhấp ra ngoài ô tìm kiếm
-    document.addEventListener('click', function (event) {
-        if (!event.target.closest('.search-form')) {
-            searchAutocomplete.classList.add('is-hidden');
-        }
-    });
+<%--    // Ẩn gợi ý tìm kiếm khi nhấp ra ngoài ô tìm kiếm--%>
+<%--    document.addEventListener('click', function (event) {--%>
+<%--        if (!event.target.closest('.search-form')) {--%>
+<%--            searchAutocomplete.classList.add('is-hidden');--%>
+<%--        }--%>
+<%--    });--%>
 
-    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)
-    document.querySelector('.search-form').addEventListener('submit', function (event) {
-        if (searchInput.value.trim() === '') {
-            event.preventDefault();
-        }
-    });
-});
-</script>
+<%--    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)--%>
+<%--    document.querySelector('.search-form').addEventListener('submit', function (event) {--%>
+<%--        if (searchInput.value.trim() === '') {--%>
+<%--            event.preventDefault();--%>
+<%--        }--%>
+<%--    });--%>
+<%--});--%>
+<%--</script>--%>
 

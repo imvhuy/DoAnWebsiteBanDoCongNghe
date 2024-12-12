@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CarrierDTO extends BaseDTO {
+public class CarrierDTO extends BaseDTO{
     private Long id;
 
     private String name;
