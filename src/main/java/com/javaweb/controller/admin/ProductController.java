@@ -309,8 +309,6 @@ public class ProductController {
 
 
 
-
-
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
         Optional<ProductEntity> optCategory = productService.findById(id);
@@ -395,31 +393,5 @@ public class ProductController {
         return "Images uploaded successfully!";
     }
 
-    @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file,
-                                              @RequestParam("productId") Long productId,
-                                              @RequestParam("type") String type) {
-        try {
-            // Lưu ảnh vào thư mục uploads
-            String filename = file.getOriginalFilename();
-            Path path = Paths.get("C:/HK1_NAM3/LapTrinhWeb/uploads/" + filename);
-            Files.copy(file.getInputStream(), path);
 
-            // Tìm sản phẩm theo ID
-            ProductEntity product = productService.findByIdProductID(productId);
-
-            // Tạo đối tượng GalleryEntity
-            GalleryEntity gallery = new GalleryEntity();
-            gallery.setProductEntity(product);
-            gallery.setImage(path.toString());  // Lưu đường dẫn file ảnh
-            gallery.setType(type);  // Loại ảnh (main, detail, etc.)
-
-            // Lưu vào cơ sở dữ liệu
-            galleryServiceImpl.save(gallery);
-
-            return ResponseEntity.ok("Image uploaded successfully.");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image.");
-        }
-    }
 }
