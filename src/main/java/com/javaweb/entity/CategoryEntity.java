@@ -27,6 +27,7 @@ public class CategoryEntity extends BaseEntity {
     private Boolean isDeleted;
     @ToString.Exclude
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<SubcategoryEntity> attributeEntities;
 
 

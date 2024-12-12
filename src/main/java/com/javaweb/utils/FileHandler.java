@@ -23,10 +23,7 @@ public class FileHandler {
             String imageName = file.getOriginalFilename();
 
             // Lấy đường dẫn tới thư mục static của ứng dụng
-            File saveFile = new ClassPathResource("static/").getFile();
-
-            // Cập nhật đường dẫn để lưu ảnh vào thư mục static/admin/images/products
-            String uploadPath = saveFile.getAbsolutePath() + File.separator + "admin" + File.separator + "images" + File.separator + "products";
+            String uploadPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "admin" + File.separator + "images" + File.separator + "products";
 
             // Tạo thư mục nếu chưa tồn tại
             File uploadDir = new File(uploadPath);

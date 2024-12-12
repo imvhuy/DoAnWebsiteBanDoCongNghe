@@ -88,7 +88,7 @@ public class UserServiceImpl implements IUserService {
         userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
         userEntity.setStatus(1);
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        UserDTO result = userConverter.convertToModel(userRepository.save(userEntity));
+        UserDTO result = userConverter.convertToDTO(userRepository.save(userEntity));
         return result;
     }
 

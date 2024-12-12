@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserConverter {
 
-    public UserDTO convertToModel (UserEntity entity){
+    public UserDTO convertToDTO (UserEntity entity){
         UserDTO result = new UserDTO();
         BeanUtils.copyProperties(entity, result);
         return result;

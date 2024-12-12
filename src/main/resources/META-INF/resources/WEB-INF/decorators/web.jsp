@@ -49,16 +49,14 @@
         </div>
     </div>
 </div>
+<!-- Kiểm tra nếu có message và hiển thị modal -->
 <c:if test="${not empty message}">
-    <div class="container">
-        <div class="login-form">
-            <div class="main-div">
-                <div class="alert alert-danger">
-                        ${message}
-                </div>
-            </div>
-        </div>
-    </div>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            messageModal.show();
+        });
+    </script>
 </c:if>
 <%@ include file = "/common/web/header.jsp" %>
 <sitemesh:write property="body" />

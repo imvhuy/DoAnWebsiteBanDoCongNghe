@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- Top bar -->
@@ -283,7 +284,13 @@
                                         <li><a class="dropdown-item"
                                                href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a>
                                         </li>
+                                        <!-- Kiểm tra xem người dùng có role 'vendor' không -->
+                                        <c:if test="${fn:contains(pageContext.request.userPrincipal.authorities.toString(), 'ROLE_VENDOR')}">
+                                            <li><a class="dropdown-item" href="/vendor/manage">My Store</a></li>
+                                        </c:if>
+                                        <c:if test="${fn:contains(pageContext.request.userPrincipal.authorities.toString(), 'ROLE_USER')}">
                                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+                                        </c:if>
                                         <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">

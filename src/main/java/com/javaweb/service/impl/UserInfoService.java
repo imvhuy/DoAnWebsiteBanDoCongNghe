@@ -36,7 +36,7 @@ public class UserInfoService implements UserDetailsService {
         if(userEntity == null){
             throw new UsernameNotFoundException("Username not found");
         }
-        UserDTO userDTO = userConverter.convertToModel(userEntity);
+        UserDTO userDTO = userConverter.convertToDTO(userEntity);
         List<GrantedAuthority> authorities = new ArrayList<>();
         for(RoleEntity role: userDTO.getRoles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
