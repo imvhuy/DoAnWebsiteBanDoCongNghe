@@ -38,6 +38,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Boolean changePassword(String username, String currentPassword, String newPassword) {
+        if (authenticate(username, currentPassword)) {
+            UserEntity user = userRepository.findByUsernameAndStatus(username, 1);
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     @Transactional
     public UserDTO findByUserNameAndStatus(String name, int status) {
         UserDTO result = new UserDTO();

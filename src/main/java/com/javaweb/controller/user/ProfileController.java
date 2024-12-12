@@ -1,5 +1,6 @@
 package com.javaweb.controller.user;
 
+import com.javaweb.dto.ChangePasswordDTO;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.dto.AddressDTO;
@@ -16,31 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
-    IUserService userService;
+    private IUserService userService;
     @Autowired
     private IAddressService addressService;
-
-//    @ModelAttribute("currentPage")
-//    public String currentPage(HttpServletRequest request) {
-//
-//        String uri = request.getRequestURI();
-//        if (uri.contains("/address")) {
-//            return "address";
-//        } else if (uri.contains("/detail")) {
-//            return "detail";
-//        } else {
-//            return "dashboard";
-//        }
-//    }
 
     @GetMapping
     public String profile(ModelMap model) {
@@ -108,7 +93,6 @@ public class ProfileController {
         } catch (Exception e) {
             System.out.println(e);
         }
-
         return new ModelAndView("redirect:/profile/address/" + username);
     }
 
@@ -127,7 +111,7 @@ public class ProfileController {
 
             // Kiểm tra xem địa chỉ có thuộc về người dùng không
             Optional<AddressEntity> address = addressService.findById(addressId);
-            if (address == null || !address.get().getUser().getId().equals(user.getId())) {
+            if (address.isEmpty() || !address.get().getUser().getId().equals(user.getId())) {
                 redirectAttributes.addFlashAttribute("message", "Address not found or does not belong to the user.");
                 return new ModelAndView("redirect:/profile/address/" + username);
             }
@@ -144,14 +128,42 @@ public class ProfileController {
         return new ModelAndView("redirect:/profile/address/" + username);
     }
 
-    @GetMapping("/default")
-    public Optional<AddressEntity> getDefaultAddress(@PathVariable Long userId) {
-        return addressService.getDefaultAddress(userId);
-    }
-
     @GetMapping("/detail/{username}")
     public ModelAndView getDetail(@PathVariable String username, ModelMap model) {
         model.addAttribute("currentPage", "detail");
+        UserDTO user = userService.findByUserName(username);
+        model.addAttribute("user", user);
         return new ModelAndView("/user/account-detail");
+    }
+    @PostMapping("/changePassword/{username}")
+    public ModelAndView changePassword(@ModelAttribute ChangePasswordDTO changePasswordDTO,
+                                       @PathVariable String username,
+                                       RedirectAttributes redirectAttributes) {
+        // Lấy giá trị từ form
+        String currentPassword = changePasswordDTO.getCurrentPassword();
+        String newPassword = changePasswordDTO.getNewPassword();
+        String confirmPassword = changePasswordDTO.getConfirmPassword();
+
+        // Kiểm tra hợp lệ
+        if (currentPassword == null || newPassword == null || confirmPassword == null) {
+            redirectAttributes.addFlashAttribute("message", "All fields are required.");
+            return new ModelAndView("redirect:/profile/detail/" + username);
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("message", "New password and confirmation do not match.");
+            return new ModelAndView("redirect:/profile/detail/" + username);
+        }
+
+        // Gọi service để xử lý thay đổi mật khẩu (giả sử có UserService)
+        boolean success = userService.changePassword(username, currentPassword, newPassword);
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Password changed successfully.");
+
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Current password is incorrect.");
+        }
+        return new ModelAndView("redirect:/profile/detail/" + username);
     }
 }

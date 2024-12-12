@@ -4,8 +4,9 @@ import com.javaweb.entity.UserEntity;
 import com.javaweb.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface IUserService {
+    Boolean changePassword(String username, String currentPassword, String newPassword);
+
     UserDTO findByUserNameAndStatus(String name, int status);
     UserDTO findByUserName(String username);
 

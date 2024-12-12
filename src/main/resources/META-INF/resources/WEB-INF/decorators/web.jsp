@@ -25,6 +25,30 @@
 </head>
 <body>
 <!-- Kiểm tra nếu có message và hiển thị modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Header với nền trắng và chữ đen -->
+            <div class="modal-header" style="background-color: white; color: black; font-size: 1.5rem;">
+                <h5 class="modal-title" id="messageModalLabel">Notify</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(0);"></button>
+            </div>
+
+            <!-- Nội dung thông báo với chữ đen trên nền trắng -->
+            <div class="modal-body" style="background-color: white; color: black; font-size: 1.2rem;">
+                <!-- Biến chứa thông báo -->
+                ${message}
+            </div>
+
+            <!-- Footer với nút đóng màu đen và chữ trắng -->
+            <div class="modal-footer" style="background-color: white;">
+                <button type="button" class="tf-btn btn-fill animate-hover-btn" data-bs-dismiss="modal" style="background-color: black; color: white;">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <c:if test="${not empty message}">
     <div class="container">
         <div class="login-form">

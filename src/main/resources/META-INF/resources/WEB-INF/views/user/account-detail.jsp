@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <div class="col-lg-9">
@@ -34,7 +35,7 @@
                 <!-- Nút mở modal để sửa -->
                 <div class="mb_20">
                     <button type="button" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center" data-bs-toggle="modal" data-bs-target="#editAccountModal">
-                        Edit Account
+                        Change Password
                     </button>
                 </div>
             </div>
@@ -49,36 +50,34 @@
         <div class="modal-content">
             <!-- Header Modal -->
             <div class="modal-header" style="color: white;">
-                <h5 class="modal-title" id="editAccountModalLabel">Edit Account Details</h5>
+                <h5 class="modal-title" id="editAccountModalLabel">Change Password Account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
             </div>
 
             <!-- Body Modal -->
             <div class="modal-body" style="background-color: white; color: black;">
-                <form id="form-edit-account" action="/profile/updateAccount" method="POST">
-                    <!-- Full Name -->
-                    <div class="tf-field style-1 mb_15">
-                        <input class="tf-field-input tf-input" type="text" id="editFullName" name="fullName" value="${user.fullName}">
-                        <label class="tf-field-label fw-4 text_black-2" for="editFullName">Full Name</label>
+                <form id="form-edit-account" action="${pageContext.request.contextPath}/profile/changePassword/${user.username}" method="POST">
+                    <!-- Current Password -->
+                    <div class="tf-field style-1 mb_30">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id="currentPassword" name="currentPassword">
+                        <label class="tf-field-label fw-4 text_black-2" for="currentPassword">Current password</label>
                     </div>
 
-                    <!-- Email -->
-                    <div class="tf-field style-1 mb_15">
-                        <input class="tf-field-input tf-input" type="email" id="editEmail" name="email" value="${user.email}">
-                        <label class="tf-field-label fw-4 text_black-2" for="editEmail">Email</label>
+                    <!-- New Password -->
+                    <div class="tf-field style-1 mb_30">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id="newPassword" name="newPassword">
+                        <label class="tf-field-label fw-4 text_black-2" for="newPassword">New password</label>
                     </div>
 
-                    <!-- Avatar -->
-                    <div class="tf-field style-1 mb_15">
-                        <input class="tf-field-input tf-input" type="text" id="editAvatar" name="avatar" value="${user.avatar}">
-                        <label class="tf-field-label fw-4 text_black-2" for="editAvatar">Avatar</label>
+                    <!-- Confirm Password -->
+                    <div class="tf-field style-1 mb_30">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id="confirmPassword" name="confirmPassword">
+                        <label class="tf-field-label fw-4 text_black-2" for="confirmPassword">Confirm password</label>
                     </div>
 
-                    <!-- Nút Lưu -->
+                    <!-- Submit Button -->
                     <div class="mb_20">
-                        <button type="submit" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center" style="background-color: #333; color: white;">
-                            Save Changes
-                        </button>
+                        <button type="submit" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center">Save Changes</button>
                     </div>
                 </form>
             </div>
