@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -21,21 +22,17 @@ public class ProductDTO {
     private String color;
     private String configuration;
     private Long promotionalPrice;
-    private Long sold;
     private Boolean isActive;
     private Boolean isSelling;
     private String video;
 
     private CategoryEntity category;
 
-    private List<GalleryEntity> galleryEntities;
+    private List<GalleryDTO> galleries = new ArrayList<>();
 
     private Long categoryId;
     private String categoryName; // Trường để lưu tên danh mục (category name)
-    private String frontImage;
-    private String behindImage;
-    private String rightImage;
-    private String leftImage;
+
     // Phương thức này sẽ lấy tên của danh mục
 
     private Map<String, String> gallery; // Thêm field này để lưu đường dẫn ảnh
@@ -49,4 +46,6 @@ public class ProductDTO {
     }
 
     private Long totalQuantity; // Thêm trường này
+    private Long totalSold;
+
 }

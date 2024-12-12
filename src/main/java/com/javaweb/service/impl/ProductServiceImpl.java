@@ -24,15 +24,15 @@ public class ProductServiceImpl implements IProductService {
     private IProductRepository productRepository;
 
     @Autowired
-    private IGalleryRepository IGalleryRepository;
+    private IGalleryRepository galleryRepository;
 
     @Autowired
     private ISubcategoryValueRepository subcategoryValueRepository;
 
-    public List<GalleryEntity> getGalleryByProductId(Long productId) {
-        return IGalleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
-    }
 
+    public List<GalleryEntity> getGalleryByProductId(Long productId) {
+        return galleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
+    }
     @Override
     public void delete(ProductEntity entity) {
         productRepository.delete(entity);
@@ -63,10 +63,9 @@ public class ProductServiceImpl implements IProductService {
         Optional<ProductEntity> product = productRepository.findById(id);
         return product.orElseThrow(() -> new RuntimeException("Product not found"));
     }
-
     @Override
     public <S extends ProductEntity> S save(S entity) {
-        if (entity.getId() == null) {
+        if (entity.getId() == null || entity.getId() == 0) {
             // Thêm mới
             return productRepository.save(entity);
         } else {
@@ -74,7 +73,7 @@ public class ProductServiceImpl implements IProductService {
             Optional<ProductEntity> existingProduct = findById(entity.getId());
             if (existingProduct.isPresent()) {
                 ProductEntity existing = existingProduct.get();
-
+                
                 // Cập nhật tất cả các trường
                 existing.setName(entity.getName());
                 existing.setDescription(entity.getDescription());
@@ -82,12 +81,11 @@ public class ProductServiceImpl implements IProductService {
                 existing.setColor(entity.getColor());
                 existing.setConfiguration(entity.getConfiguration());
                 existing.setPromotionalPrice(entity.getPromotionalPrice());
-                existing.setSold(entity.getSold());
                 existing.setIsActive(entity.getIsActive());
                 existing.setIsSelling(entity.getIsSelling());
                 existing.setVideo(entity.getVideo());
                 existing.setCategoryEntity(entity.getCategoryEntity());
-
+                
                 // Lưu xuống database
                 return (S) productRepository.save(existing);
             }
@@ -147,6 +145,10 @@ public class ProductServiceImpl implements IProductService {
         return model;
     }
 
+    @Override
+    public ProductEntity findByIdProductID(Long productId) {
+        return productRepository.findById(productId).orElse(null);
+    }
     @Override
     public List<ProductEntity> findAllByCategoryEntity_IdAndIsActive(Long categoryId, Boolean isActive) {
         return productRepository.findAllByCategoryEntity_IdAndIsActive(categoryId, isActive);

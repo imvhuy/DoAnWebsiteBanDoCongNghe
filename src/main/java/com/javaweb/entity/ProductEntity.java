@@ -37,7 +37,6 @@ public class ProductEntity extends BaseEntity {
 
     private Double promotionalPrice;
 
-    private Long sold;
 
     private Boolean isActive;
 

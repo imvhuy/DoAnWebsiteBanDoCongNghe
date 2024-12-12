@@ -27,16 +27,15 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/admin/carriers")
-@EnableMethodSecurity
 public class CarrierController {
     @Autowired
-    private ICarrierService ICarrierService;
+    private ICarrierService carrierService;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service
-        List<CarrierEntity> list = ICarrierService.findAll();
+        List<CarrierEntity> list = carrierService.findAll();
         if (!StringUtils.isEmpty(message)) {
             model.addAttribute("message", message);
         }
@@ -55,7 +54,7 @@ public class CarrierController {
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCarrier = ICarrierService.findById(id);
+        Optional<CarrierEntity> optCarrier = carrierService.findById(id);
         CarrierDTO cateModel = new CarrierDTO();
         //kiểm tra sự tồn tại của category
         if (optCarrier.isPresent()) {
@@ -72,19 +71,19 @@ public class CarrierController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CarrierDTO carrierModel, BindingResult result) {
+                                     @Valid @ModelAttribute CarrierDTO carrierDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/carriers/addOrEdit");
         }
         CarrierEntity entity = new CarrierEntity();
         //copy từ Model sang Entity
-        BeanUtils.copyProperties(carrierModel, entity);
+        BeanUtils.copyProperties(carrierDTO, entity);
         try {
             // gọi hàm save trong service
-            ICarrierService.save(entity);
+            carrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
-            if (carrierModel.getId() != null) {
+            if (carrierDTO.getId() != null) {
                 message = "Category is Edited!!!!!!!!";
             } else {
                 message = "Category is saved!!!!!!!!";
@@ -100,12 +99,12 @@ public class CarrierController {
 
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCategory = ICarrierService.findById(id);
+        Optional<CarrierEntity> optCategory = carrierService.findById(id);
         if (optCategory.isEmpty()) {
             model.addFlashAttribute("message", "Carriers is not exits!!!!");
             return new ModelAndView("redirect:/admin/carriers");
         }
-        ICarrierService.deleteById(id);
+        carrierService.deleteById(id);
         model.addFlashAttribute("message", "Carriers is deleted!!!!");
         return new ModelAndView("redirect:/admin/carriers");
     }
@@ -115,9 +114,9 @@ public class CarrierController {
         List<CarrierEntity> list = null;
         // có nội dung truyền về không, name là tùy chọn khi required=false
         if (StringUtils.hasText(name)) {
-            list = ICarrierService.findByNameContaining(name);
+            list = carrierService.findByNameContaining(name);
         } else {
-            list = ICarrierService.findAll();
+            list = carrierService.findAll();
         }
         model.addAttribute("categories", list);
         return "admin/carriers/search";
@@ -128,17 +127,17 @@ public class CarrierController {
                          @RequestParam(name = "name", required = false) String name,
                          @RequestParam("page") Optional<Integer> page,
                          @RequestParam("size") Optional<Integer> size) {
-        int count = (int) ICarrierService.count();
+        int count = (int) carrierService.count();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("name"));
         Page<CarrierEntity> resultPage = null;
         if (StringUtils.hasText(name)) {
-            resultPage = ICarrierService.findByNameContaining(name, pageable);
+            resultPage = carrierService.findByNameContaining(name, pageable);
             model.addAttribute("name", name);
         }
         else{
-            resultPage = ICarrierService.findAll(pageable);
+            resultPage = carrierService.findAll(pageable);
         }
         int totalPages = resultPage.getTotalPages();
         if (totalPages > 0) {

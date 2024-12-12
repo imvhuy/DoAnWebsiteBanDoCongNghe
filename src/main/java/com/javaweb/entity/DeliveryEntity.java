@@ -33,4 +33,7 @@ public class DeliveryEntity extends BaseEntity{
 
     private Boolean isDeleted = false;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private OrderEntity order;
 }

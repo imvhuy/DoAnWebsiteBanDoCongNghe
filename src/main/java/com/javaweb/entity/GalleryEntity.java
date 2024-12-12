@@ -25,4 +25,7 @@ public class GalleryEntity extends BaseEntity{
 
     private String type;
 
+    public GalleryEntity(String image, String type, ProductEntity entity) {
+        super();
+    }
 }

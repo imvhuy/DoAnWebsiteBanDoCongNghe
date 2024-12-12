@@ -104,6 +104,71 @@
     .submit-btn:hover {
         background-color: #45a049;
     }
+    /* Sử dụng Flexbox để căn chỉnh các ảnh thành một hàng */
+    /* Thẻ cha sử dụng Flexbox để căn chỉnh */
+    .flat-spacing-2 {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    form.form-style-1 > * > *:first-child {
+        max-width: 1200px !important;
+    }
+    .image-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        padding: 20px; /* Tăng khoảng cách padding cho ảnh lớn hơn */
+        box-sizing: border-box;
+    }
+
+    .image-label {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .image-input {
+        margin-bottom: 15px;
+    }
+
+    .image-preview {
+        display: block;
+        max-width: 300px; /* Tăng kích thước tối đa của ảnh */
+        width: 100%;  /* Cho phép ảnh mở rộng đầy đủ theo chiều ngang */
+        height: auto;  /* Duy trì tỷ lệ ảnh */
+        margin-top: 10px;
+    }
+    .cols-lg {
+        display: flex;
+        gap: 22px; /* Khoảng cách giữa các field */
+        flex-wrap: wrap; /* Đảm bảo responsive nếu cần */
+        width: 100%
+    }
+
+    fieldset {
+        flex: 1; /* Mỗi field chiếm đều không gian */
+        min-width: 200px; /* Đảm bảo kích thước tối thiểu */
+    }
+
+    .body-title {
+        font-weight: bold;
+        margin-bottom: 5px; /* Khoảng cách giữa tiêu đề và input */
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+    form:input {
+        width: 100%; /* Chiều rộng của input */
+        padding: 10px; /* Tạo khoảng cách bên trong */
+        border: 1px solid #ccc; /* Đường viền */
+        border-radius: 5px; /* Góc bo tròn */
+    }
+
 
 
 </style>
@@ -378,9 +443,7 @@
                                         <li>
                                             <ul>
                                                 <li class="product-item gap14 mb-10">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-1.jpg" alt="">
-                                                    </div>
+
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Neptune
@@ -392,9 +455,7 @@
                                                     <div class="divider"></div>
                                                 </li>
                                                 <li class="product-item gap14 mb-10">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-2.jpg" alt="">
-                                                    </div>
+
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Ribbed Tank
@@ -406,9 +467,7 @@
                                                     <div class="divider"></div>
                                                 </li>
                                                 <li class="product-item gap14">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-3.jpg" alt="">
-                                                    </div>
+
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Ribbed modal
@@ -429,9 +488,7 @@
                                         <li>
                                             <ul>
                                                 <li class="product-item gap14 mb-10">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-4.jpg" alt="">
-                                                    </div>
+
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Oversized
@@ -443,9 +500,7 @@
                                                     <div class="divider"></div>
                                                 </li>
                                                 <li class="product-item gap14 mb-10">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-5.jpg" alt="">
-                                                    </div>
+
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">V-neck linen
@@ -457,9 +512,6 @@
                                                     <div class="divider"></div>
                                                 </li>
                                                 <li class="product-item gap14 mb-10">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-6.jpg" alt="">
-                                                    </div>
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Jersey thong
@@ -471,9 +523,6 @@
                                                     <div class="divider"></div>
                                                 </li>
                                                 <li class="product-item gap14">
-                                                    <div class="image no-bg">
-                                                        <img src="images/products/product-7.jpg" alt="">
-                                                    </div>
                                                     <div class="flex items-center justify-between gap20 flex-grow">
                                                         <div class="name">
                                                             <a href="product-list.html" class="body-text">Jersey thong
@@ -489,10 +538,7 @@
                         </div>
                         <div class="header-grid">
                             <div class="header-item country">
-                                <select class="image-select no-text">
-                                    <option data-thumbnail="images/country/1.png">ENG</option>
-                                    <option data-thumbnail="images/country/9.png">VIE</option>
-                                </select>
+
                             </div>
                             <div class="header-item button-dark-light">
                                 <i class="icon-moon"></i>
@@ -513,9 +559,7 @@
                                         </li>
                                         <li>
                                             <div class="noti-item w-full wg-user active">
-                                                <div class="image">
-                                                    <img src="images/customers/customer-1.jpg" alt="">
-                                                </div>
+
                                                 <div class="flex-grow">
                                                     <div class="flex items-center justify-between">
                                                         <a href="#" class="body-title">Cameron Williamson</a>
@@ -527,9 +571,7 @@
                                         </li>
                                         <li>
                                             <div class="noti-item w-full wg-user active">
-                                                <div class="image">
-                                                    <img src="images/customers/customer-2.jpg" alt="">
-                                                </div>
+
                                                 <div class="flex-grow">
                                                     <div class="flex items-center justify-between">
                                                         <a href="#" class="body-title">Ralph Edwards</a>
@@ -541,9 +583,7 @@
                                         </li>
                                         <li>
                                             <div class="noti-item w-full wg-user active">
-                                                <div class="image">
-                                                    <img src="images/customers/customer-3.jpg" alt="">
-                                                </div>
+
                                                 <div class="flex-grow">
                                                     <div class="flex items-center justify-between">
                                                         <a href="#" class="body-title">Eleanor Pena</a>
@@ -555,9 +595,7 @@
                                         </li>
                                         <li>
                                             <div class="noti-item w-full wg-user active">
-                                                <div class="image">
-                                                    <img src="images/customers/customer-1.jpg" alt="">
-                                                </div>
+
                                                 <div class="flex-grow">
                                                     <div class="flex items-center justify-between">
                                                         <a href="#" class="body-title">Jane Cooper</a>
@@ -664,73 +702,55 @@
                                         <li>
                                             <ul class="list-apps">
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-1.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Photoshop</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-2.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">illustrator</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-3.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Sheets</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-4.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Gmail</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-5.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Messenger</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-6.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Youtube</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-7.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Flaticon</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-8.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">Instagram</div>
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <div class="image">
-                                                        <img src="images/apps/item-9.png" alt="">
-                                                    </div>
+
                                                     <a href="#">
                                                         <div class="text-tiny">PDF</div>
                                                     </a>
@@ -746,9 +766,7 @@
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="header-user wg-user">
-                                                <span class="image">
-                                                    <img src="images/avatar/user-1.png" alt="">
-                                                </span>
+
                                                 <span class="flex flex-column">
                                                     <span class="body-text text-main-dark">Kristin Watson</span>
                                                     <span class="text-tiny">Sale Administrator</span>
@@ -844,204 +862,235 @@
                                 </ul>
                             </div>
                             <!-- form-add-product -->
-                            <form:form action="/admin/products/saveOrUpdate" method="POST"
-                                       modelAttribute="product" class="form-new-product form-style-1">
-                                <input type="hidden" value="${product.id}" name="id">
+                            <form:form action="/admin/products/saveOrUpdate" method="POST" enctype="multipart/form-data"
+                                       modelAttribute="product" class="form-new-product form-style-1 ">
+                            <input type="hidden" value="${product.id}" name="id">
+                                <%--                               <input type="text" value="${product.categoryId}" name="id">--%>
+                                <%--                            <img src="/admin/images/products/${product.ga.image}"  style="display: block; max-width: 200px;" />--%>
+                            <div class="wg-box mb-30">
+                                <!-- Form Upload -->
+                                <div class="flat-spacing-2 grid-4">
+                                    <div class="image-box" id="rightBox">
+                                        <label for="rightImage" class="image-label">Right Image</label>
+                                        <input type="file" id="rightImage" name="rightImage" class="image-input"
+                                               accept="image/*" onchange="previewImage(this, 'rightPreview')">
+                                        <c:if test="${not empty product.galleries}">
+                                            <c:forEach var="gallery" items="${product.galleries}">
+                                                <c:if test="${gallery.type == 'right'}">
+                                                    <!-- Hiển thị ảnh từ thư mục static/admin/images/products -->
+                                                    <img src="/admin/images/products/${gallery.image}" alt="Right Image"
+                                                         class="image-preview" id="rightPreview"
+                                                         style="display: block; max-width: 200px;"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
 
-                                <!-- Các trường input khác -->
-                                <div class="wg-box mb-30">
-                                    <h3 class="box-title">Upload Your Images</h3>
-
-                                    <!-- Image Upload Section -->
-                                    <div class="image-upload-container">
-                                        <!-- Hiển thị ảnh 'right' -->
-                                        <div class="image-box" id="rightBox">
-                                            <label for="rightImage" class="image-label">Right Image</label>
-                                            <input type="file" id="rightImage" name="rightImage" class="image-input" accept="image/*">
-                                            <c:if test="${not empty product.rightImage}">
-                                                <img id="rightPreview" 
-                                                     src="${product.rightImage}"
-                                                     alt="Right Image" 
-                                                     class="image-preview" 
-                                                     style="display: block; max-width: 200px;" />
-                                            </c:if>
-                                        </div>
-
-                                        <!-- Hiển thị ảnh 'left' -->
-                                        <div class="image-box" id="leftBox">
-                                            <label for="leftImage" class="image-label">Left Image</label>
-                                            <input type="file" id="leftImage" name="leftImage" class="image-input" accept="image/*">
-                                            <c:if test="${not empty product.leftImage}">
-                                                <img id="leftPreview" 
-                                                     src="${product.leftImage}"
-                                                     alt="Left Image" 
-                                                     class="image-preview" 
-                                                     style="display: block; max-width: 200px;" />
-                                            </c:if>
-                                        </div>
-
-                                        <!-- Hiển thị ảnh 'behind' -->
-                                        <div class="image-box" id="behindBox">
-                                            <label for="behindImage" class="image-label">Behind Image</label>
-                                            <input type="file" id="behindImage" name="behindImage" class="image-input" accept="image/*">
-                                            <c:if test="${not empty product.behindImage}">
-                                                <img id="behindPreview" 
-                                                     src="${product.behindImage}"
-                                                     alt="Behind Image" 
-                                                     class="image-preview" 
-                                                     style="display: block; max-width: 200px;" />
-                                            </c:if>
-                                        </div>
-
-                                        <!-- Hiển thị ảnh 'front' -->
-                                        <div class="image-box" id="frontBox">
-                                            <label for="frontImage" class="image-label">Front Image</label>
-                                            <input type="file" id="frontImage" name="frontImage" class="image-input" accept="image/*">
-                                            <c:if test="${not empty product.frontImage}">
-                                                <img id="frontPreview" 
-                                                     src="${product.frontImage}"
-                                                     alt="Front Image" 
-                                                     class="image-preview" 
-                                                     style="display: block; max-width: 200px;" />
-                                            </c:if>
-                                        </div>
+                                        <!-- Placeholder for preview if no image is loaded -->
+                                        <img id="rightPreview" alt="Right Image" class="image-preview" style="display: none; max-width: 200px;" />
                                     </div>
 
+                                    <!-- Left Image -->
+                                    <div class="image-box" id="leftBox">
+                                        <label for="leftImage" class="image-label">Left Image</label>
+                                        <input type="file" id="leftImage" name="leftImage" class="image-input"
+                                               accept="image/*" onchange="previewImage(this, 'leftPreview')">
 
+                                        <c:if test="${not empty product.galleries}">
+                                            <c:forEach var="gallery" items="${product.galleries}">
+                                                <c:if test="${gallery.type == 'left'}">
+                                                    <img src="/admin/images/products/${gallery.image}" alt="Left Image"
+                                                         class="image-preview" id="leftPreview"
+                                                         style="display: block; max-width: 200px;"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
 
-                                    <!-- JavaScript for Previewing Images -->
-                                    <script>
-                                        // Function to preview the selected image
-                                        function previewImage(input, previewId) {
-                                            const file = input.files[0];
-                                            if (file) {
-                                                const reader = new FileReader();
-                                                reader.onload = function (e) {
-                                                    const imgElement = document.getElementById(previewId);
-                                                    imgElement.style.display = 'block'; // Show the image preview
-                                                    imgElement.src = e.target.result; // Set the image source to the uploaded file
-                                                }
-                                                reader.readAsDataURL(file); // Read the file as a data URL
-                                            } else {
-                                                console.log("No file selected");
-                                            }
-                                        }
+                                        <!-- Placeholder for preview -->
+                                        <img id="leftPreview" alt="Left Image" class="image-preview" style="display: none; max-width: 200px;" />
+                                    </div>
 
-                                        // Attach event listeners for all image input fields
-                                        document.querySelectorAll('.image-input').forEach(function(input) {
-                                            input.addEventListener("change", function() {
-                                                const previewId = this.id.replace("Image", "Preview"); // Map file input id to preview id
-                                                previewImage(this, previewId); // Trigger image preview
-                                            });
-                                        });
-                                    </script>
+                                    <!-- Behind Image -->
+                                    <div class="image-box" id="behindBox">
+                                        <label for="behindImage" class="image-label">Behind Image</label>
+                                        <input type="file" id="behindImage" name="behindImage" class="image-input"
+                                               accept="image/*" onchange="previewImage(this, 'behindPreview')">
 
+                                        <c:forEach var="gallery" items="${product.galleries}">
+                                            <c:if test="${gallery.type == 'behind'}">
+                                                <img src="/admin/images/products/${gallery.image}" alt="Behind Image"
+                                                     class="image-preview" id="behindPreview"
+                                                     style="display: block; max-width: 200px;"/>
+                                            </c:if>
+                                        </c:forEach>
 
+                                        <!-- Placeholder for preview -->
+                                        <img id="behindPreview" alt="Behind Image" class="image-preview" style="display: none; max-width: 200px;" />
+                                    </div>
 
+                                    <!-- Front Image -->
+                                    <div class="image-box" id="frontBox">
+                                        <label for="frontImage" class="image-label">Front Image</label>
+                                        <input type="file" id="frontImage" name="frontImage" class="image-input"
+                                               accept="image/*" onchange="previewImage(this, 'frontPreview')">
 
-                                <%--                                body-title mb-10 --%>
+                                        <c:if test="${not empty product.galleries}">
+                                            <c:forEach var="gallery" items="${product.galleries}">
+                                                <c:if test="${gallery.type == 'front'}">
+                                                    <img src="/admin/images/products/${gallery.image}" alt="Front Image"
+                                                         class="image-preview" id="frontPreview"
+                                                         style="display: block; max-width: 200px;"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
 
-                                <div class="wg-box mb-30">
-
-                                        <!-- Product Name -->
-
-                                        <fieldset class="name">
-                                            <div class="body-title">Product Name</div>
-                                            <form:input path="name" class="body-title mb-10 " type="text"
-                                                        placeholder="Product Name" tabindex="0" value="${product.name}"
-                                                        aria-required="true" required="true"/>
-                                        </fieldset>
-
-                                        <fieldset class="category">
-                                            <div class="body-title">Category</div>
-                                            <form:select path="category.id" class="body-title mb-10" aria-required="true" required="true">
-                                                <option value="">Choose Category</option>
-                                                <option value="1" ${product.categoryName == 'Smartphones' ? 'selected' : ''}>Smartphones</option>
-                                                <option value="2" ${product.categoryName == 'Laptops' ? 'selected' : ''}>Laptops</option>
-                                                <option value="3" ${product.categoryName == 'Tablets' ? 'selected' : ''}>Tablets</option>
-                                                <option value="4" ${product.categoryName == 'Accessories' ? 'selected' : ''}>Accessories</option>
-                                                <option value="5" ${product.categoryName == 'Gaming Consoles' ? 'selected' : ''}>Gaming Consoles</option>
-                                                <option value="6" ${product.categoryName == 'Home Appliances' ? 'selected' : ''}>Home Appliances</option>
-                                            </form:select>
-                                        </fieldset>
-
-                                        <fieldset class="color">
-                                            <div class="body-title">Color</div>
-                                            <form:select path="color" class="flex-grow" aria-required="true"
-                                                         required="true">
-                                                <option value="">Choose Color</option>
-                                                <option value="Red" ${product.color == 'Red' ? 'selected' : ''}>Red
-                                                </option>
-                                                <option value="Blue" ${product.color == 'Blue' ? 'selected' : ''}>Blue
-                                                </option>
-                                                <option value="Yellow" ${product.color == 'Yellow' ? 'selected' : ''}>
-                                                    Yellow
-                                                </option>
-                                                <option value="Black" ${product.color == 'Black' ? 'selected' : ''}>
-                                                    Black
-                                                </option>
-                                                <option value="White" ${product.color == 'White' ? 'selected' : ''}>
-                                                    White
-                                                </option>
-                                                <option value="Pink" ${product.color == 'Pink' ? 'selected' : ''}>Pink
-                                                </option>
-                                            </form:select>
-                                        </fieldset>
-                                        <div class="cols-lg gap22">
-                                            <fieldset class="price">
-                                                <div class="body-title">Price</div>
-                                                <form:input path="price" class="flex-grow" type="number"
-                                                            placeholder="Price" value="${product.price}"
-                                                            aria-required="true" required="true"/>
-                                            </fieldset>
-                                            <fieldset class="promotion-price">
-                                                <div class="body-title">Promotion Price</div>
-                                                <form:input path="promotionalPrice" class="flex-grow" type="number"
-                                                            placeholder="Promotion Price"
-                                                            value="${product.promotionalPrice}" aria-required="true"
-                                                            required="true"/>
-                                            </fieldset>
-                                            <fieldset class="sold">
-                                                <div class="body-title">Sold</div>
-                                                <form:input path="sold" class="flex-grow" type="number"
-                                                            placeholder="Sold"
-                                                            value="${product.sold}" aria-required="true"
-                                                            required="true"/>
-                                            </fieldset>
-                                            <fieldset class="quantity">
-                                                <div class="body-title">Total Quantity</div>
-                                                <form:input path="totalQuantity" class="flex-grow" type="number"
-                                                            placeholder="Total Quantity" value="${product.totalQuantity}"
-                                                            readonly="true"/>
-                                            </fieldset>
-                                        </div>
-                                        <fieldset class="configuration">
-                                            <div class="body-title">Configuration</div>
-                                            <form:textarea path="configuration" class="flex-grow"
-                                                           placeholder="Configuration" value="${product.configuration}"
-                                                           aria-required="true" required="true"></form:textarea>
-                                        </fieldset>
-                                        <!-- Description -->
-                                        <fieldset class="description">
-                                            <div class="body-title">Description</div>
-                                            <form:textarea path="description" class="flex-grow"
-                                                           placeholder="Product description"
-                                                           value="${product.description}" aria-required="true"
-                                                           required="true"></form:textarea>
-                                        </fieldset>
-                                        <button class="tf-button w208" type="submit">
-                                            ${product.id == null ? 'Add Product' : 'Update Product'}
-                                        </button>
+                                        <!-- Placeholder for preview -->
+                                        <img id="frontPreview" alt="Front Image" class="image-preview" style="display: none; max-width: 200px;" />
+                                    </div>
                                 </div>
-                        </div>
-<%--                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>--%>
+                                <script>
+                                    // Hàm preview hình ảnh khi người dùng chọn ảnh
+                                    function previewImage(input, previewId) {
+                                        var file = input.files[0];
+                                        if (file) {
+                                            var reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                var preview = document.getElementById(previewId);
+                                                preview.src = e.target.result;
+                                                preview.style.display = 'block';
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }
 
-<%--                        <div class="cols gap10">--%>
-<%--                            <button class="tf-button w380" type="submit">Add product</button>--%>
-<%--                            <a href="#" class="tf-button style-3 w380" type="submit">Cancel</a>--%>
-<%--                        </div>--%>
-<%--                                <button class="tf-button w208" type="submit">Save</button>--%>
+                                    window.onload = function () {
+                                        // Hiển thị ảnh đã tải lên trong các preview
+                                        var imageTypes = ['right', 'left', 'behind', 'front'];
+
+                                        imageTypes.forEach(function (type) {
+                                            var inputElement = document.getElementById(type + 'Image');
+                                            var previewElement = document.getElementById(type + 'Preview');
+
+                                            if (previewElement && previewElement.src) {
+                                                previewElement.style.display = 'block'; // Hiển thị ảnh nếu đã có
+                                            }
+
+                                            // Nếu có file được chọn, hiển thị ảnh preview ngay lập tức
+                                            if (inputElement.files && inputElement.files[0]) {
+                                                previewImage(inputElement, type + 'Preview');
+                                            }
+                                        });
+                                    };
+                                </script>
+
+
+                                <!-- Product Name -->
+                                <fieldset class="name">
+                                    <div class="body-title">Product Name</div>
+                                    <form:input path="name" class="body-title mb-10" type="text"
+                                                placeholder="Product Name" tabindex="0" value="${product.name}"
+                                                aria-required="true" required="true"/>
+                                </fieldset>
+                                <fieldset class="category">
+                                    <div class="body-title">Category</div>
+                                    <form:select path="categoryName" class="body-title mb-10" aria-required="true"
+                                                 required="true">
+                                        <form:option value="">Choose Category</form:option>
+
+                                        <!-- Sử dụng c:forEach từ JSTL để duyệt danh sách categories -->
+                                        <c:forEach var="category" items="${categories}">
+                                            <!-- Hiển thị name của category, giá trị gửi lên là categoryName -->
+                                            <option value="${category.name}"
+                                                ${category.name == product.categoryName ? 'selected' : ''}>
+                                                    ${category.name}
+                                            </option>
+                                        </c:forEach>
+                                    </form:select>
+                                </fieldset>
+                                <fieldset class="color">
+                                    <div class="body-title">Color</div>
+                                    <form:select path="color" class="body-title mb-10" aria-required="true"
+                                                 required="true">
+                                        <option value="">Choose Color</option>
+                                        <option value="Red" ${product.color == 'Red' ? 'selected' : ''}>Red
+                                        </option>
+                                        <option value="Blue" ${product.color == 'Blue' ? 'selected' : ''}>Blue
+                                        </option>
+                                        <option value="Yellow" ${product.color == 'Yellow' ? 'selected' : ''}>
+                                            Yellow
+                                        </option>
+                                        <option value="Black" ${product.color == 'Black' ? 'selected' : ''}>
+                                            Black
+                                        </option>
+                                        <option value="White" ${product.color == 'White' ? 'selected' : ''}>
+                                            White
+                                        </option>
+                                        <option value="Pink" ${product.color == 'Pink' ? 'selected' : ''}>Pink
+                                        </option>
+                                    </form:select>
+                                </fieldset>
+                                <div class="cols-lg gap22">
+                                    <fieldset class="price">
+                                        <div class="body-title">Price</div>
+                                        <form:input path="price" class="body-title mb-10" type="number"
+                                                    placeholder="Price" value="${product.price}"
+                                                    aria-required="true" required="true"/>
+                                    </fieldset>
+                                    <fieldset class="promotion-price">
+                                        <div class="body-title">Promotion Price</div>
+                                        <form:input path="promotionalPrice" class="body-title mb-10" type="number"
+                                                    placeholder="Promotion Price"
+                                                    value="${product.promotionalPrice}" aria-required="true"
+                                                    required="true"/>
+                                    </fieldset>
+                                    <c:if test="${not empty product.id}">
+                                        <!-- Total Sold -->
+                                        <fieldset class="sold">
+                                            <div class="body-title">Total Sold</div>
+                                            <form:input path="totalSold" class="body-title mb-10" type="number"
+                                                        placeholder="Sold"
+                                                        value="${product.totalSold}"
+                                                        readonly="true"/>
+                                        </fieldset>
+                                        <!-- Total Quantity -->
+                                        <fieldset class="quantity">
+                                            <div class="body-title">Total Quantity</div>
+                                            <form:input path="totalQuantity" class="body-title mb-10" type="number"
+                                                        placeholder="Total Quantity" value="${product.totalQuantity}"
+                                                        readonly="true"/>
+                                        </fieldset>
+                                    </c:if>
+                                </div>
+                                <fieldset class="configuration">
+                                    <div class="body-title">Configuration</div>
+                                    <form:textarea path="configuration" class="body-title mb-10"
+                                                   placeholder="Configuration" value="${product.configuration}"
+                                                   aria-required="true" required="true"></form:textarea>
+                                </fieldset>
+                                <!-- Description -->
+                                <fieldset class="description">
+                                    <div class="body-title">Description</div>
+                                    <form:textarea path="description" class="body-title mb-10"
+                                                   placeholder="Product description"
+                                                   value="${product.description}" aria-required="true"
+                                                   required="true"></form:textarea>
+                                </fieldset>
+                                <fieldset class="video">
+                                    <div class="body-title">Video</div>
+                                    <form:textarea path="video" class="body-title mb-10"
+                                                   placeholder="video"
+                                                   value="${product.video}" aria-required="true"
+                                                   required="true"></form:textarea>
+                                </fieldset>
+                                <button class="tf-button w208" type="submit">
+                                        ${product.id == null ? 'Add Product' : 'Update Product'}
+                                </button>
+                            </div>
+                        </div>
+
                         </form:form>
+                        <iframe width="560" height="315" src="${product.video}" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                         <!-- /form-add-product -->
                     </div>
                     <!-- /main-content-wrap -->
@@ -1068,12 +1117,12 @@
 <!-- Thêm đoạn này vào đầu form -->
 <c:if test="${not empty message}">
     <div class="alert alert-success" role="alert">
-        ${message}
+            ${message}
     </div>
 </c:if>
 
 <c:if test="${not empty error}">
     <div class="alert alert-danger" role="alert">
-        ${error}
+            ${error}
     </div>
 </c:if>
