@@ -28,4 +28,5 @@ public interface ICategoryService {
 
     List<CategoryEntity> findByNameContaining(String name);
 
+	Optional<CategoryEntity> findByName(String name);
 }

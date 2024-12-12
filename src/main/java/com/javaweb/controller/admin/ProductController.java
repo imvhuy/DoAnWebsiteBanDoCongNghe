@@ -3,24 +3,30 @@ package com.javaweb.controller.admin;
 
 
 import com.javaweb.dto.ProductDTO;
+import com.javaweb.dto.GalleryDTO;
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 
+import com.javaweb.dto.ProductDTO;
 import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IProductService;
+import com.javaweb.service.IStoreProductService;
 import com.javaweb.service.impl.CategoryServiceImpl;
 import com.javaweb.service.impl.GalleryServiceImpl;
-import com.javaweb.service.impl.ProductServiceImpl;
-import jakarta.validation.Path;
+import com.javaweb.utils.FileHandler;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -33,9 +39,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -49,10 +60,9 @@ public class ProductController {
     @Autowired
     private CategoryServiceImpl categoryServiceImpl;
     @Autowired
-    private IStoreProductRepository storeProductRepository;
+    private IStoreProductService storeProductService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
+
 
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
@@ -68,89 +78,183 @@ public class ProductController {
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        ProductDTO productModel = new ProductDTO();
-        List<CategoryEntity> categories = categoryServiceImpl.findAll(); // Giả sử bạn có CategoryService
+        ProductDTO productDTO = new ProductDTO();
+        List<CategoryEntity> categories = categoryServiceImpl.findAll();
+        List<GalleryDTO> galleryDTOList = new ArrayList<>();
+        productDTO.setGalleries(galleryDTOList);
         model.addAttribute("categories", categories); // Truyền danh sách vào model
-        model.addAttribute("product", productModel);
+        model.addAttribute("product", productDTO);
         return new ModelAndView("admin/products/addOrEdit", model);
     }
+    @GetMapping("/products/images/{imageName}")
+    public ResponseEntity<InputStreamResource> getImage(@PathVariable("imageName") String imageName) {
+        String imagePath = "C:/HK1_NAM3/LapTrinhWeb/uploads/" + imageName; // Đảm bảo đường dẫn đúng
+        try {
+            Path path = Paths.get(imagePath);
+            if (!Files.exists(path)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            // Tự động phát hiện định dạng của ảnh
+            String mimeType = Files.probeContentType(path);
+            if (mimeType == null) {
+                mimeType = "application/octet-stream"; // Default nếu không thể xác định
+            }
+
+            InputStream imageStream = Files.newInputStream(path);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", mimeType); // Content-Type dựa trên loại ảnh thực tế
+
+            InputStreamResource resource = new InputStreamResource(imageStream);
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
         Optional<ProductEntity> opt = productService.findById(id);
         if (opt.isPresent()) {
             ProductEntity entity = opt.get();
-            ProductDTO productModel = new ProductDTO();
-            BeanUtils.copyProperties(entity, productModel);
+            ProductDTO productDTO = new ProductDTO();
+            BeanUtils.copyProperties(entity, productDTO);
 
             // Lấy tổng quantity từ bảng storeproduct
-            Long totalQuantity = storeProductRepository.getTotalQuantityByProductId(id);
-            productModel.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
+            Long totalQuantity = storeProductService.getTotalQuantityByProductId(id);
+            productDTO.setTotalQuantity(totalQuantity != null ? totalQuantity : 0L);
+
+            Long totalSold = storeProductService.getTotalSoldByProductId(id);
+            productDTO.setTotalSold(totalSold != null ? totalSold : 0L);
 
             // Set category info
+            List<CategoryEntity> categories = categoryServiceImpl.findAll();
             if (entity.getCategoryEntity() != null) {
-                productModel.setCategoryId(entity.getCategoryEntity().getId());
-                productModel.setCategoryName(entity.getCategoryEntity().getName());
+                productDTO.setCategoryId(entity.getCategoryEntity().getId());
+                productDTO.setCategoryName(entity.getCategoryEntity().getName());
             }
 
             // Lấy danh sách ảnh từ gallery theo product_id
             List<GalleryEntity> galleryList = productService.getGalleryByProductId(id);
-            
-            // Map ảnh theo type
-            for (GalleryEntity gallery : galleryList) {
-                String type = gallery.getType();
-                String imageUrl = gallery.getImage(); // URL ảnh từ database
-                
-                // Set URL ảnh vào các trường tương ứng của ProductModel
-                switch (type.toLowerCase()) {
-                    case "right":
-                        productModel.setRightImage(imageUrl);
-                        break;
-                    case "left":
-                        productModel.setLeftImage(imageUrl);
-                        break;
-                    case "behind":
-                        productModel.setBehindImage(imageUrl);
-                        break;
-                    case "front":
-                        productModel.setFrontImage(imageUrl);
-                        break;
-                }
-            }
+            // Chuyển đổi danh sách GalleryEntity thành GalleryDTO
+            List<GalleryDTO> galleryDTOList = galleryList.stream()
+                    .map(gallery -> new GalleryDTO(gallery.getImage(),gallery.getType() ))
+                    .collect(Collectors.toList());
 
-            model.addAttribute("product", productModel);
+            // Set danh sách ảnh vào productDTO
+            productDTO.setGalleries(galleryDTOList);
+
+            // Thêm thông tin vào model
+            model.addAttribute("product", productDTO);
+            model.addAttribute("categories", categories);
             return new ModelAndView("admin/products/addOrEdit", model);
         }
         model.addAttribute("message", "Product not found");
         return new ModelAndView("redirect:/admin/products", model);
     }
 
+
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes redirectAttributes,
-                               @Valid @ModelAttribute("product") ProductDTO productModel,
-                               BindingResult result) {
+                                     @Valid @ModelAttribute("product") ProductDTO productDTO,
+                                     BindingResult result,
+                                     @RequestParam(value = "rightImage", required = false) MultipartFile rightImage,
+                                     @RequestParam(value = "leftImage", required = false) MultipartFile leftImage,
+                                     @RequestParam(value = "behindImage", required = false) MultipartFile behindImage,
+                                     @RequestParam(value = "frontImage", required = false) MultipartFile frontImage) {
+
         if (result.hasErrors()) {
             return new ModelAndView("admin/products/addOrEdit");
         }
 
         try {
             ProductEntity entity = new ProductEntity();
-            // Copy dữ liệu từ model sang entity
-            BeanUtils.copyProperties(productModel, entity);
-
-            // Set category nếu có
-            if (productModel.getCategoryId() != null) {
-                CategoryEntity category = categoryServiceImpl.findById(productModel.getCategoryId())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
-                entity.setCategoryEntity(category);
+            if (productDTO.getId() != null) {
+                Optional<ProductEntity> optEntity = productService.findById(productDTO.getId());
+                optEntity.ifPresent(existingEntity -> entity.setId(existingEntity.getId()));  // Cập nhật ID nếu có
             }
 
-            // Lưu entity
-            entity = productService.save(entity);
+            BeanUtils.copyProperties(productDTO, entity);  // Copy dữ liệu từ DTO vào entity
+            List<GalleryEntity> existingGalleries = galleryServiceImpl.getGalleryByProductId(entity.getId());
 
-            // Thêm thông báo thành công
-            String successMessage = productModel.getId() == null ?
-                "Product added successfully!" : "Product updated successfully!";
-            redirectAttributes.addFlashAttribute("message", successMessage);
+            // Xóa ảnh cũ trước khi thêm ảnh mới
+            if (!existingGalleries.isEmpty()) {
+                for (GalleryEntity gallery : existingGalleries) {
+                    boolean isImageUpdated = false;
+                    if ("right".equals(gallery.getType()) && rightImage != null && !rightImage.isEmpty()) {
+                        // Xóa ảnh cũ chỉ khi ảnh "right" được cập nhật và khác ảnh đã lưu
+                        galleryServiceImpl.delete(gallery);
+                        isImageUpdated = true;
+                    }
+
+                    if ("left".equals(gallery.getType()) && leftImage != null && !leftImage.isEmpty()) {
+                        // Xóa ảnh cũ chỉ khi ảnh "left" được cập nhật và khác ảnh đã lưu
+                        galleryServiceImpl.delete(gallery);
+                        isImageUpdated = true;
+                    }
+
+                    if ("behind".equals(gallery.getType()) && behindImage != null && !behindImage.isEmpty()) {
+                        // Xóa ảnh cũ chỉ khi ảnh "behind" được cập nhật và khác ảnh đã lưu
+                        galleryServiceImpl.delete(gallery);
+                        isImageUpdated = true;
+                    }
+
+                    if ("front".equals(gallery.getType()) && frontImage != null && !frontImage.isEmpty()) {
+                        // Xóa ảnh cũ chỉ khi ảnh "front" được cập nhật và khác ảnh đã lưu
+                        galleryServiceImpl.delete(gallery);
+                        isImageUpdated = true;
+                    }
+                }
+            }
+            // Xử lý upload ảnh và lưu vào cơ sở dữ liệu
+
+//            if (productDTO.getGalleries() != null && !productDTO.getGalleries().isEmpty()) {
+//                for (GalleryDTO galleryDTO : productDTO.getGalleries()) {
+//                    GalleryEntity galleryEntity = new GalleryEntity();
+//                    galleryEntity.setImage(galleryDTO.getImage());
+//                    galleryEntity.setType(galleryDTO.getType());
+//                    galleryEntity.setProductEntity(entity);  // Gán lại sản phẩm cho gallery
+//
+//                    entity.getGalleryEntities().add(galleryEntity);  // Thêm vào danh sách GalleryEntities của sản phẩm
+//                }
+//            }
+            List<GalleryEntity> galleryEntities = new ArrayList<>();
+            galleryEntities.addAll(processUploadedImage(rightImage, "right", entity));
+            galleryEntities.addAll(processUploadedImage(leftImage, "left", entity));
+            galleryEntities.addAll(processUploadedImage(behindImage, "behind", entity));
+            galleryEntities.addAll(processUploadedImage(frontImage, "front", entity));
+            if (!galleryEntities.isEmpty()) {
+                // Set danh sách ảnh (galleries) vào product entity
+                entity.setGalleryEntities(galleryEntities); // Gắn danh sách ảnh vào product
+                // Lưu tất cả ảnh vào DB
+
+                // Cập nhật lại thông tin ảnh cho productDTO (để hiển thị trong view)
+                for (GalleryEntity gallery : galleryEntities) {
+                    productDTO.getGalleries().add(new GalleryDTO(gallery.getImage(), gallery.getType()));
+                }
+            }
+
+            // Gán category cho sản phẩm nếu có
+
+            if (productDTO.getCategoryName() != null && !productDTO.getCategoryName().isEmpty()) {
+                CategoryEntity category = categoryServiceImpl.findByName(productDTO.getCategoryName())
+                        .orElseThrow(() -> new RuntimeException("Category not found"));
+                entity.setCategoryEntity(category);
+            }
+            String video = productDTO.getVideo();
+            String videoPro = processYouTubeUrl(video);
+            // Lưu sản phẩm vào cơ sở dữ liệu
+            entity.setVideo(videoPro);
+            productService.save(entity);
+            galleryServiceImpl.saveAll(galleryEntities);
+
+            // Xử lý từng ảnh và lưu vào DB
+
+            redirectAttributes.addFlashAttribute("message", "Product " + (productDTO.getId() == null ? "added" : "updated") + " successfully!");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,34 +264,53 @@ public class ProductController {
         return new ModelAndView("redirect:/admin/products");
     }
 
-    // Phương thức hỗ trợ update gallery image
-    private void updateGalleryImage(ProductEntity product, String type, MultipartFile image) throws IOException {
-        Optional<GalleryEntity> existingGallery = galleryServiceImpl.findByProductAndType(product.getId(), type);
-        if (existingGallery.isPresent()) {
-            GalleryEntity gallery = existingGallery.get();
-            gallery.setImage(saveImage(image));
-            galleryServiceImpl.save(gallery);
-        } else {
-            createGalleryImage(product, type, image);
+    /**
+     * Xử lý ảnh upload và tạo các entity tương ứng
+     */
+    private List<GalleryEntity> processUploadedImage(MultipartFile image, String type, ProductEntity productEntity) {
+        List<GalleryEntity> galleryEntities = new ArrayList<>();
+        if (image != null && !image.isEmpty()) {
+            // Process the image
+            String imageName = FileHandler.save(image);  // Save image using FileHandler (similar to your original code)
+
+            // If saving was successful, create a new GalleryEntity
+            if (imageName != null) {
+                GalleryEntity gallery = new GalleryEntity();
+                gallery.setImage(imageName);  // Store the image name
+                gallery.setType(type);  // Set the image type (e.g., "right", "left")
+                gallery.setProductEntity(productEntity);  // Associate the image with the product
+                galleryEntities.add(gallery);
+            }
         }
+        return galleryEntities;
     }
 
-    // Phương thức hỗ trợ tạo mới gallery image
-    private void createGalleryImage(ProductEntity product, String type, MultipartFile image) throws IOException {
-        GalleryEntity gallery = new GalleryEntity();
-        gallery.setProductEntity(product);
-        gallery.setType(type);
-        gallery.setImage(saveImage(image));
-        galleryServiceImpl.save(gallery);
+    public String processYouTubeUrl(String videoUrl) {
+        String videoPro = null;
+
+        if (videoUrl != null && !videoUrl.isEmpty()) {
+            // Sử dụng regex để lấy videoId từ URL chuẩn
+            String youtubeRegex = "^(https?://(?:www\\.)?youtube\\.com/watch\\?v=)([a-zA-Z0-9_-]+)";
+            Pattern pattern = Pattern.compile(youtubeRegex);
+            Matcher matcher = pattern.matcher(videoUrl);
+
+            if (matcher.find()) {
+                String videoId = matcher.group(2);  // Lấy videoId từ URL
+                videoPro = "https://www.youtube.com/embed/" + videoId;  // Chuyển thành embed URL
+            } else {
+                // Nếu không phải là YouTube URL chuẩn, trả về null hoặc xử lý theo yêu cầu
+                videoPro = videoUrl;
+            }
+        }
+
+        return videoPro;
     }
 
-    // Phương thức hỗ trợ lưu file
-    private String saveImage(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        File dest = new File(uploadPath + fileName);
-        file.transferTo(dest);
-        return fileName;
-    }
+
+
+
+
+
 
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
@@ -263,7 +386,7 @@ public class ProductController {
                 galleryEntity.setProductEntity(product);
                 galleryEntity.setImage(fileName);
                 galleryEntity.setType("image/jpeg"); // Hoặc kiểu MIME thích hợp
-                galleryServiceImpl.addGalleryImage(galleryEntity);
+              //  galleryServiceImpl.addGalleryImage(galleryEntity);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -273,5 +396,31 @@ public class ProductController {
         return "Images uploaded successfully!";
     }
 
+    @PostMapping("/uploadImage")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file,
+                                              @RequestParam("productId") Long productId,
+                                              @RequestParam("type") String type) {
+        try {
+            // Lưu ảnh vào thư mục uploads
+            String filename = file.getOriginalFilename();
+            Path path = Paths.get("C:/HK1_NAM3/LapTrinhWeb/uploads/" + filename);
+            Files.copy(file.getInputStream(), path);
 
+            // Tìm sản phẩm theo ID
+            ProductEntity product = productService.findByIdProductID(productId);
+
+            // Tạo đối tượng GalleryEntity
+            GalleryEntity gallery = new GalleryEntity();
+            gallery.setProductEntity(product);
+            gallery.setImage(path.toString());  // Lưu đường dẫn file ảnh
+            gallery.setType(type);  // Loại ảnh (main, detail, etc.)
+
+            // Lưu vào cơ sở dữ liệu
+            galleryServiceImpl.save(gallery);
+
+            return ResponseEntity.ok("Image uploaded successfully.");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image.");
+        }
+    }
 }

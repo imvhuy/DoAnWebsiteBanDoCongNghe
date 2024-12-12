@@ -65,7 +65,6 @@ public class ProductDetailController {
          // Lấy danh sách ảnh từ gallery theo product_id
             List<GalleryEntity> galleryList = productService.getGalleryByProductId(id);
             
-           System.out.println("1111111111111111: " + galleryList.size());
             // Chuyển đổi danh sách GalleryEntity thành GalleryDTO
             List<GalleryDTO> galleryDTOList = galleryList.stream()
                     .map(gallery -> new GalleryDTO(gallery.getImage(),gallery.getType() ))
@@ -73,7 +72,6 @@ public class ProductDetailController {
 
             // Set danh sách ảnh vào productDTO
             productDTO.setGalleries(galleryDTOList);
-            System.out.println("222222222222222: " + productDTO.getGalleries().size());
             //xu ly product configuration
             List<Map<String, String>> configList = convertToList(productDTO.getConfiguration());
             //lay tat ca reviews cua product

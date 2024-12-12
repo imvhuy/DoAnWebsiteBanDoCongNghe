@@ -741,10 +741,6 @@ display: block; /* Đảm bảo là block-level element */
                                         <li>
                                             <div class="body-title">Price</div>
                                         </li>
-
-                                        <li>
-                                            <div class="body-title">Sold</div>
-                                        </li>
                                         <li>
                                             <div class="body-title">Action</div>
                                         </li>
@@ -761,10 +757,6 @@ display: block; /* Đảm bảo là block-level element */
                                                     </div>
                                                     <div class="name">
                                                         <a class="body-title-2">${product.price}</a>
-                                                    </div>
-
-                                                    <div class="name">
-                                                        <a  class="body-title-2">${product.sold}</a>
                                                     </div>
                                                     <!-- Action Buttons -->
                                                     <div class="list-icon-function">

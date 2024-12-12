@@ -3,6 +3,7 @@ package com.javaweb.repository;
 import java.util.Date;
 import java.util.List;
 
+import com.javaweb.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

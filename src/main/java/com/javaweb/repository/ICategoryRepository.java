@@ -1,6 +1,7 @@
 package com.javaweb.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.javaweb.controller.web.CategoryController;
 import org.springframework.data.domain.Page;
@@ -18,4 +19,5 @@ public interface ICategoryRepository  extends JpaRepository<CategoryEntity, Long
     Page<CategoryEntity> findAll(Pageable pageable);
     List<CategoryEntity> findAll(Sort sort);
     List<CategoryEntity> findAllById(Iterable<Long> ids);
+    Optional<CategoryEntity> findByName(String name);
 }

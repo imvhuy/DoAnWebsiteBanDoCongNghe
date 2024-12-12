@@ -15,19 +15,16 @@ import com.javaweb.service.IProductService;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 import com.javaweb.repository.IGalleryRepository;
+import com.javaweb.repository.IProductRepository;
 import com.javaweb.service.IProductService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 @Service
 public class ProductServiceImpl implements IProductService{
@@ -55,6 +52,7 @@ public class ProductServiceImpl implements IProductService{
 	    public List<GalleryEntity> getGalleryByProductId(Long productId) {
 	        return galleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
 	    }
+		
 	    @Override
 	    public void delete(ProductEntity entity) {
 	        productRepository.delete(entity);
@@ -80,6 +78,7 @@ public class ProductServiceImpl implements IProductService{
 	        Optional<ProductEntity> product = productRepository.findById(id);
 	        return product.orElseThrow(() -> new RuntimeException("Product not found"));
 	    }
+
 	    @Override
 	    public <S extends ProductEntity> S save(S entity) {
 	        if (entity.getId() == null) {
@@ -169,4 +168,9 @@ public class ProductServiceImpl implements IProductService{
 	    }
 
     
-}
+
+    @Override
+    public ProductEntity findByIdProductID(Long productId) {
+        return IProductRepository.findById(productId).orElse(null);
+    }
+

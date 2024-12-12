@@ -1,8 +1,11 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.dto.CarrierDTO;
+import com.javaweb.dto.ResponseDTO;
 import com.javaweb.entity.CarrierEntity;
-import com.javaweb.service.ICarrierService;
+import com.javaweb.entity.CategoryEntity;
+import com.javaweb.dto.CarrierDTO;
+import com.javaweb.service.CarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +58,7 @@ public class CarrierController {
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(ModelMap model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCarrier = ICarrierService.findById(id);
+        Optional<CarrierEntity> optCarrier = carrierService.findById(id);
         CarrierDTO cateModel = new CarrierDTO();
         //kiểm tra sự tồn tại của category
         if (optCarrier.isPresent()) {
@@ -72,19 +75,19 @@ public class CarrierController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CarrierDTO carrierModel, BindingResult result) {
+                                     @Valid @ModelAttribute CarrierDTO carrierDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/carriers/addOrEdit");
         }
         CarrierEntity entity = new CarrierEntity();
         //copy từ Model sang Entity
-        BeanUtils.copyProperties(carrierModel, entity);
+        BeanUtils.copyProperties(carrierDTO, entity);
         try {
             // gọi hàm save trong service
             ICarrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
-            if (carrierModel.getId() != null) {
+            if (carrierDTO.getId() != null) {
                 message = "Category is Edited!!!!!!!!";
             } else {
                 message = "Category is saved!!!!!!!!";

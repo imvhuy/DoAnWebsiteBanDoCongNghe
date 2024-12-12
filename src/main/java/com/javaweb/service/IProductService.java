@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,11 @@ import com.javaweb.dto.ProductDTO;
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
+=======
+import com.javaweb.entity.GalleryEntity;
+import com.javaweb.entity.ProductEntity;
+import com.javaweb.dto.ProductDTO;
+>>>>>>> 7174ec38799f5e6db3d837f2e8f54908774d16c3
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -56,6 +62,8 @@ public interface IProductService {
 	Long countTotalAvailableQuantityOfProduct(Long id);
     
 
+
+    ProductEntity findByIdProductID(Long productId);
 }
 
 

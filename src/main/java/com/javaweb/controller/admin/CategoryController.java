@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javaweb.dto.CategoryDTO;
 import com.javaweb.entity.CategoryEntity;
+import com.javaweb.dto.CategoryDTO;
 import com.javaweb.service.ICategoryService;
 
 import jakarta.validation.Valid;
@@ -53,8 +53,8 @@ public class CategoryController {
     
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
-        CategoryDTO categoryModel = new CategoryDTO();
-        model.addAttribute("category", categoryModel);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        model.addAttribute("category", categoryDTO);
         return new ModelAndView("admin/categories/addOrEdit", model);
     }
 
@@ -78,19 +78,19 @@ public class CategoryController {
 
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(RedirectAttributes model,
-                                     @Valid @ModelAttribute CategoryDTO CategoryModel, BindingResult result) {
+                                     @Valid @ModelAttribute CategoryDTO CategoryDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/categories/addOrEdit");
         }
         CategoryEntity entity = new CategoryEntity();
         //copy từ Model sang Entity
-        BeanUtils.copyProperties(CategoryModel, entity);
+        BeanUtils.copyProperties(CategoryDTO, entity);
         try {
             // gọi hàm save trong service
             categoryService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
-            if (CategoryModel.getId() != null) {
+            if (CategoryDTO.getId() != null) {
                 message = "Category is Edited!!!!!!!!";
             } else {
                 message = "Category is saved!!!!!!!!";
