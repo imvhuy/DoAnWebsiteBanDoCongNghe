@@ -190,7 +190,7 @@ public class ProductController {
             // Gán category cho sản phẩm nếu có
 
             if (productDTO.getCategoryName() != null && !productDTO.getCategoryName().isEmpty()) {
-                CategoryEntity category = categoryServiceImpl.findByName(productDTO.getCategoryName())
+                CategoryEntity category = categoryService.findByName(productDTO.getCategoryName())
                         .orElseThrow(() -> new RuntimeException("Category not found"));
                 entity.setCategoryEntity(category);
             }
@@ -199,7 +199,7 @@ public class ProductController {
             // Lưu sản phẩm vào cơ sở dữ liệu
             entity.setVideo(videoPro);
             productService.save(entity);
-            galleryServiceImpl.saveAll(galleryEntities);
+            galleryService.saveAll(galleryEntities);
 
             // Xử lý từng ảnh và lưu vào DB
 
