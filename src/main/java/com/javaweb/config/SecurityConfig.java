@@ -62,7 +62,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.loginPage("/login")
                         .successHandler(myAuthenticationSuccessHandler())
@@ -101,6 +101,4 @@ public class SecurityConfig{
     public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall allowUrlEncodedDoubleSlashHttpFirewall) {
         return web -> web.httpFirewall(allowUrlEncodedDoubleSlashHttpFirewall); // Áp dụng HttpFirewall tùy chỉnh
     }
-
-
 }

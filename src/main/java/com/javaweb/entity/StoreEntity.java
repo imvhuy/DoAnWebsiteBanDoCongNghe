@@ -28,6 +28,8 @@ public class StoreEntity extends BaseEntity{
     @Column(name = "bio")
     private String bio;
 
+    private String address;
+
     @Column(name = "isActive")
     private Boolean isActive = false;
 

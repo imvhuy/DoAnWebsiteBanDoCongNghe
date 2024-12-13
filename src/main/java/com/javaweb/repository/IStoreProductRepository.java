@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface IStoreProductRepository extends JpaRepository<StoreProductEntity, Long> {
     @Query("SELECT SUM(sp.quantity) FROM StoreProductEntity sp WHERE sp.product.id = :productId")
@@ -13,4 +16,9 @@ public interface IStoreProductRepository extends JpaRepository<StoreProductEntit
 
     @Query("SELECT SUM(sp.sold) FROM StoreProductEntity sp WHERE sp.product.id = :productId")
     Long getTotalSoldByProductId(@Param("productId") Long productId);  // Phương thức tính tổng số sản phẩm đã bán
-} 
+
+    List<StoreProductEntity> findByStoreId(Long storeId);
+
+    // Lấy thông tin sản phẩm trong cửa hàng theo ID
+    Optional<StoreProductEntity> findByStoreIdAndProductId(Long storeId, Long productId);
+}

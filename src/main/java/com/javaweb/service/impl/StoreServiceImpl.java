@@ -41,7 +41,7 @@ public class StoreServiceImpl implements IStoreService {
     }
 
     @Override
-    public List<StoreEntity> findByOwner(String owner) {
+    public StoreEntity findByOwner(String owner) {
         return storeRepository.findByOwner_Username(owner);
     }
 

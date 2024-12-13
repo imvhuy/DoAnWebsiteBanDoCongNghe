@@ -141,32 +141,6 @@
     gap: 15px;
     flex-wrap: wrap;
 }
-.tf-search-suggestions {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 10px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: none; /* Ẩn mặc định */
-    position: absolute;
-    width: 100%;
-    z-index: 1000;
-}
-/* Phần gợi ý chung */
-.tf-search-suggestions {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 10px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: none; /* Ẩn mặc định */
-    position: absolute;
-    width: 100%;
-    z-index: 1000;
-    padding: 10px;
-}
 
 </style>
 <!-- Header -->
@@ -256,11 +230,7 @@
                             </div>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Blog<i
-                                    class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu submenu-default">
-                                <!-- Submenu content -->
-                            </div>
+                            <a href="vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
                         </li>
                     </ul>
                 </nav>
@@ -284,13 +254,7 @@
                                         <li><a class="dropdown-item"
                                                href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a>
                                         </li>
-                                        <!-- Kiểm tra xem người dùng có role 'vendor' không -->
-                                        <c:if test="${fn:contains(pageContext.request.userPrincipal.authorities.toString(), 'ROLE_VENDOR')}">
-                                            <li><a class="dropdown-item" href="/vendor/manage">My Store</a></li>
-                                        </c:if>
-                                        <c:if test="${fn:contains(pageContext.request.userPrincipal.authorities.toString(), 'ROLE_USER')}">
                                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
-                                        </c:if>
                                         <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">

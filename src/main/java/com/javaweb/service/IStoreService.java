@@ -14,5 +14,5 @@ public interface IStoreService {
     List<StoreEntity> findAll();
     StoreEntity save(StoreEntity storeEntity);
     void deleteById(Long id);
-    List<StoreEntity> findByOwner(String ownerId);
+    StoreEntity findByOwner(String ownerId);
 }

@@ -7,7 +7,6 @@ import com.javaweb.entity.StoreEntity;
 import com.javaweb.service.IStoreService;
 import com.javaweb.service.IUserService;
 import com.javaweb.utils.FileHandler;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,52 +32,45 @@ public class StoreController {
     @Autowired
     UserConverter userConverter;
 
-    @GetMapping("/manage")
+    @GetMapping("/manage-store")
     public String showStoreManagementPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            List<StoreEntity> stores = storeService.findByOwner(owner);
-            model.addAttribute("stores", stores);
+            StoreEntity currentStore = storeService.findByOwner(owner);
+            model.addAttribute("store", currentStore);
+            return "/vendor/manage-store";
         }
         return "/vendor/manage-store";
     }
 
-    // Handle store creation
-    @PostMapping("/stores/saveOrUpdate")
-    public String createOrUpdateStore(@ModelAttribute StoreEntity store,
-                                      BindingResult result,
-                                      @RequestParam("storeAvatar") MultipartFile storeAvatar, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return "store/create"; // Return to the form if there are validation errors
-        }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
+    @PostMapping("/saveOrUpdate")
+    public String registerStore(@ModelAttribute StoreEntity store,
+                                @RequestParam("avatarStore") MultipartFile avatar, RedirectAttributes model) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO user = userService.findByUserName(owner);
-            store.setOwner(userConverter.convertToEntity(user));
+            if (!avatar.isEmpty()) {
+                String avatarPath = FileHandler.save(avatar);
+                store.setAvatar(avatarPath);
+            }
+            store.setOwner(userConverter.convertToEntity(userService.findByUserName(owner)));
+            if(store.getId() == null) {
+                model.addFlashAttribute("message", "Đăng ký thành công, hãy chờ Admin duyệt!!");
+            }
+            else {
+                model.addFlashAttribute("message", "Chỉnh sửa thông tin cửa hàng thành công");
+            }
+            storeService.save(store);
+            // Gửi thông tin đã đăng ký đến trang xác nhận
+            model.addAttribute("store", store);
+            return "redirect:/vendor/manage-store";
+        } catch (Exception e) {
+            model.addAttribute("message", "Có lỗi xảy ra khi đăng ký cửa hàng.");
+            return "redirect:/vendor/manage-store";
         }
-
-        if (!storeAvatar.isEmpty()) {
-            // Save the uploaded image to a directory or database
-            String avatarPath = FileHandler.save(storeAvatar);
-            store.setAvatar(avatarPath);
-        }
-
-        // Save or update store in the database
-        storeService.save(store);
-        redirectAttributes.addFlashAttribute("message", "Add Store Successfully");
-        return "redirect:/vendor/manage"; // Redirect to the store list or a confirmation page
-    }
-
-    // Show edit store form (example)
-    @GetMapping("/edit/{id}")
-    public String showEditStoreForm(@PathVariable("id") Long storeId, Model model) {
-        Optional<?> store = storeService.findById(storeId);
-        model.addAttribute("store", store);
-        return "store/edit"; // Path to the edit form
     }
 
     @PostMapping("stores/delete/{id}")

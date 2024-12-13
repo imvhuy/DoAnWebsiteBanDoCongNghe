@@ -12,5 +12,5 @@ import java.util.List;
 public interface IStoreRepository extends JpaRepository<StoreEntity, Long> {
     Page<StoreEntity> findByNameContaining(String storeName, Pageable pageable);
 
-    List<StoreEntity> findByOwner_Username(String owner);
+    StoreEntity findByOwner_Username(String owner);
 }
