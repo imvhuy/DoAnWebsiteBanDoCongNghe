@@ -49,6 +49,9 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<CartEntity> cartEntities;
 
+    @OneToMany(mappedBy = "owner")
+    private List<StoreEntity> storeEntities;
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;
 

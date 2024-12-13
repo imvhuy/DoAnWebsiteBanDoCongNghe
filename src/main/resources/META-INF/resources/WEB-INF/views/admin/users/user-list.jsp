@@ -63,6 +63,7 @@
 				<div class="wg-table table-all-user">
 					<ul class="table-title flex gap20 mb-14">
 						<li><div class="body-title">User</div></li>
+						
 						<li><div class="body-title">Email</div></li>
 						<li><div class="body-title">Commit History</div></li>
 						<li><div class="body-title">Action</div></li>
@@ -85,6 +86,7 @@
 									</div>
 								</div>
 								<div class="body-text">${user.email}</div>
+								
 								<div class="body-text">
 									<a href="/admin/users/checkHistory/${user.id}">Check
 										History Commit</a>

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class StoreEntity extends BaseEntity{
     private String bio;
 
     @Column(name = "isActive")
-    private Boolean isActive;
+    private Boolean isActive = false;
 
     @Column(name = "isOpen")
-    private Boolean isOpen;
+    private Boolean isOpen = false;
 
     @Column(name = "avatar")
     private String avatar;
@@ -41,11 +42,17 @@ public class StoreEntity extends BaseEntity{
     @Column(name = "rating")
     private int  rating;
 
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "ownerid")
+    private UserEntity owner;
+    
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<StoreProductEntity> storeProduct;
 
     @OneToOne
     @JoinColumn(name = "commissionid")
+    @ToString.Exclude
     private CommissionEntity commission;
 
 
