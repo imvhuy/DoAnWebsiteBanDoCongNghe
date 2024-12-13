@@ -38,5 +38,6 @@ public class OrderEntity extends BaseEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DeliveryEntity delivery;
 }

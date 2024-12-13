@@ -4,8 +4,9 @@ import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.UserEntity;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class UserConverter {
