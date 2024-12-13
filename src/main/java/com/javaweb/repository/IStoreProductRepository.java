@@ -1,6 +1,11 @@
 package com.javaweb.repository;
 
 import com.javaweb.entity.StoreProductEntity;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +26,12 @@ public interface IStoreProductRepository extends JpaRepository<StoreProductEntit
 
     // Lấy thông tin sản phẩm trong cửa hàng theo ID
     Optional<StoreProductEntity> findByStoreIdAndProductId(Long storeId, Long productId);
+
+    Page<StoreProductEntity> findByStoreIdAndProduct_NameContaining(Long storeId, String name, Pageable pageable);
+
+    Page<StoreProductEntity> findByStoreId(Long storeId, Pageable pageable);
+
+//	 @Query("SELECT p FROM ProductEntity p WHERE p.id IN (SELECT sp.product.id FROM StoreProductEntity sp WHERE sp.store.id = :storeId)")
+//	    Page<ProductEntity> findProductsByStore(@Param("storeId") Long storeId, Pageable pageable);
+
 }

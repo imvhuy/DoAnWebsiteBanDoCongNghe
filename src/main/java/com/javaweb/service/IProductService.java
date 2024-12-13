@@ -54,5 +54,6 @@ public interface IProductService {
     List<ProductEntity> findByNameContainingIgnoreCase(String query);
 
     ProductEntity findByIdProductID(Long productId);
+    public Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }
 

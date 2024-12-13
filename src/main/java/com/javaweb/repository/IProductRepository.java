@@ -15,10 +15,11 @@ import java.util.List;
 public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
     List<ProductEntity> findAllByCategoryEntity_IdAndIsActive(Long id, Boolean isActive);
     Page<ProductEntity> findByNameContaining(String name, Pageable pageable);
+    List<ProductEntity> findByNameContaining(String name);
     Page<ProductEntity> findAll(Pageable pageable);
-    List<ProductEntity> findByNameContaining(String Name);
     List<ProductEntity> findAll(Sort sort);
     List<ProductEntity> findAllById(Iterable<Long> ids);
+    Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
     long count();
     Page<ProductEntity> findByCategoryEntity_IdAndIsActive(Long id, boolean isActive, Pageable pageable);
 

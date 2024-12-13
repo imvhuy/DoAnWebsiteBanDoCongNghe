@@ -2,6 +2,8 @@ package com.javaweb.dto;
 
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.RoleEntity;
+import com.javaweb.entity.UserEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

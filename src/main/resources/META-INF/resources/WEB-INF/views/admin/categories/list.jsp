@@ -32,7 +32,7 @@
                             <div class="show">
                                 <div class="text-tiny">Showing</div>
                                 <div class="select">
-                                    <form method="GET" action="/admin/categorys/searchpaginated">
+                                    <form method="GET" action="/admin/categories/searchpaginated">
                                         <div
                                                 class="flex items-center justify-between flex-wrap gap10">
                                             <div class="text-tiny">

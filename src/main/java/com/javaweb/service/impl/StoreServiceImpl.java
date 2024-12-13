@@ -1,4 +1,6 @@
 package com.javaweb.service.impl;
+import java.util.List;
+import java.util.Optional;
 
 import com.javaweb.entity.StoreEntity;
 import com.javaweb.repository.IStoreRepository;
@@ -8,18 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class StoreServiceImpl implements IStoreService {
-    @Autowired
-    private IStoreRepository storeRepository;
 
-    // Tìm cửa hàng theo tên và phân trang
+	  @Autowired
+	    private IStoreRepository storeRepository;
+
+	 // Tìm cửa hàng theo tên và phân trang
     public Page<StoreEntity> findByStoreName(String storeName, Pageable pageable) {
         // Sử dụng phương thức tìm kiếm theo tên (like query) trong repository
-        return storeRepository.findByNameContaining (storeName, pageable);
+        return storeRepository.findByNameContaining(storeName, pageable);
     }
 
     // Lấy tất cả các cửa hàng với phân trang
@@ -45,11 +45,8 @@ public class StoreServiceImpl implements IStoreService {
         return storeRepository.findByOwner_Username(owner);
     }
 
-
-
     @Override
     public List<StoreEntity> findAll() {
         return storeRepository.findAll();
     }
 }
-

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -56,17 +57,54 @@ public class ProductController {
 
 
 
+//    @GetMapping
+//    public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
+//        //gọi hàm findAll() trong service
+//        List<ProductEntity> list = productService.findAll();
+//        if (!StringUtils.isEmpty(message)) {
+//            model.addAttribute("message", message);
+//        }
+//        // chuyển dữ liệu từ list lên biến categories
+//        model.addAttribute("products", list);
+//        return new ModelAndView("/admin/products/list", model);
+//    }
     @GetMapping
-    public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
-        //gọi hàm findAll() trong service
-        List<ProductEntity> list = productService.findAll();
-        if (!StringUtils.isEmpty(message)) {
-            model.addAttribute("message", message);
+    public String list(@RequestParam(defaultValue = "1") int page, // Đặt giá trị mặc định là 1 thay vì 0
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(value = "name", required = false) String name,
+                       ModelMap model) {
+        // Kiểm tra tham số page và size có hợp lệ không
+        if (page < 1) {
+            page = 1;  // Đảm bảo trang luôn bắt đầu từ 1
         }
-        // chuyển dữ liệu từ list lên biến categories
-        model.addAttribute("products", list);
-        return new ModelAndView("/admin/products/list", model);
+        if (size <= 0) {
+            size = 10;  // Đặt lại kích thước nếu không hợp lệ
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, size);  // Trừ 1 để sử dụng với pageable, vì pageable bắt đầu từ 0
+        Page<ProductEntity> productPage;
+
+        if (name != null && !name.isEmpty()) {
+            productPage = productService.findByNameContainingIgnoreCase(name, pageable);
+            model.addAttribute("name", name);
+        } else {
+            productPage = productService.findAll(pageable);
+        }
+
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("totalElements", productPage.getTotalElements());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("size", size);
+
+        return "admin/products/list";
     }
+
+
+
+
+
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {

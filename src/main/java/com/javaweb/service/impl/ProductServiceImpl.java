@@ -99,8 +99,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductEntity> findByNameContaining(String Name) {
-        return productRepository.findByNameContaining(Name);
+    public List<ProductEntity> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
     }
 
     @Override
@@ -251,5 +251,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public List<ProductEntity> findByNameContainingIgnoreCase(String query) {
         return productRepository.findByNameContainingIgnoreCase(query);
+    }
+    @Override
+    public Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable) {
+        return productRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 }
