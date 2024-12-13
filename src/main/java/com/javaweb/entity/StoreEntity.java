@@ -36,10 +36,13 @@ public class StoreEntity extends BaseEntity{
     private String avatar;
 
     @Column(name = "point")
-    private int point;
+    private Integer point;
 
     @Column(name = "rating")
-    private int  rating;
+    private Integer  rating;
+    
+    @Column(name = "address")
+    private String address;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<StoreProductEntity> storeProduct;

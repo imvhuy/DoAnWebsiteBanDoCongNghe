@@ -1,7 +1,7 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.entity.VoucherEntity;
-import com.javaweb.service.PromotionService;
+import com.javaweb.service.IPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class PromotionController {
 
     @Autowired
-    private PromotionService promotionService;
+    private IPromotionService promotionService;
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 
     // Hiển thị danh sách các voucher với phân trang và tìm kiếm theo tên

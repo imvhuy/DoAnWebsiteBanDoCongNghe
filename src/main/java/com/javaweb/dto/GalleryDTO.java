@@ -22,8 +22,4 @@ public class GalleryDTO extends BaseDTO {
     }
 
 
-    public GalleryDTO( String image, String type) {
-        this.image = image;
-        this.type = type;
-    }
 }

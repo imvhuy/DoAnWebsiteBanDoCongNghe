@@ -12,10 +12,10 @@ import org.springframework.util.StringUtils;
 
 import com.javaweb.entity.VoucherEntity;
 import com.javaweb.repository.IPromotionRepository;
-import com.javaweb.service.PromotionService;
+import com.javaweb.service.IPromotionService;
 @Service
 
-public class PromotionServiceImpl implements PromotionService {
+public class PromotionServiceImpl implements IPromotionService {
 	private final IPromotionRepository promotionRepository;
 	@Autowired
 	public PromotionServiceImpl(IPromotionRepository promotionRepository) {

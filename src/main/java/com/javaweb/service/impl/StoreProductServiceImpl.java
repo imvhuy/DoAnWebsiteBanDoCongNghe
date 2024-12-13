@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IStoreProductService;
 import com.javaweb.entity.ProductEntity;
+import com.javaweb.entity.StoreEntity;
 import com.javaweb.entity.StoreProductEntity;
 import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.IStoreProductService;
@@ -68,10 +70,6 @@ public class StoreProductServiceImpl implements IStoreProductService {
         }
     }
 
-    @Override
-    public Long getTotalQuantityByProductId(Long productId) {
-        return storeProductRepository.getTotalQuantityByProductId(productId);
-    }
 
     @Override
     public Long getTotalSoldByProductId(Long productId) {
@@ -80,5 +78,17 @@ public class StoreProductServiceImpl implements IStoreProductService {
     @Override
     public void save(StoreProductEntity storeProduct) {
         storeProductRepository.save(storeProduct);
+    }
+    
+    @Override
+	public List<StoreEntity> findStoresByProductIdAndQuantity(Long productId, Long quantity){
+    	return storeProductRepository.findStoresByProductIdAndQuantity(productId, quantity);
+    }
+    
+    //cập nhật số lượng  product của 1 store sau khi user đặt hàng
+    @Transactional // Bọc giao dịch cho phương thức
+    @Override
+	public void updateQuantityAfterUserPlaceOrderItem(Long storeId,Long productId,Long quantity) {
+    	storeProductRepository.updateQuantityAfterUserPlaceOrderItem(storeId, productId, quantity);
     }
 }

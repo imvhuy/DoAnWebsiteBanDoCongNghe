@@ -1,11 +1,11 @@
 package com.javaweb.service;
 
-import java.util.List;
-
 import com.javaweb.dto.GeocodingResultDTO;
 
 public interface IGeocodingService {
 
-	List<GeocodingResultDTO> getCoordinates(String address);
+	GeocodingResultDTO getCoordinates(String address);
+
+	double calculateDistance(double lat1, double lon1, double lat2, double lon2);
 
 }

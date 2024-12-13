@@ -23,4 +23,7 @@ public interface IAddressService {
     AddressDTO findAddressModelById(Long id);
 
     void deleteAddressById(Long addressId);
+
+	AddressEntity findByIdNotOptional(Long id);
+
 }

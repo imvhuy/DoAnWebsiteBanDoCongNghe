@@ -1,5 +1,7 @@
 package com.javaweb.entity;
 import java.io.Serializable;
+import java.util.List;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,4 +25,14 @@ public class PaymentEntity extends BaseEntity {
     private UserEntity user;
 
     private String method;
+    
+    @OneToMany(mappedBy = "payment", orphanRemoval = false)
+    private List<TransactionEntity> transactions;
+    @PreRemove
+    private void preRemove() {
+        // Hủy liên kết với tất cả các transactions trước khi xóa payment
+        for (TransactionEntity transaction : transactions) {
+        	transaction.setPayment(null);
+        }
+    }
 }

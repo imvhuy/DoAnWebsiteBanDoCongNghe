@@ -23,8 +23,12 @@ public class TransactionEntity extends BaseEntity {
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id", nullable = false)
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "payment_id", nullable = false)
+//    private PaymentEntity payment;
+    
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
     private PaymentEntity payment;
 
     @Column(name = "ispaid")

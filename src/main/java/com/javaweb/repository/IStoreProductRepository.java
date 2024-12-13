@@ -1,5 +1,6 @@
 package com.javaweb.repository;
 
+import com.javaweb.entity.StoreEntity;
 import com.javaweb.entity.StoreProductEntity;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,12 @@ public interface IStoreProductRepository extends JpaRepository<StoreProductEntit
 	
 //	 @Query("SELECT p FROM ProductEntity p WHERE p.id IN (SELECT sp.product.id FROM StoreProductEntity sp WHERE sp.store.id = :storeId)")
 //	    Page<ProductEntity> findProductsByStore(@Param("storeId") Long storeId, Pageable pageable);
+	@Query("SELECT s FROM StoreProductEntity sp JOIN sp.store s WHERE sp.product.id = :productId AND  sp.quantity >= :quantity")
+	public List<StoreEntity> findStoresByProductIdAndQuantity(@Param("productId") Long productId, @Param("quantity") Long quantity) ;
+	
+	@Modifying
+	@Query("UPDATE StoreProductEntity sp SET sp.quantity = sp.quantity - :quantity , sp.sold = COALESCE(sp.sold, 0) + :quantity WHERE  sp.product.id = :productId AND sp.store.id = :storeId")
+	public void updateQuantityAfterUserPlaceOrderItem( @Param("storeId") Long storeId,@Param("productId") Long productId, @Param("quantity") Long quantity);
 
 
 

@@ -841,7 +841,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="cartProduct" items="${cartProducts}">
-										<tr class="tf-cart-item file-delete">
+										<tr class="tf-cart-item file-delete" data-cart-id="${cartProduct.carItemtId}">
 											<td class="tf-cart-item_product"><a
 												href="product-detail.html" class="img-box"> <img
 													src="${cartProduct.image}" alt="img-product">
@@ -2528,8 +2528,8 @@
 								</a></li>
 								<li><a href="view-cart.html"
 									class="sub-nav-link line-clamp">View cart</a></li>
-								<li><a href="checkout.html" class="sub-nav-link line-clamp">Check
-										out</a></li>
+								<li><button type = "submit"  class="sub-nav-link line-clamp">Check
+										out</button></li>
 								<li><a href="payment-confirmation.html"
 									class="sub-nav-link line-clamp">Payment Confirmation</a></li>
 								<li><a href="payment-failure.html"
@@ -3416,15 +3416,12 @@
 	$(document).ready(function() {
 	$(".btn-increase, .btn-decrease").on("click", function() {
 	    var row = $(this).closest("tr"); // Tìm dòng sản phẩm tương ứng
+	    var cartItemId = row.data("cart-id"); // Lấy productId từ thuộc tính data-product-id
 	    var quantityInput = row.find(".wg-quantity input");
 	    var currentQuantity = parseInt(quantityInput.val());
 	    var price = parseInt(row.find(".cart-price").text().replace("VND", "").replace(/,/g, ""));
 	    var totalAvailableQuantity = $(this).closest("tr").find(".tf-cart-item_total").data("total-available"); // Lấy tổng số lượng có sẵn từ thuộc tính data
-	    console.log(row.html()); // Log nội dung của dòng <tr>
-	    console.log("quantityInput : " +quantityInput);
-		console.log("currentQuantity : " +currentQuantity);
-		console.log("price : " +price);
-		console.log("totalAvailableQuantity : " +totalAvailableQuantity);
+
 	    // Kiểm tra xem sản phẩm có thể tăng hoặc giảm số lượng hay không
 	    if ($(this).hasClass("btn-increase") && currentQuantity < totalAvailableQuantity) {
 	        quantityInput.val(currentQuantity + 1);
@@ -3447,6 +3444,24 @@
 
 	    // Cập nhật tổng giỏ hàng
 	    //updateTotalPrice();
+	    
+	 // Gửi yêu cầu AJAX để cập nhật quantity trong database
+        $.ajax({
+            url: "/user/cart/updateQuantity", // URL của API xử lý cập nhật
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+            	cartItemId: cartItemId,
+                quantity: newQuantity
+            }),
+            success: function (response) {
+                console.log("Update successful: ", response);
+            },
+            error: function (xhr, status, error) {
+                console.error("Update failed: ", error);
+                alert("Failed to update quantity. Please try again.");
+            }
+        });
 	});
 	});
 

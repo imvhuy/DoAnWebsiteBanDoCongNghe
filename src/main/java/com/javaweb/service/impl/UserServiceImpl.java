@@ -58,11 +58,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO findByUserName(String userName) {
         UserDTO result = new UserDTO();
-<<<<<<< HEAD
         UserEntity user = userRepository.findByUsername(userName);
-=======
-        Optional<UserEntity> user = userRepository.findByUsername(userName);
->>>>>>> 7174ec38799f5e6db3d837f2e8f54908774d16c3
         if(user != null) {
             BeanUtils.copyProperties(user, result);
         }
@@ -104,6 +100,7 @@ public class UserServiceImpl implements IUserService {
     @Override
 	public UserEntity findByUserNameEntity(String userName) {
     	return userRepository.findByUsername(userName);
+    }
 // vũ làm
     @Override
     public Page<UserEntity> findByUsernameContainingIgnoreCase(String username, Pageable pageable) {
@@ -118,6 +115,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<UserEntity> findById(Long id) {
         return userRepository.findById(id);
+    }
+    @Override
+    public UserEntity findByIdNotOptional(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
 //    @Override

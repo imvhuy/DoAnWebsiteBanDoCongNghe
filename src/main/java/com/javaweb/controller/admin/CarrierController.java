@@ -4,8 +4,8 @@ import com.javaweb.dto.CarrierDTO;
 import com.javaweb.dto.ResponseDTO;
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.CategoryEntity;
+import com.javaweb.service.ICarrierService;
 import com.javaweb.dto.CarrierDTO;
-import com.javaweb.service.CarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,13 @@ import java.util.stream.IntStream;
 @EnableMethodSecurity
 public class CarrierController {
     @Autowired
-    private ICarrierService ICarrierService;
+    private ICarrierService carrierService;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service
-        List<CarrierEntity> list = ICarrierService.findAll();
+        List<CarrierEntity> list = carrierService.findAll();
         if (!StringUtils.isEmpty(message)) {
             model.addAttribute("message", message);
         }
@@ -84,7 +84,7 @@ public class CarrierController {
         BeanUtils.copyProperties(carrierDTO, entity);
         try {
             // gọi hàm save trong service
-            ICarrierService.save(entity);
+        	carrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
             if (carrierDTO.getId() != null) {
@@ -103,12 +103,12 @@ public class CarrierController {
 
     @GetMapping(path = "/delete/{id}")
     public ModelAndView delete(RedirectAttributes model, @PathVariable("id") Long id) {
-        Optional<CarrierEntity> optCategory = ICarrierService.findById(id);
+        Optional<CarrierEntity> optCategory = carrierService.findById(id);
         if (optCategory.isEmpty()) {
             model.addFlashAttribute("message", "Carriers is not exits!!!!");
             return new ModelAndView("redirect:/admin/carriers");
         }
-        ICarrierService.deleteById(id);
+        carrierService.deleteById(id);
         model.addFlashAttribute("message", "Carriers is deleted!!!!");
         return new ModelAndView("redirect:/admin/carriers");
     }
@@ -118,9 +118,9 @@ public class CarrierController {
         List<CarrierEntity> list = null;
         // có nội dung truyền về không, name là tùy chọn khi required=false
         if (StringUtils.hasText(name)) {
-            list = ICarrierService.findByNameContaining(name);
+            list = carrierService.findByNameContaining(name);
         } else {
-            list = ICarrierService.findAll();
+            list = carrierService.findAll();
         }
         model.addAttribute("categories", list);
         return "admin/carriers/search";
@@ -131,17 +131,17 @@ public class CarrierController {
                          @RequestParam(name = "name", required = false) String name,
                          @RequestParam("page") Optional<Integer> page,
                          @RequestParam("size") Optional<Integer> size) {
-        int count = (int) ICarrierService.count();
+        int count = (int) carrierService.count();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("name"));
         Page<CarrierEntity> resultPage = null;
         if (StringUtils.hasText(name)) {
-            resultPage = ICarrierService.findByNameContaining(name, pageable);
+            resultPage = carrierService.findByNameContaining(name, pageable);
             model.addAttribute("name", name);
         }
         else{
-            resultPage = ICarrierService.findAll(pageable);
+            resultPage = carrierService.findAll(pageable);
         }
         int totalPages = resultPage.getTotalPages();
         if (totalPages > 0) {

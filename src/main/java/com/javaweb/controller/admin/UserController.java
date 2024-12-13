@@ -31,8 +31,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RestController
 @RequestMapping(value = "/admin/users")
 public class UserController {
-    @Autowired
-    IUserService userService = new UserServiceImpl();
 
 	@Autowired
 	private IUserService userService;

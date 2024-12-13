@@ -42,4 +42,5 @@ public interface IUserService {
 
     // Xóa người dùng theo id
     void deleteById(Long id);
+	UserEntity findByIdNotOptional(Long id);
 }

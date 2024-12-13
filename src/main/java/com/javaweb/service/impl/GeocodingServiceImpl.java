@@ -25,23 +25,7 @@ public class GeocodingServiceImpl implements IGeocodingService{
 	private final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
 
     @Override
-	public List<GeocodingResultDTO> getCoordinates(String address) {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        // Xây dựng URL với tham số
-//        String url = UriComponentsBuilder.fromHttpUrl(NOMINATIM_URL)
-//                .queryParam("q", address) // Địa chỉ cần geocode
-//                .queryParam("format", "json") // Định dạng JSON
-//                .queryParam("addressdetails", "1") // Chi tiết địa chỉ
-//                .toUriString();
-//        System.out.println("API URL: " + url);
-//
-//        // Gửi yêu cầu HTTP GET và nhận phản hồi
-//        GeocodingResultDTO[] response = restTemplate.getForObject(url, GeocodingResultDTO[].class);
-//     // Log phản hồi
-//        System.out.println("API Response: " + Arrays.toString(response));
-//        // Trả về danh sách kết quả (nếu có)
-//        return Arrays.asList(response);
+	public GeocodingResultDTO getCoordinates(String address) {
     	try {
             String url = "https://nominatim.openstreetmap.org/search?q=" +
                          URLEncoder.encode(address, StandardCharsets.UTF_8) +
@@ -62,10 +46,32 @@ public class GeocodingServiceImpl implements IGeocodingService{
             ObjectMapper mapper = new ObjectMapper();
             GeocodingResultDTO[] results = mapper.readValue(response.body(), GeocodingResultDTO[].class);
 
-            return Arrays.asList(results);
+            return results[0];
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of();
+            return null;
         }
+    }
+    
+    private static final double EARTH_RADIUS = 6371; // Đơn vị: km
+    //tính toán khoảng cách giữa 2 địa chỉ khi đã có tọa độ của chúng
+    @Override
+	public  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        // Chuyển đổi độ sang radians
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
+
+        // Công thức Haversine
+        double dlat = lat2Rad - lat1Rad;
+        double dlon = lon2Rad - lon1Rad;
+
+        double a = Math.sin(dlat / 2) * Math.sin(dlat / 2) +
+                   Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                   Math.sin(dlon / 2) * Math.sin(dlon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return EARTH_RADIUS * c; // Khoảng cách km
     }
 }

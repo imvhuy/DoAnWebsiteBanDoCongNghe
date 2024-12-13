@@ -19,4 +19,6 @@ public interface IStoreProductService {
     Long getTotalSoldByProductId(Long productId);
     
     public void save(StoreProductEntity storeProduct);
+	List<StoreEntity> findStoresByProductIdAndQuantity(Long productId, Long quantity);
+	void updateQuantityAfterUserPlaceOrderItem(Long storeId, Long productId, Long quantity);
 }

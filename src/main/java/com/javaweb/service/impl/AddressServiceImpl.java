@@ -2,6 +2,7 @@ package com.javaweb.service.impl;
 
 import com.javaweb.dto.AddressDTO;
 import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.ProductEntity;
 import com.javaweb.repository.IAddressRepository;
 import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IAddressService;
@@ -53,7 +54,12 @@ public class AddressServiceImpl implements IAddressService {
     public Optional<AddressEntity> findById(Long id) {
         return addressRepository.findById(id);
     }
-
+    
+    @Override
+	public AddressEntity findByIdNotOptional(Long id) {
+        return addressRepository.findByIdNotOptional(id);
+    }
+    
     @Override
     public AddressDTO findAddressModelById(Long id) {
         Optional<AddressEntity> addressEntity = addressRepository.findById(id);

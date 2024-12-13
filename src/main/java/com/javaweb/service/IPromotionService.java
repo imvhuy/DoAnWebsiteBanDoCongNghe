@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 
 import com.javaweb.entity.VoucherEntity;
 
-public interface PromotionService {
+public interface IPromotionService {
 
 	  void delete(VoucherEntity entity);
 	    void deleteById(Long id);

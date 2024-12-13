@@ -1,8 +1,11 @@
 package com.javaweb.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -171,6 +174,7 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public ProductEntity findByIdProductID(Long productId) {
-        return IProductRepository.findById(productId).orElse(null);
+        return productRepository.findById(productId).orElse(null);
     }
+}
 

@@ -8,16 +8,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.javaweb.dto.CartProductDTO;
-import com.javaweb.dto.GalleryDTO;
-import com.javaweb.entity.GalleryEntity;
+import com.javaweb.dto.*;
+import com.javaweb.entity.*;
 import com.javaweb.service.*;
 
 @Controller
-@RequestMapping("/user/checkout")
+@RequestMapping("/user/cart/checkout")
 public class CheckoutController {
 	 @Autowired
 	    private IGeocodingService geocodingService;
@@ -27,7 +28,16 @@ public class CheckoutController {
 		IProductService	productService;
 		@Autowired
 		ICartService	cartService;
-	 @GetMapping("/{userId}")
+		@Autowired
+		IAddressService	addressService;
+		@Autowired
+		IOrderService	orderService;
+		@Autowired
+		IPromotionService	promotionService;
+		@Autowired
+		ICarrierService	carrierService;
+		//mới làm checkout cho trường hợp cart thôi
+	 @GetMapping("")
 	 public ModelAndView load() {
 	    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	        String username = authentication.getName();  
@@ -56,9 +66,35 @@ public class CheckoutController {
 	            }
 	            
 	        }
-	         
+	         //Lấy danh sách địa chỉ của user
+	        List<AddressEntity> addresses = addressService.getAddressesByUserId(userId);
+	        //lấy danh sách tất cả voucher cho user
+	        List<VoucherEntity> vouchers = promotionService.findAll();
+	        //Lấy danh sách carriers
+	        List<CarrierEntity> carrieres = carrierService.findAll();
+	        //
 	        ModelAndView mav = new ModelAndView("/user/checkout");
 	        mav.addObject("cartProducts", cartProducts);
+	        mav.addObject("addresses", addresses);
+	        mav.addObject("vouchers", vouchers);
+	        mav.addObject("carrieres", carrieres);
 	        return mav;
 	    }
+	 //đặt hàng khi user đang ở trong cart
+	 @PostMapping("/placeOrder")
+	 public void placeOrder(@RequestParam Long address,@RequestParam("carrier-select") Long carrierId,
+			 @RequestParam("payment") String paymentMethod) {
+		 System.out.println("carrierId : " + carrierId);
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		  String username = authentication.getName();  
+		  UserEntity user = userService.findByUserNameEntity(username);
+		  //check xem chọn phương thức thanh toán nào
+		  if ("cash".equals(paymentMethod)) {
+			  //Boolean bo = orderService.createOrderForStore(user,address);
+				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod);
+				 //System.out.println("placeOrrder : " + bo);
+		    }
+		
+	 }
+	 
 }

@@ -18,7 +18,7 @@ public class GeocodingController {
 
 	    // API để chuyển địa chỉ text thành tọa độ
 	    @GetMapping("/geocode")
-	    public List<GeocodingResultDTO> getCoordinates(@RequestParam String address) {
+	    public GeocodingResultDTO getCoordinates(@RequestParam String address) {
 	    	System.out.println(address);
 	    	System.out.println( "Address : " + geocodingService.getCoordinates(address));
 	        return geocodingService.getCoordinates(address);
