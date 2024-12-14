@@ -3,19 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <style>
 .body-title {
-	width: 152px; /* Cá» Äá»nh chiá»u rá»ng */
-	height: 20px; /* Cá» Äá»nh chiá»u cao */
+	width: 152px;
+	height: 20px;
 	color: #000;
-	/* MÃ u chá»¯ (cáº§n Äiá»u chá»nh theo thiáº¿t káº¿ cá»§a báº¡n) */
-	font-size: 14px; /* KÃ­ch thÆ°á»c chá»¯ */
-	font-family: "Albert Sans", sans-serif; /* Font chá»¯ */
+	font-size: 14px;
+	font-family: "Albert Sans", sans-serif;
 	line-height: 20px;
-	/* Äáº£m báº£o cÄn chá»nh dÃ²ng vá»i chiá»u cao */
-	overflow: hidden; /* áº¨n ná»i dung vÆ°á»£t quÃ¡ */
-	white-space: nowrap; /* KhÃ´ng xuá»ng dÃ²ng */
+	overflow: hidden;
+	white-space: nowrap;
 	text-overflow: ellipsis;
-	/* Hiá»n thá» dáº¥u "..." náº¿u ná»i dung quÃ¡ dÃ i */
-	display: block; /* Äáº£m báº£o lÃ  block-level element */
+	display: block;
 }
 </style>
 <!-- #wrapper -->

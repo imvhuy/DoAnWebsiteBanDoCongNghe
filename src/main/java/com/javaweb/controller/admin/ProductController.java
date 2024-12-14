@@ -6,7 +6,9 @@ import com.javaweb.dto.ProductDTO;
 import com.javaweb.entity.CategoryEntity;
 import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
+import com.javaweb.entity.SubcategoryValueEntity;
 import com.javaweb.service.*;
+import com.javaweb.service.impl.SubcategoryServiceImpl;
 import com.javaweb.utils.FileHandler;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -54,20 +56,9 @@ public class ProductController {
     private ICategoryService categoryService;
     @Autowired
     private IStoreProductService storeProductService;
+    @Autowired
+    private ISubCategoryValueService subCategoryValueService;
 
-
-
-//    @GetMapping
-//    public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
-//        //gọi hàm findAll() trong service
-//        List<ProductEntity> list = productService.findAll();
-//        if (!StringUtils.isEmpty(message)) {
-//            model.addAttribute("message", message);
-//        }
-//        // chuyển dữ liệu từ list lên biến categories
-//        model.addAttribute("products", list);
-//        return new ModelAndView("/admin/products/list", model);
-//    }
     @GetMapping
     public String list(@RequestParam(defaultValue = "1") int page, // Đặt giá trị mặc định là 1 thay vì 0
                        @RequestParam(defaultValue = "10") int size,
@@ -91,6 +82,7 @@ public class ProductController {
             productPage = productService.findAll(pageable);
         }
 
+
         model.addAttribute("productPage", productPage);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
@@ -100,11 +92,6 @@ public class ProductController {
 
         return "admin/products/list";
     }
-
-
-
-
-
 
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
@@ -236,6 +223,8 @@ public class ProductController {
             String videoPro = processYouTubeUrl(video);
             // Lưu sản phẩm vào cơ sở dữ liệu
             entity.setVideo(videoPro);
+            List<SubcategoryValueEntity> subcategoryValues = subCategoryValueService.findByIds(productDTO.getSubcategoryValues());
+            entity.getSubCategoryValues().addAll(subcategoryValues);
             productService.save(entity);
             galleryService.saveAll(galleryEntities);
 

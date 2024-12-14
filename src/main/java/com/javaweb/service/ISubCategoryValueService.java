@@ -8,4 +8,8 @@ public interface ISubCategoryValueService {
     List<SubcategoryValueEntity> getSubcategoryValueBySubcategoryId(Long id);
 
     SubcategoryValueEntity getSubcategoryValueById(Long id);
+
+    List<SubcategoryValueEntity> findByCategoryEntity_Id(Long id);
+
+    List<SubcategoryValueEntity> findByIds(List<Long> ids);
 }

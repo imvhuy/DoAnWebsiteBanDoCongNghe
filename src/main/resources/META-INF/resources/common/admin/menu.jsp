@@ -1,7 +1,7 @@
 <!-- section-menu-left -->
 <div class="section-menu-left">
 	<div class="box-logo">
-		<a href="index.html" id="site-logo-inner"> <img class=""
+		<a href="${pageContext.request.contextPath}/admin/home" id="site-logo-inner"> <img class=""
 			id="logo_header" alt=""
 			src="https://themesflat.co/html/ecomus/images/logo/logo.svg"
 			data-light="../images/logo/logo.svg"
@@ -15,7 +15,7 @@
 		<div class="center">
 			<div class="center-item">
 				<ul class="">
-					<li class="menu-item"><a href="/admin/home" class="">
+					<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/home" class="">
 							<div class="icon">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 									xmlns="http://www.w3.org/2000/svg">

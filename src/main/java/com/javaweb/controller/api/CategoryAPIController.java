@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController(value = "CategoryOfWeb")
 @RequestMapping("/api")
@@ -44,6 +45,17 @@ public class CategoryAPIController {
     @GetMapping("/subcategories/{subcategoryId}/subcategory-values")
     public ResponseEntity<List<SubcategoryValueEntity>> getSubcategoryValuesBySubcategoryId(@PathVariable Long subcategoryId) {
         List<SubcategoryValueEntity> subcategoryValueEntities = subcategoryValueService.getSubcategoryValueBySubcategoryId(subcategoryId);
+        return ResponseEntity.ok(subcategoryValueEntities);
+    }
+    
+    @GetMapping("/subcategories/{categoryName}")
+    public ResponseEntity<List<SubcategoryValueEntity>> getSubcategoryValuesBySubcategoryName(@PathVariable String categoryName) {
+        Optional<CategoryEntity> category = categoryService.findByName(categoryName);
+        List<SubcategoryValueEntity> subcategoryValueEntities = null;
+        if (category.isPresent()) {
+            CategoryEntity categoryEntity = category.get();
+            subcategoryValueEntities = subcategoryValueService.findByCategoryEntity_Id(categoryEntity.getId());
+        }
         return ResponseEntity.ok(subcategoryValueEntities);
     }
 }

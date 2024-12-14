@@ -1,5 +1,6 @@
 package com.javaweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,14 +31,12 @@ public class SubcategoryValueEntity extends BaseEntity{
     private Boolean isDeleted = false;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "subcategory_id")
     private SubcategoryEntity subcategoryEntity;
-// bo quan he nay
-//    @ManyToOne
-//    @JoinColumn(name = "cart_item_id")
-//    private CartItemEntity cartItem;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToMany(mappedBy = "subCategoryValues")
     private Set<ProductEntity> products;
 

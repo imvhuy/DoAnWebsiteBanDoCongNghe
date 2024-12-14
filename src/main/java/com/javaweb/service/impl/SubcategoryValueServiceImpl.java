@@ -11,15 +11,23 @@ import java.util.List;
 @Service
 public class SubcategoryValueServiceImpl implements ISubCategoryValueService {
     @Autowired
-    private ISubcategoryValueRepository attributeValueRepository;
+    private ISubcategoryValueRepository subcategoryValueRepository;
 
     @Override
     public List<SubcategoryValueEntity> getSubcategoryValueBySubcategoryId(Long id) {
-        return attributeValueRepository.findBySubcategoryEntity_Id(id);
+        return subcategoryValueRepository.findBySubcategoryEntity_Id(id);
     }
 
     @Override
     public SubcategoryValueEntity getSubcategoryValueById(Long id) {
-        return attributeValueRepository.findById(id).orElse(null);
+        return subcategoryValueRepository.findById(id).orElse(null);
+    }
+    @Override
+    public List<SubcategoryValueEntity> findByCategoryEntity_Id(Long id) {
+        return subcategoryValueRepository.findByCategoryEntity_Id(id);
+    }
+    @Override
+    public List<SubcategoryValueEntity> findByIds(List<Long> ids) {
+        return subcategoryValueRepository.findByIdIn(ids);
     }
 }
