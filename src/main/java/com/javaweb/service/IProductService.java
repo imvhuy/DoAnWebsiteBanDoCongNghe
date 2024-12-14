@@ -67,6 +67,8 @@ public interface IProductService {
 	Long countTotalAvailableQuantityOfProduct(Long id);
 
     ProductEntity findByIdProductID(Long productId);
+
+	List<ProductDetailDTO> findRelatedProductsByProduct(Long id);
 }
 
 

@@ -282,5 +282,12 @@ public class ProductServiceImpl implements IProductService {
     public ProductEntity findByIdProductID(Long productId) {
         return productRepository.findById(productId).orElse(null);
     }
+    
+    //tìm những product có cừng categoryName
+    @Override
+	public List<ProductDetailDTO> findRelatedProductsByProduct(Long id){
+    	String categoryName = productRepository.getProductCategory(id);
+    	return productRepository.findRelatedProductsByProduct(categoryName);
+    }
 }
 

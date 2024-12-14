@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.javaweb.dto.ProductConfigurationDTO;
 import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.entity.ProductEntity;
 
@@ -46,6 +47,19 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
             "ORDER BY AVG(r.rating) DESC")
     List<ProductDetailDTO> findTopTotalRatingProducts(Pageable pageable);
 
+	     @Query("SELECT c.name " +
+	     "FROM ProductEntity p " +
+	     "JOIN p.categoryEntity c "+
+	     "WHERE p.id = :id ")
+	     String getProductCategory(@Param("id") Long id);
+	     
+	     @Query("SELECT new com.javaweb.dto.ProductDetailDTO(p.id, p.name, p.price, g.image) " +
+	     "FROM ProductEntity p " +
+	     "JOIN p.categoryEntity c "+
+	     "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
+         "WHERE g.type = 'front' " +
+	     "AND c.name = :categoryName ")
+	     List<ProductDetailDTO> findRelatedProductsByProduct(@Param("categoryName") String categoryName);
     // Truy vấn tính tổng số lượng của từng sản phẩm
     @Query("SELECT  MAX(ps.quantity) " +
             "FROM ProductEntity p " +

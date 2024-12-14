@@ -25,12 +25,7 @@ public class CategoryEntity extends BaseEntity {
     @Column(name = "image", columnDefinition = "nvarchar(500) null")
     private String image;
     private Boolean isDeleted;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<SubcategoryEntity> attributeEntities;
-
-
+    
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
