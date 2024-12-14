@@ -49,6 +49,8 @@ public class OrderServiceImpl implements IOrderService {
     IOrderRepository orderRepository;
     @Autowired
     private INotificationService notificationServiceImpl;
+    @Autowired
+    IDeliveryService deliveryService;
 
 
     public StoreEntity findNearestStore(UserEntity user, List<StoreEntity> stores, Long userAddressId) {
@@ -112,6 +114,7 @@ public class OrderServiceImpl implements IOrderService {
 
             if (!stores.isEmpty()) {
                 //
+                System.out.println(userAddress.getAddress());
                 GeocodingResultDTO userAddressGeocoding = geocodingService.getCoordinates(userAddress.getAddress());
 
                 StoreEntity nearestStore = null;
@@ -144,6 +147,7 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void createOrders(Long userId,Long carrierId,Long address,String method) {
         //biến lưu tổng tiền(amount_from_user)
+        System.out.println(address + "gido");
         Long totalAmount = 0L;
         //lấy địa chỉ của khách hàng
         AddressEntity userAddress = addressService.findByIdNotOptional(address);
@@ -202,6 +206,17 @@ public class OrderServiceImpl implements IOrderService {
             //đang lưu đối với trả bằng tiền mặt
             transaction.setIsPaid(false);
             transaction.setOrder(order);
+            // lưu delivery
+            DeliveryEntity delivery = new DeliveryEntity();
+            delivery.setPrice(Double.parseDouble(carrier.getPrice().toString()));
+
+            // Thiết lập thông tin carrier và order cho delivery
+            delivery.setCarrier(carrier);  // Gán carrier vào delivery
+            delivery.setOrder(order);      // Gán order vào delivery
+            delivery.setDeliveryName("Shipping for Order #" + order.getId()); // Ví dụ tên giao hàng
+            delivery.setDescription("Delivery for order #" + order.getId()); // Mô tả giao hàng
+            deliveryService.save(delivery);  // Lưu delivery vào cơ sở dữ liệu
+
             //lấy payment
             PaymentEntity payment = paymentService.findPaymentEntityByUserAndMethod(user, method);
             transaction.setPayment(payment);
@@ -393,6 +408,11 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public OrderEntity findLatestOrderByCarrierId(Long carrierId) {
         return orderRepository.findLatestOrderByCarrierId(carrierId);
+    }
+    @Override
+    public OrderEntity findById(Long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId));
     }
 
 

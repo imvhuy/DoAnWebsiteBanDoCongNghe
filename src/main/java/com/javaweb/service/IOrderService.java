@@ -59,4 +59,6 @@ public interface IOrderService {
     List<Object[]> findOrdersByCarrierAndStatuses(Long carrierId, List<String> statuses);
 
     OrderEntity findLatestOrderByCarrierId(Long carrierId);
+
+    OrderEntity findById(Long orderId);
 }

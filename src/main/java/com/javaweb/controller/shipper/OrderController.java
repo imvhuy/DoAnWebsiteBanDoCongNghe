@@ -2,17 +2,11 @@ package com.javaweb.controller.shipper;
 
 import com.javaweb.config.UserInfoUserDetails;
 import com.javaweb.dto.UserDTO;
-import com.javaweb.entity.OrderEntity;
-import com.javaweb.entity.ShipperCarrierEntity;
-import com.javaweb.entity.StoreEntity;
-import com.javaweb.entity.UserEntity;
+import com.javaweb.entity.*;
 import com.javaweb.service.IOrderService;
 import com.javaweb.service.IShipperCarrierService;
 import com.javaweb.service.IUserService;
-import com.javaweb.service.impl.OrderServiceImpl;
-import com.javaweb.service.impl.ShipperCarrierServiceImpl;
-import com.javaweb.service.impl.StoreServiceImpl;
-import com.javaweb.service.impl.UserServiceImpl;
+import com.javaweb.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -39,6 +33,8 @@ public class OrderController {
     private IShipperCarrierService shipperCarrierService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private TransactionServiceImpl transactionServiceImpl;
 
     @GetMapping
     public ModelAndView list(
@@ -111,13 +107,44 @@ public class OrderController {
             @RequestParam("newStatus") String newStatus,
             RedirectAttributes redirectAttributes) {
         try {
-                orderService.updateStatus(orderId, newStatus);
+            // Cập nhật trạng thái của đơn hàng
+            orderService.updateStatus(orderId, newStatus);
+
+            if ("đã vận chuyển".equals(newStatus)) {
+                // Lấy đối tượng OrderEntity từ orderId
+                OrderEntity order = orderService.findById(orderId);
+
+                // Kiểm tra nếu order tồn tại
+                if (order != null) {
+                    // Lấy transaction liên quan đến đơn hàng
+                    TransactionEntity transaction = transactionServiceImpl.findByOrder(order);
+
+                    // Kiểm tra nếu transaction tồn tại
+                    if (transaction != null) {
+                        // Cập nhật isPaid thành true
+                        transaction.setIsPaid(true);
+
+                        // Lưu lại transaction đã cập nhật
+                        transactionServiceImpl.save(transaction);
+                    } else {
+                        throw new RuntimeException("Không tìm thấy giao dịch cho đơn hàng này.");
+                    }
+                } else {
+                    throw new RuntimeException("Không tìm thấy đơn hàng.");
+                }
+            }
+
+            // Thêm thông báo thành công vào flash attributes
             redirectAttributes.addFlashAttribute("message", "Trạng thái đã được cập nhật thành công!");
         } catch (Exception e) {
+            // Thêm thông báo lỗi vào flash attributes
             redirectAttributes.addFlashAttribute("message", "Cập nhật trạng thái thất bại: " + e.getMessage());
         }
+
+        // Chuyển hướng về trang đơn hàng
         return "redirect:/shipper/orders";
     }
+
 
     @GetMapping("/completed")
     public ModelAndView completedOrders(

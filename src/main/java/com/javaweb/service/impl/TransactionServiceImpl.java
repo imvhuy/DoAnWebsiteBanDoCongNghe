@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.javaweb.entity.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,10 @@ public class TransactionServiceImpl implements ITransactionService {
 		public void save(TransactionEntity transaction) {
 	 		transactionRepository.save(transaction);
 	 	}
+
+	public TransactionEntity findByOrder(OrderEntity order) {
+		return transactionRepository.findByOrder(order)
+				.orElseThrow(() -> new RuntimeException("Không tìm thấy giao dịch cho đơn hàng này."));
+	}
+
 }
