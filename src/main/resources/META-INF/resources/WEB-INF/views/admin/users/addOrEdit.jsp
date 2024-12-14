@@ -75,11 +75,12 @@ select.highlight-roles option:not(:checked) {
 							the user account</div>
 						<h5 class="mb-4">Avatar</h5>
 						<div class="image">
-							<!-- Hiển thị ảnh avatar nếu có, nếu không thì dùng ảnh mặc định -->
-							<img
-								src="${user.avatar != null ? user.avatar : 'images/products/product-1.jpg'}"
-								alt="User Avatar">
+						    <img 
+						        src="${user.avatar}" 
+						        alt="User Avatar"
+						        onerror="this.onerror=null; this.src='https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg';">
 						</div>
+
 					</div>
 
 					<div class="right flex-grow">

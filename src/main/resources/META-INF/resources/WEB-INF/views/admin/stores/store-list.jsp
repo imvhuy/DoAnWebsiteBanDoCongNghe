@@ -84,9 +84,13 @@
 							<!-- Thay storeList thành stores -->
 							<li class="wg-product item-row gap20">
 								<div class="name">
-									<div class="image">
-										<img src="${store.avatar}" alt="Avatar">
-									</div>
+							<div class="image">
+							    <img src="${store.avatar}" 
+							         alt="Avatar" 
+							         onerror="this.onerror=null; this.src='https://pixsector.com/cache/a35c7d7b/avd437689ef3a02914ac1.png';">
+							</div>
+
+
 									<div class="title line-clamp-2 mb-0">
 										<a href="#" class="body-text">${store.name}</a>
 									</div>

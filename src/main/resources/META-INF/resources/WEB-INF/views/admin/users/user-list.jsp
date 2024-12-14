@@ -73,11 +73,13 @@
 						<c:forEach var="user" items="${users}">
 							<li class="wg-product item-row">
 								<div class="name flex-grow">
-									<div class="image">
-										<img
-											src="${user.avatar != null ? user.avatar : 'images/products/product-1.jpg'}"
-											alt="User Avatar">
-									</div>
+								<div class="image">
+								    <img 
+								        src="${user.avatar}" 
+								        alt="User Avatar"
+								        onerror="this.onerror=null; this.src='https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg';">
+								</div>
+
 									<div>
 										<div class="title">
 											<a href="#" class="body-title-2">${user.fullName}</a>

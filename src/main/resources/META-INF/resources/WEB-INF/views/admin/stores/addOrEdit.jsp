@@ -43,12 +43,14 @@
 						<div class="body-text">Edit the information below to modify
 							the store details</div>
 						<h5 class="mb-4">Store Avatar</h5>
-						<div class="image">
-							<!-- Hiển thị ảnh đại diện cửa hàng nếu có, nếu không thì dùng ảnh mặc định -->
-							<img
-								src="${store.avatar != null ? store.avatar : 'images/products/product-1.jpg'}"
-								alt="Store Avatar">
-						</div>
+					<div class="image">
+					    <img src="${store.avatar}" 
+					         alt="Avatar" 
+					         onerror="this.onerror=null; this.src='https://pixsector.com/cache/a35c7d7b/avd437689ef3a02914ac1.png';">
+					</div>
+
+
+
 					</div>
 
 					<div class="right flex-grow">
