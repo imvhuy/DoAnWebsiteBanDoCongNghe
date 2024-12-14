@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import org.hibernate.mapping.Join;
 
 @Entity
@@ -25,18 +28,26 @@ public class OrderEntity extends BaseEntity{
     @Column(columnDefinition = "nvarchar(50)")
     private String status;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountFromUser;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountToStore;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountToGD;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItemEntity> orderItems;
+    
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DeliveryEntity delivery;
+    
+    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private TransactionEntity transaction;
+    
 }

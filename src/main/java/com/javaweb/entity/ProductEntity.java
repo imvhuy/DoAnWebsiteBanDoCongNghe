@@ -67,5 +67,6 @@ public class ProductEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "sub_cat_value_id")  // Cột khóa ngoại cho SubCategoryValue
     )
     private List<SubcategoryValueEntity> subCategoryValues;
-
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> orderItems;
 }
