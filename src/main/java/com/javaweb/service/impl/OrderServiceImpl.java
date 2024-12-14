@@ -55,7 +55,8 @@ public class OrderServiceImpl implements IOrderService{
 	IOrderItemService orderItemService;
 	@Autowired
 	IOrderRepository orderRepository;
-
+    @Autowired
+    private INotificationService notificationServiceImpl;
 	public StoreEntity findNearestStore(UserEntity user, List<StoreEntity> stores,Long userAddressId) {
 		//
 		AddressEntity userAddress = addressService.findByIdNotOptional(userAddressId);
