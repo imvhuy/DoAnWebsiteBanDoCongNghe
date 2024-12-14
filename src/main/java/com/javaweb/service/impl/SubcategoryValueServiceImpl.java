@@ -2,24 +2,32 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.SubcategoryValueEntity;
 import com.javaweb.repository.ISubcategoryValueRepository;
-import com.javaweb.service.ISubcategoryValueService;
+import com.javaweb.service.ISubCategoryValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SubcategoryValueServiceImpl implements ISubcategoryValueService {
+public class SubcategoryValueServiceImpl implements ISubCategoryValueService {
     @Autowired
-    private ISubcategoryValueRepository attributeValueRepository;
+    private ISubcategoryValueRepository subcategoryValueRepository;
 
     @Override
-    public List<SubcategoryValueEntity> getAttributeValuesByAttributeId(Long id) {
-        return attributeValueRepository.findBySubcategoryEntity_Id(id);
+    public List<SubcategoryValueEntity> getSubcategoryValueBySubcategoryId(Long id) {
+        return subcategoryValueRepository.findBySubcategoryEntity_Id(id);
     }
 
     @Override
-    public SubcategoryValueEntity getAttributeValueById(Long id) {
-        return attributeValueRepository.findById(id).orElse(null);
+    public SubcategoryValueEntity getSubcategoryValueById(Long id) {
+        return subcategoryValueRepository.findById(id).orElse(null);
+    }
+    @Override
+    public List<SubcategoryValueEntity> findByCategoryEntity_Id(Long id) {
+        return subcategoryValueRepository.findByCategoryEntity_Id(id);
+    }
+    @Override
+    public List<SubcategoryValueEntity> findByIds(List<Long> ids) {
+        return subcategoryValueRepository.findByIdIn(ids);
     }
 }

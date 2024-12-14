@@ -1,8 +1,7 @@
 package com.javaweb.service.impl;
 
-import com.javaweb.dto.AddressDTO;
 import com.javaweb.entity.AddressEntity;
-import com.javaweb.entity.ProductEntity;
+import com.javaweb.dto.AddressDTO;
 import com.javaweb.repository.IAddressRepository;
 import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IAddressService;
@@ -54,12 +53,12 @@ public class AddressServiceImpl implements IAddressService {
     public Optional<AddressEntity> findById(Long id) {
         return addressRepository.findById(id);
     }
-    
+
     @Override
 	public AddressEntity findByIdNotOptional(Long id) {
         return addressRepository.findByIdNotOptional(id);
     }
-    
+
     @Override
     public AddressDTO findAddressModelById(Long id) {
         Optional<AddressEntity> addressEntity = addressRepository.findById(id);
@@ -67,19 +66,21 @@ public class AddressServiceImpl implements IAddressService {
             String[] parts = addressEntity.get().getAddress().split(", ");
             AddressDTO addressModel = new AddressDTO();
             BeanUtils.copyProperties(addressEntity.get(), addressModel);
+            AddressDTO addressDTO = new AddressDTO();
+            BeanUtils.copyProperties(addressEntity.get(), addressDTO);
             if (parts.length == 4) {
-                addressModel.setStreet(parts[0].trim());
-                addressModel.setWard(parts[1].trim());
-                addressModel.setDistrict(parts[2].trim());
-                addressModel.setProvince(parts[3].trim());
+                addressDTO.setStreet(parts[0].trim());
+                addressDTO.setWard(parts[1].trim());
+                addressDTO.setDistrict(parts[2].trim());
+                addressDTO.setProvince(parts[3].trim());
             } else {
-                addressModel.setStreet("Unknown Street");
-                addressModel.setWard("Unknown Ward");
-                addressModel.setDistrict("Unknown District");
-                addressModel.setProvince("Unknown Province");
+                addressDTO.setStreet("Unknown Street");
+                addressDTO.setWard("Unknown Ward");
+                addressDTO.setDistrict("Unknown District");
+                addressDTO.setProvince("Unknown Province");
             }
 
-            return addressModel;
+            return addressDTO;
         } else {
             return null;
         }

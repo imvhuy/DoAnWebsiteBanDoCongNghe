@@ -40,10 +40,13 @@ public class OrderEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-    
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DeliveryEntity delivery;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItemEntity> orderItems;
-    
+
     private Long storeId;
 
 }

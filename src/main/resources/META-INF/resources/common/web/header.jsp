@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- Top bar -->
@@ -24,191 +25,126 @@
     </div>
 </div>
 <!-- /Top bar -->
+<style>/* Search form in navigation */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    width: 350px;
+}
+
+.search-form button {
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-form button i {
+    font-size: 1.2em;
+}
+
+/* Container chính */
+.menu-container {
+    display: flex;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    width: 100%;
+    padding: 5px; /* Quá lớn hoặc không cân đối */
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Dùng flexbox để xếp các mục theo chiều ngang */
+    gap: 45px; /* Khoảng cách giữa các mục */
+}
+
+.category-item {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.category-item a {
+    color: #333; /* Màu chữ */
+    text-decoration: none;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.category-item a:hover {
+    color: #007bff; /* Màu chữ khi hover */
+}
+
+.category-item a:active {
+    color: #0056b3; /* Màu chữ khi click */
+}
+.canvas-search {
+    width: 90vw !important;   /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1000px;        /* Giới hạn tối đa */
+    height: 90vh;             /* Chiều cao động */
+    max-height: 100vh;
+    padding-top: 55px;
+    margin: auto;
+    top: 5%;                 /* Căn giữa màn hình */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0 !important;
+    overflow-y: auto;        /* Cuộn khi cần */
+}
+.canvas-search {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px) translateX(-50%);
+    transition: all 0.4s ease;
+}
+
+.canvas-search.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateX(-50%);
+}
+.tf-search-head .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tf-search-content {
+    padding: 20px;
+}
+
+.tf-loop-item {
+    margin-bottom: 20px;
+}
+
+.tf-quicklink-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+</style>
 <!-- Header -->
 <header id="header" class="header-default">
-    <style>/* Search form in navigation */
-    .search-bar {
-        display: flex;
-        align-items: center;
-    }
-
-    .search-form {
-        display: flex;
-        align-items: center;
-    }
-
-    .search-form input {
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        border-radius: 4px 0 0 4px;
-        outline: none;
-        width: 350px;
-    }
-
-    .search-form button {
-        background-color: transparent;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-    }
-
-    .search-form button i {
-        font-size: 1.2em;
-    }
-
-    /* Container chính */
-    .menu-container {
-        display: flex;
-        border: 1px solid #ddd;
-        background-color: #fff;
-        width: 100%;
-        padding: 5px; /* Quá lớn hoặc không cân đối */
-        max-width: 1400px;
-        margin: 0 auto;
-        position: relative;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-
-    /* Mặc định ẩn menu-right */
-    .hidden {
-        display: none;
-    }
-
-    /* Khi có nội dung, hiển thị menu-right */
-    .menu-right {
-        width: 100%; /* Hoặc tăng giá trị phù hợp với kích thước mong muốn */
-        padding: 15px;
-        background-color: #fff;
-        flex: 1; /* Sử dụng flex để dãn đều với các thành phần khác */
-        box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng */
-    }
-
-
-    .menu-content {
-        display: none; /* Ẩn tất cả nội dung chi tiết */
-    }
-
-    .menu-content.active {
-        display: block; /* Hiển thị nội dung khi có lớp active */
-    }
-
-    .menu-right.active {
-        display: flex; /* Hiển thị khi cần */
-    }
-
-    /* Mega Menu chính */
-    .mega-menu {
-        position: absolute;
-        top: 100%; /* Xuất hiện ngay dưới menu chính */
-        left: 50%; /* Căn giữa theo chiều ngang */
-        transform: translateX(-50%); /* Dịch chuyển menu về giữa */
-        width: 100%; /* Rộng hơn (chiếm 90% màn hình) */
-        background-color: #fff;
-        padding: 30px; /* Tăng padding để nhìn rộng rãi hơn */
-        border-radius: 8px; /* Bo góc để nhìn mềm mại hơn */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ddd;
-        z-index: 1000; /* Đảm bảo menu nằm trên các thành phần khác */
-    }
-
-    /* Bố cục bên trong Mega Menu */
-    .menu-row {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 cột đều nhau */
-        gap: 20px; /* Khoảng cách giữa các cột */
-    }
-
-    /* Cột trong Mega Menu */
-    .menu-column {
-        width: 200px;
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
-
-    .menu-column h4 {
-        font-size: 18px; /* Tăng kích thước tiêu đề */
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .menu-column ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .menu-column ul li {
-        margin-bottom: 8px; /* Tăng khoảng cách giữa các mục */
-    }
-
-    .menu-column ul li a {
-        text-decoration: none;
-        color: #555;
-        font-size: 14px;
-    }
-
-    .menu-column ul li a:hover {
-        color: #007bff;
-    }
-
-    /* Badge "Mới" */
-    .new-badge {
-        background-color: red;
-        color: white;
-        padding: 2px 6px;
-        font-size: 12px;
-        border-radius: 3px;
-        margin-left: 5px;
-    }
-
-    /* Danh mục bên trái */
-    .menu-left {
-        background-color: #f5f5f5;
-        padding: 15px;
-        width: 20%; /* Đảm bảo menu bên trái nhỏ hơn phần nội dung */
-        min-width: 200px;
-    }
-
-    .menu-left ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .menu-left ul li {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        cursor: pointer;
-        text-align: left;
-        font-size: 16px; /* Tăng kích thước danh mục */
-        font-weight: bold;
-    }
-
-    .menu-left ul li:hover {
-        background-color: #ddd;
-        color: #007bff;
-    }
-
-    .category-item {
-        background-color: transparent; /* Xóa màu nền */
-        padding: 0; /* Loại bỏ padding nếu không cần */
-        margin: 0; /* Căn chỉnh để không bị lệch */
-        text-align: left; /* Căn chỉnh chữ về bên trái */
-        font-size: 14px; /* Kích thước chữ đồng đều */
-        font-weight: normal; /* Đảm bảo không bị nhấn mạnh */
-        line-height: 1.6; /* Đặt khoảng cách dòng phù hợp */
-    }
-
-    .category-item:hover {
-        background-color: #ddd; /* Chỉ áp dụng hiệu ứng nền khi hover (nếu cần) */
-        cursor: pointer;
-    }
-
-    </style>
     <div class="px_15 lg-px_40">
         <div class="row wrapper-header align-items-center" style="height: 90px;">
             <div class="col-xl-2 col-md-4 col-6 text-center">
@@ -264,19 +200,15 @@
                             </div>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu">
+                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i
+                                    class="icon icon-arrow-down"></i></a>
+                            <div class="sub-menu mega-menu" style="padding-top: 0px;top: 90px;">
                                 <div class="menu-container">
                                     <!-- Danh sách danh mục bên trái -->
-                                    <div class="menu-left">
+                                    <div class="menu-left" >
                                         <ul class="categories" id="category-list">
-                                            <!-- Danh mục sẽ được load qua Ajax -->
-                                        </ul>
-                                    </div>
 
-                                    <!-- Nội dung chi tiết bên phải (mặc định ẩn) -->
-                                    <div class="menu-right hidden" id="category-content">
-                                        <!-- Nội dung sẽ được tải qua Ajax -->
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -298,11 +230,7 @@
                             </div>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Blog<i
-                                    class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu submenu-default">
-                                <!-- Submenu content -->
-                            </div>
+                            <a href="vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
                         </li>
                     </ul>
                 </nav>
@@ -362,8 +290,6 @@
             </div>
         </div>
     </div>
-
-
 </header>
 <!-- /Header -->
 
@@ -379,10 +305,9 @@
                 </div>
             </div>
             <div class="tf-search-sticky">
-                <form class="tf-mini-search-frm">
+                <form action="${pageContext.request.contextPath}/products" class="tf-mini-search-frm" id="searchForm">
                     <fieldset class="text">
-                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
-                               aria-required="true" required="">
+                        <input type="text" placeholder="Search" name="text" id="searchInput" required>
                     </fieldset>
                     <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
@@ -393,64 +318,14 @@
                 <div class="tf-cart-hide-has-results">
                     <div class="tf-col-quicklink">
                         <div class="tf-search-content-title fw-5">Quick link</div>
-                        <ul class="tf-quicklink-list">
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Fashion</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Men</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Women</a>
-                            </li>
-                            <li class="tf-quicklink-item">
-                                <a href="shop-default.html" class="">Accessories</a>
-                            </li>
+                        <ul class="tf-quicklink-list" id="quick-link">
+                            <!-- Danh sách danh mục sẽ được thêm vào đây -->
                         </ul>
                     </div>
                     <div class="tf-col-content">
                         <div class="tf-search-content-title fw-5">Need some inspiration?</div>
-                        <div class="tf-search-hidden-inner">
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-3.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Cotton jersey top</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="compare-at-price">$10.00</div>
-                                        <div class="price-on-sale fw-6">$8.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Mini crossbody bag</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="price fw-6">$18.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tf-loop-item">
-                                <div class="image">
-                                    <a href="product-detail.html">
-                                        <img src="/web/images/products/white-1.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="product-detail.html">Oversized Printed T-shirt</a>
-                                    <div class="tf-product-info-price">
-                                        <div class="price fw-6">$18.00</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="tf-search-hidden-inner" id="product-suggestions" >
+                            <!-- Các sản phẩm gợi ý sẽ được chèn vào đây -->
                         </div>
                     </div>
                 </div>
@@ -584,89 +459,72 @@
 
 <script type="text/javascript" src="/web/js/jquery.min.js"></script>
 <script>
-    // Gọi danh sách các danh mục
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Tải danh sách danh mục từ server
         $.ajax({
             url: '/api/categories',
             method: 'GET',
-            success: function(categories) {
-                console.log('Categories:', categories);
+            dataType: 'json',
+            success: function (categories) {
                 // Hiển thị danh sách danh mục
-                categories.forEach(function(category) {
-                    $('#category-list').append(`
-                    <li class="category-item" data-category-id="${category.id}">${category.name}</li>
-                `);
+                categories.forEach(function (category) {
+                    $('#category-list').append(' <li class="category-item" data-category-id="' + category.id + '" data-category-slug="' + category.slug + '">' + '<a href="/products/' + category.slug + '">' + category.name + '</a> </li>');
                 });
+                categories.forEach(function (category) {
+                    $('#quick-link').append('<li class="tf-quicklink-item" data-category-id="' + category.id + '" data-category-slug="' + category.slug + '" style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">' +
+                        '<a href="/products/' + category.slug + '">' + category.name + '</a>' +
+                        '</li>');
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log("Error:", status, error); // In ra lỗi nếu có
+            }
+        });
+    });
+    $(document).ready(function() {
+        // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
+        $('#searchInput').on('input', function() {
+            var query = $(this).val(); // Lấy giá trị của ô tìm kiếm
+
+            if (query.length >= 2) {
+                // Gọi API tìm kiếm gợi ý sản phẩm
+                $.ajax({
+                    url: '/api/products', // Địa chỉ API tìm kiếm
+                    method: 'GET',
+                    data: { query: query },
+                    success: function(data) {
+                        var suggestions = '';
+                        if (data.length > 0) {
+                            // Hiển thị sản phẩm gợi ý
+                            var limitedProducts = data.slice(0, 3);
+                            limitedProducts.forEach(function(product) {
+                                suggestions += '<div class="tf-loop-item">';
+                                suggestions += '<div class="image">';
+                                suggestions += '<a href="/products/' + product.id + '">';
+                                suggestions += '<img src="' + product.imageUrl + '" alt="' + product.name + '">';
+                                suggestions += '</a></div>';
+                                suggestions += '<div class="content">';
+                                suggestions += '<a href="/products/' + product.id + '">' + product.name + '</a>';
+                                suggestions += '<div class="tf-product-info-price">';
+                                suggestions += '<div class="price fw-6">$' + product.price + '</div>';
+                                suggestions += '</div></div></div>';
+                            });
+                        } else {
+                            suggestions = '<div>No products found</div>';
+                        }
+
+                        // Cập nhật các sản phẩm gợi ý vào phần tử #product-suggestions
+                        $('#product-suggestions').html(suggestions);
+                    },
+                });
+            } else {
+                // Xóa kết quả gợi ý nếu chuỗi tìm kiếm quá ngắn
+                $('#product-suggestions').empty();
             }
         });
 
-        // Xử lý sự kiện khi người dùng click vào danh mục
-        $(document).on('click', '.category-item', function() {
-            var categoryId = $(this).data('category-id');
-
-            // Tải các thuộc tính của danh mục
-            $.ajax({
-                url: '/api/categories/' + categoryId + '/attributes',
-                method: 'GET',
-                success: function(attributes) {
-                    var content = '<ul>';
-                    attributes.forEach(function(attribute) {
-                        content += `<li>${attribute.name}</li>`;
-                    });
-                    content += '</ul>';
-
-                    // Hiển thị nội dung thuộc tính bên phải
-                    $('#category-content').html(content).removeClass('hidden');
-                }
-            });
-        });
-    });
-
-
-    // Lấy các danh mục bên trái
-    document.addEventListener('DOMContentLoaded', () => {
-        // Lấy các danh mục bên trái
-        const categoryItems = document.querySelectorAll('.category-item');
-        // Lấy menu bên phải
-        const menuRight = document.querySelector('.menu-right');
-        // Lấy tất cả nội dung bên phải
-        const menuContents = document.querySelectorAll('.menu-content');
-
-        // Xử lý sự kiện khi nhấn vào danh mục
-        categoryItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                const category = item.getAttribute('data-category');
-
-                // Ẩn tất cả nội dung bên phải
-                menuContents.forEach((content) => {
-                    content.classList.remove('active');
-                });
-
-                // Hiển thị nội dung tương ứng
-                const activeContent = document.getElementById(category);
-                if (activeContent) {
-                    menuRight.classList.add('active'); // Hiển thị menu bên phải
-                    activeContent.classList.add('active'); // Hiển thị nội dung tương ứng
-                }
-            });
-        });
     });
 
 </script>
 
-<!-- /modal login -->
-
-<script>document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('inp$earch');
-    const closeButton = document.getElementById('btn-close-search');
-    const searchAutocomplete = document.getElementById('search_autocomplete');
-    // Ngăn chặn form khi bấm submit nếu cần (ví dụ không có giá trị nhập vào)
-    document.querySelector('.search-form').addEventListener('submit', function (event) {
-        if (searchInput.value.trim() === '') {
-            event.preventDefault();
-        }
-    });
-});
-</script>
 

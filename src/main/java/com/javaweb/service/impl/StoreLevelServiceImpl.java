@@ -10,7 +10,7 @@ import com.javaweb.repository.IStoreLevelRepository;
 public class StoreLevelServiceImpl implements IStoreLevelService {
 
 	 @Autowired
-	    private IStoreLevelRepository storeLevelRepository;
+	private IStoreLevelRepository storeLevelRepository;
 
 	    // Tìm cấp độ của cửa hàng dựa trên điểm (kiểu int)
 	    public StoreLevelEntity findByMinPoint(int points) {

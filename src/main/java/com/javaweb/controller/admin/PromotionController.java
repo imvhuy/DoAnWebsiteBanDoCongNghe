@@ -20,9 +20,9 @@ import java.util.Optional;
 public class PromotionController {
 
     @Autowired
-    private IPromotionService promotionService;
+    private IPromotionService IPromotionService;
+    
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
     // Hiển thị danh sách các voucher với phân trang và tìm kiếm theo tên
     @GetMapping
     public String list(@RequestParam(defaultValue = "0") int page,
@@ -36,11 +36,11 @@ public class PromotionController {
 
         if (name != null && !name.isEmpty()) {
             // Tìm kiếm theo mô tả nếu tên được cung cấp
-            promotionPage = promotionService.findByDescriptionContainingIgnoreCase(name, pageable);
+            promotionPage = IPromotionService.findByDescriptionContainingIgnoreCase(name, pageable);
             model.addAttribute("name", name);
         } else {
             // Không tìm kiếm, chỉ phân trang toàn bộ danh sách
-            promotionPage = promotionService.findAll(pageable);
+            promotionPage = IPromotionService.findAll(pageable);
         }
 
         // Thêm các thuộc tính vào model để hiển thị trên view
@@ -67,7 +67,7 @@ public class PromotionController {
     // Hiển thị trang chỉnh sửa promotion
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, @RequestParam(value = "view", required = false) String view, ModelMap model) {
-        Optional<VoucherEntity> optionalVoucher = promotionService.findById(id);
+        Optional<VoucherEntity> optionalVoucher = IPromotionService.findById(id);
         if (optionalVoucher.isPresent()) {
             model.addAttribute("voucher", optionalVoucher.get());
             model.addAttribute("view", view);  // Thêm tham số 'view' vào model
@@ -81,7 +81,7 @@ public class PromotionController {
     @PostMapping("saveOrUpdate")
     public ModelAndView saveOrUpdate(@ModelAttribute("voucher") VoucherEntity voucherEntity,
                                      RedirectAttributes model) {
-        promotionService.save(voucherEntity);
+        IPromotionService.save(voucherEntity);
 
         return new ModelAndView("redirect:/admin/promotions");  // Quay lại danh sách promotion
     }
@@ -89,11 +89,11 @@ public class PromotionController {
     // Xử lý xóa promotion
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id, RedirectAttributes model) {
-        Optional<VoucherEntity> optionalVoucher = promotionService.findById(id);
+        Optional<VoucherEntity> optionalVoucher = IPromotionService.findById(id);
         if (optionalVoucher.isEmpty()) {
             return new ModelAndView("redirect:/admin/promotions");
         }
-        promotionService.deleteById(id);  // Xóa voucher
+        IPromotionService.deleteById(id);  // Xóa voucher
         
         return new ModelAndView("redirect:/admin/promotions");  // Quay lại danh sách promotion
     }

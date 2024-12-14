@@ -59,7 +59,7 @@
 
 					<div class="left">
 
-						<div class="mb-4">
+						<div class="wg-box">
 							<label for="productSelect" class="form-label">Select Product</label> 
 							<select id="productSelect"  name="productSelect" class="select"
 								onchange="if(this.value) window.location.href = '/admin/stores/SelectedAddProduct/' + document.getElementById('storeId').value + '/' + this.value;">
@@ -80,7 +80,7 @@
 						</div>
 
 
-						<div class="wg-box">
+						
 							<h5 class="mb-4">Product Information</h5>
 							<div class="body-text">View the information below to know
 								about the product details</div>
@@ -144,7 +144,7 @@
 								</div>
 
 							</div>
-						</div>
+						
 
 					</div>
 

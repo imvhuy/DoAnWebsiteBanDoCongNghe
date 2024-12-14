@@ -55,7 +55,7 @@
 						<fieldset class="name mb-24">
 							<div class="body-title mb-10">Store Name</div>
 							<input class="flex-grow" type="text" placeholder="Store Name"
-								name="storeName" value="${store.storeName}" readonly>
+								name="storeName" value="${store.name}" readonly>
 						</fieldset>
 						<fieldset class="description-promotion mb-24">
 							<div class="body-title mb-10">Store Bio</div>

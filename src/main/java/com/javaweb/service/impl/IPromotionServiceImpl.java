@@ -8,17 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.javaweb.entity.VoucherEntity;
 import com.javaweb.repository.IPromotionRepository;
 import com.javaweb.service.IPromotionService;
 @Service
 
-public class PromotionServiceImpl implements IPromotionService {
+public class IPromotionServiceImpl implements IPromotionService {
 	private final IPromotionRepository promotionRepository;
 	@Autowired
-	public PromotionServiceImpl(IPromotionRepository promotionRepository) {
+	public IPromotionServiceImpl(IPromotionRepository promotionRepository) {
 	    this.promotionRepository = promotionRepository;
 	}
 

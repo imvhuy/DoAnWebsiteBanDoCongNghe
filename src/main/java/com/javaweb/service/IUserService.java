@@ -7,15 +7,15 @@ import org.apache.catalina.User;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Service
 public interface IUserService {
+    Boolean changePassword(String username, String currentPassword, String newPassword);
+
     UserDTO findByUserNameAndStatus(String name, int status);
     UserDTO findByUserName(String username);
 
@@ -25,7 +25,7 @@ public interface IUserService {
     void delete(long[] ids);
     Boolean authenticate(String username, String password);
 	UserEntity findByUserNameEntity(String userName);
- 
+
     
  // vũ làm   
     // Tìm người dùng theo tên (username) với phân biệt chữ hoa chữ thường

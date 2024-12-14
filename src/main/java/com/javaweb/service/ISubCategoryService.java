@@ -5,5 +5,5 @@ import com.javaweb.entity.SubcategoryEntity;
 import java.util.List;
 
 public interface ISubCategoryService {
-    List<SubcategoryEntity> getAttributeByCategoryId(Long categoryId);
+    List<SubcategoryEntity> getSubcategoryByCategoryId(Long categoryId);
 }

@@ -11,13 +11,11 @@ import java.util.List;
 @Service
 public class SubcategoryServiceImpl implements ISubCategoryService {
     @Autowired
-    private ISubcategoryRepository attributeRepository;
+    private ISubcategoryRepository subcategoryRepository;
 
     @Override
-    public List<SubcategoryEntity> getAttributeByCategoryId(Long categoryId) {
-        return attributeRepository.findByCategoryEntity_Id(categoryId);
+    public List<SubcategoryEntity> getSubcategoryByCategoryId(Long categoryId) {
+        return subcategoryRepository.findByCategoryEntity_IdOrderByIdAsc(categoryId);
     }
-    public SubcategoryEntity getAttributeById(Long id) {
-        return attributeRepository.findById(id).orElse(null);
-    }
+
 }

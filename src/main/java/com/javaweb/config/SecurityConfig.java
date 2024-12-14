@@ -28,10 +28,7 @@ public class SecurityConfig{
             "/user/**",
             "/WEB-INF/**",
             "/common/**",
-            "/admin/**",
-            "/web/**",
-            };
-    		
+            "/web/**", "/error", "/api/**"};
     @Autowired
     IUserRepository userRepository;
     @Bean
@@ -65,8 +62,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/admin/**").permitAll()
-                        .requestMatchers("/product-detail/add-to-cart").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.loginPage("/login")
                         .successHandler(myAuthenticationSuccessHandler())
@@ -89,6 +85,7 @@ public class SecurityConfig{
 
     @Bean
     public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+
         return new SavedRequestAwareAuthenticationSuccessHandler();
     }
 
@@ -104,6 +101,4 @@ public class SecurityConfig{
     public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall allowUrlEncodedDoubleSlashHttpFirewall) {
         return web -> web.httpFirewall(allowUrlEncodedDoubleSlashHttpFirewall); // Áp dụng HttpFirewall tùy chỉnh
     }
-
-
 }
