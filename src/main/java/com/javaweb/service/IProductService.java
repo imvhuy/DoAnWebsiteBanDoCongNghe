@@ -61,6 +61,8 @@ public interface IProductService {
 
 
     ProductEntity findByIdProductID(Long productId);
+
+	List<ProductDetailDTO> findRelatedProductsByProduct(Long id);
 }
 
 

@@ -346,13 +346,13 @@
 
                     <!-- Các phần khác: wishlist, cart -->
                     <li class="nav-wishlist">
-                        <a href="wishlist.html" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                        <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
                             <i class="icon icon-heart"></i><span class="count-box bg-dark"
-                                                                 style="font-size: 10px; width: 16px; height: 16px;">0</span>
+                                                                 style="font-size: 10px; width: 16px; height: 16px;">5</span>
                         </a>
                     </li>
                     <li class="nav-cart">
-                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"
+                        <a href="${pageContext.request.contextPath}/user/cart" class="nav-icon-item"
                            style="font-size: 16px; padding: 3px;">
                             <i class="icon icon-bag"></i><span class="count-box bg-dark"
                                                                style="font-size: 10px; width: 16px; height: 16px;">2</span>

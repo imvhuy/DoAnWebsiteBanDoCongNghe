@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.javaweb.dto.ProductConfigurationDTO;
 import com.javaweb.dto.ProductDetailDTO;
 import com.javaweb.entity.ProductEntity;
 
@@ -60,4 +61,17 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long>{
 	     List<ProductEntity> findAll(Sort sort);
 	     List<ProductEntity> findAllById(Iterable<Long> ids);
 
+	     @Query("SELECT c.name " +
+	     "FROM ProductEntity p " +
+	     "JOIN p.categoryEntity c "+
+	     "WHERE p.id = :id ")
+	     String getProductCategory(@Param("id") Long id);
+	     
+	     @Query("SELECT new com.javaweb.dto.ProductDetailDTO(p.id, p.name, p.price, g.image) " +
+	     "FROM ProductEntity p " +
+	     "JOIN p.categoryEntity c "+
+	     "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
+         "WHERE g.type = 'front' " +
+	     "AND c.name = :categoryName ")
+	     List<ProductDetailDTO> findRelatedProductsByProduct(@Param("categoryName") String categoryName);
 }

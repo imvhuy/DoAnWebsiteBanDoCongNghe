@@ -30,9 +30,10 @@ public class CategoryEntity extends BaseEntity {
     private Boolean isDeleted;
     @OneToMany(mappedBy = "categoryEntity")
     private List<ProductEntity> products;
+    
     @ToString.Exclude
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL)
-    private List<SubcategoryEntity> attributeEntities;
+    private List<SubcategoryEntity> subcategoryEntities;
 
 
 

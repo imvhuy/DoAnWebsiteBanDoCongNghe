@@ -14,7 +14,7 @@ import com.javaweb.entity.*;
 import com.javaweb.service.*;
 import com.javaweb.repository.*;
 @Service
-public class OderServiceImpl implements IOrderService{
+public class OrderServiceImpl implements IOrderService{
 	@Autowired
 	IGeocodingService geocodingService;
 	@Autowired
