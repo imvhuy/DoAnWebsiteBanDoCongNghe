@@ -108,4 +108,15 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'chờ vận chuyển'")
     Long countPendingOrders();
+    @Query("SELECT o.id, o.address, o.status " +
+            "FROM OrderEntity o " +
+            "JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "WHERE d.carrier.id = :carrierId AND o.status IN :statuses")
+    List<Object[]> findOrdersByCarrierAndStatuses(@Param("carrierId") Long carrierId, @Param("statuses") List<String> statuses);
+
+    @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "WHERE d.carrier.id = :carrierId ORDER BY o.createdDate DESC LIMIT 1")
+    OrderEntity findLatestOrderByCarrierId(@Param("carrierId") Long carrierId);
+
+
 }

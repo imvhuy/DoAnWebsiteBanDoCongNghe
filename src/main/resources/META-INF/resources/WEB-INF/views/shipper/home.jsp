@@ -1,15 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
 <body>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipper Dashboard</title>
     <!-- Liên kết tới Bootstrap 5 và FontAwesome -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         body {
             background-color: #f7f9fc;
@@ -137,8 +132,8 @@
         <strong class="me-auto">New Update</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast-body">
-        New order for delivery to 789 Oak Street!
+    <div id="notificationsContainerLastest" class="list-group">
+
     </div>
 </div>
 
@@ -199,31 +194,91 @@
 
 
     <!-- Thông báo cập nhật mới -->
+    <!-- Thông báo cập nhật mới -->
     <div class="row mt-5">
         <div class="col-md-12">
             <h4>Recent Notifications</h4>
-            <div class="list-group">
-                <div class="list-group-item notification-item">
-                    <p>Your order for 123 Main Street is now on the way!</p>
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="list-group-item notification-item">
-                    <p>You have a new order to deliver to 456 Elm Avenue.</p>
-                    <i class="fas fa-info-circle"></i>
-                </div>
-                <div class="list-group-item notification-item">
-                    <p>Your order to 789 Oak Street has been delivered.</p>
-                    <i class="fas fa-check-circle"></i>
-                </div>
+            <div id="notificationsContainer" class="list-group">
+                <!-- Thông báo mới sẽ được thêm ở đây -->
+
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const fetchOrders = () => {
+            $.ajax({
+                url: '/shipper/notifications', // Endpoint để lấy danh sách đơn hàng
+                method: 'GET',
+                success: function (orders) {
+                    const container = $('#notificationsContainer');
+                    container.empty(); // Xóa thông báo cũ
+                    // Thêm thông báo mới
+                    orders.forEach(order => {
+                        container.append(
+                            '<div class="list-group-item notification-item">' +
+                            '<p>You have a new order to deliver to ' + order.address + ' (' + order.status + ').</p>' +
+                            '<i class="fas fa-truck"></i>' +
+                            '</div>'
+                        );
+                    });
+                },
+                error: function (err) {
+                    console.error('Failed to fetch orders', err);
+                }
+            });
+        };
+
+        // Gọi hàm mỗi 10 giây để kiểm tra đơn hàng mới
+        setInterval(fetchOrders, 10000);
+
+        // Gọi lần đầu để tải thông báo khi trang được tải
+        fetchOrders();
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const fetchLatestOrder = () => {
+            $.ajax({
+                url: '/shipper/latest-order', // Endpoint để lấy đơn hàng gần nhất
+                method: 'GET',
+                success: function (order) {
+                    if (order) { // Kiểm tra nếu dữ liệu trả về hợp lệ
+                        const container = $('#notificationsContainerLastest');
+                        container.empty(); // Xóa thông báo cũ
+                        // Thêm thông báo mới với thông tin order gần nhất
+                        container.append(
+                            '<div class="list-group-item notification-item">' +
+                            '<p>Latest order: Deliver to ' + order.address +
+                            ' (' + order.status + ') on ' + order.createdDate + '.</p>' +
+                            '<i class="fas fa-truck"></i>' +
+                            '</div>'
+                        );
+                    } else {
+                        console.warn('No recent orders found');
+                    }
+                },
+                error: function (err) {
+                    console.error('Failed to fetch the latest order', err);
+                }
+            });
+        };
+
+        // Gọi hàm mỗi 10 giây để kiểm tra đơn hàng mới
+        setInterval(fetchLatestOrder, 10000);
+
+        // Gọi lần đầu để tải thông báo khi trang được tải
+        fetchLatestOrder();
+    </script>
+
+
+
 </div>
 
 <!-- Đoạn script cho biểu đồ -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script>
     const ctx = document.getElementById('workSummaryChart').getContext('2d');
 

@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface IOrderService {
+    OrderEntity createOrder(OrderEntity order);
+
     List<OrderEntity> getAllOrders();
 
     // Lọc đơn hàng theo trạng thái
@@ -50,4 +52,8 @@ public interface IOrderService {
     Long getDeliveredOrdersCount();
 
     Long getPendingOrdersCount();
+
+    List<Object[]> findOrdersByCarrierAndStatuses(Long carrierId, List<String> statuses);
+
+    OrderEntity findLatestOrderByCarrierId(Long carrierId);
 }

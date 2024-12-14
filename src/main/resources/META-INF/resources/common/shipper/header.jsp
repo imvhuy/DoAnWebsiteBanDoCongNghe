@@ -100,7 +100,7 @@
     <div class="px_15 lg-px_40">
         <div class="row wrapper-header align-items-center" style="height: 90px;">
             <div class="col-xl-2 col-md-4 col-6 text-center">
-                <a href="/home" class="logo-header">
+                <a href="/shipper/home" class="logo-header">
                     <img src="/web/images/logo/logo.jpg" alt="logo" class="logo" style="max-height: 40px;">
                 </a>
             </div>
@@ -155,7 +155,6 @@
                             <div class="sub-menu mega-menu">
                                 <ul class="horizontal-menu">
                                     <li><a href="<c:url value='/shipper/orders/completed' />">Delivery History</a></li>
-                                    <li><a href="#">Ratings & Feedback</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -177,9 +176,6 @@
                                         <span>${pageContext.request.userPrincipal.name}</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                                        <li><a class="dropdown-item" href="/orders">My Orders</a></li>
-                                        <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="<c:url value='/logout' />">Logout</a></li>
                                     </ul>
@@ -193,17 +189,7 @@
                         </c:choose>
                     </li>
 
-                    <!-- Các phần khác: wishlist, cart -->
-                    <li class="nav-wishlist">
-                        <a href="wishlist.html" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-heart"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-cart">
-                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-bag"></i><span class="count-box bg-dark" style="font-size: 10px; width: 16px; height: 16px;">2</span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </div>

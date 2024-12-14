@@ -4,6 +4,7 @@ import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.entity.OrderEntity;
 import com.javaweb.repository.IOrderRepository;
+import com.javaweb.service.INotificationService;
 import com.javaweb.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,23 @@ import java.util.List;
 public class OrderServiceImpl implements IOrderService {
     @Autowired
     private IOrderRepository orderRepository;
+
+    @Autowired
+    private INotificationService notificationService;
+
+    @Override
+    public OrderEntity createOrder(OrderEntity order) {
+        // Thêm logic tạo đơn hàng
+        OrderEntity savedOrder = orderRepository.save(order);
+
+        // Gửi thông báo
+        notificationService.createNotification(
+                "A new order has been placed: " + order.getAddress(),
+                savedOrder.getUser().getId()
+        );
+
+        return savedOrder;
+    }
     @Override
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
@@ -176,5 +194,17 @@ public class OrderServiceImpl implements IOrderService {
     public Long getPendingOrdersCount() {
         return orderRepository.countPendingOrders();
     }
+
+    @Override
+    public List<Object[]> findOrdersByCarrierAndStatuses(Long carrierId, List<String> statuses) {
+        return orderRepository.findOrdersByCarrierAndStatuses(carrierId, statuses);
+    }
+
+    @Override
+    public OrderEntity findLatestOrderByCarrierId(Long carrierId) {
+        return orderRepository.findLatestOrderByCarrierId(carrierId);
+    }
+
+
 
 }
