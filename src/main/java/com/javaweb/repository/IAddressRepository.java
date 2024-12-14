@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface IAddressRepository extends JpaRepository<AddressEntity, Long> {
     List<AddressEntity> findByUserId(Long userId);
     Optional<AddressEntity> findByUserIdAndIsDefaultTrue(Long userId);
-    
+
     @Query("SELECT  a FROM AddressEntity a JOIN a.user where a.id = :id")
     AddressEntity findByIdNotOptional(@Param("id") Long id);
 }

@@ -17,7 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.javaweb.dto.*;
+import com.javaweb.entity.*;
+import com.javaweb.service.*;
+import com.javaweb.repository.*;
 @Service
 public class OrderServiceImpl implements IOrderService {
     @Autowired
@@ -114,7 +122,6 @@ public class OrderServiceImpl implements IOrderService {
 
             if (!stores.isEmpty()) {
                 //
-                System.out.println(userAddress.getAddress());
                 GeocodingResultDTO userAddressGeocoding = geocodingService.getCoordinates(userAddress.getAddress());
 
                 StoreEntity nearestStore = null;
@@ -147,7 +154,6 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void createOrders(Long userId,Long carrierId,Long address,String method) {
         //biến lưu tổng tiền(amount_from_user)
-        System.out.println(address + "gido");
         Long totalAmount = 0L;
         //lấy địa chỉ của khách hàng
         AddressEntity userAddress = addressService.findByIdNotOptional(address);

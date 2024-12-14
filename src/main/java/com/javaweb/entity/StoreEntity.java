@@ -1,9 +1,11 @@
 package com.javaweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -21,16 +23,18 @@ public class StoreEntity extends BaseEntity{
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
-    private String storeName;
+    private String name;
 
     @Column(name = "bio")
     private String bio;
 
+    private String address;
+
     @Column(name = "isActive")
-    private Boolean isActive;
+    private Boolean isActive = false;
 
     @Column(name = "isOpen")
-    private Boolean isOpen;
+    private Boolean isOpen = false;
 
     @Column(name = "avatar")
     private String avatar;
@@ -40,16 +44,20 @@ public class StoreEntity extends BaseEntity{
 
     @Column(name = "rating")
     private Integer  rating;
-    
-    @Column(name = "address")
-    private String address;
 
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "ownerid")
+    private UserEntity owner;
+
+
+    @ToString.Exclude
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<StoreProductEntity> storeProduct;
 
     @OneToOne
     @JoinColumn(name = "commissionid")
+    @ToString.Exclude
     private CommissionEntity commission;
-
 
 }

@@ -24,15 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.javaweb.config.UserInfoUserDetails;
-import com.javaweb.dto.FavoriteProductDTO;
-import com.javaweb.dto.GalleryDTO;
-import com.javaweb.dto.ProductDTO;
-import com.javaweb.dto.ReviewDTO;
+import com.javaweb.dto.*;
 import com.javaweb.entity.*;
-import com.javaweb.repository.IReviewRepository;
-import com.javaweb.repository.IStoreProductRepository;
 import com.javaweb.service.*;
 
 @Controller
@@ -87,6 +80,8 @@ public class ProductDetailController {
             long totalReviews = reviewService.countTotalReviews();	
             //lấy tổng số lượng sản phẩm
             Long total = storeProductService.getTotalQuantityByProductId(id);
+            //lấy số lượng sản phẩm hiện có
+            Long totalAvailableQuantity = productService.countTotalAvailableQuantityOfProduct(id);
          // Lấy giá trị trung bình của rating
             Double averageRating = reviewService.calculateAverageRating(id);
             if (averageRating == null) {
@@ -112,14 +107,19 @@ public class ProductDetailController {
          // Sắp xếp ratingMap theo thứ tự giảm dần
             List<Map.Entry<Integer, Long>> sortedList = new ArrayList<>(ratingMap.entrySet());
             sortedList.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey())); // Sắp xếp giảm dần
+            //Lấy danh sách các sản phẩm liên quan với product này
+            List<ProductDetailDTO> relatedProducts = productService.findRelatedProductsByProduct(id);
+            
             ModelAndView mav = new ModelAndView("/web/product-detail");
             mav.addObject("configList", configList);
             mav.addObject("product", productDTO); 
             mav.addObject("reviews", reviews);
             mav.addObject("total", total);
+            mav.addObject("totalAvailableQuantity", totalAvailableQuantity);
             mav.addObject("totalReviews", totalReviews);
             mav.addObject("averageRating", averageRating);
             mav.addObject("ratingMap", sortedList);
+            mav.addObject("relatedProducts", relatedProducts);
             
             return mav;
         }
@@ -130,22 +130,26 @@ public class ProductDetailController {
     // ham tach xu ly chuoi cho thong tin cau hinh product configuration
     private List<Map<String, String>> convertToList(String configText) {
         List<Map<String, String>> configList = new ArrayList<>();
-        String[] rows = configText.split("\n");  // Tách chuỗi thành các dòng
+        if(configText != null)
+        {
+        	String[] rows = configText.split("\n");  // Tách chuỗi thành các dòng
 
-        for (String row : rows) {
-            // Tìm dấu ":" đầu tiên để tách phần key và phần value
-            int colonIndex = row.indexOf(':');
-            if (colonIndex != -1) {
-                String key = row.substring(0, colonIndex).trim();  // Lấy phần key
-                String value = row.substring(colonIndex + 1).trim();  // Lấy phần value (sau dấu ":")
-                
-                // Tạo Map cho mỗi dòng
-                Map<String, String> config = new HashMap<>();
-                config.put("key", key);
-                config.put("value", value);
-                configList.add(config);
+            for (String row : rows) {
+                // Tìm dấu ":" đầu tiên để tách phần key và phần value
+                int colonIndex = row.indexOf(':');
+                if (colonIndex != -1) {
+                    String key = row.substring(0, colonIndex).trim();  // Lấy phần key
+                    String value = row.substring(colonIndex + 1).trim();  // Lấy phần value (sau dấu ":")
+                    
+                    // Tạo Map cho mỗi dòng
+                    Map<String, String> config = new HashMap<>();
+                    config.put("key", key);
+                    config.put("value", value);
+                    configList.add(config);
+                }
             }
         }
+        
         return configList;
     }
     

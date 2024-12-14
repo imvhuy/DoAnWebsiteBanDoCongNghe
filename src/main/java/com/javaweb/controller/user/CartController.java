@@ -35,7 +35,6 @@ public class CartController {
 	IProductService	productService;
 	@Autowired
 	IUserService	userService;
-	
 	@GetMapping("")
     public ModelAndView load(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -48,7 +47,6 @@ public class CartController {
         for (CartProductDTO result : cartProducts) {
             Long productId = result.getId(); // Lấy ID sản phẩm
             //System.out.println("Product ID: " + productId);
-            
             // Tính tổng số lượng có sẵn của sản phẩm
             Long total = productService.countTotalAvailableQuantityOfProduct(productId);
             

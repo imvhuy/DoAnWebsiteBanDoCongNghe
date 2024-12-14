@@ -26,7 +26,8 @@ public interface ICategoryService {
 
     List<CategoryEntity> getAllCategories();
 
-    List<CategoryEntity> findByNameContaining(String name);
+	CategoryEntity findCategoryEntityBySlug(String slug, boolean isDelete);
 
+	List<CategoryEntity> findByNameContaining(String name);
 	Optional<CategoryEntity> findByName(String name);
 }

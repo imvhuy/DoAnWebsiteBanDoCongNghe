@@ -1,8 +1,7 @@
 package com.javaweb.converter;
 
-import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.UserEntity;
-
+import com.javaweb.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -11,15 +10,15 @@ import java.util.Optional;
 @Component
 public class UserConverter {
 
-    public UserDTO convertToModel (UserEntity entity){
+    public UserDTO convertToDTO (UserEntity entity){
         UserDTO result = new UserDTO();
         BeanUtils.copyProperties(entity, result);
         return result;
     }
 
-    public UserEntity convertToEntity (UserDTO userModel){
+    public UserEntity convertToEntity (UserDTO userDTO){
         UserEntity result = new UserEntity();
-        BeanUtils.copyProperties(userModel, result);
+        BeanUtils.copyProperties(userDTO, result);
         return result;
     }
 }

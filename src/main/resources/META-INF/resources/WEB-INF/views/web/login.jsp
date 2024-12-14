@@ -7,25 +7,21 @@
 </div>
 <!-- /page-title -->
 
-<%--<c:if test="${message != null}" >--%>
-<%--<div class="container">--%>
-<%--    <!-- <h1 class="form-heading">login Form</h1> -->--%>
-<%--    <div class="login-form">--%>
-<%--        <div class="main-div">--%>
-<%--            <div class="alert alert-danger">--%>
-<%--                ${message}--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--</c:if>--%>
+<%
+    String incorrectAccount = request.getParameter("incorrectAccount");
+    if (incorrectAccount != null) {
+%>
+<h6 style="color: red;padding-top: 50px;padding-left: 120px;">Incorrect account!</h6>
+<%
+    }
+%>
 <section class="flat-spacing-10">
     <div class="container">
         <div class="tf-grid-layout lg-col-2 tf-login-wrap">
             <div class="tf-login-form">
                 <div id="recover">
                     <h5 class="mb_24">Reset your password</h5>
-                    <p class="mb_30">We will send you an email to reset your password</p>
+                    <p class="mb_30">We will email you to reset your password</p>
                     <div>
                         <form class="" id="forget-form" action="#" method="post" accept-charset="utf-8" data-mailchimp="true">
                             <div class="tf-field style-1 mb_15">

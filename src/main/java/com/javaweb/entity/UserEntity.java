@@ -50,7 +50,10 @@ public class UserEntity extends BaseEntity {
     private List<CartEntity> cartEntities;
     
     @OneToMany(mappedBy = "user")
-    private List<FavoriteProductEntity> favortieProductEntitys;
+    private List<FavoriteProductEntity> favoriteProductEntities;
+
+    @OneToMany(mappedBy = "owner")
+    private List<StoreEntity> storeEntities;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orderEntities;

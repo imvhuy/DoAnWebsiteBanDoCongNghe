@@ -16,32 +16,32 @@ import java.util.Optional;
 @Service
 public class CarrierServiceImpl implements ICarrierService {
     @Autowired
-    private ICarrierRepository ICarrierRepository;
+    private ICarrierRepository carrierRepository;
 
     @Override
     public void delete(CarrierEntity entity) {
-        ICarrierRepository.delete(entity);
+        carrierRepository.delete(entity);
     }
 
     @Override
     public void deleteById(Long id) {
-        ICarrierRepository.deleteById(id);
+        carrierRepository.deleteById(id);
     }
 
     @Override
     public long count() {
-        return ICarrierRepository.count();
+        return carrierRepository.count();
     }
 
     @Override
     public List<CarrierEntity> findAll() {
-        return ICarrierRepository.findAll();
+        return carrierRepository.findAll();
     }
 
     @Override
     public <S extends CarrierEntity> S save(S entity) {
         if(entity.getId() == null) {
-            return ICarrierRepository.save(entity);
+            return carrierRepository.save(entity);
         }
         else {
             Optional<CarrierEntity> opt = findById(entity.getId());
@@ -54,42 +54,42 @@ public class CarrierServiceImpl implements ICarrierService {
                 }
             }
         }
-        return ICarrierRepository.save(entity);
+        return carrierRepository.save(entity);
     }
 
     @Override
     public Optional<CarrierEntity> findById(Long id) {
-        return ICarrierRepository.findById(id);
+        return carrierRepository.findById(id);
     }
 
     @Override
     public List<CarrierEntity> findByNameContaining(String name) {
-        return ICarrierRepository.findByNameContaining(name);
+        return carrierRepository.findByNameContaining(name);
     }
 
     @Override
     public Page<CarrierEntity> findByNameContaining(String name, Pageable pageable) {
-        return ICarrierRepository.findByNameContaining(name, pageable);
+        return carrierRepository.findByNameContaining(name, pageable);
     }
 
     @Override
     public Page<CarrierEntity> findAll(Pageable pageable) {
-        return ICarrierRepository.findAll(pageable);
+        return carrierRepository.findAll(pageable);
     }
 
     @Override
     public List<CarrierEntity> findAll(Sort sort) {
-        return ICarrierRepository.findAll();
+        return carrierRepository.findAll();
     }
 
     @Override
     public List<CarrierEntity> findAllById(Iterable<Long> ids) {
-        return ICarrierRepository.findAllById(ids);
+        return carrierRepository.findAllById(ids);
     }
 
 
     @Override
     public void deleteAll() {
-        ICarrierRepository.deleteAll();
+        carrierRepository.deleteAll();
     }
 }

@@ -4,6 +4,7 @@ import com.javaweb.entity.StoreEntity;
 import com.javaweb.entity.StoreProductEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,22 +21,21 @@ public interface IStoreProductRepository extends JpaRepository<StoreProductEntit
 
     @Query("SELECT SUM(sp.sold) FROM StoreProductEntity sp WHERE sp.product.id = :productId")
     Long getTotalSoldByProductId(@Param("productId") Long productId);  // Phương thức tính tổng số sản phẩm đã bán
-    
-	public Page<StoreProductEntity> findByStoreIdAndProduct_NameContaining(Long storeId, String name, Pageable pageable);
 
-	public Page<StoreProductEntity> findByStoreId(Long storeId, Pageable pageable);
-	
-	public List<StoreProductEntity> findByStoreId(Long storeId);
 	
 //	 @Query("SELECT p FROM ProductEntity p WHERE p.id IN (SELECT sp.product.id FROM StoreProductEntity sp WHERE sp.store.id = :storeId)")
 //	    Page<ProductEntity> findProductsByStore(@Param("storeId") Long storeId, Pageable pageable);
 	@Query("SELECT s FROM StoreProductEntity sp JOIN sp.store s WHERE sp.product.id = :productId AND  sp.quantity >= :quantity")
-	public List<StoreEntity> findStoresByProductIdAndQuantity(@Param("productId") Long productId, @Param("quantity") Long quantity) ;
-	
+	List<StoreEntity> findStoresByProductIdAndQuantity(@Param("productId") Long productId, @Param("quantity") Long quantity) ;
+
 	@Modifying
 	@Query("UPDATE StoreProductEntity sp SET sp.quantity = sp.quantity - :quantity , sp.sold = COALESCE(sp.sold, 0) + :quantity WHERE  sp.product.id = :productId AND sp.store.id = :storeId")
-	public void updateQuantityAfterUserPlaceOrderItem( @Param("storeId") Long storeId,@Param("productId") Long productId, @Param("quantity") Long quantity);
+	void updateQuantityAfterUserPlaceOrderItem( @Param("storeId") Long storeId,@Param("productId") Long productId, @Param("quantity") Long quantity);
+    Optional<StoreProductEntity> findByStoreIdAndProductId(Long storeId, Long productId);
+    Page<StoreProductEntity> findByStoreIdAndProduct_NameContaining(Long storeId, String name, Pageable pageable);
+    List<StoreProductEntity> findByStoreId(Long storeId);
+    Page<StoreProductEntity> findByStoreId(Long storeId, Pageable pageable);
+    Page<StoreProductEntity> findByStoreIdAndProduct_NameContainingAndProduct_categoryEntity_id(Long storeId, String productName, Long categoryId, Pageable pageable);
+    Page<StoreProductEntity> findByStoreIdAndProduct_categoryEntity_id(Long storeId, Long categoryId, Pageable pageable);
 
-
-
-} 
+}

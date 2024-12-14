@@ -9,12 +9,15 @@ import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,6 +42,17 @@ public class UserServiceImpl implements IUserService {
     public Boolean authenticate(String username, String password) {
         UserEntity user = userRepository.findByUsernameAndStatus(username, 1);
         return user != null && passwordEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
+    public Boolean changePassword(String username, String currentPassword, String newPassword) {
+        if (authenticate(username, currentPassword)) {
+            UserEntity user = userRepository.findByUsernameAndStatus(username, 1);
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -75,14 +89,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional
-    public UserDTO insert(UserDTO userModel) {
-        RoleEntity roleEntity = roleRepository.findByName(userModel.getRoleName());
-        UserEntity userEntity = userConverter.convertToEntity(userModel);
-        userEntity.setFullName(userModel.getFullName());
+    public UserDTO insert(UserDTO userDTO) {
+        RoleEntity roleEntity = roleRepository.findByName(userDTO.getRoleName());
+        UserEntity userEntity = userConverter.convertToEntity(userDTO);
+        userEntity.setFullName(userDTO.getFullName());
         userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
         userEntity.setStatus(1);
-        userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        UserDTO result = userConverter.convertToModel(userRepository.save(userEntity));
+        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        UserDTO result = userConverter.convertToDTO(userRepository.save(userEntity));
         return result;
     }
 
@@ -118,35 +132,6 @@ public class UserServiceImpl implements IUserService {
     public UserEntity findByIdNotOptional(Long id) {
         return userRepository.findById(id).orElse(null);
     }
-
-//    @Override
-//    public void save(UserEntity userEntity) {
-//        if (userEntity.getId() == null) {
-//            // Nếu không có ID, lưu như một bản ghi mới
-//            userRepository.save(userEntity);
-//        } else {
-//            // Đối tượng cần cập nhật
-//            Optional<UserEntity> existingUserOpt = userRepository.findById(userEntity.getId());
-//            if (existingUserOpt.isPresent()) {
-//                UserEntity existingUser = existingUserOpt.get();
-//
-//                // Cập nhật các trường của đối tượng hiện tại từ đối tượng userEntity
-//                existingUser.setFullName(userEntity.getFullName() != null ? userEntity.getFullName() : existingUser.getFullName());
-//                existingUser.setUsername(userEntity.getUsername() != null ? userEntity.getUsername() : existingUser.getUsername());
-//                existingUser.setPassword(userEntity.getPassword() != null ? userEntity.getPassword() : existingUser.getPassword());
-//                existingUser.setEmail(userEntity.getEmail() != null ? userEntity.getEmail() : existingUser.getEmail());
-//                existingUser.setIsEmailActive(userEntity.getIsEmailActive() != null ? userEntity.getIsEmailActive() : existingUser.getIsEmailActive());
-//                existingUser.setStatus(userEntity.getStatus() != null ? userEntity.getStatus() : existingUser.getStatus());
-//                existingUser.setRoles(userEntity.getRoles() != null ? userEntity.getRoles() : existingUser.getRoles());
-//
-//                // Lưu đối tượng đã được cập nhật
-//                userRepository.save(existingUser);
-//            } else {
-//                // Nếu không tìm thấy đối tượng, lưu như bản ghi mới
-//                userRepository.save(userEntity);
-//            }
-//        }
-//    }
 
     @Override
     public void save(UserEntity userEntity) {

@@ -75,7 +75,7 @@
 										<img src="${store.avatar}" alt="Avatar">
 									</div>
 									<div class="title line-clamp-2 mb-0">
-										<a href="#" class="body-text">${store.storeName}</a>
+										<a href="#" class="body-text">${store.name}</a>
 									</div>
 								</div>
 								<div class="body-text text-main-dark mt-4">${store.bio}</div>

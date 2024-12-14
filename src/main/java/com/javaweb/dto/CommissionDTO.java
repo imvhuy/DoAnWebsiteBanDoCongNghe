@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class CommissionDTO extends BaseDTO {
+public class CommissionDTO {
 
     private Long id;
     private String name;

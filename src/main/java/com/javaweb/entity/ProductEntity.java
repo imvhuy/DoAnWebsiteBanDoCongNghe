@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,12 +48,15 @@ public class ProductEntity extends BaseEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<GalleryEntity> galleryEntities;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<StoreProductEntity> productStore;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
     
@@ -62,6 +67,12 @@ public class ProductEntity extends BaseEntity {
     private List<FavoriteProductEntity> favortieProductEntitys;
     
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "product_sub_cat_value",  // Tên bảng nối
+            joinColumns = @JoinColumn(name = "product_id"),  // Cột khóa ngoại cho Product
+            inverseJoinColumns = @JoinColumn(name = "sub_cat_value_id")  // Cột khóa ngoại cho SubCategoryValue
+    )
+    private List<SubcategoryValueEntity> subCategoryValues;
 
 }

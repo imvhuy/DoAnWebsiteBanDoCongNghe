@@ -2,24 +2,24 @@ package com.javaweb.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.javaweb.entity.StoreEntity;
+import com.javaweb.repository.IStoreRepository;
+import com.javaweb.service.IStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.javaweb.entity.StoreEntity;
-import com.javaweb.repository.*;
-import com.javaweb.service.IStoreService;
 @Service
 public class StoreServiceImpl implements IStoreService {
 
 	  @Autowired
 	    private IStoreRepository storeRepository;
-	
+
 	 // Tìm cửa hàng theo tên và phân trang
     public Page<StoreEntity> findByStoreName(String storeName, Pageable pageable) {
         // Sử dụng phương thức tìm kiếm theo tên (like query) trong repository
-        return storeRepository.findByStoreNameContaining(storeName, pageable);
+        return storeRepository.findByNameContaining(storeName, pageable);
     }
 
     // Lấy tất cả các cửa hàng với phân trang
@@ -27,7 +27,7 @@ public class StoreServiceImpl implements IStoreService {
         // Lấy tất cả cửa hàng với phân trang
         return storeRepository.findAll(pageable);
     }
- // Phương thức tìm cửa hàng theo ID
+    // Phương thức tìm cửa hàng theo ID
     public Optional<StoreEntity> findById(Long storeId) {
         return storeRepository.findById(storeId);
     }
@@ -37,11 +37,16 @@ public class StoreServiceImpl implements IStoreService {
     }
     public void deleteById(Long id)
     {
-    	storeRepository.deleteById(id);
+        storeRepository.deleteById(id);
     }
 
-	@Override
-	public List<StoreEntity> findAll() {
-		return storeRepository.findAll();
-	}
+    @Override
+    public StoreEntity findByOwner(String owner) {
+        return storeRepository.findByOwner_Username(owner);
+    }
+
+    @Override
+    public List<StoreEntity> findAll() {
+        return storeRepository.findAll();
+    }
 }

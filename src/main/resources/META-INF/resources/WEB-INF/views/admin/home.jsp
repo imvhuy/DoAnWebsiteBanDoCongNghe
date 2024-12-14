@@ -312,7 +312,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-1.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -326,7 +326,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-2.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -340,7 +340,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-3.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -354,7 +354,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-4.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -368,7 +368,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-5.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -382,7 +382,7 @@
                                 <li class="wg-product">
                                     <div class="name flex-grow">
                                         <div class="image">
-                                            <img src="images/products/product-6.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div>
                                             <div class="title">
@@ -429,7 +429,7 @@
                                 <li class="item wg-product gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/products/product-1.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div class="title mb-0">
                                             <a href="#" class="body-text">Oversized Motif T-shirt</a>
@@ -446,7 +446,7 @@
                                 <li class="item wg-product gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/products/product-2.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div class="title mb-0">
                                             <a href="#" class="body-text">Oversized Motif T-shirt</a>
@@ -463,7 +463,7 @@
                                 <li class="item wg-product gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/products/product-3.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div class="title mb-0">
                                             <a href="#" class="body-text">Oversized Motif T-shirt</a>
@@ -480,7 +480,7 @@
                                 <li class="item wg-product gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/products/product-7.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div class="title mb-0">
                                             <a href="#" class="body-text">Oversized Motif T-shirt</a>
@@ -497,7 +497,7 @@
                                 <li class="item wg-product gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/products/product-4.jpg" alt="">
+                                            <img src="/admin/images/products/1728496609724.png" alt="">
                                         </div>
                                         <div class="title mb-0">
                                             <a href="#" class="body-text">Oversized Motif T-shirt</a>

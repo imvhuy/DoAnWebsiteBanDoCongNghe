@@ -28,6 +28,11 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
+	public CategoryEntity findCategoryEntityBySlug(String slug, boolean isDelete) {
+		return categoryRepository.findBySlugAndIsDeleted(slug, isDelete);
+	}
+
+	@Override
 	public Optional<CategoryEntity> findByName(String name) {
 		return categoryRepository.findByName(name);
 	}

@@ -1,7 +1,6 @@
 package com.javaweb.dto;
 
 import com.javaweb.entity.UserEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
