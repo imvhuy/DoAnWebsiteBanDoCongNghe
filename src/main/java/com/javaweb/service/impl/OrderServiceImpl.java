@@ -1,5 +1,6 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.entity.OrderEntity;
 import com.javaweb.repository.IOrderRepository;
@@ -135,5 +136,45 @@ public class OrderServiceImpl implements IOrderService {
         return orderRepository.findByCarrierIdAndSearch(carrierId, search, PageRequest.of(page, size));
     }
 
+    @Override
+    public List<MonthlyRevenueDTO> getMonthlyRevenue() {
+        List<Object[]> results = orderRepository.calculateMonthlyRevenue();
+        List<MonthlyRevenueDTO> revenues = new ArrayList<>();
+
+        // Kiểm tra nếu results là null hoặc rỗng
+        if (results == null || results.isEmpty()) {
+            return revenues;  // Trả về danh sách rỗng nếu không có kết quả
+        }
+
+        // Duyệt qua các kết quả và xử lý
+        for (Object[] result : results) {
+            if (result != null && result.length == 3) {
+                // Kiểm tra nếu các phần tử trong result không phải null
+                Integer month = (result[0] != null) ? (Integer) result[0] : 0;  // Giá trị mặc định là 0 nếu null
+                Integer year = (result[1] != null) ? (Integer) result[1] : 0;    // Giá trị mặc định là 0 nếu null
+                Double totalRevenue = (result[2] != null) ? (Double) result[2] : 0.0; // Giá trị mặc định là 0 nếu null
+
+                // Thêm vào danh sách doanh thu
+                revenues.add(new MonthlyRevenueDTO(month, year, totalRevenue));
+            }
+        }
+
+        return revenues;
+    }
+
+    @Override
+    public Long getInProgressOrdersCount() {
+        return orderRepository.countInProgressOrders();
+    }
+
+    @Override
+    public Long getDeliveredOrdersCount() {
+        return orderRepository.countDeliveredOrders();
+    }
+
+    @Override
+    public Long getPendingOrdersCount() {
+        return orderRepository.countPendingOrders();
+    }
 
 }

@@ -93,5 +93,19 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
                                                @Param("search") String search,
                                                Pageable pageable);
 
+    @Query("SELECT MONTH(o.modifiedDate) AS month, YEAR(o.modifiedDate) AS year, SUM(o.amountToGD) AS totalRevenue " +
+            "FROM OrderEntity o " +
+            "WHERE o.status = 'đã vận chuyển' " +
+            "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) " +
+            "ORDER BY YEAR(o.modifiedDate), MONTH(o.modifiedDate)")
+    List<Object[]> calculateMonthlyRevenue();
 
+    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'đang vận chuyển'")
+    Long countInProgressOrders();
+
+    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'đã vận chuyển'")
+    Long countDeliveredOrders();
+
+    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'chờ vận chuyển'")
+    Long countPendingOrders();
 }

@@ -4,19 +4,11 @@
 
 <body>
 <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-    #pieChart {
-        width: 200px; /* Điều chỉnh chiều rộng */
-        height: 200px; /* Điều chỉnh chiều cao */
-    }
-</style>
 
 <div class="container my-4">
     <h2 class="text-center mb-4">Order Statistics</h2>
-
     <!-- Statistics Table -->
     <div class="card mb-4">
         <div class="card-body">
@@ -52,10 +44,10 @@
         <p class="text-center mt-2">Total Orders by Status</p>
     </div>
 
-    <!-- Line Chart for Total Money (Replaces Pie Chart) -->
+    <!-- Biểu đồ Cột cho Doanh thu hàng tháng -->
     <div class="my-5">
-        <canvas id="lineChart"></canvas>
-        <p class="text-center mt-2">Order Status and Total Amount</p>
+        <canvas id="barChart"></canvas>
+        <p class="text-center mt-2">Monthly Delivery Revenue</p>
     </div>
 </div>
 
@@ -127,26 +119,26 @@
             }
         });
 
-        // Data for the Line Chart (Money instead of Orders)
-        const moneyData = [];
-        <c:forEach var="stat" items="${statistics2}">
-        // Giả sử bạn có tổng tiền cho từng trạng thái đơn hàng
-        moneyData.push(${stat.totalMoney});  // Sử dụng dữ liệu tiền, ví dụ: totalMoney là tổng tiền theo từng trạng thái đơn hàng
+        // Data for the Bar Chart (Monthly Revenue)
+        const months = [];
+        const revenueData = [];
+        <c:forEach var="stat" items="${monthlyRevenue}">
+        months.push('${stat.month}');  // Tháng
+        revenueData.push(${stat.totalRevenue});  // Doanh thu
         </c:forEach>
 
-        // Line Chart Configuration (for Money Data)
-        const ctxLine = document.getElementById('lineChart').getContext('2d');
-        new Chart(ctxLine, {
-            type: 'line',
+        // Biểu đồ Cột cho Doanh thu hàng tháng
+        const ctxBarRevenue = document.getElementById('barChart').getContext('2d');
+        new Chart(ctxBarRevenue, {
+            type: 'bar',
             data: {
-                labels: labels,  // Sử dụng nhãn trạng thái đơn hàng
+                labels: months,  // Các tháng
                 datasets: [{
-                    label: 'Total Money (VNĐ)',  // Dữ liệu về tiền
-                    data: moneyData,
-                    borderColor: 'rgba(75, 192, 192, 1)',  // Màu sắc đường biểu đồ
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Màu nền dưới đường biểu đồ
-                    fill: true,  // Đổ màu dưới đường
-                    borderWidth: 2
+                    label: 'Total Revenue (VNĐ)',  // Dữ liệu về doanh thu
+                    data: revenueData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Màu nền dưới cột
+                    borderColor: 'rgba(75, 192, 192, 1)',  // Màu đường viền của cột
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -164,7 +156,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Order Status and Total Amount',
+                        text: 'Monthly Delivery Revenue',
                         font: {
                             size: 16
                         }
@@ -188,4 +180,4 @@
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+

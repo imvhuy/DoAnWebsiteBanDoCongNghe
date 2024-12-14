@@ -13,8 +13,8 @@
                      data-delay="2000">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <p class="top-bar-text fw-5 text_white">Welcome to store. Fantastic theme! Beautifully
-                                designed</p>
+                            <p class="top-bar-text fw-5 text_white">Welcome to your Shipper Dashboard! Keep up the great work!</p>
+
                         </div>
                     </div>
                 </div>

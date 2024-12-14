@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.entity.OrderEntity;
 import com.javaweb.entity.ProductEntity;
@@ -41,4 +42,12 @@ public interface IOrderService {
     Page<OrderEntity> findByCarrierIdStatusesAndSearch(Long carrierId, List<String> statuses, String search, int page, int size);
 
     Page<OrderEntity> findByCarrierIdAndSearch(Long carrierId, String search, int page, int size);
+
+    List<MonthlyRevenueDTO> getMonthlyRevenue();
+
+    Long getInProgressOrdersCount();
+
+    Long getDeliveredOrdersCount();
+
+    Long getPendingOrdersCount();
 }

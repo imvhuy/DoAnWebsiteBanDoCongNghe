@@ -1,6 +1,7 @@
 package com.javaweb.controller.shipper;
 
 import com.javaweb.config.UserInfoUserDetails;
+import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.ShipperCarrierEntity;
@@ -52,7 +53,8 @@ public class StatisticsController {
         List<OrderStatisticsDTO> statistics = orderStatisticsService.getOrderStatistics(carrierId);
         Double totalAmount = orderStatisticsService.getTotalAmount(carrierId);
         List<OrderStatisticsDTO> statistics2 = orderStatisticsService.getStatisticsByStatus(carrierId);
-
+        List<MonthlyRevenueDTO> monthlyRevenue = orderStatisticsService.getMonthlyRevenue();
+        model.addAttribute("monthlyRevenue", monthlyRevenue);
         // Truyền dữ liệu vào model
         model.addAttribute("statistics2", statistics2);
         model.addAttribute("statistics", statistics);
