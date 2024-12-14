@@ -27,11 +27,10 @@ public interface IStoreProductRepository extends JpaRepository<StoreProductEntit
     // Lấy thông tin sản phẩm trong cửa hàng theo ID
     Optional<StoreProductEntity> findByStoreIdAndProductId(Long storeId, Long productId);
 
+
     Page<StoreProductEntity> findByStoreIdAndProduct_NameContaining(Long storeId, String name, Pageable pageable);
 
     Page<StoreProductEntity> findByStoreId(Long storeId, Pageable pageable);
-
-//	 @Query("SELECT p FROM ProductEntity p WHERE p.id IN (SELECT sp.product.id FROM StoreProductEntity sp WHERE sp.store.id = :storeId)")
-//	    Page<ProductEntity> findProductsByStore(@Param("storeId") Long storeId, Pageable pageable);
-
+    Page<StoreProductEntity> findByStoreIdAndProduct_NameContainingAndProduct_categoryEntity_id(Long storeId, String productName, Long categoryId, Pageable pageable);
+    Page<StoreProductEntity> findByStoreIdAndProduct_categoryEntity_id(Long storeId, Long categoryId, Pageable pageable);
 }

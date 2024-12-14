@@ -41,16 +41,13 @@ import com.javaweb.service.IStoreService;
 @Controller("StoreOfAdmin")
 @RequestMapping(value = "/admin/stores")
 public class StoreController {
-
 	@Autowired
 	private IStoreService storeService;
 	@Autowired
 	private IStoreLevelService storeLevelService;
-
 	@Autowired
 	private IStoreProductService storeProductService;
 	@Autowired
-
 	private IProductService productService;
 	@Autowired
 	private ICommissionService commissionService;
@@ -147,42 +144,6 @@ public class StoreController {
 		return new ModelAndView("redirect:/admin/stores");
 
 	}
-
-//@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//	@GetMapping("/checkproduct/{storeId}")
-//	public String checkProduct(@PathVariable Long storeId,
-//	                           @RequestParam(defaultValue = "1") int page,
-//	                           @RequestParam(defaultValue = "5") int size,
-//	                           @RequestParam(value = "productName", required = false) String productName,
-//	                           Model model) {
-//	    // Đảm bảo page bắt đầu từ 1
-//	    page = Math.max(page, 1); // Đảm bảo page không nhỏ hơn 1
-//	    Pageable pageable = PageRequest.of(page - 1, size); // PageRequest bắt đầu từ 0
-//
-//	    Page<StoreProductEntity> storeProductPage;
-//
-//	    // Kiểm tra nếu có tham số productName, tìm kiếm theo tên sản phẩm
-//	    if (productName != null && !productName.trim().isEmpty()) {
-//	        storeProductPage = storeProductService.findByStoreIdAndProductName(storeId, productName, pageable);
-//	        model.addAttribute("productName", productName); // Truyền giá trị tìm kiếm vào model
-//	    } else {
-//	        storeProductPage = storeProductService.findByStoreId(storeId, pageable); // Lấy tất cả sản phẩm của cửa hàng nếu không có tìm kiếm
-//	    }
-//
-//	    // Lấy thông tin sản phẩm từ StoreProductEntity
-//	    List<ProductEntity> products = storeProductService.getProductsByStore(storeId);
-//
-//	    // Thêm vào model để truyền dữ liệu vào JSP
-//	    model.addAttribute("storeId", storeId);
-//	    model.addAttribute("products", products);
-//	    model.addAttribute("storeProductPage", storeProductPage); // Dữ liệu phân trang
-//	    model.addAttribute("totalPages", storeProductPage.getTotalPages()); // Tổng số trang
-//	    model.addAttribute("totalElements", storeProductPage.getTotalElements()); // Tổng số phần tử
-//	    model.addAttribute("currentPage", page); // Trang hiện tại
-//	    model.addAttribute("size", size); // Số lượng phần tử trên mỗi trang
-//
-//	    return "admin/stores/checkproduct"; // Trả về view tương ứng
-//	}
 
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@GetMapping("/checkproduct/{storeId}")
@@ -333,8 +294,4 @@ public class StoreController {
 	    redirectAttributes.addFlashAttribute("message", "Product added successfully!");
 	    return "redirect:/admin/stores/checkproduct/" + storeId;
 	}
-
-
-
-
 }

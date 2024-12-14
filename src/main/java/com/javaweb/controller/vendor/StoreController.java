@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/vendor")
+@RequestMapping("/vendor/manage-store")
 public class StoreController {
     @Autowired
     IStoreService storeService;
@@ -32,16 +32,14 @@ public class StoreController {
     @Autowired
     UserConverter userConverter;
 
-    @GetMapping("/manage-store")
+    @GetMapping
     public String showStoreManagementPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
-            String owner = userDetails.getUsername();
-            StoreEntity currentStore = storeService.findByOwner(owner);
-            model.addAttribute("store", currentStore);
-            return "/vendor/manage-store";
-        }
+        if (authentication == null) {return "redirect:/login";}
+        UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
+        String owner = userDetails.getUsername();
+        StoreEntity currentStore = storeService.findByOwner(owner);
+        model.addAttribute("store", currentStore);
         return "/vendor/manage-store";
     }
 
@@ -57,10 +55,9 @@ public class StoreController {
                 store.setAvatar(avatarPath);
             }
             store.setOwner(userConverter.convertToEntity(userService.findByUserName(owner)));
-            if(store.getId() == null) {
+            if (store.getId() == null) {
                 model.addFlashAttribute("message", "Đăng ký thành công, hãy chờ Admin duyệt!!");
-            }
-            else {
+            } else {
                 model.addFlashAttribute("message", "Chỉnh sửa thông tin cửa hàng thành công");
             }
             storeService.save(store);
@@ -79,5 +76,6 @@ public class StoreController {
         redirectAttributes.addFlashAttribute("message", "Store deleted successfully!");
         return "redirect:/vendor/manage";
     }
+
 
 }

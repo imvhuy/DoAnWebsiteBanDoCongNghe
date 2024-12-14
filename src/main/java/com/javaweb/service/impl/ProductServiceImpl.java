@@ -29,7 +29,6 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private ISubcategoryValueRepository subcategoryValueRepository;
 
-
     public List<GalleryEntity> getGalleryByProductId(Long productId) {
         return galleryRepository.findByProductEntityId(productId);  // Tìm tất cả ảnh của sản phẩm
     }
@@ -256,4 +255,5 @@ public class ProductServiceImpl implements IProductService {
     public Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable) {
         return productRepository.findByNameContainingIgnoreCase(name, pageable);
     }
+
 }
