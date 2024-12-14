@@ -399,6 +399,9 @@ public class OrderServiceImpl implements IOrderService{
     public OrderEntity findLatestOrderByCarrierId(Long carrierId) {
         return orderRepository.findLatestOrderByCarrierId(carrierId);
     }
-
+    
+//    public int countOrderByStoreId(Long id) {
+//    	
+//    }
 
 }
