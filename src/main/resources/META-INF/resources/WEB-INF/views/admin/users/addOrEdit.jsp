@@ -4,7 +4,7 @@
 
 <!-- main-content -->
 <div class="main-content">
-	<style>
+<style>
 .image {
 	width: 368px; /* Kích thước hình ảnh */
 	height: 368px;
@@ -17,6 +17,38 @@
 	height: 100%;
 	object-fit: cover; /* Cắt ảnh theo tỷ lệ hợp lý */
 }
+select.form-select {
+    width: 100%;
+    height: auto;
+    background-color: #f6f6f6; /* Màu nền giống với các phần tử khác */
+    border: 1px solid #ccc; /* Viền màu xám nhạt */
+    border-radius: 4px; /* Bo góc nhẹ */
+    padding: 10px; /* Khoảng cách bên trong */
+    font-size: 14px; /* Kích thước chữ */
+    color: #020202; /* Màu chữ */
+    outline: none; /* Xóa viền mặc định khi click */
+    box-shadow: none; /* Xóa hiệu ứng shadow mặc định */
+}
+
+select.form-select:focus {
+    border-color: #f6f6f6; /* Màu viền khi focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng shadow khi focus */
+    outline: none;
+}
+/* Highlight các options đã được chọn */
+select.highlight-roles option:checked {
+    background-color: #f6f6f6; /* Màu xanh nhạt cho highlight */
+    color: #020202; /* Màu chữ nổi bật */
+    font-weight: bold; /* Chữ đậm để dễ nhận biết */
+
+}
+
+/* Style cho các option chưa được chọn */
+select.highlight-roles option:not(:checked) {
+    background-color: #f6f6f6; /* Màu xám nhạt */
+    
+}
+
 </style>
 	<div class="main-content-inner">
 		<div class="main-content-wrap">
@@ -43,11 +75,12 @@
 							the user account</div>
 						<h5 class="mb-4">Avatar</h5>
 						<div class="image">
-							<!-- Hiển thị ảnh avatar nếu có, nếu không thì dùng ảnh mặc định -->
-							<img
-								src="${user.avatar != null ? user.avatar : 'images/products/product-1.jpg'}"
-								alt="User Avatar">
+						    <img 
+						        src="${user.avatar}" 
+						        alt="User Avatar"
+						        onerror="this.onerror=null; this.src='https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg';">
 						</div>
+
 					</div>
 
 					<div class="right flex-grow">
@@ -67,25 +100,27 @@
 								name="email" value="${user.email}" required>
 						</fieldset>
 
-						<fieldset class="email mb-24">
-							<div class="select">
-								<div class="body-title mb-10">Select Role</div>
-								<select name="role" required>
-									<c:forEach var="role" items="${roles}">
-										<option value="${role.id}"
-											<c:if test="${not empty user.roles && user.roles.contains(role)}">selected</c:if>>
-											${role.name}</option>
-									</c:forEach>
-								</select>
+<fieldset class="email mb-24">
+    <div class="body-title mb-10">Select Roles</div>
+    <select name="roles" multiple class="form-select highlight-roles">
+        <c:forEach var="role" items="${roles}">
+            <!-- Kiểm tra xem role của user có thuộc danh sách roles không -->
+            <option value="${role.id}" 
+                <c:if test="${not empty user.roles && user.roles.contains(role)}">selected</c:if>>
+                ${role.name}
+            </option>
+        </c:forEach>
+    </select>
+    <div class="body-text">Hold down the Ctrl (Windows) or Command (Mac) button to select multiple options.</div>
+</fieldset>
 
-							</div>
-						</fieldset>
+
 
 						<fieldset class="password mb-24">
 							<div class="body-title mb-10">Password</div>
 							<input class="password-input" type="password"
 								placeholder="Enter password" name="password"
-								value="${user.password != null ? user.password : ''}" required>
+								value="${user.password != null ? user.password : ''}" readonly>
 							<span class="show-pass"> <i class="icon-eye view"></i> <i
 								class="icon-eye-off hide"></i>
 							</span>
@@ -95,7 +130,7 @@
 							<div class="body-title mb-10">Confirm password</div>
 							<input class="password-input" type="password"
 								placeholder="Confirm password" name="confirmPassword"
-								value="${user.password != null ? user.password : ''}" required>
+								value="${user.password != null ? user.password : ''}" readonly>
 							<span class="show-pass"> <i class="icon-eye view"></i> <i
 								class="icon-eye-off hide"></i>
 							</span>

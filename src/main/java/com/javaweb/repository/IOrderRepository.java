@@ -1,14 +1,21 @@
 package com.javaweb.repository;
 
 import com.javaweb.entity.OrderEntity;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.javaweb.entity.OrderEntity;
+
+@Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     List<OrderEntity> findByStatus(String status);
     Page<OrderEntity> findByStatus(String status, Pageable pageable);
@@ -44,6 +51,13 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
             "WHERE d.carrier.id = :carrierId AND o.status = 'Đã vận chuyển'")
     Double calculateTotalAmount(@Param("carrierId") Long carrierId);
 
+
+
+    @Query("SELECT o FROM OrderEntity o WHERE o.user.username = :username")
+    List<OrderEntity> findByUsername(String username);
+
+
+    Page<OrderEntity> findByUser_Username(String username, Pageable pageable);
 
     @Query("SELECT o.status, COUNT(o.id) AS totalOrders, SUM(o.amountToGD) AS totalMoney " +
             "FROM OrderEntity o " +
@@ -118,6 +132,7 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
             "WHERE d.carrier.id = :carrierId ORDER BY o.createdDate DESC LIMIT 1")
     OrderEntity findLatestOrderByCarrierId(@Param("carrierId") Long carrierId);
+
 
 
 }

@@ -63,7 +63,7 @@
 				<div class="wg-table table-all-user">
 					<ul class="table-title flex gap20 mb-14">
 						<li><div class="body-title">User</div></li>
-						
+						<li><div class="body-title">Roles</div></li> <!-- Thêm cột Roles -->
 						<li><div class="body-title">Email</div></li>
 						<li><div class="body-title">Commit History</div></li>
 						<li><div class="body-title">Action</div></li>
@@ -73,11 +73,13 @@
 						<c:forEach var="user" items="${users}">
 							<li class="wg-product item-row">
 								<div class="name flex-grow">
-									<div class="image">
-										<img
-											src="${user.avatar != null ? user.avatar : 'images/products/product-1.jpg'}"
-											alt="User Avatar">
-									</div>
+								<div class="image">
+								    <img 
+								        src="${user.avatar}" 
+								        alt="User Avatar"
+								        onerror="this.onerror=null; this.src='https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg';">
+								</div>
+
 									<div>
 										<div class="title">
 											<a href="#" class="body-title-2">${user.fullName}</a>
@@ -85,6 +87,14 @@
 
 									</div>
 								</div>
+								<!-- Hiển thị Roles -->
+								<div class="body-text">
+								    <c:forEach var="role" items="${user.roles}" varStatus="status">
+								        <span>${role.name}</span>
+								        <c:if test="${!status.last}">, </c:if> <!-- Chỉ thêm dấu phẩy nếu không phải mục cuối -->
+								    </c:forEach>
+								</div>
+
 								<div class="body-text">${user.email}</div>
 								
 								<div class="body-text">

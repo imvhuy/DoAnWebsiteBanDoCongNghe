@@ -4,10 +4,12 @@ import com.javaweb.entity.UserEntity;
 import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.entity.OrderEntity;
-import com.javaweb.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Pageable;
 
 public interface IOrderService {
     OrderEntity createOrder(OrderEntity order);
@@ -40,7 +42,11 @@ public interface IOrderService {
 
     Page<OrderEntity> findByCarrierIdAndStatuses(Long carrierId, List<String> statuses, int page, int size);
 
+	//vũ làm nha a Thao iu
+	 List<OrderEntity> findOrdersByUsername(String username);
+
     Page<OrderEntity> findCompletedOrdersByCarrierId(Long carrierId, int page, int size);
+	Page<OrderEntity> findOrdersByUsername(String username, Pageable pageable);
 
     Page<OrderEntity> findByCarrierIdStatusAndSearch(Long carrierId, String status, String search, int page, int size);
 
@@ -60,5 +66,5 @@ public interface IOrderService {
 
     OrderEntity findLatestOrderByCarrierId(Long carrierId);
 
-    OrderEntity findById(Long orderId);
+    Optional<OrderEntity> findById(Long orderId);
 }

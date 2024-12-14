@@ -19,13 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.javaweb.dto.*;
-import com.javaweb.entity.*;
-import com.javaweb.service.*;
-import com.javaweb.repository.*;
 @Service
 public class OrderServiceImpl implements IOrderService {
     @Autowired
@@ -415,11 +408,20 @@ public class OrderServiceImpl implements IOrderService {
     public OrderEntity findLatestOrderByCarrierId(Long carrierId) {
         return orderRepository.findLatestOrderByCarrierId(carrierId);
     }
-    @Override
-    public OrderEntity findById(Long orderId) {
-        return orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId));
-    }
 
+
+    //vũ làm nha a Thao iu
+    @Override
+    public List<OrderEntity> findOrdersByUsername(String username) {
+        return orderRepository.findByUsername(username);
+    }
+    @Override
+    public Page<OrderEntity> findOrdersByUsername(String username, Pageable pageable) {
+        return orderRepository.findByUser_Username(username, pageable);
+    }
+    @Override
+    public Optional<OrderEntity> findById(Long orderId) {
+        return orderRepository.findById(orderId);
+    }
 
 }

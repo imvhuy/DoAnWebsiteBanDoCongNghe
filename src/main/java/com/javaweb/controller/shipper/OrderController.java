@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller("OrderShipperController")
 @RequestMapping(value ="/shipper/orders")
@@ -112,7 +113,7 @@ public class OrderController {
 
             if ("đã vận chuyển".equals(newStatus)) {
                 // Lấy đối tượng OrderEntity từ orderId
-                OrderEntity order = orderService.findById(orderId);
+                Optional<OrderEntity> order = orderService.findById(orderId);
 
                 // Kiểm tra nếu order tồn tại
                 if (order != null) {

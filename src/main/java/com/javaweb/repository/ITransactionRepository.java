@@ -27,5 +27,5 @@ public interface ITransactionRepository extends JpaRepository<TransactionEntity,
     	       "AND FUNCTION('DATE', t.createdDate) <= :endDate")
     	Page<TransactionEntity> findByUserIdAndTransactionDateBetween(Long userId, LocalDate startDate, LocalDate endDate, Pageable pageable);
 
-    Optional<TransactionEntity> findByOrder(OrderEntity order);
+    Optional<TransactionEntity> findByOrder(Optional<OrderEntity> order);
 }

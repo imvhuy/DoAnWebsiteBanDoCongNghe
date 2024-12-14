@@ -49,4 +49,12 @@ public class StoreServiceImpl implements IStoreService {
     public List<StoreEntity> findAll() {
         return storeRepository.findAll();
     }
+    @Override
+    public Page<StoreEntity> findByStatus(Boolean isActive, Pageable pageable) {
+        return storeRepository.findByIsActive(isActive, pageable);
+    }
+    @Override
+    public Page<StoreEntity> findByStoreNameAndStatus(String storeName, Boolean isActive, Pageable pageable) {
+        return storeRepository.findByNameContainingAndIsActive(storeName, isActive, pageable);
+    }
 }

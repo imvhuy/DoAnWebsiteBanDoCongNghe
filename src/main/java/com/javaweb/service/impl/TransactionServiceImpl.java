@@ -2,6 +2,7 @@ package com.javaweb.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.javaweb.entity.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class TransactionServiceImpl implements ITransactionService {
 	 		transactionRepository.save(transaction);
 	 	}
 
-	public TransactionEntity findByOrder(OrderEntity order) {
+	public TransactionEntity findByOrder(Optional<OrderEntity> order) {
 		return transactionRepository.findByOrder(order)
 				.orElseThrow(() -> new RuntimeException("Không tìm thấy giao dịch cho đơn hàng này."));
 	}
