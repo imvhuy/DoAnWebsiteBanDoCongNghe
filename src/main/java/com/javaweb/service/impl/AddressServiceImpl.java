@@ -55,10 +55,17 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+	public AddressEntity findByIdNotOptional(Long id) {
+        return addressRepository.findByIdNotOptional(id);
+    }
+
+    @Override
     public AddressDTO findAddressModelById(Long id) {
         Optional<AddressEntity> addressEntity = addressRepository.findById(id);
         if (addressEntity.isPresent()) {
             String[] parts = addressEntity.get().getAddress().split(", ");
+            AddressDTO addressModel = new AddressDTO();
+            BeanUtils.copyProperties(addressEntity.get(), addressModel);
             AddressDTO addressDTO = new AddressDTO();
             BeanUtils.copyProperties(addressEntity.get(), addressDTO);
             if (parts.length == 4) {

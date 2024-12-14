@@ -5,6 +5,8 @@ import com.javaweb.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserConverter {
 

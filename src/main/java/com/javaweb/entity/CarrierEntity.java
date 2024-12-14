@@ -25,4 +25,8 @@ public class CarrierEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     private List<DeliveryEntity> carriers;
+
+    @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ShipperCarrierEntity> shippers;
+
 }

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import org.hibernate.mapping.Join;
 
 @Entity
@@ -38,5 +41,12 @@ public class OrderEntity extends BaseEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DeliveryEntity delivery;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItemEntity> orderItems;
+
+    private Long storeId;
 
 }

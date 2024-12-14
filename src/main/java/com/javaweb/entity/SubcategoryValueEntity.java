@@ -32,10 +32,10 @@ public class SubcategoryValueEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "subcategory_id")
     private SubcategoryEntity subcategoryEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "cart_item_id")
-    private CartItemEntity cartItem;
+// bo quan he nay
+//    @ManyToOne
+//    @JoinColumn(name = "cart_item_id")
+//    private CartItemEntity cartItem;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "subCategoryValues")

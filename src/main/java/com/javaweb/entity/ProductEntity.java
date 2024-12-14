@@ -59,6 +59,13 @@ public class ProductEntity extends BaseEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> orderItems;
+    
+    @OneToMany(mappedBy = "product")
+    private List<FavoriteProductEntity> favortieProductEntitys;
+    
 
     @ManyToMany
     @JoinTable(

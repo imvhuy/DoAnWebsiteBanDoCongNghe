@@ -23,5 +23,8 @@ public class CartItemEntity extends BaseEntity{
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
 
+    private Long productId;
+    //so lượng sản phẩm
+    private Long quantity;
 
 }

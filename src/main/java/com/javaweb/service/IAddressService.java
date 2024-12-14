@@ -1,7 +1,9 @@
 package com.javaweb.service;
 
+import com.javaweb.dto.AddressDTO;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.dto.AddressDTO;
+import com.javaweb.entity.CarrierEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +24,7 @@ public interface IAddressService {
     AddressDTO findAddressModelById(Long id);
 
     void deleteAddressById(Long addressId);
+
+	AddressEntity findByIdNotOptional(Long id);
+
 }

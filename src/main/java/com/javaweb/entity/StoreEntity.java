@@ -40,10 +40,10 @@ public class StoreEntity extends BaseEntity{
     private String avatar;
 
     @Column(name = "point")
-    private int point;
+    private Integer point;
 
     @Column(name = "rating")
-    private int  rating;
+    private Integer  rating;
 
     @ManyToOne
     @ToString.Exclude

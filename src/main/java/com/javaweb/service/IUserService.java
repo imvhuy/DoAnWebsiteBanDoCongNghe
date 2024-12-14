@@ -1,8 +1,7 @@
 package com.javaweb.service;
 
-import com.javaweb.entity.UserEntity;
 import com.javaweb.dto.UserDTO;
-import org.springframework.stereotype.Service;
+import com.javaweb.entity.UserEntity;
 
 import org.apache.catalina.User;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
@@ -21,13 +20,14 @@ public interface IUserService {
     UserDTO findByUserName(String username);
 
     UserDTO findUserById(long id);
-    UserDTO insert(UserDTO userDTO);
+    UserDTO insert(UserDTO userModel);
     UserDTO update(Long id, UserEntity userEntity);
     void delete(long[] ids);
     Boolean authenticate(String username, String password);
+	UserEntity findByUserNameEntity(String userName);
 
-
- // vũ làm
+    
+ // vũ làm   
     // Tìm người dùng theo tên (username) với phân biệt chữ hoa chữ thường
     Page<UserEntity> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
 
@@ -42,4 +42,5 @@ public interface IUserService {
 
     // Xóa người dùng theo id
     void deleteById(Long id);
+	UserEntity findByIdNotOptional(Long id);
 }

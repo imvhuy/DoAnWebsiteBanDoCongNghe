@@ -1,5 +1,7 @@
 package com.javaweb.controller.vendor;
 
+import com.javaweb.entity.OrderEntity;
+import com.javaweb.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,15 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+@Controller("OrderOfVendor")
 @RequestMapping("/vendor")
-public class VendorOrderController {
+public class OrderController {
 
     @Autowired
     private IOrderService orderService;
 
-    // Hiển thị danh sách đơn hàng
-    @GetMapping("/manage-orders")
+//    // Hiển thị danh sách đơn hàng
+    @GetMapping("/manage-order")
     public String manageOrders(
             @RequestParam(name = "status", required = false) String status,
             @RequestParam(name = "orderId", required = false) String orderId,
@@ -24,17 +26,17 @@ public class VendorOrderController {
             Model model) {
 
         // Lấy danh sách đơn hàng theo trạng thái hoặc tìm kiếm theo ID
-        List<Order> orders = orderService.getOrders(status, orderId, page);
-        int totalPages = orderService.getTotalPages(status, orderId);
+//        List<OrderEntity> orders = orderService.getOrders(status, orderId, page);
+//        int totalPages = orderService.getTotalPages(status, orderId);
+//
+//        // Thêm các thuộc tính vào model để hiển thị trên JSP
+//        model.addAttribute("orders", orders);
+//        model.addAttribute("status", status);
+//        model.addAttribute("orderId", orderId);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
 
-        // Thêm các thuộc tính vào model để hiển thị trên JSP
-        model.addAttribute("orders", orders);
-        model.addAttribute("status", status);
-        model.addAttribute("orderId", orderId);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-
-        return "manage-orders";  // trả về view manage-orders.jsp
+        return "vendor/manage-order";  // trả về view manage-orders.jsp
     }
 
     // Cập nhật trạng thái đơn hàng
@@ -44,7 +46,7 @@ public class VendorOrderController {
             @RequestParam("newStatus") String newStatus) {
 
         // Cập nhật trạng thái đơn hàng
-        orderService.updateOrderStatus(orderId, newStatus);
+//        orderService.updateOrderStatus(orderId, newStatus);
 
         // Quay lại trang quản lý đơn hàng
         return "redirect:/vendor/manage-orders";

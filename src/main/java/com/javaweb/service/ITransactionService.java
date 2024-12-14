@@ -13,4 +13,5 @@ public interface ITransactionService {
 	// Phương thức trả về danh sách các giao dịch của người dùng
     List<TransactionEntity> getTransactionsByUserId(Long userId);
     Page<TransactionEntity> getTransactionsByUserId(Long userId, Pageable pageable);
-    Page<TransactionEntity> getTransactionsByUserIdAndDateRange(Long userId, LocalDate startDate, LocalDate endDate, Pageable pageable);}
+    Page<TransactionEntity> getTransactionsByUserIdAndDateRange(Long userId, LocalDate startDate, LocalDate endDate, Pageable pageable);
+	void save(TransactionEntity transaction);}
