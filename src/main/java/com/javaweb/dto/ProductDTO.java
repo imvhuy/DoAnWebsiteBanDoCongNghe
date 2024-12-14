@@ -33,7 +33,7 @@ public class ProductDTO {
     private Long categoryId;
     private String categoryName; // Trường để lưu tên danh mục (category name)
 
-    private String subcategoryName;
+    private List<String> subcategoryName;
     private List<Long> subcategoryValues = new ArrayList<>();
     // Phương thức này sẽ lấy tên của danh mục
     private Map<String, String> gallery; // Thêm field này để lưu đường dẫn ảnh

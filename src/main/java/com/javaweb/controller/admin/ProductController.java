@@ -223,8 +223,8 @@ public class ProductController {
             String videoPro = processYouTubeUrl(video);
             // Lưu sản phẩm vào cơ sở dữ liệu
             entity.setVideo(videoPro);
-            List<SubcategoryValueEntity> subcategoryValues = subCategoryValueService.findByIds(productDTO.getSubcategoryValues());
-            entity.getSubCategoryValues().addAll(subcategoryValues);
+            List<SubcategoryValueEntity> subcategoryValues = subCategoryValueService.findByNames(productDTO.getSubcategoryName());
+            entity.setSubCategoryValues(subcategoryValues);
             productService.save(entity);
             galleryService.saveAll(galleryEntities);
 

@@ -30,4 +30,8 @@ public class SubcategoryValueServiceImpl implements ISubCategoryValueService {
     public List<SubcategoryValueEntity> findByIds(List<Long> ids) {
         return subcategoryValueRepository.findByIdIn(ids);
     }
+    @Override
+    public List<SubcategoryValueEntity> findByNames(List<String> name) {
+        return subcategoryValueRepository.findByValueIn(name);
+    }
 }

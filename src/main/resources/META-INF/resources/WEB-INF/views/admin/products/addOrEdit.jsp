@@ -2,44 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <style>
-    /* Cải tiến giao diện */
-    .selected-item {
-        display: inline-flex;
-        align-items: center;
-        background-color: #007bff;
-        color: white;
-        padding: 8px 15px;
-        margin: 5px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 600;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    /* Thêm hiệu ứng hover cho các mục đã chọn */
-    .selected-item:hover {
-        background-color: #0056b3;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Nút xóa */
-    .selected-item button {
-        background-color: transparent;
-        border: none;
-        color: white;
-        font-size: 16px;
-        margin-left: 10px;
-        cursor: pointer;
-        padding: 2px 8px;
-        border-radius: 50%;
-        transition: background-color 0.3s ease;
-    }
-
-    /* Hiệu ứng hover cho nút xóa */
-    .selected-item button:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
 
     html, body {
         height: 100%;
@@ -476,50 +438,6 @@
 </c:if>
 <script type="text/javascript" src="/web/js/jquery.min.js"></script>
 <script>
-    // Lưu các ID subcategory đã chọn
-    let selectedSubcategories = [];
-
-    // Hàm xử lý khi người dùng chọn một subcategory
-    function handleSubcategorySelection() {
-        const selectElement = document.getElementsByTagName("subcategorySelect");
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-
-        // Kiểm tra nếu giá trị đã chọn chưa có trong danh sách
-        if (selectedOption && selectedOption.value && !selectedSubcategories.includes(selectedOption.value)) {
-            selectedSubcategories.push(selectedOption.value);  // Thêm giá trị vào danh sách
-            updateSelectedSubcategoriesDisplay();  // Cập nhật hiển thị
-        }
-    }
-
-    // Cập nhật hiển thị các subcategory đã chọn
-    function updateSelectedSubcategoriesDisplay() {
-        const selectedSubcategoriesDiv = document.getElementById("selectedSubcategories");
-
-        // Xóa các subcategory đã hiển thị cũ
-        selectedSubcategoriesDiv.innerHTML = '';
-
-        // Hiển thị từng subcategory đã chọn
-        selectedSubcategories.forEach((id) => {
-            const subcategoryElement = document.createElement("span");
-            subcategoryElement.classList.add("selected-item");
-            subcategoryElement.textContent = id;  // Chỉnh sửa theo cách bạn muốn hiển thị
-            // Thêm nút xóa
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "x";
-            deleteButton.onclick = function() {
-                removeSubcategory(id);
-            };
-            subcategoryElement.appendChild(deleteButton);
-            selectedSubcategoriesDiv.appendChild(subcategoryElement);
-        });
-    }
-
-    // Hàm xóa subcategory khỏi danh sách đã chọn
-    function removeSubcategory(id) {
-        selectedSubcategories = selectedSubcategories.filter(subcategoryId => subcategoryId !== id);
-        updateSelectedSubcategoriesDisplay();  // Cập nhật lại hiển thị
-    }
-
     function loadSubcategories() {
         // Get the selected category
         var categoryName = $("select[name='categoryName']").val();
@@ -541,7 +459,7 @@
 
                 // Loop through the returned subcategories and add them as options
                 $.each(subcategories, function(index, subcategory) {
-                    subcategorySelect.append('<option value="' + subcategory.id + '">' + subcategory.value + '</option>');
+                    subcategorySelect.append('<option value="' + subcategory.value + '">' + subcategory.value + '</option>');
                 });
             },
             error: function(xhr, status, error) {
