@@ -18,7 +18,7 @@ import com.javaweb.service.IProductService;
 import com.javaweb.service.IUserService;
 
 @Controller
-@RequestMapping("/favorite-products")
+@RequestMapping("/user/favorite-products")
 public class FavoriteProductController {
     @Autowired
     IUserService userService;

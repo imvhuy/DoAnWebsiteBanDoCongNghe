@@ -22,12 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.javaweb.dto.*;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.service.*;
+import com.javaweb.service.impl.CartItemServiceImpl;
 
 @Controller
 @RequestMapping("/user/cart")
 public class CartController {
 	@Autowired
 	ICartService	cartService;
+	@Autowired
+	ICartItemService	cartItemService;
 	@Autowired
 	IProductService	productService;
 	@Autowired
@@ -66,6 +69,16 @@ public class CartController {
 	            return ResponseEntity.ok("Quantity updated successfully");
 	        } catch (Exception e) {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update quantity");
+	        }
+	    }
+	 @PostMapping("/removeCartItem")
+	    public ResponseEntity<String> removeCartItem(@RequestBody Map<String, Long> request) {
+		 //cartItemId
+	        try {
+	            cartItemService.deleteById(request.get("cartItemId"));
+	            return ResponseEntity.ok("Remove this item successfully");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to remove this item");
 	        }
 	    }
 }

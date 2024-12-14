@@ -12,23 +12,27 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.javaweb.config.UserInfoUserDetails;
+import com.javaweb.dto.FavoriteProductDTO;
 import com.javaweb.dto.GalleryDTO;
 import com.javaweb.dto.ProductDTO;
 import com.javaweb.dto.ReviewDTO;
 import com.javaweb.entity.*;
 import com.javaweb.repository.IReviewRepository;
 import com.javaweb.repository.IStoreProductRepository;
-import com.javaweb.service.IProductService;
 import com.javaweb.service.*;
 
 @Controller
@@ -42,9 +46,12 @@ public class ProductDetailController {
     
     @Autowired
     private IReviewService reviewService;
-    
+    @Autowired
+    IFavoriteProductService favortieProductService;
     @Autowired
     IUserService userService;
+    @Autowired
+    ICartService cartService;
     @GetMapping("/{id}")
     public ModelAndView load(@PathVariable("id") Long id){
     	Optional<ProductEntity> opt = productService.findById(id);
@@ -184,5 +191,79 @@ public class ProductDetailController {
 
         // Sau khi lưu xong, chuyển hướng về trang review chính (hoặc có thể trả lại JSON nếu dùng AJAX)
         return "redirect:/product-detail/" +productId; // Chuyển hướng về trang reviews hoặc trang có liên quan
+    }
+    
+    @PostMapping("/add-to-cart")
+    public ResponseEntity<String> addToCart(@RequestBody Map<String, Long> request) {
+    	
+        Long productId = request.get("productId");
+        Long quantity = request.get("quantity");
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();  
+        System.out.println("username : "+ username );
+    	// Nếu không có authentication (người dùng chưa đăng nhập)
+    	System.out.println("authentication 555555555: " + authentication);
+    	if (username == "anonymousUser") {
+    		System.out.println("anonymousUser : "+ username );
+            return ResponseEntity.status(401).body("You must be logged in to add to cart");
+        }
+    	//lay user
+    	UserEntity  currentUser = userService.findByUserNameEntity(username);
+        try {
+            cartService.addToCart(productId,quantity,currentUser);
+            return ResponseEntity.ok("Product added to cart successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Failed to add product to cart");
+        }
+    }
+    // API để thêm sản phẩm vào favortie product
+    @PostMapping("/add-favorite-product")
+    public ResponseEntity<?> addToWishlist(@RequestBody FavoriteProductDTO favortieProductDTO) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();  
+    	//
+    	Long productId = favortieProductDTO.getProductId();
+    	System.out.println("favortieProductDTO : " +favortieProductDTO);
+    	System.out.println("favortieProductDTO1111 : " +favortieProductDTO.getProductId() );
+    	Long userId = userService.findByUserName(username).getId();
+    	FavoriteProductEntity fvProduct = favortieProductService.findFavoriteProductEntityByProductIdAndUserId(productId, userId);
+    	boolean success = false;
+    	if(fvProduct == null)
+    	{
+    		success = favortieProductService.addFavoriteProduct(productId,userId);
+    	}
+        
+        // Tạo một Map để trả về phản hồi
+        Map<String, Object> response = new HashMap<>();
+        if (success) {
+            response.put("message", "Product added to wishlist");
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Failed to add to wishlist");
+            response.put("success", false);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+    @PostMapping("/remove-favorite-product")
+    public ResponseEntity<?> removeFromWishlist(@RequestBody FavoriteProductDTO favortieProductDTO) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();  
+    	//
+    	Long productId = favortieProductDTO.getProductId();
+    	Long userId = userService.findByUserName(username).getId();
+    	//
+        boolean success = favortieProductService.removeFavoriteProduct(productId,userId);
+        // Tạo một Map để trả về phản hồi
+        Map<String, Object> response = new HashMap<>();
+        if (success) {
+            response.put("message", "Product removed from wishlist");
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Failed to remove  from wishlist");
+            response.put("success", false);
+            return ResponseEntity.status(500).body(response);
+        }
     }
 }

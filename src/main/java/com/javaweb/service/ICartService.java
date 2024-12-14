@@ -16,5 +16,10 @@ public interface ICartService {
 
 	CartEntity findCartByUser(UserEntity user);
 
+	void save(CartEntity cart);
+
+	void addToCart(Long productId, Long quantity, UserEntity user);
+
+
 
 }

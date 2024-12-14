@@ -126,14 +126,14 @@
 						<h5 class="fw-5 mb_20">Your order</h5>
 						<form class="tf-page-cart-checkout widget-wrap-checkout"
 							action="/user/cart/checkout/placeOrder" method="post">
-							
+
 							<ul class="wrap-checkout-product">
 								<c:set var="totalAmount" value="0" />
 								<!-- Khởi tạo tổng ban đầu -->
 								<c:forEach var="cartProduct" items="${cartProducts}">
 									<!-- Cập nhật tổng giá trị sản phẩm -->
 									<c:set var="totalAmount"
-										value="${totalAmount + cartProduct.price * cartProduct.quantity}" />
+										value="${totalAmount + (cartProduct.price * cartProduct.quantity)}" />
 									<li class="checkout-product-item">
 										<figure class="img-product">
 											<img src="/admin/images/products/${cartProduct.image}"
@@ -173,18 +173,15 @@
 										<option value="${carrier.id}" data-price="${carrier.price}">
 											${carrier.name}</option>
 									</c:forEach>
-								</select>
-
-								<span class="total fw-5" id="shippingFee">
-									<fmt:formatNumber value="${carrieres[0].price + 50000}" type="number"
-										maxFractionDigits="0" />
-									VND
+								</select> <span class="total fw-5" id="shippingFee"> <fmt:formatNumber
+										value="${carrieres[0].price + 50000}" type="number"
+										maxFractionDigits="0" /> VND
 								</span>
 							</div>
 							<div class="d-flex justify-content-between line pb_20">
 								<h6 class="fw-5">Total</h6>
 								<h6 class="total fw-5" id="total">
-									<fmt:formatNumber value="${totalAmount}" type="number"
+									<fmt:formatNumber value="${totalAmount + carrieres[0].price + 50000}" type="number"
 										maxFractionDigits="0" />
 									VND
 								</h6>
@@ -193,13 +190,13 @@
 							<div class="wd-check-payment">
 								<div class="fieldset-radio mb_20">
 									<input type="radio" name="payment" id="bank" class="tf-check"
-										checked value ="bank"> <label for="bank">Direct bank
-										transfer</label>
+										checked value="bank"> <label for="bank">Direct
+										bank transfer</label>
 
 								</div>
 								<div class="fieldset-radio mb_20">
 									<input type="radio" name="payment" id="delivery"
-										class="tf-check" value ="cash"> <label for="delivery">Cash
+										class="tf-check" value="cash"> <label for="delivery">Cash
 										on delivery</label>
 								</div>
 								<p class="text_black-2 mb_20">
@@ -218,7 +215,7 @@
 							</div>
 							<!-- Các trường dữ liệu bạn muốn gửi, ví dụ như địa chỉ -->
 							<input type="hidden" id="address-hidden" name="address" value=1>
-							<input type="hidden" id="voucher-hidden" name="voucher" >
+							<input type="hidden" id="voucher-hidden" name="voucher">
 							<button type="submit"
 								class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Place
 								order</button>
@@ -1987,12 +1984,19 @@
 						// Lấy phần tử <select>
 						const couponSelect = document
 								.getElementById('coupon-select');
-						console.log("couponSelect :",couponSelect);
+						console.log("couponSelect :", couponSelect);
+						console.log("selectedIndex :",
+								couponSelect.selectedIndex);
 						// Lấy tùy chọn đang được chọn
 						const selectedCouponOption = couponSelect.options[couponSelect.selectedIndex];
-						console.log("selectedCouponOption :",selectedCouponOption);
-						const discount = parseInt(selectedCouponOption
-								.getAttribute('data-discount'));
+						console.log("selectedCouponOption :",
+								selectedCouponOption);
+						var discount = 0;
+						if (selectedCouponOption != null) {
+							discount = parseInt(selectedCouponOption
+									.getAttribute('data-discount'));
+						}
+
 						// Lấy giá trị Total hiện tại (biến totalAmount đã được tính toán ở phần jsp trên khi lặp qua danh
 						//sách cart items)
 						const totalAmount = "${totalAmount}";
@@ -2006,13 +2010,12 @@
 
 						//Lấy phần tử chứa tổng tiền
 						const totalElement = document.getElementById("total");
-
+						//cộng thêm tiền lộ phí :v
+						shippingFee = shippingFee + 50000;
 						// Tính tổng mới (cả phí ship)
 						const newTotal = currentTotal + shippingFee;
 						console.log("currentTotal : ", currentTotal);
 						console.log("shippingFee : ", shippingFee);
-						//cộng thêm tiền lộ phí :v
-						shippingFee  = shippingFee +  50000;
 						// Cập nhật giá trị trong h6
 						document.getElementById("shippingFee").innerHTML = shippingFee
 								.toLocaleString()

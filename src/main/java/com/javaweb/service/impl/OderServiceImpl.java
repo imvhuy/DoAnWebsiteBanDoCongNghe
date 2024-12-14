@@ -37,6 +37,7 @@ public class OderServiceImpl implements IOrderService{
 	IAddressService addressService;
 	@Autowired
 	IProductService productService;
+
 	@Autowired
 	IOrderItemService orderItemService;
 	@Autowired
@@ -91,7 +92,7 @@ public class OderServiceImpl implements IOrderService{
     }
 	//Trương hợp đặt hàng khi user đang trong giỏ hàng
 	//nhóm các cartItem theo các store, tìm các store có đủ quantity của cartItem
-	public Map<Long, List<CartProductDTO>> groupCartItemsByStore(Long userId) {
+	public Map<Long, List<CartProductDTO>> groupCartItemsByStore(Long userId,AddressEntity userAddress) {
 	    List<CartProductDTO> cartItems = cartService.findCartItemsByUser(userId);
 	    Map<Long, List<CartProductDTO>> storeCartMap = new HashMap<>();
 
@@ -102,7 +103,26 @@ public class OderServiceImpl implements IOrderService{
 	        );
 
 	        if (!stores.isEmpty()) {
-	            Long storeId = stores.get(0).getId(); // Chọn store đầu tiên (ưu tiên store có sản phẩm)
+	    		//
+	    		GeocodingResultDTO userAddressGeocoding = geocodingService.getCoordinates(userAddress.getAddress());
+	    		
+	    		StoreEntity nearestStore = null;
+	            double shortestDistance = Double.MAX_VALUE;
+	        	// Duyệt qua danh sách tất cả các store và tính khoảng cách với user
+	            for (StoreEntity store : stores) {
+	            	GeocodingResultDTO storeAddressGeocoding = geocodingService.getCoordinates(store.getAddress());
+	                double distance = geocodingService.calculateDistance(Double.parseDouble(userAddressGeocoding.getLat()), 
+	                		Double.parseDouble(userAddressGeocoding.getLon()), Double.parseDouble(storeAddressGeocoding.getLat()),Double.parseDouble( storeAddressGeocoding.getLon()));
+
+	                // Kiểm tra xem store này có khoảng cách gần hơn store hiện tại không
+	                if (distance < shortestDistance) {
+	                	nearestStore = store;
+	                    shortestDistance = distance;
+	                }
+	            }
+	            //Long storeId = stores.get(0).getId(); // Chọn store đầu tiên (ưu tiên store có sản phẩm)
+	            //Chọn store gần nhất và có sản phẩm
+	            Long storeId = nearestStore.getId(); 
 	            storeCartMap.computeIfAbsent(storeId, k -> new ArrayList<>()).add(item);
 	        } else {
 	            throw new RuntimeException("No store has enough quantity for product: " + item.getId());
@@ -122,7 +142,7 @@ public class OderServiceImpl implements IOrderService{
 		//user
 		UserEntity user = userService.findByIdNotOptional(userId);
 		//danh sách store:list product
-	    Map<Long, List<CartProductDTO>> storeCartMap = groupCartItemsByStore(userId);
+	    Map<Long, List<CartProductDTO>> storeCartMap = groupCartItemsByStore(userId,userAddress);
 	    //Số lượng store
 	    int count = storeCartMap.size();
 	    //lấy carrier

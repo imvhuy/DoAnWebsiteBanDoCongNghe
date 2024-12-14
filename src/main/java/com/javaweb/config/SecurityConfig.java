@@ -66,6 +66,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/product-detail/add-to-cart").hasRole("USER")
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.loginPage("/login")
                         .successHandler(myAuthenticationSuccessHandler())
@@ -88,7 +89,6 @@ public class SecurityConfig{
 
     @Bean
     public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
-
         return new SavedRequestAwareAuthenticationSuccessHandler();
     }
 

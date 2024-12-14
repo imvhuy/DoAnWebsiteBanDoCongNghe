@@ -11,4 +11,6 @@ public interface ICartItemService {
 
 	void deleteAllByCart(CartEntity cart);
 
+	void deleteById(Long id);
+
 }

@@ -28,5 +28,10 @@ public class CartItemServiceImpl implements ICartItemService{
 		cartItemRepository.deleteAllByCart(cart);
 	}
 	
+	@Override
+	public void deleteById(Long id) {
+		cartItemRepository.deleteById(id);
+	}
+	
 
 }

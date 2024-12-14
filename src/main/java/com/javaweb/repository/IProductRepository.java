@@ -30,6 +30,7 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long>{
 	           "FROM OrderItemEntity oi " +
 	           "JOIN oi.product p " +
 	           "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
+	           "WHERE g.type = 'front' " +
 	           "GROUP BY p.id, p.name, p.price, g.image " +
 	           "ORDER BY SUM(oi.count) DESC")
 	    List<ProductDetailDTO> findTopSellingProducts(Pageable pageable);
@@ -39,6 +40,7 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long>{
 	           "FROM ProductEntity p " +
 	           "LEFT JOIN ReviewEntity r ON r.product = p " +
 	           "LEFT JOIN GalleryEntity g ON g.productEntity = p " +
+	           "WHERE g.type = 'front' " +
 	           "GROUP BY p.id, p.name, p.price, g.image "+
 		         "ORDER BY AVG(r.rating) DESC")
 	    List<ProductDetailDTO> findTopTotalRatingProducts(Pageable pageable);

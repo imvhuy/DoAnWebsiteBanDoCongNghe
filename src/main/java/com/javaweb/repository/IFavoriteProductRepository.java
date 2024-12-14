@@ -19,7 +19,7 @@ public interface IFavoriteProductRepository extends JpaRepository<FavoriteProduc
 			"JOIN fp.product p " +
 			"JOIN fp.user u " +
 			"LEFT JOIN GalleryEntity  g ON g.productEntity = p  "+ 
-			"WHERE u.id = :userId")
+			"WHERE u.id = :userId AND g.type = 'front' ")
 	List<ProductDetailDTO> findFavoriteProductsByUser(@Param("userId") Long userId);
 
 

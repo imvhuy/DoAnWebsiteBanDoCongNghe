@@ -5,6 +5,7 @@ import com.javaweb.dto.ResponseDTO;
 import com.javaweb.dto.UserDTO;
 import com.javaweb.entity.FavoriteProductEntity;
 import com.javaweb.entity.ProductEntity;
+import com.javaweb.entity.UserEntity;
 import com.javaweb.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,7 +40,8 @@ public class HomeController {
     IUserService userService;
     @Autowired
     IProductService productService;
-    
+    @Autowired
+    ICartService cartService;
     @Autowired
     IFavoriteProductService favortieProductService;
     
