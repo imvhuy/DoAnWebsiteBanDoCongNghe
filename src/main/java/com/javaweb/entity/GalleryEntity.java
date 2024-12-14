@@ -22,7 +22,7 @@ public class GalleryEntity extends BaseEntity{
     private ProductEntity productEntity;
 
     private String image;
-
+    
     private String type;
 
     public GalleryEntity(String image, String type, ProductEntity entity) {

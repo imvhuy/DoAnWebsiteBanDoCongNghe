@@ -33,3 +33,4 @@ public class GeocodingResultDTO {
         this.display_name = display_name;
     }
 }
+

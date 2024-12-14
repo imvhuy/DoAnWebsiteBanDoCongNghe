@@ -7,12 +7,14 @@ import org.apache.catalina.User;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public interface IUserService {
     UserDTO findByUserNameAndStatus(String name, int status);
     UserDTO findByUserName(String username);
@@ -22,6 +24,7 @@ public interface IUserService {
     UserDTO update(Long id, UserEntity userEntity);
     void delete(long[] ids);
     Boolean authenticate(String username, String password);
+	UserEntity findByUserNameEntity(String userName);
  
     
  // vũ làm   
@@ -39,4 +42,5 @@ public interface IUserService {
 
     // Xóa người dùng theo id
     void deleteById(Long id);
+	UserEntity findByIdNotOptional(Long id);
 }

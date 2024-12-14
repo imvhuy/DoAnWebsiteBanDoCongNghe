@@ -1,5 +1,4 @@
 package com.javaweb.service;
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,4 +17,8 @@ public interface IStoreProductService {
     Long getTotalQuantityByProductId(Long productId);
 
     Long getTotalSoldByProductId(Long productId);
+    
+    public void save(StoreProductEntity storeProduct);
+	List<StoreEntity> findStoresByProductIdAndQuantity(Long productId, Long quantity);
+	void updateQuantityAfterUserPlaceOrderItem(Long storeId, Long productId, Long quantity);
 }

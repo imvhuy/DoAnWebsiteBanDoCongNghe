@@ -2,7 +2,7 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.repository.ICarrierRepository;
-import com.javaweb.service.CarrierService;
+import com.javaweb.service.ICarrierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarrierServiceImpl implements CarrierService {
+public class CarrierServiceImpl implements ICarrierService {
     @Autowired
     private ICarrierRepository ICarrierRepository;
 

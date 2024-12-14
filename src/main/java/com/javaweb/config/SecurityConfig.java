@@ -24,8 +24,8 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
-    private static final String[] WHITE_LIST_URL = {"/home", "/login",
-            "/user/new",
+    private static final String[] WHITE_LIST_URL = {"/**", "/home", "/login",
+            "/user/**",
             "/WEB-INF/**",
             "/common/**",
             "/admin/**",
@@ -38,6 +38,7 @@ public class SecurityConfig{
     UserDetailsService userDetailsService() {
         return new UserInfoService(userRepository);
     }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -64,7 +65,8 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/product-detail/add-to-cart").hasRole("USER")
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.loginPage("/login")
                         .successHandler(myAuthenticationSuccessHandler())
@@ -87,7 +89,6 @@ public class SecurityConfig{
 
     @Bean
     public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
-
         return new SavedRequestAwareAuthenticationSuccessHandler();
     }
 

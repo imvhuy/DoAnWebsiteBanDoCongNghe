@@ -24,7 +24,11 @@ public class ReviewEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
-
+    
+ // Thêm cột parent_id tham chiếu tới chính review này
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", referencedColumnName = "id", nullable = true)
+    private ReviewEntity parentReview;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "storeid", nullable = false)
 //    private StoreEntity store;

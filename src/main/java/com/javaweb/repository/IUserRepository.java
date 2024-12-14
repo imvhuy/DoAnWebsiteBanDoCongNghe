@@ -16,7 +16,7 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
     Page<UserEntity> findByStatusNot(int status, Pageable pageable);
 //    long countByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCaseAndStatusNot(String userName, String fullName, int status);
     long countByStatusNot(int status);
-    Optional<UserEntity> findByUsername(String userName);
+    UserEntity findByUsername(String userName);
     List<UserEntity> findByIdIn(List<Long> id);
     Boolean existsByUsername(String userName);
     

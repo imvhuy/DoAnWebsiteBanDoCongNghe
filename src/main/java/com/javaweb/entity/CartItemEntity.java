@@ -22,7 +22,10 @@ public class CartItemEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
-
+    
+    private Long productId;
+    //so lượng sản phẩm
+    private Long quantity;
 //    @OneToMany(mappedBy = "cartItem")
 //    private List<StyleValueEntity> styleValueEntities;
 

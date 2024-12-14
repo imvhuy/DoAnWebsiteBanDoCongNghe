@@ -18,6 +18,11 @@ public class CategoryServiceImpl implements ICategoryService {
     private ICategoryRepository categoryRepository;
 
 	@Override
+	public List<CategoryEntity> getAllCategories() {
+		return categoryRepository.findAllByIsDeleted(false);
+	}
+
+	@Override
 	public List<CategoryEntity> findByNameContaining(String name) {
 		return categoryRepository.findByNameContaining(name);
 	}

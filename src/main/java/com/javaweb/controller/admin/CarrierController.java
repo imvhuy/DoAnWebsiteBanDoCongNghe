@@ -4,8 +4,8 @@ import com.javaweb.dto.CarrierDTO;
 import com.javaweb.dto.ResponseDTO;
 import com.javaweb.entity.CarrierEntity;
 import com.javaweb.entity.CategoryEntity;
+import com.javaweb.service.ICarrierService;
 import com.javaweb.dto.CarrierDTO;
-import com.javaweb.service.CarrierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -35,7 +33,7 @@ import java.util.stream.IntStream;
 @EnableMethodSecurity
 public class CarrierController {
     @Autowired
-    private CarrierService carrierService;
+    private ICarrierService carrierService;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
@@ -86,7 +84,7 @@ public class CarrierController {
         BeanUtils.copyProperties(carrierDTO, entity);
         try {
             // gọi hàm save trong service
-            carrierService.save(entity);
+        	carrierService.save(entity);
             //đưa thông báo về cho biến message
             String message = "";
             if (carrierDTO.getId() != null) {

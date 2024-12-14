@@ -33,7 +33,7 @@ public class ProductEntity extends BaseEntity {
     @Lob
     private String configuration;
 
-    private Long promotionalPrice;
+    private Double promotionalPrice;
 
 
     private Boolean isActive;
@@ -54,6 +54,13 @@ public class ProductEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> orderItems;
+    
+    @OneToMany(mappedBy = "product")
+    private List<FavoriteProductEntity> favortieProductEntitys;
+    
 
 
 

@@ -1,5 +1,6 @@
 package com.javaweb.dto;
 
+import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
 
@@ -27,11 +28,12 @@ public class UserDTO implements Serializable {
     private String password;
     private String email;
     private Boolean isEmailActive;
-    private String address;
     private String avatar;
     private Integer status;
 
     @ToString.Exclude
     private List<RoleEntity> roles = new ArrayList<>();
     private String roleName;
+    @ToString.Exclude
+    private List<AddressEntity> addresses = new ArrayList<>();
 }

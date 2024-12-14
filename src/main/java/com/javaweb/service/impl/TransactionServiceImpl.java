@@ -30,4 +30,9 @@ public class TransactionServiceImpl implements ITransactionService {
 	    public Page<TransactionEntity> getTransactionsByUserIdAndDateRange(Long userId, LocalDate startDate, LocalDate endDate, Pageable pageable) {
 	        return transactionRepository.findByUserIdAndTransactionDateBetween(userId, startDate, endDate, pageable);
 	    }
+	 
+	 	@Override
+		public void save(TransactionEntity transaction) {
+	 		transactionRepository.save(transaction);
+	 	}
 }

@@ -9,6 +9,7 @@ import com.javaweb.repository.IUserRepository;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements IUserService {
     private IRoleRepository roleRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserConverter userConverter;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO findByUserName(String userName) {
         UserDTO result = new UserDTO();
-        Optional<UserEntity> user = userRepository.findByUsername(userName);
+        UserEntity user = userRepository.findByUsername(userName);
         if(user != null) {
             UserEntity userEntity = user.get();
             BeanUtils.copyProperties(userEntity, result);
@@ -80,6 +81,7 @@ public class UserServiceImpl implements IUserService {
     public UserDTO insert(UserDTO userModel) {
         RoleEntity roleEntity = roleRepository.findByName(userModel.getRoleName());
         UserEntity userEntity = userConverter.convertToEntity(userModel);
+        userEntity.setFullName(userModel.getFullName());
         userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
         userEntity.setStatus(1);
         userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
@@ -96,6 +98,10 @@ public class UserServiceImpl implements IUserService {
     public void delete(long[] ids) {
 
     }
+    @Override
+	public UserEntity findByUserNameEntity(String userName) {
+    	return userRepository.findByUsername(userName);
+    }
 // vũ làm
     @Override
     public Page<UserEntity> findByUsernameContainingIgnoreCase(String username, Pageable pageable) {
@@ -110,6 +116,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<UserEntity> findById(Long id) {
         return userRepository.findById(id);
+    }
+    @Override
+    public UserEntity findByIdNotOptional(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
 //    @Override

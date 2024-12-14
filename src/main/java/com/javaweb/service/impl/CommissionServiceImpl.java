@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.javaweb.entity.CommissionEntity;
 import com.javaweb.repository.ICommissionRepository;
@@ -46,8 +48,34 @@ public class CommissionServiceImpl implements ICommissionService {
 
 	@Override
 	public void deleteById(Long id) {
-		
 		commissionRepository.deleteById(id);
 	}
+
+	@Override
+	public <S extends CommissionEntity> S save(S entity) {
+		 if(entity.getId() == null) {
+	            return commissionRepository.save(entity);
+	        }
+	        else {
+	            Optional<CommissionEntity> opt = findById(entity.getId());
+	            if (opt.isPresent()) {
+	                if(StringUtils.isEmpty(entity.getName())) {
+	                    entity.setName(opt.get().getName());
+	                }
+	                else {
+	                    entity.setName(entity.getName());
+	                }
+	            }
+	        }
+	        return commissionRepository.save(entity);
+	}
 	
+    @Override
+    public List<CommissionEntity> findAllById(Iterable<Long> ids) {
+        return commissionRepository.findAllById(ids);
+    }
+    @Override
+    public List<CommissionEntity> findAll(Sort sort) {
+        return commissionRepository.findAll();
+    }
 }
