@@ -91,7 +91,7 @@
 									<fmt:formatNumber value="${commission.cost}" pattern="#,###" />
 									VNĐ
 								</div>
-								<div class="body-text">${commission.store.storeName}</div>
+								<div class="body-text">${commission.store.name}</div>
 								<div class="body-text">${commission.isDeleted ? 'Yes' : 'No'}</div>
 								<!-- Action Buttons -->
 								<div class="list-icon-function">

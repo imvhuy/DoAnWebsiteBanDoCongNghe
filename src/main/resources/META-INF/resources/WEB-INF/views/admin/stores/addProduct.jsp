@@ -51,7 +51,7 @@
 			</div>
 
 			<form class="form-add-new-store form-style-2" method="post"
-				action="/admin/stores/addProduct">
+				action="/admin/stores/saveAddProduct">
 				<!-- Thêm trường hidden để truyền id sản phẩm -->
 				<input type="hidden" name="id" value="${product.id}"> 
 				<input type="hidden" id="storeId" name="storeId" value="${storeId}">

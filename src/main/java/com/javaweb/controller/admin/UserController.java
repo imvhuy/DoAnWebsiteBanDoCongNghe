@@ -106,30 +106,64 @@ public class UserController {
 //		return new ModelAndView("redirect:/admin/users");
 //	}
 	
+//	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//	@PostMapping("saveOrUpdate")
+//	public ModelAndView saveOrUpdate(@ModelAttribute("user") UserEntity userEntity, 
+//	                                 @RequestParam("role") Long roleId, 
+//	                                 RedirectAttributes model) {
+//		
+//		
+//	    // Tìm kiếm vai trò từ ID
+//	    Optional<RoleEntity> roleOptional = roleService.findById(roleId);
+//	    if (roleOptional.isPresent()) {
+//	        RoleEntity role = roleOptional.get();
+//	        
+//	        // Gán vai trò vào userEntity
+//	        userEntity.setRoles(new ArrayList<>(Collections.singleton(role)));  // Chuyển Set thành List
+//
+//	        // Nếu là bản ghi mới hoặc bản ghi cũ
+//	        userService.save(userEntity);
+//	    } else {
+//	        model.addFlashAttribute("error", "Role không hợp lệ!");
+//	    }
+//
+//	    return new ModelAndView("redirect:/admin/users");
+//	}
+
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(@ModelAttribute("user") UserEntity userEntity, 
-	                                 @RequestParam("role") Long roleId, 
+	                                 @RequestParam("roles") List<Long> roleIds, // Nhận danh sách role IDs
 	                                 RedirectAttributes model) {
-		
-		
-	    // Tìm kiếm vai trò từ ID
-	    Optional<RoleEntity> roleOptional = roleService.findById(roleId);
-	    if (roleOptional.isPresent()) {
-	        RoleEntity role = roleOptional.get();
-	        
-	        // Gán vai trò vào userEntity
-	        userEntity.setRoles(new ArrayList<>(Collections.singleton(role)));  // Chuyển Set thành List
+	    try {
+	        // Kiểm tra nếu user đã tồn tại
+	        UserEntity existingUser = userService.findById(userEntity.getId())
+	            .orElseThrow(() -> new RuntimeException("User not found"));
 
-	        // Nếu là bản ghi mới hoặc bản ghi cũ
-	        userService.save(userEntity);
-	    } else {
-	        model.addFlashAttribute("error", "Role không hợp lệ!");
+	        // Lấy danh sách các roles từ role IDs
+	        List<RoleEntity> roles = roleService.findByIdIn(roleIds);
+
+	        // Cập nhật các roles của user
+	        existingUser.setRoles(roles);
+
+	        // Cập nhật thông tin khác của user
+	        existingUser.setFullName(userEntity.getFullName());
+	        existingUser.setUsername(userEntity.getUsername());
+	        existingUser.setEmail(userEntity.getEmail());
+	        existingUser.setStatus(userEntity.getStatus());
+	        existingUser.setIsEmailActive(userEntity.getIsEmailActive());
+
+	        // Lưu lại user đã được cập nhật
+	        userService.save(existingUser);
+
+	        model.addFlashAttribute("successMessage", "User has been updated successfully!");
+	    } catch (Exception e) {
+	        model.addFlashAttribute("errorMessage", "Error: " + e.getMessage());
 	    }
 
+	    // Chuyển hướng về danh sách user
 	    return new ModelAndView("redirect:/admin/users");
 	}
-
 
 	// Xử lý xóa người dùng
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")

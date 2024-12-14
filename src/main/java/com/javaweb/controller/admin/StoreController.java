@@ -34,9 +34,11 @@ import com.javaweb.entity.*;
 import com.javaweb.service.ICommissionService;
 import com.javaweb.service.IGalleryService;
 import com.javaweb.service.IProductService;
+import com.javaweb.service.IRoleService;
 import com.javaweb.service.IStoreLevelService;
 import com.javaweb.service.IStoreProductService;
 import com.javaweb.service.IStoreService;
+import com.javaweb.service.IUserService;
 
 @Controller("StoreOfAdmin")
 @RequestMapping(value = "/admin/stores")
@@ -56,38 +58,89 @@ public class StoreController {
 	private ICommissionService commissionService;
 	@Autowired
 	private IGalleryService galleryServiceImpl;
-
-	// Hiển thị danh sách cửa hàng với phân trang và tìm kiếm theo tên cửa hàng
+	@Autowired
+	private IRoleService roleService;
+	@Autowired
+	private IUserService userService;
+//	// Hiển thị danh sách cửa hàng với phân trang và tìm kiếm theo tên cửa hàng
+//	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//	@GetMapping // Cập nhật đường dẫn cho phù hợp với base URL
+//	public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size,
+//			@RequestParam(value = "storeName", required = false) String storeName, ModelMap model) {
+//
+//		// Đảm bảo page bắt đầu từ 1
+//		page = Math.max(page, 1); // Đảm bảo page không nhỏ hơn 1
+//
+//		Pageable pageable = PageRequest.of(page - 1, size); // PageRequest bắt đầu từ 0
+//		Page<StoreEntity> storePage;
+//
+//		// Kiểm tra nếu có tham số storeName, tìm kiếm theo tên cửa hàng
+//		if (storeName != null && !storeName.trim().isEmpty()) {
+//			storePage = storeService.findByStoreName(storeName, pageable);
+//			model.addAttribute("storeName", storeName); // Truyền giá trị tìm kiếm vào model
+//		} else {
+//			storePage = storeService.findAll(pageable); // Lấy tất cả cửa hàng nếu không có tìm kiếm
+//		}
+//
+//		// Thêm các thông tin phân trang và dữ liệu vào model
+//		model.addAttribute("storePage", storePage);
+//		model.addAttribute("stores", storePage.getContent()); // Danh sách cửa hàng
+//		model.addAttribute("totalPages", storePage.getTotalPages()); // Tổng số trang
+//		model.addAttribute("totalElements", storePage.getTotalElements()); // Tổng số phần tử
+//		model.addAttribute("currentPage", page); // Trang hiện tại
+//		model.addAttribute("size", size); // Số lượng phần tử trên mỗi trang
+//
+//		return "admin/stores/store-list"; // Trả về view hiển thị danh sách cửa hàng
+//	}
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	@GetMapping // Cập nhật đường dẫn cho phù hợp với base URL
-	public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size,
-			@RequestParam(value = "storeName", required = false) String storeName, ModelMap model) {
+	@GetMapping
+	public String listStores(
+	        @RequestParam(defaultValue = "1") int page, // Trang hiện tại
+	        @RequestParam(defaultValue = "5") int size, // Số lượng phần tử trên mỗi trang
+	        @RequestParam(value = "storeName", required = false) String storeName, // Tên cửa hàng để tìm kiếm
+	        @RequestParam(value = "status", required = false) String status, // Trạng thái lọc (Active/Inactive)
+	        ModelMap model) {
 
-		// Đảm bảo page bắt đầu từ 1
-		page = Math.max(page, 1); // Đảm bảo page không nhỏ hơn 1
+	    // Đảm bảo page >= 1
+	    page = Math.max(page, 1);
 
-		Pageable pageable = PageRequest.of(page - 1, size); // PageRequest bắt đầu từ 0
-		Page<StoreEntity> storePage;
+	    // Tạo Pageable cho phân trang
+	    Pageable pageable = PageRequest.of(page - 1, size);
 
-		// Kiểm tra nếu có tham số storeName, tìm kiếm theo tên cửa hàng
-		if (storeName != null && !storeName.trim().isEmpty()) {
-			storePage = storeService.findByStoreName(storeName, pageable);
-			model.addAttribute("storeName", storeName); // Truyền giá trị tìm kiếm vào model
-		} else {
-			storePage = storeService.findAll(pageable); // Lấy tất cả cửa hàng nếu không có tìm kiếm
-		}
+	    // Tạo đối tượng Page để chứa danh sách cửa hàng
+	    Page<StoreEntity> storePage;
 
-		// Thêm các thông tin phân trang và dữ liệu vào model
-		model.addAttribute("storePage", storePage);
-		model.addAttribute("stores", storePage.getContent()); // Danh sách cửa hàng
-		model.addAttribute("totalPages", storePage.getTotalPages()); // Tổng số trang
-		model.addAttribute("totalElements", storePage.getTotalElements()); // Tổng số phần tử
-		model.addAttribute("currentPage", page); // Trang hiện tại
-		model.addAttribute("size", size); // Số lượng phần tử trên mỗi trang
+	    // Xử lý lọc và tìm kiếm
+	    if ((storeName != null && !storeName.trim().isEmpty()) && (status != null && !status.isEmpty())) {
+	        // Lọc theo tên cửa hàng và trạng thái
+	        Boolean isActive = status.equalsIgnoreCase("active");
+	        storePage = storeService.findByStoreNameAndStatus(storeName, isActive, pageable);
+	    } else if (storeName != null && !storeName.trim().isEmpty()) {
+	        // Chỉ tìm kiếm theo tên cửa hàng
+	        storePage = storeService.findByStoreName(storeName, pageable);
+	    } else if (status != null && !status.isEmpty()) {
+	        // Chỉ lọc theo trạng thái
+	        Boolean isActive = status.equalsIgnoreCase("active");
+	        storePage = storeService.findByStatus(isActive, pageable);
+	    } else {
+	        // Không có tìm kiếm hay lọc, lấy tất cả cửa hàng
+	        storePage = storeService.findAll(pageable);
+	    }
 
-		return "admin/stores/store-list"; // Trả về view hiển thị danh sách cửa hàng
+	    // Truyền dữ liệu vào model để hiển thị trong giao diện
+	    model.addAttribute("storePage", storePage); // Toàn bộ Page
+	    model.addAttribute("stores", storePage.getContent()); // Danh sách cửa hàng
+	    model.addAttribute("totalPages", storePage.getTotalPages()); // Tổng số trang
+	    model.addAttribute("totalElements", storePage.getTotalElements()); // Tổng số phần tử
+	    model.addAttribute("currentPage", page); // Trang hiện tại
+	    model.addAttribute("size", size); // Số phần tử mỗi trang
+	    model.addAttribute("storeName", storeName); // Tên cửa hàng tìm kiếm (nếu có)
+	    model.addAttribute("status", status); // Trạng thái lọc (nếu có)
+
+	    return "admin/stores/store-list"; // Trả về view hiển thị danh sách cửa hàng
 	}
 
+	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@GetMapping("edit/{id}")
 	public ModelAndView editStore(@PathVariable("id") Long storeId, ModelMap model) {
@@ -121,32 +174,79 @@ public class StoreController {
 		return new ModelAndView("redirect:/admin/stores"); // Quay lại danh sách promotion
 	}
 
+//	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//	@PostMapping("saveOrUpdate")
+//	public ModelAndView saveOrUpdate(@ModelAttribute("store") StoreEntity storeEntity, RedirectAttributes model) {
+//		try {
+//			// Kiểm tra xem cửa hàng có ID (cập nhật) hay không
+//			if (storeEntity.getId() != null) {
+//				// Tìm cửa hàng theo ID
+//				StoreEntity existingStore = storeService.findById(storeEntity.getId())
+//						.orElseThrow(() -> new RuntimeException("Store not found"));
+//
+//				// Cập nhật chỉ trường isActive
+//				existingStore.setIsActive(storeEntity.getIsActive());
+//
+//				// Lưu lại cửa hàng đã cập nhật
+//				storeService.save(existingStore);
+//
+//			}
+//		} catch (Exception e) {
+//			// Thêm thông báo lỗi
+//			model.addFlashAttribute("errorMessage", "Đã xảy ra lỗi: " + e.getMessage());
+//		}
+//
+//		// Chuyển hướng về trang danh sách cửa hàng
+//		return new ModelAndView("redirect:/admin/stores");
+//
+//	}
+	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(@ModelAttribute("store") StoreEntity storeEntity, RedirectAttributes model) {
-		try {
-			// Kiểm tra xem cửa hàng có ID (cập nhật) hay không
-			if (storeEntity.getId() != null) {
-				// Tìm cửa hàng theo ID
-				StoreEntity existingStore = storeService.findById(storeEntity.getId())
-						.orElseThrow(() -> new RuntimeException("Store not found"));
+	    try {
+	        // Kiểm tra xem cửa hàng có ID (cập nhật) hay không
+	        if (storeEntity.getId() != null) {
+	            // Tìm cửa hàng theo ID
+	            StoreEntity existingStore = storeService.findById(storeEntity.getId())
+	                    .orElseThrow(() -> new RuntimeException("Store not found"));
 
-				// Cập nhật chỉ trường isActive
-				existingStore.setIsActive(storeEntity.getIsActive());
+	            // Lấy chủ sở hữu của cửa hàng
+	            UserEntity owner = existingStore.getOwner();
 
-				// Lưu lại cửa hàng đã cập nhật
-				storeService.save(existingStore);
+	            // Kiểm tra trạng thái hiện tại và trạng thái mới của isActive
+	            boolean wasActive = existingStore.getIsActive(); // Trạng thái trước đó
+	            boolean isActive = storeEntity.getIsActive(); // Trạng thái mới
 
-			}
-		} catch (Exception e) {
-			// Thêm thông báo lỗi
-			model.addFlashAttribute("errorMessage", "Đã xảy ra lỗi: " + e.getMessage());
-		}
+	            if (!wasActive && isActive) {
+	                // Nếu trạng thái thay đổi từ `false` sang `true`, thêm vai trò Vendor
+	                RoleEntity vendorRole = roleService.findById((long) 3)
+	                        .orElseThrow(() -> new RuntimeException("Role 'VENDOR' not found"));
 
-		// Chuyển hướng về trang danh sách cửa hàng
-		return new ModelAndView("redirect:/admin/stores");
+	                if (owner.getRoles().stream().noneMatch(role -> role.getName().equalsIgnoreCase("VENDOR"))) {
+	                    owner.getRoles().add(vendorRole); // Thêm vai trò Vendor
+	                    userService.save(owner); // Lưu thông tin người dùng
+	                }
+	            } else if (wasActive && !isActive) {
+	                // Nếu trạng thái thay đổi từ `true` sang `false`, xóa vai trò Vendor
+	                owner.getRoles().removeIf(role -> role.getName().equalsIgnoreCase("VENDOR"));
+	                userService.save(owner); // Lưu thông tin người dùng
+	            }
 
+	            // Cập nhật trạng thái isActive của cửa hàng
+	            existingStore.setIsActive(isActive);
+	            storeService.save(existingStore); // Lưu lại cửa hàng đã cập nhật
+	        }
+	    } catch (Exception e) {
+	        // Thêm thông báo lỗi
+	        model.addFlashAttribute("errorMessage", "Đã xảy ra lỗi: " + e.getMessage());
+	    }
+
+	    // Chuyển hướng về trang danh sách cửa hàng
+	    return new ModelAndView("redirect:/admin/stores");
 	}
+
+
 
 //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 //	@GetMapping("/checkproduct/{storeId}")
@@ -300,7 +400,7 @@ public class StoreController {
 	    return "admin/stores/addProduct";
 	}
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	@PostMapping("/addProduct")
+	@PostMapping("/saveAddProduct")
 	public String addProductToStore(
 	    @RequestParam("storeId") Long storeId, 
 	    @RequestParam("productSelect") Long productId, 

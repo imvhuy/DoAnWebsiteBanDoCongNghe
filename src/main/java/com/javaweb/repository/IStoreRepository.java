@@ -13,4 +13,8 @@ public interface IStoreRepository extends JpaRepository<StoreEntity, Long> {
     Page<StoreEntity> findByNameContaining(String storeName, Pageable pageable);
 
     StoreEntity findByOwner_Username(String owner);
+
+	Page<StoreEntity> findByIsActive(Boolean isActive, Pageable pageable);
+
+	Page<StoreEntity> findByNameContainingAndIsActive(String storeName, Boolean isActive, Pageable pageable);
 }

@@ -418,22 +418,24 @@ form.form-style-1>*>*:first-child {
 											value="${product.description}" aria-required="true"
 											required="true"></form:textarea>
 									</fieldset>
+
 									<fieldset class="video">
 										<div class="body-title">Video</div>
 										<form:textarea path="video" class="body-title mb-10"
 											placeholder="video" value="${product.video}"
 											aria-required="true" required="true"></form:textarea>
 									</fieldset>
+									<iframe width="560" height="315" src="${product.video}"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
 									<button class="tf-button w208" type="submit">
 										${product.id == null ? 'Add Product' : 'Update Product'}</button>
 								</div>
 						</div>
 
 						</form:form>
-						<iframe width="560" height="315" src="${product.video}"
-							frameborder="0"
-							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen></iframe>
+
 						<!-- /form-add-product -->
 					</div>
 					<!-- /main-content-wrap -->
@@ -447,6 +449,11 @@ form.form-style-1>*>*:first-child {
 						Design by Themesflat All rights reserved
 					</div>
 				</div>
+				<script >
+				
+					
+				
+				</script>
 				<!-- /bottom-page -->
 			</div>
 			<!-- /main-content -->

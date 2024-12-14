@@ -22,4 +22,8 @@ public interface IStoreService {
     StoreEntity save(StoreEntity storeEntity);
 
     void deleteById(Long id);
+
+	Page<StoreEntity> findByStatus(Boolean isActive, Pageable pageable);
+
+	Page<StoreEntity> findByStoreNameAndStatus(String storeName, Boolean isActive, Pageable pageable);
 }

@@ -63,7 +63,7 @@
 				<div class="wg-table table-all-user">
 					<ul class="table-title flex gap20 mb-14">
 						<li><div class="body-title">User</div></li>
-						
+						<li><div class="body-title">Roles</div></li> <!-- Thêm cột Roles -->
 						<li><div class="body-title">Email</div></li>
 						<li><div class="body-title">Commit History</div></li>
 						<li><div class="body-title">Action</div></li>
@@ -85,6 +85,14 @@
 
 									</div>
 								</div>
+								<!-- Hiển thị Roles -->
+								<div class="body-text">
+								    <c:forEach var="role" items="${user.roles}" varStatus="status">
+								        <span>${role.name}</span>
+								        <c:if test="${!status.last}">, </c:if> <!-- Chỉ thêm dấu phẩy nếu không phải mục cuối -->
+								    </c:forEach>
+								</div>
+
 								<div class="body-text">${user.email}</div>
 								
 								<div class="body-text">
