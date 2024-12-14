@@ -108,6 +108,7 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'chờ vận chuyển'")
     Long countPendingOrders();
+
     @Query("SELECT o.id, o.address, o.status " +
             "FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +

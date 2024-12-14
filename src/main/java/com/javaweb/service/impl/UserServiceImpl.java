@@ -12,12 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,7 +55,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO findByUserName(String userName) {
         UserDTO result = new UserDTO();
-        UserEntity user = userRepository.findByUsername(userName);
+        Optional<UserEntity> user = Optional.ofNullable(userRepository.findByUsername(userName));
         if(user != null) {
             UserEntity userEntity = user.get();
             BeanUtils.copyProperties(userEntity, result);

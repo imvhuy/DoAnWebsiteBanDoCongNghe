@@ -1,100 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 
 <style>
-.reply-comment-wrap {
-	margin-top: 20px;
-}
+	.reply-comment-wrap {
+		margin-top: 20px;
+	}
 
-.reply-comment-item {
-	margin-bottom: 15px;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	display: flex; /* Đặt phần tử thành flex container */
-	flex-direction: column;
-	/* Chỉ định các phần tử con (nút, content) sắp xếp theo cột */
-}
+	.reply-comment-item {
+		margin-bottom: 15px;
+		padding: 10px;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		display: flex; /* Đặt phần tử thành flex container */
+		flex-direction: column;
+		/* Chỉ định các phần tử con (nút, content) sắp xếp theo cột */
+	}
 
-.reply-comment-item p {
-	font-size: 14px;
-	line-height: 1.6;
-	margin-top: 10px;
-}
+	.reply-comment-item p {
+		font-size: 14px;
+		line-height: 1.6;
+		margin-top: 10px;
+	}
 
-.type-reply {
-	margin-left: 30px;
-	background-color: #f9f9f9;
-	border-left: 3px solid #ddd;
-}
+	.type-reply {
+		margin-left: 30px;
+		background-color: #f9f9f9;
+		border-left: 3px solid #ddd;
+	}
 
-.reply-form {
-	margin-top: 10px;
-	border-top: 1px solid #ddd;
-	padding-top: 10px;
-}
+	.reply-form {
+		margin-top: 10px;
+		border-top: 1px solid #ddd;
+		padding-top: 10px;
+	}
 
-.reply-form textarea {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	resize: vertical;
-}
+	.reply-form textarea {
+		width: 100%;
+		padding: 8px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		resize: vertical;
+	}
 
-.reply-form button {
-	margin-top: 5px;
-	padding: 5px 15px;
-	background-color: #0069d9;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
+	.reply-form button {
+		margin-top: 5px;
+		padding: 5px 15px;
+		background-color: #0069d9;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
 
-.reply-form button:hover {
-	background-color: #0056b3;
-}
+	.reply-form button:hover {
+		background-color: #0056b3;
+	}
 
-.btn-reply {
-	padding: 2px 4px; /* Thay đổi kích thước nút */
-	font-size: 6px; /* Giảm kích thước chữ */
-	background-color: #28a745; /* Màu nền của nút */
-	color: white; /* Màu chữ */
-	border: none; /* Bỏ viền */
-	border-radius: 4px; /* Bo góc nút */
-	cursor: pointer; /* Con trỏ chuột khi hover */
-	display: inline-block; /* Đảm bảo nút không chiếm hết chiều rộng */
-	width: 50px;
-	height: 22px;
-	align-self: flex-end;
-}
+	.btn-reply {
+		padding: 2px 4px; /* Thay đổi kích thước nút */
+		font-size: 6px; /* Giảm kích thước chữ */
+		background-color: #28a745; /* Màu nền của nút */
+		color: white; /* Màu chữ */
+		border: none; /* Bỏ viền */
+		border-radius: 4px; /* Bo góc nút */
+		cursor: pointer; /* Con trỏ chuột khi hover */
+		display: inline-block; /* Đảm bảo nút không chiếm hết chiều rộng */
+		width: 50px;
+		height: 22px;
+		align-self: flex-end;
+	}
 
-.btn-reply:hover {
-	background-color: #218838; /* Màu nền khi hover */
-}
+	.btn-reply:hover {
+		background-color: #218838; /* Màu nền khi hover */
+	}
 
-/* Đảm bảo form trả lời và button không bị chồng lên nhau */
-.reply-comment-item {
-	position: relative; /* Thiết lập vị trí của review item */
-	margin-bottom: 20px; /* Tạo không gian phía dưới review */
-}
+	/* Đảm bảo form trả lời và button không bị chồng lên nhau */
+	.reply-comment-item {
+		position: relative; /* Thiết lập vị trí của review item */
+		margin-bottom: 20px; /* Tạo không gian phía dưới review */
+	}
 
-/* Nút "Trả lời" ở dưới content review */
-.reply-comment-item .btn-reply {
-	display: inline-block;
-	/* Đảm bảo nó không bị dính vào các phần tử khác */
-	margin-top: 10px; /* Khoảng cách từ content của review */
-	padding: 8px 15px;
-	font-size: 14px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right !important;
-}
+	/* Nút "Trả lời" ở dưới content review */
+	.reply-comment-item .btn-reply {
+		display: inline-block;
+		/* Đảm bảo nó không bị dính vào các phần tử khác */
+		margin-top: 10px; /* Khoảng cách từ content của review */
+		padding: 8px 15px;
+		font-size: 14px;
+		background-color: #007bff;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		float: right !important;
+	}
 </style>
 <!-- preload -->
 <div class="preload preload-container">
@@ -108,7 +108,7 @@
 	<div class="tf-breadcrumb">
 		<div class="container">
 			<div
-				class="tf-breadcrumb-wrap d-flex justify-content-between flex-wrap align-items-center">
+					class="tf-breadcrumb-wrap d-flex justify-content-between flex-wrap align-items-center">
 				<div class="tf-breadcrumb-list">
 					<a href="index.html" class="text">Home</a> <i
 						class="icon icon-arrow-right"></i> <a href="#" class="text">Women</a>
@@ -117,12 +117,12 @@
 				</div>
 				<div class="tf-breadcrumb-prev-next">
 					<a href="#" class="tf-breadcrumb-prev hover-tooltip center"> <i
-						class="icon icon-arrow-left"></i> <!-- <span class="tooltip">Cotton jersey top</span> -->
+							class="icon icon-arrow-left"></i> <!-- <span class="tooltip">Cotton jersey top</span> -->
 					</a> <a href="#" class="tf-breadcrumb-back hover-tooltip center"> <i
 						class="icon icon-shop"></i> <!-- <span class="tooltip">Back to Women</span> -->
-					</a> <a href="#" class="tf-breadcrumb-next hover-tooltip center"> <i
+				</a> <a href="#" class="tf-breadcrumb-next hover-tooltip center"> <i
 						class="icon icon-arrow-right"></i> <!-- <span class="tooltip">Cotton jersey top</span> -->
-					</a>
+				</a>
 				</div>
 			</div>
 		</div>
@@ -137,8 +137,8 @@
 						<div class="tf-product-media-wrap sticky-top">
 							<div class="thumbs-slider">
 								<div dir="ltr"
-									class="swiper tf-product-media-thumbs other-image-zoom"
-									data-direction="vertical">
+									 class="swiper tf-product-media-thumbs other-image-zoom"
+									 data-direction="vertical">
 									<div class="swiper-wrapper stagger-wrap">
 										<!-- beige -->
 										<!-- front -->
@@ -147,8 +147,8 @@
 												<div class="swiper-slide stagger-item" data-color="beige">
 													<div class="item">
 														<img class="lazyload"
-															src="/admin/images/products/${gallery.image}"
-															alt="img-product">
+															 src="/admin/images/products/${gallery.image}"
+															 alt="img-product">
 													</div>
 												</div>
 											</c:forEach>
@@ -156,7 +156,7 @@
 									</div>
 								</div>
 								<div dir="ltr" class="swiper tf-product-media-main"
-									id="gallery-swiper-started">
+									 id="gallery-swiper-started">
 									<div class="swiper-wrapper">
 										<!-- product -->
 										<c:if test="${not empty product.galleries}">
@@ -166,8 +166,8 @@
 													<a  target="_blank"
 														class="item" data-pswp-width="770px"
 														data-pswp-height="1075px"> <img
-														class="tf-image-zoom lazyload"
-														src="/admin/images/products/${gallery.image}" alt="">
+															class="tf-image-zoom lazyload"
+															src="/admin/images/products/${gallery.image}" alt="">
 													</a>
 												</div>
 											</c:forEach>
@@ -200,13 +200,13 @@
 
 									<div class="price-on-sale-1">
 										<fmt:formatNumber
-											value="${product.price - product.price * product.promotionalPrice  / 100}"
-											type="number" maxFractionDigits="0" />
+												value="${product.price - product.price * product.promotionalPrice  / 100}"
+												type="number" maxFractionDigits="0" />
 										VND
 									</div>
 									<div class="compare-at-price">
 										<fmt:formatNumber value="${product.price}" type="number"
-											maxFractionDigits="0" />
+														  maxFractionDigits="0" />
 										VND
 									</div>
 
@@ -215,50 +215,50 @@
 									</div>
 								</div>
 								<div class="tf-product-info-variant-picker"></div>
-										<div class="tf-product-info-quantity">
-											<div class="quantity-title fw-6">Quantity</div>
-											<div class="wg-quantity">
-												<span class="btn-quantity btn-decrease">-</span> <input
-													type="text" class="quantity-product-1" name="number"
-													value="1"> <span class="btn-quantity btn-increase">+</span>
-											</div>
-										</div>
+								<div class="tf-product-info-quantity">
+									<div class="quantity-title fw-6">Quantity</div>
+									<div class="wg-quantity">
+										<span class="btn-quantity btn-decrease">-</span> <input
+											type="text" class="quantity-product-1" name="number"
+											value="1"> <span class="btn-quantity btn-increase">+</span>
+									</div>
+								</div>
 								<div class="tf-product-info-buy-button">
 									<form class="">
 										<a href="javascript:void(0);"
-											class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" data-product-id="${product.id}"><span>Add
+										   class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" data-product-id="${product.id}"><span>Add
 												to cart -&nbsp;</span><span class="tf-qty-price total-price-1"><fmt:formatNumber
-													value="${product.price}" type="number"
-													maxFractionDigits="0" /> VND</span></a> <a href="javascript:void(0);"
-											class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
-											<span class="icon icon-heart"></span> <span class="tooltip">Add
+												value="${product.price}" type="number"
+												maxFractionDigits="0" /> VND</span></a> <a href="javascript:void(0);"
+																						   class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
+										<span class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a>
+									</a>
 										<div class="w-100">
 											<a href="#" class="btns-full btn-buy-product" data-product-id="${product.id}">Buy</a> <a href="#"
-												class="payment-more-option">More payment options</a>
+																																	 class="payment-more-option">More payment options</a>
 										</div>
-										
+
 									</form>
 								</div>
 								<div class="tf-product-info-extra-link">
 									<a href="#ask_question" data-bs-toggle="modal"
-										class="tf-product-extra-icon">
+									   class="tf-product-extra-icon">
 										<div class="icon">
 											<i class="icon-question"></i>
 										</div>
 										<div class="text fw-6">Ask a question</div>
 									</a> <a href="#delivery_return" data-bs-toggle="modal"
-										class="tf-product-extra-icon">
-										<div class="icon">
-											<svg class="d-inline-block"
-												xmlns="http://www.w3.org/2000/svg" width="22" height="18"
-												viewBox="0 0 22 18" fill="currentColor">
-												<path
+											class="tf-product-extra-icon">
+									<div class="icon">
+										<svg class="d-inline-block"
+											 xmlns="http://www.w3.org/2000/svg" width="22" height="18"
+											 viewBox="0 0 22 18" fill="currentColor">
+											<path
 													d="M21.7872 10.4724C21.7872 9.73685 21.5432 9.00864 21.1002 8.4217L18.7221 5.27043C18.2421 4.63481 17.4804 4.25532 16.684 4.25532H14.9787V2.54885C14.9787 1.14111 13.8334 0 12.4255 0H9.95745V1.69779H12.4255C12.8948 1.69779 13.2766 2.07962 13.2766 2.54885V14.5957H8.15145C7.80021 13.6052 6.85421 12.8936 5.74468 12.8936C4.63515 12.8936 3.68915 13.6052 3.33792 14.5957H2.55319C2.08396 14.5957 1.70213 14.2139 1.70213 13.7447V2.54885C1.70213 2.07962 2.08396 1.69779 2.55319 1.69779H9.95745V0H2.55319C1.14528 0 0 1.14111 0 2.54885V13.7447C0 15.1526 1.14528 16.2979 2.55319 16.2979H3.33792C3.68915 17.2884 4.63515 18 5.74468 18C6.85421 18 7.80021 17.2884 8.15145 16.2979H13.423C13.7742 17.2884 14.7202 18 15.8297 18C16.9393 18 17.8853 17.2884 18.2365 16.2979H21.7872V10.4724ZM16.684 5.95745C16.9494 5.95745 17.2034 6.08396 17.3634 6.29574L19.5166 9.14894H14.9787V5.95745H16.684ZM5.74468 16.2979C5.27545 16.2979 4.89362 15.916 4.89362 15.4468C4.89362 14.9776 5.27545 14.5957 5.74468 14.5957C6.21392 14.5957 6.59575 14.9776 6.59575 15.4468C6.59575 15.916 6.21392 16.2979 5.74468 16.2979ZM15.8298 16.2979C15.3606 16.2979 14.9787 15.916 14.9787 15.4468C14.9787 14.9776 15.3606 14.5957 15.8298 14.5957C16.299 14.5957 16.6809 14.9776 16.6809 15.4468C16.6809 15.916 16.299 16.2979 15.8298 16.2979ZM18.2366 14.5957C17.8853 13.6052 16.9393 12.8936 15.8298 12.8936C15.5398 12.8935 15.252 12.943 14.9787 13.04V10.8511H20.0851V14.5957H18.2366Z"></path></svg>
-										</div>
-										<div class="text fw-6">Delivery & Return</div>
-									</a>
+									</div>
+									<div class="text fw-6">Delivery & Return</div>
+								</a>
 								</div>
 								<div class="tf-product-info-delivery-return">
 									<div class="row">
@@ -329,17 +329,17 @@
 							<div class="widget-content-inner active">
 								<div class="product-configuration" id="product-configuration">
 									<table
-										style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; text-align: left; font-family: Arial, sans-serif;">
+											style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; text-align: left; font-family: Arial, sans-serif;">
 										<tbody>
-											<!-- Duyệt qua configList và tạo các dòng bảng -->
-											<c:forEach var="config" items="${configList}">
-												<tr style="border: 1px solid #ddd;">
-													<td
+										<!-- Duyệt qua configList và tạo các dòng bảng -->
+										<c:forEach var="config" items="${configList}">
+											<tr style="border: 1px solid #ddd;">
+												<td
 														style="padding: 10px 15px; border-left: 1px solid #ddd;">${config.key}</td>
-													<td
+												<td
 														style="padding: 10px 15px; border-left: 1px solid #ddd;">${config.value}</td>
-												</tr>
-											</c:forEach>
+											</tr>
+										</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -375,16 +375,16 @@
 										</div>
 										<div>
 											<div
-												class="tf-btn btn-outline-dark fw-6 btn-comment-review btn-cancel-review">Cancel
+													class="tf-btn btn-outline-dark fw-6 btn-comment-review btn-cancel-review">Cancel
 												Review</div>
 											<div
-												class="tf-btn btn-outline-dark fw-6 btn-comment-review btn-write-review"
-												onclick="toggleReviewForm()">Write a review</div>
+													class="tf-btn btn-outline-dark fw-6 btn-comment-review btn-write-review"
+													onclick="toggleReviewForm()">Write a review</div>
 										</div>
 									</div>
 									<div class="reply-comment cancel-review-wrap">
 										<div
-											class="d-flex mb_24 gap-20 align-items-center justify-content-between flex-wrap">
+												class="d-flex mb_24 gap-20 align-items-center justify-content-between flex-wrap">
 											<h5 class="">${totalReviews}Comments</h5>
 										</div>
 										<!-- Nút ẩn/hiện phần bình luận -->
@@ -409,30 +409,30 @@
 																</h6>
 																<div class="day text_black-3">
 																	<fmt:formatDate value="${review.createdDate}"
-																		pattern="dd-MM-yyyy" />
+																					pattern="dd-MM-yyyy" />
 																</div>
 															</div>
 														</div>
 														<p class="text_black-3">${review.content}</p>
 														<!-- Hiển thị nút "Trả lời" cho review chính -->
 														<button class="btn-reply"
-															onclick="toggleReplyForm(${review.id})"
-															style="width: 80px !important; height: 38px !important;">Trả
+																onclick="toggleReplyForm(${review.id})"
+																style="width: 80px !important; height: 38px !important;">Trả
 															lời</button>
 
 														<!-- Form trả lời (ẩn khi chưa nhấn nút) -->
 														<div class="reply-form" id="reply-form-${review.id}"
-															style="display: none;">
+															 style="display: none;">
 															<form
-																action="${pageContext.request.contextPath}/product-detail/submit-reply"
-																method="POST">
+																	action="${pageContext.request.contextPath}/product-detail/submit-reply"
+																	method="POST">
 																<textarea name="replyContent"
-																	placeholder="Viết câu trả lời..." rows="3" required>@${review.user.fullName}:</textarea>
+																		  placeholder="Viết câu trả lời..." rows="3" required>@${review.user.fullName}:</textarea>
 																<button type="submit" class="btn btn-secondary">Trả
 																	lời</button>
 																<input type="hidden" name="parentId"
-																	value="${review.id}" /> <input type="hidden"
-																	name="productId" value="${product.id}" />
+																	   value="${review.id}" /> <input type="hidden"
+																									  name="productId" value="${product.id}" />
 															</form>
 														</div>
 														<!-- Hiển thị các reply cho review chính này -->
@@ -440,7 +440,7 @@
 															<c:forEach var="reply" items="${reviews}">
 																<!-- Kiểm tra xem review có phải là reply của review chính không -->
 																<c:if
-																	test="${reply.parent_id != null && reply.parent_id == review.id}">
+																		test="${reply.parent_id != null && reply.parent_id == review.id}">
 																	<div class="reply-comment-item type-reply">
 																		<div class="user">
 																			<div class="image">
@@ -452,30 +452,30 @@
 																				</h6>
 																				<div class="day text_black-3">
 																					<fmt:formatDate value="${reply.createdDate}"
-																						pattern="dd-MM-yyyy" />
+																									pattern="dd-MM-yyyy" />
 																				</div>
 																			</div>
 																		</div>
 																		<p class="text_black-3">${reply.content}</p>
 																		<!-- Nút "Trả lời" cho reply -->
 																		<button class="btn-reply"
-																			onclick="toggleReplyForm(${reply.id})"
-																			style="width: 80px !important; height: 38px !important;">Trả
+																				onclick="toggleReplyForm(${reply.id})"
+																				style="width: 80px !important; height: 38px !important;">Trả
 																			lời</button>
 
 																		<!-- Form trả lời cho reply (ẩn khi chưa nhấn nút) -->
 																		<div class="reply-form" id="reply-form-${reply.id}"
-																			style="display: none;">
+																			 style="display: none;">
 																			<form
-																				action="${pageContext.request.contextPath}/product-detail/submit-reply"
-																				method="POST">
+																					action="${pageContext.request.contextPath}/product-detail/submit-reply"
+																					method="POST">
 																				<textarea name="replyContent"
-																					placeholder="Viết câu trả lời..." rows="3" required>@${reply.user.fullName}:</textarea>
+																						  placeholder="Viết câu trả lời..." rows="3" required>@${reply.user.fullName}:</textarea>
 																				<button type="submit" class="btn btn-secondary">Trả
 																					lời</button>
 																				<input type="hidden" name="parentId"
-																					value="${review.id}" /> <input type="hidden"
-																					name="productId" value="${product.id}" />
+																					   value="${review.id}" /> <input type="hidden"
+																													  name="productId" value="${product.id}" />
 																			</form>
 																		</div>
 																	</div>
@@ -490,34 +490,34 @@
 
 									</div>
 									<form class="form-write-review write-review-wrap"
-										action="${pageContext.request.contextPath}/product-detail/submit-review"
-										method="POST">
+										  action="${pageContext.request.contextPath}/product-detail/submit-review"
+										  method="POST">
 										<div class="heading">
 											<h5>Write a review:</h5>
 											<div class="list-rating-check">
 												<input type="radio" id="star5" name="rate" value="5" /> <label
 													for="star5" title="text"></label> <input type="radio"
-													id="star4" name="rate" value="4" /> <label for="star4"
-													title="text"></label> <input type="radio" id="star3"
-													name="rate" value="3" /> <label for="star3" title="text"></label>
+																							 id="star4" name="rate" value="4" /> <label for="star4"
+																																		title="text"></label> <input type="radio" id="star3"
+																																									 name="rate" value="3" /> <label for="star3" title="text"></label>
 												<input type="radio" id="star2" name="rate" value="2" /> <label
 													for="star2" title="text"></label> <input type="radio"
-													id="star1" name="rate" value="1" /> <label for="star1"
-													title="text"></label>
+																							 id="star1" name="rate" value="1" /> <label for="star1"
+																																		title="text"></label>
 											</div>
 										</div>
 										<div class="form-content">
 											<fieldset class="box-field">
 												<label class="label">Review</label>
 												<textarea rows="4" placeholder="Write your comment here"
-													tabindex="2" aria-required="true" required=""
-													name="reviewContent"></textarea>
+														  tabindex="2" aria-required="true" required=""
+														  name="reviewContent"></textarea>
 											</fieldset>
 										</div>
 										<input type="hidden" name="productId" value="${product.id}" />
 										<div class="button-submit">
 											<button class="tf-btn btn-fill animate-hover-btn"
-												type="submit">Submit Reviews</button>
+													type="submit">Submit Reviews</button>
 										</div>
 									</form>
 								</div>
@@ -564,54 +564,54 @@
 							<div class="widget-content-inner">
 								<ul class="d-flex justify-content-center mb_18">
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M8.7 30.7h22.7c.3 0 .6-.2.7-.6l4-25.3c-.1-.4-.3-.7-.7-.8s-.7.2-.8.6L34 8.9l-3-1.1c-2.4-.9-5.1-.5-7.2 1-2.3 1.6-5.3 1.6-7.6 0-2.1-1.5-4.8-1.9-7.2-1L6 8.9l-.7-4.3c0-.4-.4-.7-.7-.6-.4.1-.6.4-.6.8l4 25.3c.1.3.3.6.7.6zm.8-21.6c2-.7 4.2-.4 6 .8 1.4 1 3 1.5 4.6 1.5s3.2-.5 4.6-1.5c1.7-1.2 4-1.6 6-.8l3.3 1.2-3 19.1H9.2l-3-19.1 3.3-1.2zM32 32H8c-.4 0-.7.3-.7.7s.3.7.7.7h24c.4 0 .7-.3.7-.7s-.3-.7-.7-.7zm0 2.7H8c-.4 0-.7.3-.7.7s.3.6.7.6h24c.4 0 .7-.3.7-.7s-.3-.6-.7-.6zm-17.9-8.9c-1 0-1.8-.3-2.4-.6l.1-2.1c.6.4 1.4.6 2 .6.8 0 1.2-.4 1.2-1.3s-.4-1.3-1.3-1.3h-1.3l.2-1.9h1.1c.6 0 1-.3 1-1.3 0-.8-.4-1.2-1.1-1.2s-1.2.2-1.9.4l-.2-1.9c.7-.4 1.5-.6 2.3-.6 2 0 3 1.3 3 2.9 0 1.2-.4 1.9-1.1 2.3 1 .4 1.3 1.4 1.3 2.5.3 1.8-.6 3.5-2.9 3.5zm4-5.5c0-3.9 1.2-5.5 3.2-5.5s3.2 1.6 3.2 5.5-1.2 5.5-3.2 5.5-3.2-1.6-3.2-5.5zm4.1 0c0-2-.1-3.5-.9-3.5s-1 1.5-1 3.5.1 3.5 1 3.5c.8 0 .9-1.5.9-3.5zm4.5-1.4c-.9 0-1.5-.8-1.5-2.1s.6-2.1 1.5-2.1 1.5.8 1.5 2.1-.5 2.1-1.5 2.1zm0-.8c.4 0 .7-.5.7-1.2s-.2-1.2-.7-1.2-.7.5-.7 1.2.3 1.2.7 1.2z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M36.7 31.1l-2.8-1.3-4.7-9.1 7.5-3.5c.4-.2.6-.6.4-1s-.6-.5-1-.4l-7.5 3.5-7.8-15c-.3-.5-1.1-.5-1.4 0l-7.8 15L4 15.9c-.4-.2-.8 0-1 .4s0 .8.4 1l7.5 3.5-4.7 9.1-2.8 1.3c-.4.2-.6.6-.4 1 .1.3.4.4.7.4.1 0 .2 0 .3-.1l1-.4-1.5 2.8c-.1.2-.1.5 0 .8.1.2.4.3.7.3h31.7c.3 0 .5-.1.7-.4.1-.2.1-.5 0-.8L35.1 32l1 .4c.1 0 .2.1.3.1.3 0 .6-.2.7-.4.1-.3 0-.8-.4-1zm-5.1-2.3l-9.8-4.6 6-2.8 3.8 7.4zM20 6.4L27.1 20 20 23.3 12.9 20 20 6.4zm-7.8 15l6 2.8-9.8 4.6 3.8-7.4zm22.4 13.1H5.4L7.2 31 20 25l12.8 6 1.8 3.5z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M5.9 5.9v28.2h28.2V5.9H5.9zM19.1 20l-8.3 8.3c-2-2.2-3.2-5.1-3.2-8.3s1.2-6.1 3.2-8.3l8.3 8.3zm-7.4-9.3c2.2-2 5.1-3.2 8.3-3.2s6.1 1.2 8.3 3.2L20 19.1l-8.3-8.4zM20 20.9l8.3 8.3c-2.2 2-5.1 3.2-8.3 3.2s-6.1-1.2-8.3-3.2l8.3-8.3zm.9-.9l8.3-8.3c2 2.2 3.2 5.1 3.2 8.3s-1.2 6.1-3.2 8.3L20.9 20zm8.4-10.2c-1.2-1.1-2.6-2-4.1-2.6h6.6l-2.5 2.6zm-18.6 0L8.2 7.2h6.6c-1.5.6-2.9 1.5-4.1 2.6zm-.9.9c-1.1 1.2-2 2.6-2.6 4.1V8.2l2.6 2.5zM7.2 25.2c.6 1.5 1.5 2.9 2.6 4.1l-2.6 2.6v-6.7zm3.5 5c1.2 1.1 2.6 2 4.1 2.6H8.2l2.5-2.6zm18.6 0l2.6 2.6h-6.6c1.4-.6 2.8-1.5 4-2.6zm.9-.9c1.1-1.2 2-2.6 2.6-4.1v6.6l-2.6-2.5zm2.6-14.5c-.6-1.5-1.5-2.9-2.6-4.1l2.6-2.6v6.7z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M35.1 33.6L33.2 6.2c0-.4-.3-.7-.7-.7H13.9c-.4 0-.7.3-.7.7s.3.7.7.7h18l.7 10.5H20.8c-8.8.2-15.9 7.5-15.9 16.4 0 .4.3.7.7.7h28.9c.2 0 .4-.1.5-.2s.2-.3.2-.5v-.2h-.1zm-28.8-.5C6.7 25.3 13 19 20.8 18.9h11.9l1 14.2H6.3zm11.2-6.8c0 1.2-1 2.1-2.1 2.1s-2.1-1-2.1-2.1 1-2.1 2.1-2.1 2.1 1 2.1 2.1zm6.3 0c0 1.2-1 2.1-2.1 2.1-1.2 0-2.1-1-2.1-2.1s1-2.1 2.1-2.1 2.1 1 2.1 2.1z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M20 33.8c7.6 0 13.8-6.2 13.8-13.8S27.6 6.2 20 6.2 6.2 12.4 6.2 20 12.4 33.8 20 33.8zm0-26.3c6.9 0 12.5 5.6 12.5 12.5S26.9 32.5 20 32.5 7.5 26.9 7.5 20 13.1 7.5 20 7.5zm-.4 15h.5c1.8 0 3-1.1 3-3.7 0-2.2-1.1-3.6-3.1-3.6h-2.6v10.6h2.2v-3.3zm0-5.2h.4c.6 0 .9.5.9 1.7 0 1.1-.3 1.7-.9 1.7h-.4v-3.4z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M30.2 29.3c2.2-2.5 3.6-5.7 3.6-9.3s-1.4-6.8-3.6-9.3l3.6-3.6c.3-.3.3-.7 0-.9-.3-.3-.7-.3-.9 0l-3.6 3.6c-2.5-2.2-5.7-3.6-9.3-3.6s-6.8 1.4-9.3 3.6L7.1 6.2c-.3-.3-.7-.3-.9 0-.3.3-.3.7 0 .9l3.6 3.6c-2.2 2.5-3.6 5.7-3.6 9.3s1.4 6.8 3.6 9.3l-3.6 3.6c-.3.3-.3.7 0 .9.1.1.3.2.5.2s.3-.1.5-.2l3.6-3.6c2.5 2.2 5.7 3.6 9.3 3.6s6.8-1.4 9.3-3.6l3.6 3.6c.1.1.3.2.5.2s.3-.1.5-.2c.3-.3.3-.7 0-.9l-3.8-3.6z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 									<li class=""><svg viewBox="0 0 40 40" width="35px"
-											height="35px" color="#222" margin="5px">
-                                                <path
+													  height="35px" color="#222" margin="5px">
+										<path
 												fill="currentColor"
 												d="M34.1 34.1H5.9V5.9h28.2v28.2zM7.2 32.8h25.6V7.2H7.2v25.6zm13.5-18.3a.68.68 0 0 0-.7-.7.68.68 0 0 0-.7.7v10.9a.68.68 0 0 0 .7.7.68.68 0 0 0 .7-.7V14.5z">
-                                                </path>
-                                            </svg></li>
+										</path>
+									</svg></li>
 								</ul>
 								<p class="text-center text-paragraph">LT01: 70% wool, 15%
 									polyester, 10% polyamide, 5% acrylic 900 Grms/mt</p>
@@ -631,41 +631,41 @@
 			</div>
 			<div class="hover-sw-nav hover-sw-2">
 				<div dir="ltr" class="swiper tf-sw-product-sell wrap-sw-over"
-					data-preview="4" data-tablet="3" data-mobile="2" data-space-lg="30"
-					data-space-md="15" data-pagination="2" data-pagination-md="3"
-					data-pagination-lg="3">
+					 data-preview="4" data-tablet="3" data-mobile="2" data-space-lg="30"
+					 data-space-md="15" data-pagination="2" data-pagination-md="3"
+					 data-pagination-lg="3">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" lazy="true">
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/orange-1.jpg"
-										src="images/products/orange-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/orange-1.jpg"
+											src="images/products/orange-1.jpg" alt="image-product">
 										<img class="lazyload img-hover"
-										data-src="images/products/white-1.jpg"
-										src="images/products/white-1.jpg" alt="image-product">
+											 data-src="images/products/white-1.jpg"
+											 src="images/products/white-1.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"
-											onclick="toggleWishlistIcon(this, ${product.id})"> <span
+												class="box-icon bg_white wishlist btn-icon-action"
+												onclick="toggleWishlistIcon(this, ${product.id})"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -676,22 +676,22 @@
 										Tank Top</a> <span class="price">$16.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Orange</span> <span
-											class="swatch-value bg_orange-3"></span> <img
-											class="lazyload" data-src="images/products/orange-1.jpg"
-											src="images/products/orange-1.jpg" alt="image-product">
+												class="tooltip">Orange</span> <span
+												class="swatch-value bg_orange-3"></span> <img
+												class="lazyload" data-src="images/products/orange-1.jpg"
+												src="images/products/orange-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-1.jpg"
-											src="images/products/black-1.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-1.jpg"
+																						  src="images/products/black-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-1.jpg"
-											src="images/products/white-1.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-1.jpg"
+																						   src="images/products/white-1.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -701,32 +701,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/brown.jpg"
-										src="images/products/brown.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/purple.jpg"
-										src="images/products/purple.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/brown.jpg"
+											src="images/products/brown.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/purple.jpg"
+											src="images/products/purple.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>M</span> <span>L</span> <span>XL</span>
@@ -736,7 +736,7 @@
 									</div>
 									<div class="countdown-box">
 										<div class="js-countdown" data-timer="1007500"
-											data-labels="d :,h :,m :,s"></div>
+											 data-labels="d :,h :,m :,s"></div>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -744,20 +744,20 @@
 										modal T-shirt</a> <span class="price">From $18.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Brown</span> <span
-											class="swatch-value bg_brown"></span> <img class="lazyload"
-											data-src="images/products/brown.jpg"
-											src="images/products/brown.jpg" alt="image-product"></li>
+												class="tooltip">Brown</span> <span
+												class="swatch-value bg_brown"></span> <img class="lazyload"
+																						   data-src="images/products/brown.jpg"
+																						   src="images/products/brown.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Purple</span> <span
-											class="swatch-value bg_purple"></span> <img class="lazyload"
-											data-src="images/products/purple.jpg"
-											src="images/products/purple.jpg" alt="image-product"></li>
+												class="tooltip">Light Purple</span> <span
+												class="swatch-value bg_purple"></span> <img class="lazyload"
+																							data-src="images/products/purple.jpg"
+																							src="images/products/purple.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Green</span> <span
-											class="swatch-value bg_light-green"></span> <img
-											class="lazyload" data-src="images/products/green.jpg"
-											src="images/products/green.jpg" alt="image-product"></li>
+												class="tooltip">Light Green</span> <span
+												class="swatch-value bg_light-green"></span> <img
+												class="lazyload" data-src="images/products/green.jpg"
+												src="images/products/green.jpg" alt="image-product"></li>
 									</ul>
 								</div>
 							</div>
@@ -766,32 +766,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/white-3.jpg"
-										src="images/products/white-3.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/white-4.jpg"
-										src="images/products/white-4.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/white-3.jpg"
+											src="images/products/white-3.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/white-4.jpg"
+											src="images/products/white-4.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#shoppingCart" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Add
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Add
 												to cart</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -807,32 +807,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/white-2.jpg"
-										src="images/products/white-2.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/pink-1.jpg"
-										src="images/products/pink-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/white-2.jpg"
+											src="images/products/white-2.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/pink-1.jpg"
+											src="images/products/pink-1.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -843,21 +843,21 @@
 										Printed T-shirt</a> <span class="price">$16.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-2.jpg"
-											src="images/products/white-2.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-2.jpg"
+																						   src="images/products/white-2.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Pink</span> <span
-											class="swatch-value bg_purple"></span> <img class="lazyload"
-											data-src="images/products/pink-1.jpg"
-											src="images/products/pink-1.jpg" alt="image-product"></li>
+												class="tooltip">Pink</span> <span
+												class="swatch-value bg_purple"></span> <img class="lazyload"
+																							data-src="images/products/pink-1.jpg"
+																							src="images/products/pink-1.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-2.jpg"
-											src="images/products/black-2.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-2.jpg"
+																						  src="images/products/black-2.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -867,35 +867,35 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/brown-2.jpg"
-										src="images/products/brown-2.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/brown-3.jpg"
-										src="images/products/brown-3.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/brown-2.jpg"
+											src="images/products/brown-2.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/brown-3.jpg"
+											src="images/products/brown-3.jpg" alt="image-product">
 									</a>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
 									</div>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -903,16 +903,16 @@
 										linen T-shirt</a> <span class="price">$114.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Brown</span> <span
-											class="swatch-value bg_brown"></span> <img class="lazyload"
-											data-src="images/products/brown-2.jpg"
-											src="images/products/brown-2.jpg" alt="image-product">
+												class="tooltip">Brown</span> <span
+												class="swatch-value bg_brown"></span> <img class="lazyload"
+																						   data-src="images/products/brown-2.jpg"
+																						   src="images/products/brown-2.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-5.jpg"
-											src="images/products/white-5.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-5.jpg"
+																						   src="images/products/white-5.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -922,32 +922,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/light-green-1.jpg"
-										src="images/products/light-green-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/light-green-1.jpg"
+											src="images/products/light-green-1.jpg" alt="image-product">
 										<img class="lazyload img-hover"
-										data-src="images/products/light-green-2.jpg"
-										src="images/products/light-green-2.jpg" alt="image-product">
+											 data-src="images/products/light-green-2.jpg"
+											 src="images/products/light-green-2.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn absolute-2">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -955,39 +955,39 @@
 										Sweatshirt</a> <span class="price">$10.00</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Light Green</span> <span
-											class="swatch-value bg_light-green"></span> <img
-											class="lazyload" data-src="images/products/light-green-1.jpg"
-											src="images/products/light-green-1.jpg" alt="image-product">
+												class="tooltip">Light Green</span> <span
+												class="swatch-value bg_light-green"></span> <img
+												class="lazyload" data-src="images/products/light-green-1.jpg"
+												src="images/products/light-green-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-3.jpg"
-											src="images/products/black-3.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-3.jpg"
+																						  src="images/products/black-3.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Blue</span> <span
-											class="swatch-value bg_blue-2"></span> <img class="lazyload"
-											data-src="images/products/blue.jpg"
-											src="images/products/blue.jpg" alt="image-product"></li>
+												class="tooltip">Blue</span> <span
+												class="swatch-value bg_blue-2"></span> <img class="lazyload"
+																							data-src="images/products/blue.jpg"
+																							src="images/products/blue.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Dark Blue</span> <span
-											class="swatch-value bg_dark-blue"></span> <img
-											class="lazyload" data-src="images/products/dark-blue.jpg"
-											src="images/products/dark-blue.jpg" alt="image-product">
+												class="tooltip">Dark Blue</span> <span
+												class="swatch-value bg_dark-blue"></span> <img
+												class="lazyload" data-src="images/products/dark-blue.jpg"
+												src="images/products/dark-blue.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-6.jpg"
-											src="images/products/white-6.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-6.jpg"
+																						   src="images/products/white-6.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Grey</span> <span
-											class="swatch-value bg_light-grey"></span> <img
-											class="lazyload" data-src="images/products/light-grey.jpg"
-											src="images/products/light-grey.jpg" alt="image-product">
+												class="tooltip">Light Grey</span> <span
+												class="swatch-value bg_light-grey"></span> <img
+												class="lazyload" data-src="images/products/light-grey.jpg"
+												src="images/products/light-grey.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -996,15 +996,15 @@
 					</div>
 				</div>
 				<div
-					class="nav-sw nav-next-slider nav-next-product box-icon w_46 round">
+						class="nav-sw nav-next-slider nav-next-product box-icon w_46 round">
 					<span class="icon icon-arrow-left"></span>
 				</div>
 				<div
-					class="nav-sw nav-prev-slider nav-prev-product box-icon w_46 round">
+						class="nav-sw nav-prev-slider nav-prev-product box-icon w_46 round">
 					<span class="icon icon-arrow-right"></span>
 				</div>
 				<div
-					class="sw-dots style-2 sw-pagination-product justify-content-center"></div>
+						class="sw-dots style-2 sw-pagination-product justify-content-center"></div>
 			</div>
 		</div>
 	</section>
@@ -1017,40 +1017,40 @@
 			</div>
 			<div class="hover-sw-nav hover-sw-2">
 				<div dir="ltr" class="swiper tf-sw-recent wrap-sw-over"
-					data-preview="4" data-tablet="3" data-mobile="2" data-space-lg="30"
-					data-space-md="30" data-space="15" data-pagination="1"
-					data-pagination-md="1" data-pagination-lg="1">
+					 data-preview="4" data-tablet="3" data-mobile="2" data-space-lg="30"
+					 data-space-md="30" data-space="15" data-pagination="1"
+					 data-pagination-md="1" data-pagination-lg="1">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" lazy="true">
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/light-green-1.jpg"
-										src="images/products/light-green-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/light-green-1.jpg"
+											src="images/products/light-green-1.jpg" alt="image-product">
 										<img class="lazyload img-hover"
-										data-src="images/products/light-green-2.jpg"
-										src="images/products/light-green-2.jpg" alt="image-product">
+											 data-src="images/products/light-green-2.jpg"
+											 src="images/products/light-green-2.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn absolute-2">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -1058,39 +1058,39 @@
 										Sweatshirt</a> <span class="price">$10.00</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Light Green</span> <span
-											class="swatch-value bg_light-green"></span> <img
-											class="lazyload" data-src="images/products/light-green-1.jpg"
-											src="images/products/light-green-1.jpg" alt="image-product">
+												class="tooltip">Light Green</span> <span
+												class="swatch-value bg_light-green"></span> <img
+												class="lazyload" data-src="images/products/light-green-1.jpg"
+												src="images/products/light-green-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-3.jpg"
-											src="images/products/black-3.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-3.jpg"
+																						  src="images/products/black-3.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Blue</span> <span
-											class="swatch-value bg_blue-2"></span> <img class="lazyload"
-											data-src="images/products/blue.jpg"
-											src="images/products/blue.jpg" alt="image-product"></li>
+												class="tooltip">Blue</span> <span
+												class="swatch-value bg_blue-2"></span> <img class="lazyload"
+																							data-src="images/products/blue.jpg"
+																							src="images/products/blue.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Dark Blue</span> <span
-											class="swatch-value bg_dark-blue"></span> <img
-											class="lazyload" data-src="images/products/dark-blue.jpg"
-											src="images/products/dark-blue.jpg" alt="image-product">
+												class="tooltip">Dark Blue</span> <span
+												class="swatch-value bg_dark-blue"></span> <img
+												class="lazyload" data-src="images/products/dark-blue.jpg"
+												src="images/products/dark-blue.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-6.jpg"
-											src="images/products/white-6.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-6.jpg"
+																						   src="images/products/white-6.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Grey</span> <span
-											class="swatch-value bg_light-grey"></span> <img
-											class="lazyload" data-src="images/products/light-grey.jpg"
-											src="images/products/light-grey.jpg" alt="image-product">
+												class="tooltip">Light Grey</span> <span
+												class="swatch-value bg_light-grey"></span> <img
+												class="lazyload" data-src="images/products/light-grey.jpg"
+												src="images/products/light-grey.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -1100,35 +1100,35 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/brown-2.jpg"
-										src="images/products/brown-2.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/brown-3.jpg"
-										src="images/products/brown-3.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/brown-2.jpg"
+											src="images/products/brown-2.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/brown-3.jpg"
+											src="images/products/brown-3.jpg" alt="image-product">
 									</a>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
 									</div>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -1136,16 +1136,16 @@
 										linen T-shirt</a> <span class="price">$114.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Brown</span> <span
-											class="swatch-value bg_brown"></span> <img class="lazyload"
-											data-src="images/products/brown-2.jpg"
-											src="images/products/brown-2.jpg" alt="image-product">
+												class="tooltip">Brown</span> <span
+												class="swatch-value bg_brown"></span> <img class="lazyload"
+																						   data-src="images/products/brown-2.jpg"
+																						   src="images/products/brown-2.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-5.jpg"
-											src="images/products/white-5.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-5.jpg"
+																						   src="images/products/white-5.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -1155,32 +1155,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/white-2.jpg"
-										src="images/products/white-2.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/pink-1.jpg"
-										src="images/products/pink-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/white-2.jpg"
+											src="images/products/white-2.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/pink-1.jpg"
+											src="images/products/pink-1.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -1191,21 +1191,21 @@
 										Printed T-shirt</a> <span class="price">$16.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-2.jpg"
-											src="images/products/white-2.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-2.jpg"
+																						   src="images/products/white-2.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Pink</span> <span
-											class="swatch-value bg_purple"></span> <img class="lazyload"
-											data-src="images/products/pink-1.jpg"
-											src="images/products/pink-1.jpg" alt="image-product"></li>
+												class="tooltip">Pink</span> <span
+												class="swatch-value bg_purple"></span> <img class="lazyload"
+																							data-src="images/products/pink-1.jpg"
+																							src="images/products/pink-1.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-2.jpg"
-											src="images/products/black-2.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-2.jpg"
+																						  src="images/products/black-2.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -1215,32 +1215,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/white-3.jpg"
-										src="images/products/white-3.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/white-4.jpg"
-										src="images/products/white-4.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/white-3.jpg"
+											src="images/products/white-3.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/white-4.jpg"
+											src="images/products/white-4.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#shoppingCart" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Add
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Add
 												to cart</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -1256,32 +1256,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/brown.jpg"
-										src="images/products/brown.jpg" alt="image-product"> <img
-										class="lazyload img-hover"
-										data-src="images/products/purple.jpg"
-										src="images/products/purple.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/brown.jpg"
+											src="images/products/brown.jpg" alt="image-product"> <img
+											class="lazyload img-hover"
+											data-src="images/products/purple.jpg"
+											src="images/products/purple.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>M</span> <span>L</span> <span>XL</span>
@@ -1291,7 +1291,7 @@
 									</div>
 									<div class="countdown-box">
 										<div class="js-countdown" data-timer="1007500"
-											data-labels="d :,h :,m :,s"></div>
+											 data-labels="d :,h :,m :,s"></div>
 									</div>
 								</div>
 								<div class="card-product-info">
@@ -1299,20 +1299,20 @@
 										modal T-shirt</a> <span class="price">From $18.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Brown</span> <span
-											class="swatch-value bg_brown"></span> <img class="lazyload"
-											data-src="images/products/brown.jpg"
-											src="images/products/brown.jpg" alt="image-product"></li>
+												class="tooltip">Brown</span> <span
+												class="swatch-value bg_brown"></span> <img class="lazyload"
+																						   data-src="images/products/brown.jpg"
+																						   src="images/products/brown.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Purple</span> <span
-											class="swatch-value bg_purple"></span> <img class="lazyload"
-											data-src="images/products/purple.jpg"
-											src="images/products/purple.jpg" alt="image-product"></li>
+												class="tooltip">Light Purple</span> <span
+												class="swatch-value bg_purple"></span> <img class="lazyload"
+																							data-src="images/products/purple.jpg"
+																							src="images/products/purple.jpg" alt="image-product"></li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Light Green</span> <span
-											class="swatch-value bg_light-green"></span> <img
-											class="lazyload" data-src="images/products/green.jpg"
-											src="images/products/green.jpg" alt="image-product"></li>
+												class="tooltip">Light Green</span> <span
+												class="swatch-value bg_light-green"></span> <img
+												class="lazyload" data-src="images/products/green.jpg"
+												src="images/products/green.jpg" alt="image-product"></li>
 									</ul>
 								</div>
 							</div>
@@ -1321,32 +1321,32 @@
 							<div class="card-product">
 								<div class="card-product-wrapper">
 									<a href="product-detail.html" class="product-img"> <img
-										class="lazyload img-product"
-										data-src="images/products/orange-1.jpg"
-										src="images/products/orange-1.jpg" alt="image-product">
+											class="lazyload img-product"
+											data-src="images/products/orange-1.jpg"
+											src="images/products/orange-1.jpg" alt="image-product">
 										<img class="lazyload img-hover"
-										data-src="images/products/white-1.jpg"
-										src="images/products/white-1.jpg" alt="image-product">
+											 data-src="images/products/white-1.jpg"
+											 src="images/products/white-1.jpg" alt="image-product">
 									</a>
 									<div class="list-product-btn">
 										<a href="#quick_add" data-bs-toggle="modal"
-											class="box-icon bg_white quick-add tf-btn-loading"> <span
-											class="icon icon-bag"></span> <span class="tooltip">Quick
+										   class="box-icon bg_white quick-add tf-btn-loading"> <span
+												class="icon icon-bag"></span> <span class="tooltip">Quick
 												Add</span>
 										</a> <a href="javascript:void(0);"
-											class="box-icon bg_white wishlist btn-icon-action"> <span
+												class="box-icon bg_white wishlist btn-icon-action"> <span
 											class="icon icon-heart"></span> <span class="tooltip">Add
 												to Wishlist</span> <span class="icon icon-delete"></span>
-										</a> <a href="#compare" data-bs-toggle="offcanvas"
+									</a> <a href="#compare" data-bs-toggle="offcanvas"
 											aria-controls="offcanvasLeft"
 											class="box-icon bg_white compare btn-icon-action"> <span
 											class="icon icon-compare"></span> <span class="tooltip">Add
 												to Compare</span> <span class="icon icon-check"></span>
-										</a> <a href="#quick_view" data-bs-toggle="modal"
+									</a> <a href="#quick_view" data-bs-toggle="modal"
 											class="box-icon bg_white quickview tf-btn-loading"> <span
 											class="icon icon-view"></span> <span class="tooltip">Quick
 												View</span>
-										</a>
+									</a>
 									</div>
 									<div class="size-list">
 										<span>S</span> <span>M</span> <span>L</span> <span>XL</span>
@@ -1357,22 +1357,22 @@
 										Tank Top</a> <span class="price">$16.95</span>
 									<ul class="list-color-product">
 										<li class="list-color-item color-swatch active"><span
-											class="tooltip">Orange</span> <span
-											class="swatch-value bg_orange-3"></span> <img
-											class="lazyload" data-src="images/products/orange-1.jpg"
-											src="images/products/orange-1.jpg" alt="image-product">
+												class="tooltip">Orange</span> <span
+												class="swatch-value bg_orange-3"></span> <img
+												class="lazyload" data-src="images/products/orange-1.jpg"
+												src="images/products/orange-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">Black</span> <span
-											class="swatch-value bg_dark"></span> <img class="lazyload"
-											data-src="images/products/black-1.jpg"
-											src="images/products/black-1.jpg" alt="image-product">
+												class="tooltip">Black</span> <span
+												class="swatch-value bg_dark"></span> <img class="lazyload"
+																						  data-src="images/products/black-1.jpg"
+																						  src="images/products/black-1.jpg" alt="image-product">
 										</li>
 										<li class="list-color-item color-swatch"><span
-											class="tooltip">White</span> <span
-											class="swatch-value bg_white"></span> <img class="lazyload"
-											data-src="images/products/white-1.jpg"
-											src="images/products/white-1.jpg" alt="image-product">
+												class="tooltip">White</span> <span
+												class="swatch-value bg_white"></span> <img class="lazyload"
+																						   data-src="images/products/white-1.jpg"
+																						   src="images/products/white-1.jpg" alt="image-product">
 										</li>
 									</ul>
 								</div>
@@ -1381,15 +1381,15 @@
 					</div>
 				</div>
 				<div
-					class="nav-sw nav-next-slider nav-next-recent box-icon w_46 round">
+						class="nav-sw nav-next-slider nav-next-recent box-icon w_46 round">
 					<span class="icon icon-arrow-left"></span>
 				</div>
 				<div
-					class="nav-sw nav-prev-slider nav-prev-recent box-icon w_46 round">
+						class="nav-sw nav-prev-slider nav-prev-recent box-icon w_46 round">
 					<span class="icon icon-arrow-right"></span>
 				</div>
 				<div
-					class="sw-dots style-2 sw-pagination-recent justify-content-center"></div>
+						class="sw-dots style-2 sw-pagination-recent justify-content-center"></div>
 			</div>
 		</div>
 	</section>
@@ -1404,7 +1404,7 @@
 							<div class="footer-infor">
 								<div class="footer-logo">
 									<a href="index.html"> <img src="images/logo/logo.svg"
-										alt="">
+															   alt="">
 									</a>
 								</div>
 								<ul>
@@ -1430,19 +1430,19 @@
 								</a>
 								<ul class="tf-social-icon d-flex gap-10">
 									<li><a href="#"
-										class="box-icon w_34 round social-facebook social-line"><i
+										   class="box-icon w_34 round social-facebook social-line"><i
 											class="icon fs-14 icon-fb"></i></a></li>
 									<li><a href="#"
-										class="box-icon w_34 round social-twiter social-line"><i
+										   class="box-icon w_34 round social-twiter social-line"><i
 											class="icon fs-12 icon-Icon-x"></i></a></li>
 									<li><a href="#"
-										class="box-icon w_34 round social-instagram social-line"><i
+										   class="box-icon w_34 round social-instagram social-line"><i
 											class="icon fs-14 icon-instagram"></i></a></li>
 									<li><a href="#"
-										class="box-icon w_34 round social-tiktok social-line"><i
+										   class="box-icon w_34 round social-tiktok social-line"><i
 											class="icon fs-14 icon-tiktok"></i></a></li>
 									<li><a href="#"
-										class="box-icon w_34 round social-pinterest social-line"><i
+										   class="box-icon w_34 round social-pinterest social-line"><i
 											class="icon fs-14 icon-pinterest-1"></i></a></li>
 								</ul>
 							</div>
@@ -1456,19 +1456,19 @@
 							</div>
 							<ul class="footer-menu-list tf-collapse-content">
 								<li><a href="privacy-policy.html" class="footer-menu_item">Privacy
-										Policy</a></li>
+									Policy</a></li>
 								<li><a href="delivery-return.html" class="footer-menu_item">
-										Returns + Exchanges </a></li>
+									Returns + Exchanges </a></li>
 								<li><a href="shipping-delivery.html"
-									class="footer-menu_item">Shipping</a></li>
+									   class="footer-menu_item">Shipping</a></li>
 								<li><a href="terms-conditions.html"
-									class="footer-menu_item">Terms &amp; Conditions</a></li>
+									   class="footer-menu_item">Terms &amp; Conditions</a></li>
 								<li><a href="faq-1.html" class="footer-menu_item">FAQ’s</a>
 								</li>
 								<li><a href="compare.html" class="footer-menu_item">Compare</a>
 								</li>
 								<li><a href="wishlist.html" class="footer-menu_item">My
-										Wishlist</a></li>
+									Wishlist</a></li>
 							</ul>
 						</div>
 						<div class="col-xl-3 col-md-6 col-12 footer-col-block">
@@ -1480,11 +1480,11 @@
 							</div>
 							<ul class="footer-menu-list tf-collapse-content">
 								<li><a href="about-us.html" class="footer-menu_item">Our
-										Story</a></li>
+									Story</a></li>
 								<li><a href="our-store.html" class="footer-menu_item">Visit
-										Our Store</a></li>
+									Our Store</a></li>
 								<li><a href="contact-1.html" class="footer-menu_item">Contact
-										Us</a></li>
+									Us</a></li>
 								<li><a href="login.html" class="footer-menu_item">Account</a>
 								</li>
 							</ul>
@@ -1501,17 +1501,17 @@
 									<div class="footer-menu_item">Sign up to get first dibs
 										on new arrivals, sales, exclusive content, events and more!</div>
 									<form class="form-newsletter" id="subscribe-form" action="#"
-										method="post" accept-charset="utf-8" data-mailchimp="true">
+										  method="post" accept-charset="utf-8" data-mailchimp="true">
 										<div id="subscribe-content">
 											<fieldset class="email">
 												<input type="email" name="email-form" id="subscribe-email"
-													placeholder="Enter your email...." tabindex="0"
-													aria-required="true">
+													   placeholder="Enter your email...." tabindex="0"
+													   aria-required="true">
 											</fieldset>
 											<div class="button-submit">
 												<button id="subscribe-button"
-													class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
-													type="button">
+														class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
+														type="button">
 													Subscribe<i class="icon icon-arrow1-top-left"></i>
 												</button>
 											</div>
@@ -1521,7 +1521,7 @@
 									<div class="tf-cur">
 										<div class="tf-currencies">
 											<select
-												class="image-select center style-default type-currencies">
+													class="image-select center style-default type-currencies">
 												<option data-thumbnail="images/country/fr.svg">EUR
 													<span>€ | France</span></option>
 												<option data-thumbnail="images/country/de.svg">EUR
@@ -1534,7 +1534,7 @@
 										</div>
 										<div class="tf-languages">
 											<select
-												class="image-select center style-default type-languages">
+													class="image-select center style-default type-languages">
 												<option>English</option>
 												<option>العربية</option>
 												<option>简体中文</option>
@@ -1553,7 +1553,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div
-								class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
+									class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
 								<div class="footer-menu_item">© 2024 Ecomus Store. All
 									Rights Reserved</div>
 								<div class="tf-payment">
@@ -1576,7 +1576,7 @@
 
 <!-- modal compare_color -->
 <div class="modal fade modalDemo tf-product-modal modal-part-content"
-	id="compare_color">
+	 id="compare_color">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -1587,11 +1587,11 @@
 				<div class="tf-compare-color-grid">
 
 					<input type="checkbox" class="sr-only"
-						id="remove-compare-color-beige-1">
+						   id="remove-compare-color-beige-1">
 					<div class="tf-compare-color-item">
 						<div class="tf-compare-color-top">
 							<label for="remove-compare-color-beige-1"
-								class="tf-compare-color-remove">Remove</label> <img
+								   class="tf-compare-color-remove">Remove</label> <img
 								class="lazyload" data-src="images/shop/products/hmgoepprod2.jpg"
 								src="images/shop/products/hmgoepprod2.jpg" alt="img-compare">
 						</div>
@@ -1606,18 +1606,18 @@
 									<option value="47256262770992">L - $8.00</option>
 									<option value="47256262803760">XL - $8.00</option>
 								</select> <a href="javascript:void(0);"
-									class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
+											 class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
 										to cart</span></a>
 							</form>
 						</div>
 					</div>
 
 					<input type="checkbox" class="sr-only"
-						id="remove-compare-color-beige-2">
+						   id="remove-compare-color-beige-2">
 					<div class="tf-compare-color-item">
 						<div class="tf-compare-color-top">
 							<label for="remove-compare-color-beige-2"
-								class="tf-compare-color-remove">Remove</label> <img
+								   class="tf-compare-color-remove">Remove</label> <img
 								class="lazyload"
 								data-src="images/shop/products/hmgoepprod12.jpg"
 								src="images/shop/products/hmgoepprod12.jpg" alt="">
@@ -1633,18 +1633,18 @@
 									<option value="47256262770992">L - $8.00</option>
 									<option value="47256262803760">XL - $8.00</option>
 								</select> <a href="javascript:void(0);"
-									class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
+											 class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
 										to cart</span></a>
 							</form>
 						</div>
 					</div>
 
 					<input type="checkbox" class="sr-only"
-						id="remove-compare-color-beige-3">
+						   id="remove-compare-color-beige-3">
 					<div class="tf-compare-color-item">
 						<div class="tf-compare-color-top">
 							<label for="remove-compare-color-beige-3"
-								class="tf-compare-color-remove">Remove</label> <img
+								   class="tf-compare-color-remove">Remove</label> <img
 								class="lazyload" data-src="images/shop/products/hmgoepprod7.jpg"
 								src="images/shop/products/hmgoepprod7.jpg" alt="">
 						</div>
@@ -1659,18 +1659,18 @@
 									<option value="47256262770992">L - $8.00</option>
 									<option value="47256262803760">XL - $8.00</option>
 								</select> <a href="javascript:void(0);"
-									class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
+											 class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
 										to cart</span></a>
 							</form>
 						</div>
 					</div>
 
 					<input type="checkbox" class="sr-only"
-						id="remove-compare-color-beige-4">
+						   id="remove-compare-color-beige-4">
 					<div class="tf-compare-color-item">
 						<div class="tf-compare-color-top">
 							<label for="remove-compare-color-beige-4"
-								class="tf-compare-color-remove">Remove</label> <img
+								   class="tf-compare-color-remove">Remove</label> <img
 								class="lazyload"
 								data-src="images/shop/products/hmgoepprod14.jpg"
 								src="images/shop/products/hmgoepprod14.jpg" alt="">
@@ -1686,7 +1686,7 @@
 									<option value="47256262770992">L - $8.00</option>
 									<option value="47256262803760">XL - $8.00</option>
 								</select> <a href="javascript:void(0);"
-									class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
+											 class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn btn-add-to-cart"><span>Add
 										to cart</span></a>
 							</form>
 						</div>
@@ -1701,8 +1701,8 @@
 
 <!-- modal ask_question -->
 <div
-	class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
-	id="ask_question">
+		class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
+		id="ask_question">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -1713,26 +1713,26 @@
 				<form class="">
 					<fieldset class="">
 						<label for="">Name *</label> <input type="text" placeholder=""
-							class="" name="text" tabindex="2" value="" aria-required="true"
-							required="">
+															class="" name="text" tabindex="2" value="" aria-required="true"
+															required="">
 					</fieldset>
 					<fieldset class="">
 						<label for="">Email *</label> <input type="email" placeholder=""
-							class="" name="text" tabindex="2" value="" aria-required="true"
-							required="">
+															 class="" name="text" tabindex="2" value="" aria-required="true"
+															 required="">
 					</fieldset>
 					<fieldset class="">
 						<label for="">Phone number</label> <input type="number"
-							placeholder="" class="" name="text" tabindex="2" value=""
-							aria-required="true" required="">
+																  placeholder="" class="" name="text" tabindex="2" value=""
+																  aria-required="true" required="">
 					</fieldset>
 					<fieldset class="">
 						<label for="">Message</label>
 						<textarea name="message" rows="4" placeholder="" class=""
-							tabindex="2" aria-required="true" required=""></textarea>
+								  tabindex="2" aria-required="true" required=""></textarea>
 					</fieldset>
 					<button type="submit"
-						class="tf-btn w-100 btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn">
+							class="tf-btn w-100 btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn">
 						<span>Send</span>
 					</button>
 				</form>
@@ -1744,8 +1744,8 @@
 
 <!-- modal delivery_return -->
 <div
-	class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
-	id="delivery_return">
+		class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
+		id="delivery_return">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -1779,7 +1779,7 @@
 						questions and/or concerns.</p>
 					<p class="text-paragraph">
 						Email: <a href="mailto:contact@domain.com"
-							aria-describedby="a11y-external-message"><span
+								  aria-describedby="a11y-external-message"><span
 							class="__cf_email__">contact@domain.com</span></a>
 					</p>
 					<p class="text-paragraph mb-0">Phone: +1 (23) 456 789</p>
@@ -1791,8 +1791,8 @@
 <!-- /modal delivery_return -->
 <!-- modal share social -->
 <div
-	class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
-	id="share_social">
+		class="modal modalCentered fade modalDemo tf-product-modal modal-part-content"
+		id="share_social">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -1815,12 +1815,12 @@
 				<form class="form-share" method="post" accept-charset="utf-8">
 					<fieldset>
 						<input type="text" value="https://themesflat.co/html/ecomus/"
-							tabindex="0" aria-required="true">
+							   tabindex="0" aria-required="true">
 					</fieldset>
 					<div class="button-submit">
 						<button
-							class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
-							type="button">Copy</button>
+								class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
+								type="button">Copy</button>
 					</div>
 				</form>
 			</div>
@@ -1831,10 +1831,10 @@
 <!-- gotop -->
 <div class="progress-wrap">
 	<svg class="progress-circle svg-content" width="100%" height="100%"
-		viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
-			style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
-        </svg>
+		 viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+			  style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
+	</svg>
 </div>
 <!-- /gotop -->
 
@@ -1842,7 +1842,7 @@
 <div class="tf-toolbar-bottom type-1150">
 	<div class="toolbar-item">
 		<a href="#toolbarShopmb" data-bs-toggle="offcanvas"
-			aria-controls="offcanvasLeft">
+		   aria-controls="offcanvasLeft">
 			<div class="toolbar-icon">
 				<i class="icon-shop"></i>
 			</div>
@@ -1852,7 +1852,7 @@
 
 	<div class="toolbar-item">
 		<a href="#canvasSearch" data-bs-toggle="offcanvas"
-			aria-controls="offcanvasLeft">
+		   aria-controls="offcanvasLeft">
 			<div class="toolbar-icon">
 				<i class="icon-search"></i>
 			</div>
@@ -1901,7 +1901,7 @@
 						<a href="index.html">
 							<div class="demo-image position-relative">
 								<img class="lazyload" data-src="images/demo/home-01.jpg"
-									src="images/demo/home-01.jpg" alt="home-01">
+									 src="images/demo/home-01.jpg" alt="home-01">
 								<div class="demo-label">
 									<span class="demo-new">New</span> <span>Trend</span>
 								</div>
@@ -1912,8 +1912,8 @@
 						<a href="home-multi-brand.html">
 							<div class="demo-image position-relative">
 								<img class="lazyload"
-									data-src="images/demo/home-multi-brand.jpg"
-									src="images/demo/home-multi-brand.jpg" alt="home-multi-brand">
+									 data-src="images/demo/home-multi-brand.jpg"
+									 src="images/demo/home-multi-brand.jpg" alt="home-multi-brand">
 								<div class="demo-label">
 									<span class="demo-new">New</span> <span class="demo-hot">Hot</span>
 								</div>
@@ -1924,7 +1924,7 @@
 						<a href="home-02.html">
 							<div class="demo-image position-relative">
 								<img class="lazyload" data-src="images/demo/home-02.jpg"
-									src="images/demo/home-02.jpg" alt="home-02">
+									 src="images/demo/home-02.jpg" alt="home-02">
 								<div class="demo-label">
 									<span class="demo-hot">Hot</span>
 								</div>
@@ -1935,7 +1935,7 @@
 						<a href="home-03.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-03.jpg"
-									src="images/demo/home-03.jpg" alt="home-03">
+									 src="images/demo/home-03.jpg" alt="home-03">
 							</div> <span class="demo-name">Home Fashion 03</span>
 						</a>
 					</div>
@@ -1943,7 +1943,7 @@
 						<a href="home-04.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-04.jpg"
-									src="images/demo/home-04.jpg" alt="home-04">
+									 src="images/demo/home-04.jpg" alt="home-04">
 							</div> <span class="demo-name">Home Fashion 04</span>
 						</a>
 					</div>
@@ -1951,7 +1951,7 @@
 						<a href="home-05.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-05.jpg"
-									src="images/demo/home-05.jpg" alt="home-05">
+									 src="images/demo/home-05.jpg" alt="home-05">
 							</div> <span class="demo-name">Home Fashion 05</span>
 						</a>
 					</div>
@@ -1959,7 +1959,7 @@
 						<a href="home-06.html">
 							<div class="demo-image position-relative">
 								<img class="lazyload" data-src="images/demo/home-06.jpg"
-									src="images/demo/home-06.jpg" alt="home-06">
+									 src="images/demo/home-06.jpg" alt="home-06">
 								<div class="demo-label">
 									<span class="demo-new">New</span>
 								</div>
@@ -1970,7 +1970,7 @@
 						<a href="home-07.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-07.jpg"
-									src="images/demo/home-07.jpg" alt="home-07">
+									 src="images/demo/home-07.jpg" alt="home-07">
 							</div> <span class="demo-name">Home Fashion 07</span>
 						</a>
 					</div>
@@ -1978,7 +1978,7 @@
 						<a href="home-08.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-08.jpg"
-									src="images/demo/home-08.jpg" alt="home-08">
+									 src="images/demo/home-08.jpg" alt="home-08">
 							</div> <span class="demo-name">Home Fashion 08</span>
 						</a>
 					</div>
@@ -1986,7 +1986,7 @@
 						<a href="home-skincare.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-skincare.jpg"
-									src="images/demo/home-skincare.jpg" alt="home-skincare">
+									 src="images/demo/home-skincare.jpg" alt="home-skincare">
 							</div> <span class="demo-name">Home Skincare</span>
 						</a>
 					</div>
@@ -1994,7 +1994,7 @@
 						<a href="home-headphone.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-headphone.jpg"
-									src="images/demo/home-headphone.jpg" alt="home-headphone">
+									 src="images/demo/home-headphone.jpg" alt="home-headphone">
 							</div> <span class="demo-name">Home Headphone</span>
 						</a>
 					</div>
@@ -2002,7 +2002,7 @@
 						<a href="home-giftcard.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-giftcard.jpg"
-									src="images/demo/home-giftcard.jpg" alt="home-gift-card">
+									 src="images/demo/home-giftcard.jpg" alt="home-gift-card">
 							</div> <span class="demo-name">Home Gift Card</span>
 						</a>
 					</div>
@@ -2010,7 +2010,7 @@
 						<a href="home-furniture.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-furniture.jpg"
-									src="images/demo/home-furniture.jpg" alt="home-furniture">
+									 src="images/demo/home-furniture.jpg" alt="home-furniture">
 							</div> <span class="demo-name">Home Furniture</span>
 						</a>
 					</div>
@@ -2018,7 +2018,7 @@
 						<a href="home-furniture-02.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-furniture2.jpg"
-									src="images/demo/home-furniture2.jpg" alt="home-furniture-2">
+									 src="images/demo/home-furniture2.jpg" alt="home-furniture-2">
 							</div> <span class="demo-name">Home Furniture 2</span>
 						</a>
 					</div>
@@ -2026,7 +2026,7 @@
 						<a href="home-skateboard.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-skateboard.jpg"
-									src="images/demo/home-skateboard.jpg" alt="home-skateboard">
+									 src="images/demo/home-skateboard.jpg" alt="home-skateboard">
 							</div> <span class="demo-name">Home Skateboard</span>
 						</a>
 					</div>
@@ -2034,7 +2034,7 @@
 						<a href="home-stroller.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-stroller.jpg"
-									src="images/demo/home-stroller.jpg" alt="home-stroller">
+									 src="images/demo/home-stroller.jpg" alt="home-stroller">
 							</div> <span class="demo-name">Home Stroller</span>
 						</a>
 					</div>
@@ -2042,7 +2042,7 @@
 						<a href="home-decor.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-decor.jpg"
-									src="images/demo/home-decor.jpg" alt="home-decor">
+									 src="images/demo/home-decor.jpg" alt="home-decor">
 							</div> <span class="demo-name">Home Decor</span>
 						</a>
 					</div>
@@ -2050,7 +2050,7 @@
 						<a href="home-electronic.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-electronic.jpg"
-									src="images/demo/home-electronic.jpg" alt="home-electronic">
+									 src="images/demo/home-electronic.jpg" alt="home-electronic">
 							</div> <span class="demo-name">Home Electronic</span>
 						</a>
 					</div>
@@ -2058,7 +2058,7 @@
 						<a href="home-setup-gear.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-setup-gear.jpg"
-									src="images/demo/home-setup-gear.jpg" alt="home-setup-gear">
+									 src="images/demo/home-setup-gear.jpg" alt="home-setup-gear">
 							</div> <span class="demo-name">Home Setup Gear</span>
 						</a>
 					</div>
@@ -2066,9 +2066,9 @@
 						<a href="home-dog-accessories.html">
 							<div class="demo-image">
 								<img class="lazyload"
-									data-src="images/demo/home-dog-accessories.jpg"
-									src="images/demo/home-dog-accessories.jpg"
-									alt="home-dog-accessories">
+									 data-src="images/demo/home-dog-accessories.jpg"
+									 src="images/demo/home-dog-accessories.jpg"
+									 alt="home-dog-accessories">
 							</div> <span class="demo-name">Home Dog Accessories</span>
 						</a>
 					</div>
@@ -2076,7 +2076,7 @@
 						<a href="home-kitchen-wear.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-kitchen.jpg"
-									src="images/demo/home-kitchen.jpg" alt="home-kitchen-wear">
+									 src="images/demo/home-kitchen.jpg" alt="home-kitchen-wear">
 							</div> <span class="demo-name">Home Kitchen Wear</span>
 						</a>
 					</div>
@@ -2084,7 +2084,7 @@
 						<a href="home-phonecase.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-phonecase.jpg"
-									src="images/demo/home-phonecase.jpg" alt="home-phonecase">
+									 src="images/demo/home-phonecase.jpg" alt="home-phonecase">
 							</div> <span class="demo-name">Home Phonecase</span>
 						</a>
 					</div>
@@ -2092,8 +2092,8 @@
 						<a href="home-paddle-boards.html">
 							<div class="demo-image">
 								<img class="lazyload"
-									data-src="images/demo/home_paddle_board.jpg"
-									src="images/demo/home_paddle_board.jpg" alt="home-paddle_board">
+									 data-src="images/demo/home_paddle_board.jpg"
+									 src="images/demo/home_paddle_board.jpg" alt="home-paddle_board">
 							</div> <span class="demo-name">Home Paddle Boards</span>
 						</a>
 					</div>
@@ -2101,7 +2101,7 @@
 						<a href="home-glasses.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-glasses.jpg"
-									src="images/demo/home-glasses.jpg" alt="home-glasses">
+									 src="images/demo/home-glasses.jpg" alt="home-glasses">
 							</div> <span class="demo-name">Home Glasses</span>
 						</a>
 					</div>
@@ -2109,7 +2109,7 @@
 						<a href="home-pod-store.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-pod-store.jpg"
-									src="images/demo/home-pod-store.jpg" alt="home-pod-store">
+									 src="images/demo/home-pod-store.jpg" alt="home-pod-store">
 							</div> <span class="demo-name">Home POD Store</span>
 						</a>
 					</div>
@@ -2117,7 +2117,7 @@
 						<a href="home-activewear.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-activewear.jpg"
-									src="images/demo/home-activewear.jpg" alt="home-activewear">
+									 src="images/demo/home-activewear.jpg" alt="home-activewear">
 							</div> <span class="demo-name">Activewear</span>
 						</a>
 					</div>
@@ -2125,7 +2125,7 @@
 						<a href="home-handbag.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-handbag.jpg"
-									src="images/demo/home-handbag.jpg" alt="home-handbag">
+									 src="images/demo/home-handbag.jpg" alt="home-handbag">
 							</div> <span class="demo-name">Home Handbag</span>
 						</a>
 					</div>
@@ -2133,7 +2133,7 @@
 						<a href="home-tee.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-tee.jpg"
-									src="images/demo/home-tee.jpg" alt="home-tee">
+									 src="images/demo/home-tee.jpg" alt="home-tee">
 							</div> <span class="demo-name">Home Tee</span>
 						</a>
 					</div>
@@ -2141,7 +2141,7 @@
 						<a href="home-sock.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-socks.jpg"
-									src="images/demo/home-socks.jpg" alt="home-sock">
+									 src="images/demo/home-socks.jpg" alt="home-sock">
 							</div> <span class="demo-name">Home Sock</span>
 						</a>
 					</div>
@@ -2149,7 +2149,7 @@
 						<a href="home-jewerly.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-jewelry.jpg"
-									src="images/demo/home-jewelry.jpg" alt="home-jewelry">
+									 src="images/demo/home-jewelry.jpg" alt="home-jewelry">
 							</div> <span class="demo-name">Home Jewelry</span>
 						</a>
 					</div>
@@ -2157,7 +2157,7 @@
 						<a href="home-sneaker.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-sneaker.jpg"
-									src="images/demo/home-sneaker.jpg" alt="home-sneaker">
+									 src="images/demo/home-sneaker.jpg" alt="home-sneaker">
 							</div> <span class="demo-name">Home Sneaker</span>
 						</a>
 					</div>
@@ -2165,8 +2165,8 @@
 						<a href="home-accessories.html">
 							<div class="demo-image">
 								<img class="lazyload"
-									data-src="images/demo/home-accessories.jpg"
-									src="images/demo/home-accessories.jpg" alt="home-accessories">
+									 data-src="images/demo/home-accessories.jpg"
+									 src="images/demo/home-accessories.jpg" alt="home-accessories">
 							</div> <span class="demo-name">Home Accessories</span>
 						</a>
 					</div>
@@ -2174,7 +2174,7 @@
 						<a href="home-grocery.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-gocery.jpg"
-									src="images/demo/home-gocery.jpg" alt="home-grocery">
+									 src="images/demo/home-gocery.jpg" alt="home-grocery">
 							</div> <span class="demo-name">Home Grocery</span>
 						</a>
 					</div>
@@ -2182,7 +2182,7 @@
 						<a href="home-baby.html">
 							<div class="demo-image">
 								<img class="lazyload" data-src="images/demo/home-baby.jpg"
-									src="images/demo/home-baby.jpg" alt="home-baby">
+									 src="images/demo/home-baby.jpg" alt="home-baby">
 							</div> <span class="demo-name">Home Baby</span>
 						</a>
 					</div>
@@ -2197,343 +2197,343 @@
 <!-- mobile menu -->
 <div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
 	<span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas"
-		aria-label="Close"></span>
+		  aria-label="Close"></span>
 	<div class="mb-canvas-content">
 		<div class="mb-body">
 			<ul class="nav-ul-mb" id="wrapper-menu-navigation">
 				<li class="nav-mb-item"><a href="#dropdown-menu-one"
-					class="collapsed mb-menu-link current" data-bs-toggle="collapse"
-					aria-expanded="true" aria-controls="dropdown-menu-one"> <span>Home</span>
-						<span class="btn-open-sub"></span>
+										   class="collapsed mb-menu-link current" data-bs-toggle="collapse"
+										   aria-expanded="true" aria-controls="dropdown-menu-one"> <span>Home</span>
+					<span class="btn-open-sub"></span>
 				</a>
 					<div id="dropdown-menu-one" class="collapse">
 						<ul class="sub-nav-menu">
 							<li><a href="index.html" class="sub-nav-link">Home
-									Fashion 01</a></li>
+								Fashion 01</a></li>
 							<li><a href="home-02.html" class="sub-nav-link">Home
-									Fashion 02</a></li>
+								Fashion 02</a></li>
 							<li><a href="home-03.html" class="sub-nav-link">Home
-									Fashion 03</a></li>
+								Fashion 03</a></li>
 							<li><a href="home-04.html" class="sub-nav-link">Home
-									Fashion 04</a></li>
+								Fashion 04</a></li>
 							<li><a href="home-05.html" class="sub-nav-link">Home
-									Fashion 05</a></li>
+								Fashion 05</a></li>
 							<li><a href="home-06.html" class="sub-nav-link">Home
-									Fashion 06</a></li>
+								Fashion 06</a></li>
 							<li><a href="home-07.html" class="sub-nav-link">Home
-									Fashion 07</a></li>
+								Fashion 07</a></li>
 							<li><a href="home-08.html" class="sub-nav-link">Home
-									Fashion 08</a></li>
+								Fashion 08</a></li>
 							<li><a href="home-giftcard.html" class="sub-nav-link">Home
-									Gift Card</a></li>
+								Gift Card</a></li>
 							<li><a href="home-headphone.html" class="sub-nav-link">Home
-									Headphone</a></li>
+								Headphone</a></li>
 							<li><a href="home-multi-brand.html" class="sub-nav-link">Home
-									Multi Brand</a></li>
+								Multi Brand</a></li>
 							<li><a href="home-skincare.html" class="sub-nav-link">Home
-									skincare</a></li>
+								skincare</a></li>
 							<li><a href="home-headphone.html" class="sub-nav-link">Home
-									Headphone</a></li>
+								Headphone</a></li>
 							<li><a href="home-giftcard.html" class="sub-nav-link">Home
-									Gift Card</a></li>
+								Gift Card</a></li>
 							<li><a href="home-furniture.html" class="sub-nav-link">Home
-									Furniture</a></li>
+								Furniture</a></li>
 							<li><a href="home-furniture-02.html" class="sub-nav-link">Home
-									Furniture 2</a></li>
+								Furniture 2</a></li>
 							<li><a href="home-skateboard.html" class="sub-nav-link">Home
-									Skateboard</a></li>
+								Skateboard</a></li>
 							<li><a href="home-stroller.html" class="sub-nav-link">Home
-									Stroller</a></li>
+								Stroller</a></li>
 							<li><a href="home-decor.html" class="sub-nav-link">Home
-									Decor</a></li>
+								Decor</a></li>
 							<li><a href="home-electronic.html" class="sub-nav-link">Home
-									Electronic</a></li>
+								Electronic</a></li>
 							<li><a href="home-setup-gear.html" class="sub-nav-link">Home
-									Setup Gear</a></li>
+								Setup Gear</a></li>
 							<li><a href="home-dog-accessories.html" class="sub-nav-link">Home
-									Dog Accessories</a></li>
+								Dog Accessories</a></li>
 							<li><a href="home-kitchen-wear.html" class="sub-nav-link">Home
-									Kitchen Wear</a></li>
+								Kitchen Wear</a></li>
 							<li><a href="home-phonecase.html" class="sub-nav-link">Home
-									Phonecase</a></li>
+								Phonecase</a></li>
 							<li><a href="home-paddle-boards.html" class="sub-nav-link">Home
-									Paddle Boards</a></li>
+								Paddle Boards</a></li>
 							<li><a href="home-glasses.html" class="sub-nav-link">Home
-									Glasses</a></li>
+								Glasses</a></li>
 							<li><a href="home-pod-store.html" class="sub-nav-link">Home
-									POD Store</a></li>
+								POD Store</a></li>
 							<li><a href="home-activewear.html" class="sub-nav-link">Home
-									Activewear</a></li>
+								Activewear</a></li>
 							<li><a href="home-handbag.html" class="sub-nav-link">Home
-									Handbag</a></li>
+								Handbag</a></li>
 							<li><a href="home-tee.html" class="sub-nav-link">Home
-									Tee</a></li>
+								Tee</a></li>
 							<li><a href="home-sock.html" class="sub-nav-link">Home
-									Sock</a></li>
+								Sock</a></li>
 							<li><a href="home-jewerly.html" class="sub-nav-link">Home
-									Jewelry</a></li>
+								Jewelry</a></li>
 							<li><a href="home-sneaker.html" class="sub-nav-link">Home
-									Sneaker</a></li>
+								Sneaker</a></li>
 							<li><a href="home-accessories.html" class="sub-nav-link">Home
-									Accessories</a></li>
+								Accessories</a></li>
 							<li><a href="home-grocery.html" class="sub-nav-link">Home
-									Grocery</a></li>
+								Grocery</a></li>
 							<li><a href="home-baby.html" class="sub-nav-link">Home
-									Baby</a></li>
+								Baby</a></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="#dropdown-menu-two"
-					class="collapsed mb-menu-link current" data-bs-toggle="collapse"
-					aria-expanded="true" aria-controls="dropdown-menu-two"> <span>Shop</span>
-						<span class="btn-open-sub"></span>
+										   class="collapsed mb-menu-link current" data-bs-toggle="collapse"
+										   aria-expanded="true" aria-controls="dropdown-menu-two"> <span>Shop</span>
+					<span class="btn-open-sub"></span>
 				</a>
 					<div id="dropdown-menu-two" class="collapse">
 						<ul class="sub-nav-menu" id="sub-menu-navigation">
 							<li><a href="#sub-shop-one" class="sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="sub-shop-one"> <span>Shop layouts</span> <span
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="sub-shop-one"> <span>Shop layouts</span> <span
 									class="btn-open-sub"></span>
 							</a>
 								<div id="sub-shop-one" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="shop-default.html" class="sub-nav-link">Default</a></li>
 										<li><a href="shop-left-sidebar.html" class="sub-nav-link">Left
-												sidebar</a></li>
+											sidebar</a></li>
 										<li><a href="shop-right-sidebar.html"
-											class="sub-nav-link">Right sidebar</a></li>
+											   class="sub-nav-link">Right sidebar</a></li>
 										<li><a href="shop-fullwidth.html" class="sub-nav-link">Fullwidth</a></li>
 										<li><a href="shop-collection-sub.html"
-											class="sub-nav-link">Sub collection</a></li>
+											   class="sub-nav-link">Sub collection</a></li>
 										<li><a href="shop-collection-list.html"
-											class="sub-nav-link">Collections list</a></li>
+											   class="sub-nav-link">Collections list</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#sub-shop-two" class="sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="sub-shop-two"> <span>Features</span> <span
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="sub-shop-two"> <span>Features</span> <span
 									class="btn-open-sub"></span>
 							</a>
 								<div id="sub-shop-two" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="shop-link.html" class="sub-nav-link">Pagination
-												links</a></li>
+											links</a></li>
 										<li><a href="shop-loadmore.html" class="sub-nav-link">Pagination
-												loadmore</a></li>
+											loadmore</a></li>
 										<li><a href="shop-infinite-scrolling.html"
-											class="sub-nav-link">Pagination infinite scrolling</a></li>
+											   class="sub-nav-link">Pagination infinite scrolling</a></li>
 										<li><a href="shop-filter-sidebar.html"
-											class="sub-nav-link">Filter sidebar</a></li>
+											   class="sub-nav-link">Filter sidebar</a></li>
 										<li><a href="shop-filter-hidden.html"
-											class="sub-nav-link">Filter hidden</a></li>
+											   class="sub-nav-link">Filter hidden</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#sub-shop-three" class="sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="sub-shop-three"> <span>Product styles</span>
-									<span class="btn-open-sub"></span>
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="sub-shop-three"> <span>Product styles</span>
+								<span class="btn-open-sub"></span>
 							</a>
 								<div id="sub-shop-three" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="product-style-list.html"
-											class="sub-nav-link">Product style list</a></li>
+											   class="sub-nav-link">Product style list</a></li>
 										<li><a href="product-style-01.html" class="sub-nav-link">Product
-												style 01</a></li>
+											style 01</a></li>
 										<li><a href="product-style-02.html" class="sub-nav-link">Product
-												style 02</a></li>
+											style 02</a></li>
 										<li><a href="product-style-03.html" class="sub-nav-link">Product
-												style 03</a></li>
+											style 03</a></li>
 										<li><a href="product-style-04.html" class="sub-nav-link">Product
-												style 04</a></li>
+											style 04</a></li>
 										<li><a href="product-style-05.html" class="sub-nav-link">Product
-												style 05</a></li>
+											style 05</a></li>
 										<li><a href="product-style-06.html" class="sub-nav-link">Product
-												style 06</a></li>
+											style 06</a></li>
 										<li><a href="product-style-07.html" class="sub-nav-link">Product
-												style 07</a></li>
+											style 07</a></li>
 									</ul>
 								</div></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="#dropdown-menu-three"
-					class="collapsed mb-menu-link current" data-bs-toggle="collapse"
-					aria-expanded="true" aria-controls="dropdown-menu-three"> <span>Products</span>
-						<span class="btn-open-sub"></span>
+										   class="collapsed mb-menu-link current" data-bs-toggle="collapse"
+										   aria-expanded="true" aria-controls="dropdown-menu-three"> <span>Products</span>
+					<span class="btn-open-sub"></span>
 				</a>
 					<div id="dropdown-menu-three" class="collapse">
 						<ul class="sub-nav-menu" id="sub-menu-navigation">
 							<li><a href="#sub-product-one"
-								class="sub-nav-link collapsed" data-bs-toggle="collapse"
-								aria-expanded="true" aria-controls="sub-product-one"> <span>Product
+								   class="sub-nav-link collapsed" data-bs-toggle="collapse"
+								   aria-expanded="true" aria-controls="sub-product-one"> <span>Product
 										layouts</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="sub-product-one" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="product-detail.html" class="sub-nav-link">Product
-												default</a></li>
+											default</a></li>
 										<li><a href="product-grid-1.html" class="sub-nav-link">Product
-												grid 1</a></li>
+											grid 1</a></li>
 										<li><a href="product-grid-2.html" class="sub-nav-link">Product
-												grid 2</a></li>
+											grid 2</a></li>
 										<li><a href="product-stacked.html" class="sub-nav-link">Product
-												stacked</a></li>
+											stacked</a></li>
 										<li><a href="product-right-thumbnails.html"
-											class="sub-nav-link">Product right thumbnails</a></li>
+											   class="sub-nav-link">Product right thumbnails</a></li>
 										<li><a href="product-bottom-thumbnails.html"
-											class="sub-nav-link">Product bottom thumbnails</a></li>
+											   class="sub-nav-link">Product bottom thumbnails</a></li>
 										<li><a href="product-drawer-sidebar.html"
-											class="sub-nav-link">Product drawer sidebar</a></li>
+											   class="sub-nav-link">Product drawer sidebar</a></li>
 										<li><a href="product-description-accordion.html"
-											class="sub-nav-link">Product description accordion</a></li>
+											   class="sub-nav-link">Product description accordion</a></li>
 										<li><a href="product-description-list.html"
-											class="sub-nav-link">Product description list</a></li>
+											   class="sub-nav-link">Product description list</a></li>
 										<li><a href="product-description-vertical.html"
-											class="sub-nav-link">Product description vertical</a></li>
+											   class="sub-nav-link">Product description vertical</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#sub-product-two"
-								class="sub-nav-link collapsed" data-bs-toggle="collapse"
-								aria-expanded="true" aria-controls="sub-product-two"> <span>Product
+								   class="sub-nav-link collapsed" data-bs-toggle="collapse"
+								   aria-expanded="true" aria-controls="sub-product-two"> <span>Product
 										details</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="sub-product-two" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="product-inner-zoom.html"
-											class="sub-nav-link">Product inner zoom</a></li>
+											   class="sub-nav-link">Product inner zoom</a></li>
 										<li><a href="product-zoom-magnifier.html"
-											class="sub-nav-link">Product zoom magnifier</a></li>
+											   class="sub-nav-link">Product zoom magnifier</a></li>
 										<li><a href="product-no-zoom.html" class="sub-nav-link">Product
-												no zoom</a></li>
+											no zoom</a></li>
 										<li><a href="product-photoswipe-popup.html"
-											class="sub-nav-link">Product photoswipe popup</a></li>
+											   class="sub-nav-link">Product photoswipe popup</a></li>
 										<li><a href="product-zoom-popup.html"
-											class="sub-nav-link">Product external zoom and photoswipe
-												popup</a></li>
+											   class="sub-nav-link">Product external zoom and photoswipe
+											popup</a></li>
 										<li><a href="product-video.html" class="sub-nav-link">Product
-												video</a></li>
+											video</a></li>
 										<li><a href="product-3d.html" class="sub-nav-link">Product
-												3D, AR models</a></li>
+											3D, AR models</a></li>
 										<li><a href="product-options-customizer.html"
-											class="sub-nav-link">Product options & customizer</a></li>
+											   class="sub-nav-link">Product options & customizer</a></li>
 										<li><a href="product-advanced-types.html"
-											class="sub-nav-link">Advanced product types</a></li>
+											   class="sub-nav-link">Advanced product types</a></li>
 										<li><a href="product-giftcard.html" class="sub-nav-link">Recipient
-												information form for gift card products</a></li>
+											information form for gift card products</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#sub-product-three"
-								class="sub-nav-link collapsed" data-bs-toggle="collapse"
-								aria-expanded="true" aria-controls="sub-product-three"> <span>Product
+								   class="sub-nav-link collapsed" data-bs-toggle="collapse"
+								   aria-expanded="true" aria-controls="sub-product-three"> <span>Product
 										swatchs</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="sub-product-three" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="product-color-swatch.html"
-											class="sub-nav-link">Product color swatch</a></li>
+											   class="sub-nav-link">Product color swatch</a></li>
 										<li><a href="product-rectangle.html" class="sub-nav-link">Product
-												rectangle</a></li>
+											rectangle</a></li>
 										<li><a href="product-rectangle-color.html"
-											class="sub-nav-link">Product rectangle color</a></li>
+											   class="sub-nav-link">Product rectangle color</a></li>
 										<li><a href="product-swatch-image.html"
-											class="sub-nav-link">Product swatch image</a></li>
+											   class="sub-nav-link">Product swatch image</a></li>
 										<li><a href="product-swatch-image-rounded.html"
-											class="sub-nav-link">Product swatch image rounded</a></li>
+											   class="sub-nav-link">Product swatch image rounded</a></li>
 										<li><a href="product-swatch-dropdown.html"
-											class="sub-nav-link">Product swatch dropdown</a></li>
+											   class="sub-nav-link">Product swatch dropdown</a></li>
 										<li><a href="product-swatch-dropdown-color.html"
-											class="sub-nav-link">Product swatch dropdown color</a></li>
+											   class="sub-nav-link">Product swatch dropdown color</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#sub-product-four"
-								class="sub-nav-link collapsed" data-bs-toggle="collapse"
-								aria-expanded="true" aria-controls="sub-product-four"> <span>Product
+								   class="sub-nav-link collapsed" data-bs-toggle="collapse"
+								   aria-expanded="true" aria-controls="sub-product-four"> <span>Product
 										features</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="sub-product-four" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="product-frequently-bought-together.html"
-											class="sub-nav-link">Frequently bought together</a></li>
+											   class="sub-nav-link">Frequently bought together</a></li>
 										<li><a href="product-frequently-bought-together-2.html"
-											class="sub-nav-link">Frequently bought together 2</a></li>
+											   class="sub-nav-link">Frequently bought together 2</a></li>
 										<li><a href="product-upsell-features.html"
-											class="sub-nav-link">Product upsell features</a></li>
+											   class="sub-nav-link">Product upsell features</a></li>
 										<li><a href="product-pre-orders.html"
-											class="sub-nav-link">Product pre-orders</a></li>
+											   class="sub-nav-link">Product pre-orders</a></li>
 										<li><a href="product-notification.html"
-											class="sub-nav-link">Back in stock notification</a></li>
+											   class="sub-nav-link">Back in stock notification</a></li>
 										<li><a href="product-pickup.html" class="sub-nav-link">Product
-												pickup</a></li>
+											pickup</a></li>
 										<li><a href="product-images-grouped.html"
-											class="sub-nav-link">Variant images grouped</a></li>
+											   class="sub-nav-link">Variant images grouped</a></li>
 										<li><a href="product-complimentary.html"
-											class="sub-nav-link">Complimentary products</a></li>
+											   class="sub-nav-link">Complimentary products</a></li>
 										<li><a href="product-quick-order-list.html"
-											class="sub-nav-link line-clamp">Quick order list
-												<div class="demo-label">
-													<span class="demo-new">New</span>
-												</div>
+											   class="sub-nav-link line-clamp">Quick order list
+											<div class="demo-label">
+												<span class="demo-new">New</span>
+											</div>
 										</a></li>
 									</ul>
 								</div></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="#dropdown-menu-four"
-					class="collapsed mb-menu-link current" data-bs-toggle="collapse"
-					aria-expanded="true" aria-controls="dropdown-menu-four"> <span>Pages</span>
-						<span class="btn-open-sub"></span>
+										   class="collapsed mb-menu-link current" data-bs-toggle="collapse"
+										   aria-expanded="true" aria-controls="dropdown-menu-four"> <span>Pages</span>
+					<span class="btn-open-sub"></span>
 				</a>
 					<div id="dropdown-menu-four" class="collapse">
 						<ul class="sub-nav-menu" id="sub-menu-navigation">
 							<li><a href="about-us.html" class="sub-nav-link">About
-									us</a></li>
+								us</a></li>
 							<li><a href="brands.html" class="sub-nav-link line-clamp">Brands
-									<div class="demo-label">
-										<span class="demo-new">New</span>
-									</div>
+								<div class="demo-label">
+									<span class="demo-new">New</span>
+								</div>
 							</a></li>
 							<li><a href="brands-v2.html" class="sub-nav-link">Brands
-									V2</a></li>
+								V2</a></li>
 							<li><a href="contact-1.html" class="sub-nav-link">Contact
-									1</a></li>
+								1</a></li>
 							<li><a href="contact-2.html" class="sub-nav-link">Contact
-									2</a></li>
+								2</a></li>
 							<li><a href="faq-1.html" class="sub-nav-link">FAQ 01</a></li>
 							<li><a href="faq-2.html" class="sub-nav-link">FAQ 02</a></li>
 							<li><a href="our-store.html" class="sub-nav-link">Our
-									store</a></li>
+								store</a></li>
 							<li><a href="store-locations.html" class="sub-nav-link">Store
-									locator</a></li>
+								locator</a></li>
 							<li><a href="timeline.html" class="sub-nav-link line-clamp">Timeline
-									<div class="demo-label">
-										<span class="demo-new">New</span>
-									</div>
+								<div class="demo-label">
+									<span class="demo-new">New</span>
+								</div>
 							</a></li>
 							<li><a href="view-cart.html" class="sub-nav-link line-clamp">View
-									cart</a></li>
+								cart</a></li>
 							<li><a href="checkout.html" class="sub-nav-link line-clamp">Check
-									out</a></li>
+								out</a></li>
 							<li><a href="payment-confirmation.html"
-								class="sub-nav-link line-clamp">Payment Confirmation</a></li>
+								   class="sub-nav-link line-clamp">Payment Confirmation</a></li>
 							<li><a href="payment-failure.html"
-								class="sub-nav-link line-clamp">Payment Failure</a></li>
+								   class="sub-nav-link line-clamp">Payment Failure</a></li>
 							<li><a href="#sub-account" class="sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="sub-account"> <span>My Account</span> <span
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="sub-account"> <span>My Account</span> <span
 									class="btn-open-sub"></span>
 							</a>
 								<div id="sub-account" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="my-account.html" class="sub-nav-link">My
-												account</a></li>
+											account</a></li>
 										<li><a href="my-account-orders.html" class="sub-nav-link">My
-												order</a></li>
+											order</a></li>
 										<li><a href="my-account-orders-details.html"
-											class="sub-nav-link">My order details</a></li>
+											   class="sub-nav-link">My order details</a></li>
 										<li><a href="my-account-address.html"
-											class="sub-nav-link">My address</a></li>
+											   class="sub-nav-link">My address</a></li>
 										<li><a href="my-account-edit.html" class="sub-nav-link">My
-												account details</a></li>
+											account details</a></li>
 										<li><a href="my-account-wishlist.html"
-											class="sub-nav-link">My wishlist</a></li>
+											   class="sub-nav-link">My wishlist</a></li>
 									</ul>
 								</div></li>
 							<li><a href="invoice.html" class="sub-nav-link line-clamp">Invoice</a></li>
@@ -2541,33 +2541,33 @@
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="#dropdown-menu-five"
-					class="collapsed mb-menu-link current" data-bs-toggle="collapse"
-					aria-expanded="true" aria-controls="dropdown-menu-five"> <span>Blog</span>
-						<span class="btn-open-sub"></span>
+										   class="collapsed mb-menu-link current" data-bs-toggle="collapse"
+										   aria-expanded="true" aria-controls="dropdown-menu-five"> <span>Blog</span>
+					<span class="btn-open-sub"></span>
 				</a>
 					<div id="dropdown-menu-five" class="collapse">
 						<ul class="sub-nav-menu">
 							<li><a href="blog-grid.html" class="sub-nav-link">Grid
-									layout</a></li>
+								layout</a></li>
 							<li><a href="blog-sidebar-left.html" class="sub-nav-link">Left
-									sidebar</a></li>
+								sidebar</a></li>
 							<li><a href="blog-sidebar-right.html" class="sub-nav-link">Right
-									sidebar</a></li>
+								sidebar</a></li>
 							<li><a href="blog-list.html" class="sub-nav-link">Blog
-									list</a></li>
+								list</a></li>
 							<li><a href="blog-detail.html" class="sub-nav-link">Single
-									Post</a></li>
+								Post</a></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a
-					href="https://themeforest.net/item/ecomus-ultimate-html5-template/53417990?s_rank=3"
-					class="mb-menu-link">Buy now</a></li>
+						href="https://themeforest.net/item/ecomus-ultimate-html5-template/53417990?s_rank=3"
+						class="mb-menu-link">Buy now</a></li>
 			</ul>
 			<div class="mb-other-content">
 				<div class="d-flex group-icon">
 					<a href="wishlist.html" class="site-nav-icon"><i
-						class="icon icon-heart"></i>Wishlist</a> <a href="home-search.html"
-						class="site-nav-icon"><i class="icon icon-search"></i>Search</a>
+							class="icon icon-heart"></i>Wishlist</a> <a href="home-search.html"
+																		class="site-nav-icon"><i class="icon icon-search"></i>Search</a>
 				</div>
 				<div class="mb-notice">
 					<a href="contact-1.html" class="text-need">Need help ?</a>
@@ -2583,7 +2583,7 @@
 		</div>
 		<div class="mb-bottom">
 			<a href="login.html" class="site-nav-icon"><i
-				class="icon icon-account"></i>Login</a>
+					class="icon icon-account"></i>Login</a>
 			<div class="bottom-bar-language">
 				<div class="tf-currencies">
 					<select class="image-select center style-default type-currencies">
@@ -2621,14 +2621,14 @@
 				Search our site
 				<div class="close">
 					<span class="icon-close icon-close-popup"
-						data-bs-dismiss="offcanvas" aria-label="Close"></span>
+						  data-bs-dismiss="offcanvas" aria-label="Close"></span>
 				</div>
 			</div>
 			<div class="tf-search-sticky">
 				<form class="tf-mini-search-frm">
 					<fieldset class="text">
 						<input type="text" placeholder="Search" class="" name="text"
-							tabindex="0" value="" aria-required="true" required="">
+							   tabindex="0" value="" aria-required="true" required="">
 					</fieldset>
 					<button class="" type="submit">
 						<i class="icon-search"></i>
@@ -2643,13 +2643,13 @@
 						<div class="tf-search-content-title fw-5">Quick link</div>
 						<ul class="tf-quicklink-list">
 							<li class="tf-quicklink-item"><a href="shop-default.html"
-								class="">Fashion</a></li>
+															 class="">Fashion</a></li>
 							<li class="tf-quicklink-item"><a href="shop-default.html"
-								class="">Men</a></li>
+															 class="">Men</a></li>
 							<li class="tf-quicklink-item"><a href="shop-default.html"
-								class="">Women</a></li>
+															 class="">Women</a></li>
 							<li class="tf-quicklink-item"><a href="shop-default.html"
-								class="">Accessories</a></li>
+															 class="">Accessories</a></li>
 						</ul>
 					</div>
 					<div class="tf-col-content">
@@ -2659,7 +2659,7 @@
 							<div class="tf-loop-item">
 								<div class="image">
 									<a href="product-detail.html"> <img
-										src="images/products/white-3.jpg" alt="">
+											src="images/products/white-3.jpg" alt="">
 									</a>
 								</div>
 								<div class="content">
@@ -2673,7 +2673,7 @@
 							<div class="tf-loop-item">
 								<div class="image">
 									<a href="product-detail.html"> <img
-										src="images/products/white-2.jpg" alt="">
+											src="images/products/white-2.jpg" alt="">
 									</a>
 								</div>
 								<div class="content">
@@ -2686,7 +2686,7 @@
 							<div class="tf-loop-item">
 								<div class="image">
 									<a href="product-detail.html"> <img
-										src="images/products/white-1.jpg" alt="">
+											src="images/products/white-1.jpg" alt="">
 									</a>
 								</div>
 								<div class="content">
@@ -2707,153 +2707,153 @@
 
 <!-- toolbarShopmb -->
 <div class="offcanvas offcanvas-start canvas-mb toolbar-shop-mobile"
-	id="toolbarShopmb">
+	 id="toolbarShopmb">
 	<span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas"
-		aria-label="Close"></span>
+		  aria-label="Close"></span>
 	<div class="mb-canvas-content">
 		<div class="mb-body">
 			<ul class="nav-ul-mb" id="wrapper-menu-navigation">
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate1.jpg" alt="">
-						</div> <span>Accessories</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate1.jpg" alt="">
+					</div> <span>Accessories</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate2.jpg" alt="">
-						</div> <span>Dog</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate2.jpg" alt="">
+					</div> <span>Dog</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate3.jpg" alt="">
-						</div> <span>Grocery</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate3.jpg" alt="">
+					</div> <span>Grocery</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate4.png" alt="">
-						</div> <span>Handbag</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate4.png" alt="">
+					</div> <span>Handbag</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="#cate-menu-one"
-					class="tf-category-link has-children collapsed mb-menu-link"
-					data-bs-toggle="collapse" aria-expanded="true"
-					aria-controls="cate-menu-one">
-						<div class="image">
-							<img src="images/shop/cate/cate5.jpg" alt="">
-						</div> <span>Fashion</span> <span class="btn-open-sub"></span>
+										   class="tf-category-link has-children collapsed mb-menu-link"
+										   data-bs-toggle="collapse" aria-expanded="true"
+										   aria-controls="cate-menu-one">
+					<div class="image">
+						<img src="images/shop/cate/cate5.jpg" alt="">
+					</div> <span>Fashion</span> <span class="btn-open-sub"></span>
 				</a>
 					<div id="cate-menu-one" class="collapse list-cate">
 						<ul class="sub-nav-menu" id="cate-menu-navigation">
 							<li><a href="#cate-shop-one"
-								class="tf-category-link has-children sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="cate-shop-one">
-									<div class="image">
-										<img src="images/shop/cate/cate6.jpg" alt="">
-									</div> <span>Mens</span> <span class="btn-open-sub"></span>
+								   class="tf-category-link has-children sub-nav-link collapsed"
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="cate-shop-one">
+								<div class="image">
+									<img src="images/shop/cate/cate6.jpg" alt="">
+								</div> <span>Mens</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="cate-shop-one" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="shop-default.html"
-											class="tf-category-link sub-nav-link">
-												<div class="image">
-													<img src="images/shop/cate/cate1.jpg" alt="">
-												</div> <span>Accessories</span>
+											   class="tf-category-link sub-nav-link">
+											<div class="image">
+												<img src="images/shop/cate/cate1.jpg" alt="">
+											</div> <span>Accessories</span>
 										</a></li>
 										<li><a href="shop-default.html"
-											class="tf-category-link sub-nav-link">
-												<div class="image">
-													<img src="images/shop/cate/cate8.jpg" alt="">
-												</div> <span>Shoes</span>
+											   class="tf-category-link sub-nav-link">
+											<div class="image">
+												<img src="images/shop/cate/cate8.jpg" alt="">
+											</div> <span>Shoes</span>
 										</a></li>
 									</ul>
 								</div></li>
 							<li><a href="#cate-shop-two"
-								class="tf-category-link has-children sub-nav-link collapsed"
-								data-bs-toggle="collapse" aria-expanded="true"
-								aria-controls="cate-shop-two">
-									<div class="image">
-										<img src="images/shop/cate/cate9.jpg" alt="">
-									</div> <span>Womens</span> <span class="btn-open-sub"></span>
+								   class="tf-category-link has-children sub-nav-link collapsed"
+								   data-bs-toggle="collapse" aria-expanded="true"
+								   aria-controls="cate-shop-two">
+								<div class="image">
+									<img src="images/shop/cate/cate9.jpg" alt="">
+								</div> <span>Womens</span> <span class="btn-open-sub"></span>
 							</a>
 								<div id="cate-shop-two" class="collapse">
 									<ul class="sub-nav-menu sub-menu-level-2">
 										<li><a href="shop-default.html"
-											class="tf-category-link sub-nav-link">
-												<div class="image">
-													<img src="images/shop/cate/cate4.png" alt="">
-												</div> <span>Handbag</span>
+											   class="tf-category-link sub-nav-link">
+											<div class="image">
+												<img src="images/shop/cate/cate4.png" alt="">
+											</div> <span>Handbag</span>
 										</a></li>
 										<li><a href="shop-default.html"
-											class="tf-category-link sub-nav-link">
-												<div class="image">
-													<img src="images/shop/cate/cate7.jpg" alt="">
-												</div> <span>Tee</span>
+											   class="tf-category-link sub-nav-link">
+											<div class="image">
+												<img src="images/shop/cate/cate7.jpg" alt="">
+											</div> <span>Tee</span>
 										</a></li>
 									</ul>
 								</div></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="#cate-menu-two"
-					class="tf-category-link has-children collapsed mb-menu-link"
-					data-bs-toggle="collapse" aria-expanded="true"
-					aria-controls="cate-menu-two">
-						<div class="image">
-							<img src="images/shop/cate/cate6.jpg" alt="">
-						</div> <span>Men</span> <span class="btn-open-sub"></span>
+										   class="tf-category-link has-children collapsed mb-menu-link"
+										   data-bs-toggle="collapse" aria-expanded="true"
+										   aria-controls="cate-menu-two">
+					<div class="image">
+						<img src="images/shop/cate/cate6.jpg" alt="">
+					</div> <span>Men</span> <span class="btn-open-sub"></span>
 				</a>
 					<div id="cate-menu-two" class="collapse list-cate">
 						<ul class="sub-nav-menu" id="cate-menu-navigation1">
 							<li><a href="shop-default.html"
-								class="tf-category-link sub-nav-link">
-									<div class="image">
-										<img src="images/shop/cate/cate1.jpg" alt="">
-									</div> <span>Accessories</span>
+								   class="tf-category-link sub-nav-link">
+								<div class="image">
+									<img src="images/shop/cate/cate1.jpg" alt="">
+								</div> <span>Accessories</span>
 							</a></li>
 							<li><a href="shop-default.html"
-								class="tf-category-link sub-nav-link">
-									<div class="image">
-										<img src="images/shop/cate/cate8.jpg" alt="">
-									</div> <span>Shoes</span>
+								   class="tf-category-link sub-nav-link">
+								<div class="image">
+									<img src="images/shop/cate/cate8.jpg" alt="">
+								</div> <span>Shoes</span>
 							</a></li>
 						</ul>
 					</div></li>
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate7.jpg" alt="">
-						</div> <span>Tee</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate7.jpg" alt="">
+					</div> <span>Tee</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="shop-default.html"
-					class="tf-category-link mb-menu-link">
-						<div class="image">
-							<img src="images/shop/cate/cate8.jpg" alt="">
-						</div> <span>Shoes</span>
+										   class="tf-category-link mb-menu-link">
+					<div class="image">
+						<img src="images/shop/cate/cate8.jpg" alt="">
+					</div> <span>Shoes</span>
 				</a></li>
 				<li class="nav-mb-item"><a href="#cate-menu-three"
-					class="tf-category-link has-children collapsed mb-menu-link"
-					data-bs-toggle="collapse" aria-expanded="true"
-					aria-controls="cate-menu-three">
-						<div class="image">
-							<img src="images/shop/cate/cate9.jpg" alt="">
-						</div> <span>Women</span> <span class="btn-open-sub"></span>
+										   class="tf-category-link has-children collapsed mb-menu-link"
+										   data-bs-toggle="collapse" aria-expanded="true"
+										   aria-controls="cate-menu-three">
+					<div class="image">
+						<img src="images/shop/cate/cate9.jpg" alt="">
+					</div> <span>Women</span> <span class="btn-open-sub"></span>
 				</a>
 					<div id="cate-menu-three" class="collapse list-cate">
 						<ul class="sub-nav-menu" id="cate-menu-navigation2">
 							<li><a href="shop-default.html"
-								class="tf-category-link sub-nav-link">
-									<div class="image">
-										<img src="images/shop/cate/cate4.png" alt="">
-									</div> <span>Handbag</span>
+								   class="tf-category-link sub-nav-link">
+								<div class="image">
+									<img src="images/shop/cate/cate4.png" alt="">
+								</div> <span>Handbag</span>
 							</a></li>
 							<li><a href="shop-default.html"
-								class="tf-category-link sub-nav-link">
-									<div class="image">
-										<img src="images/shop/cate/cate7.jpg" alt="">
-									</div> <span>Tee</span>
+								   class="tf-category-link sub-nav-link">
+								<div class="image">
+									<img src="images/shop/cate/cate7.jpg" alt="">
+								</div> <span>Tee</span>
 							</a></li>
 						</ul>
 					</div></li>
@@ -2870,7 +2870,7 @@
 
 <!-- modal login -->
 <div class="modal modalCentered fade form-sign-in modal-part-content"
-	id="login">
+	 id="login">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -2879,32 +2879,32 @@
 			</div>
 			<div class="tf-login-form">
 				<form class=""
-					action="https://themesflat.co/html/ecomus/my-account.html"
-					accept-charset="utf-8">
+					  action="https://themesflat.co/html/ecomus/my-account.html"
+					  accept-charset="utf-8">
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" "
-							type="email" name=""> <label class="tf-field-label"
-							for="">Email *</label>
+							   type="email" name=""> <label class="tf-field-label"
+															for="">Email *</label>
 					</div>
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" "
-							type="password" name=""> <label class="tf-field-label"
-							for="">Password *</label>
+							   type="password" name=""> <label class="tf-field-label"
+															   for="">Password *</label>
 					</div>
 					<div>
 						<a href="#forgotPassword" data-bs-toggle="modal"
-							class="btn-link link">Forgot your password?</a>
+						   class="btn-link link">Forgot your password?</a>
 					</div>
 					<div class="bottom">
 						<div class="w-100">
 							<button type="submit"
-								class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
+									class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
 								<span>Log in</span>
 							</button>
 						</div>
 						<div class="w-100">
 							<a href="#register" data-bs-toggle="modal"
-								class="btn-link fw-6 w-100 link"> New customer? Create your
+							   class="btn-link fw-6 w-100 link"> New customer? Create your
 								account <i class="icon icon-arrow1-top-left"></i>
 							</a>
 						</div>
@@ -2915,7 +2915,7 @@
 	</div>
 </div>
 <div class="modal modalCentered fade form-sign-in modal-part-content"
-	id="forgotPassword">
+	 id="forgotPassword">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -2931,8 +2931,8 @@
 					</div>
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" "
-							type="email" name=""> <label class="tf-field-label"
-							for="">Email *</label>
+							   type="email" name=""> <label class="tf-field-label"
+															for="">Email *</label>
 					</div>
 					<div>
 						<a href="#login" data-bs-toggle="modal" class="btn-link link">Cancel</a>
@@ -2940,7 +2940,7 @@
 					<div class="bottom">
 						<div class="w-100">
 							<button type="submit"
-								class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
+									class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
 								<span>Reset password</span>
 							</button>
 						</div>
@@ -2951,7 +2951,7 @@
 	</div>
 </div>
 <div class="modal modalCentered fade form-sign-in modal-part-content"
-	id="register">
+	 id="register">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="header">
@@ -2962,32 +2962,32 @@
 				<form class="">
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" " type="text"
-							name=""> <label class="tf-field-label" for="">First
-							name</label>
+							   name=""> <label class="tf-field-label" for="">First
+						name</label>
 					</div>
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" " type="text"
-							name=""> <label class="tf-field-label" for="">Last
-							name</label>
+							   name=""> <label class="tf-field-label" for="">Last
+						name</label>
 					</div>
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" "
-							type="email" name=""> <label class="tf-field-label"
-							for="">Email *</label>
+							   type="email" name=""> <label class="tf-field-label"
+															for="">Email *</label>
 					</div>
 					<div class="tf-field style-1">
 						<input class="tf-field-input tf-input" placeholder=" "
-							type="password" name=""> <label class="tf-field-label"
-							for="">Password *</label>
+							   type="password" name=""> <label class="tf-field-label"
+															   for="">Password *</label>
 					</div>
 					<div class="bottom">
 						<div class="w-100">
 							<a href="register.html"
-								class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
+							   class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
 						</div>
 						<div class="w-100">
 							<a href="#login" data-bs-toggle="modal"
-								class="btn-link fw-6 w-100 link"> Already have an account?
+							   class="btn-link fw-6 w-100 link"> Already have an account?
 								Log in here <i class="icon icon-arrow1-top-left"></i>
 							</a>
 						</div>
@@ -3028,20 +3028,20 @@
 						<div class="variant-picker-values">
 							<input id="values-orange" type="radio" name="color" checked>
 							<label class="hover-tooltip radius-60" for="values-orange"
-								data-value="Orange"> <span
-								class="btn-checkbox bg-color-orange"></span> <span
-								class="tooltip">Orange</span>
+								   data-value="Orange"> <span
+									class="btn-checkbox bg-color-orange"></span> <span
+									class="tooltip">Orange</span>
 							</label> <input id="values-black" type="radio" name="color"> <label
 								class=" hover-tooltip radius-60" for="values-black"
 								data-value="Black"> <span
 								class="btn-checkbox bg-color-black"></span> <span
 								class="tooltip">Black</span>
-							</label> <input id="values-white" type="radio" name="color"> <label
+						</label> <input id="values-white" type="radio" name="color"> <label
 								class="hover-tooltip radius-60" for="values-white"
 								data-value="White"> <span
 								class="btn-checkbox bg-color-white"></span> <span
 								class="tooltip">White</span>
-							</label>
+						</label>
 						</div>
 					</div>
 					<div class="variant-picker-item">
@@ -3051,17 +3051,17 @@
 						<div class="variant-picker-values">
 							<input type="radio" name="size" id="values2-s" checked> <label
 								class="style-text" for="values2-s" data-value="S">
-								<p>S</p>
-							</label> <input type="radio" name="size" id="values2-m"> <label
+							<p>S</p>
+						</label> <input type="radio" name="size" id="values2-m"> <label
 								class="style-text" for="values2-m" data-value="M">
-								<p>M</p>
-							</label> <input type="radio" name="size" id="values2-l"> <label
+							<p>M</p>
+						</label> <input type="radio" name="size" id="values2-l"> <label
 								class="style-text" for="values2-l" data-value="L">
-								<p>L</p>
-							</label> <input type="radio" name="size" id="values2-xl"> <label
+							<p>L</p>
+						</label> <input type="radio" name="size" id="values2-xl"> <label
 								class="style-text" for="values2-xl" data-value="XL">
-								<p>XL</p>
-							</label>
+							<p>XL</p>
+						</label>
 						</div>
 					</div>
 				</div>
@@ -3069,28 +3069,28 @@
 					<div class="quantity-title fw-6">Quantity</div>
 					<div class="wg-quantity">
 						<span class="btn-quantity minus-btn">-</span> <input type="text"
-							name="number" value="1"> <span
+																			 name="number" value="1"> <span
 							class="btn-quantity plus-btn">+</span>
 					</div>
 				</div>
 				<div class="tf-product-info-buy-button">
 					<form class="">
 						<a href="javascript:void(0);"
-							class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
+						   class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
 								to cart -&nbsp;</span><span class="tf-qty-price">$18.00</span></a>
 						<div class="tf-product-btn-wishlist btn-icon-action">
 							<i class="icon-heart"></i> <i class="icon-delete"></i>
 						</div>
 						<a href="#compare" data-bs-toggle="offcanvas"
-							aria-controls="offcanvasLeft"
-							class="tf-product-btn-wishlist box-icon bg_white compare btn-icon-action">
+						   aria-controls="offcanvasLeft"
+						   class="tf-product-btn-wishlist box-icon bg_white compare btn-icon-action">
 							<span class="icon icon-compare"></span> <span
-							class="icon icon-check"></span>
+								class="icon icon-check"></span>
 						</a>
 						<div class="w-100">
 							<a href="#" class="btns-full">Buy with <img
-								src="images/payments/paypal.png" alt=""></a> <a href="#"
-								class="payment-more-option">More payment options</a>
+									src="images/payments/paypal.png" alt=""></a> <a href="#"
+																					class="payment-more-option">More payment options</a>
 						</div>
 					</form>
 				</div>
@@ -3123,9 +3123,9 @@
 							</div>
 						</div>
 						<div
-							class="swiper-button-next button-style-arrow single-slide-prev"></div>
+								class="swiper-button-next button-style-arrow single-slide-prev"></div>
 						<div
-							class="swiper-button-prev button-style-arrow single-slide-next"></div>
+								class="swiper-button-prev button-style-arrow single-slide-next"></div>
 					</div>
 				</div>
 				<div class="tf-product-info-wrap position-relative">
@@ -3159,19 +3159,19 @@
 								<div class="variant-picker-values">
 									<input id="values-orange-1" type="radio" name="color-1" checked>
 									<label class="hover-tooltip radius-60" for="values-orange-1"
-										data-value="Orange"> <span
-										class="btn-checkbox bg-color-orange"></span> <span
-										class="tooltip">Orange</span>
+										   data-value="Orange"> <span
+											class="btn-checkbox bg-color-orange"></span> <span
+											class="tooltip">Orange</span>
 									</label> <input id="values-black-1" type="radio" name="color-1">
 									<label class=" hover-tooltip radius-60" for="values-black-1"
-										data-value="Black"> <span
-										class="btn-checkbox bg-color-black"></span> <span
-										class="tooltip">Black</span>
+										   data-value="Black"> <span
+											class="btn-checkbox bg-color-black"></span> <span
+											class="tooltip">Black</span>
 									</label> <input id="values-white-1" type="radio" name="color-1">
 									<label class="hover-tooltip radius-60" for="values-white-1"
-										data-value="White"> <span
-										class="btn-checkbox bg-color-white"></span> <span
-										class="tooltip">White</span>
+										   data-value="White"> <span
+											class="btn-checkbox bg-color-white"></span> <span
+											class="tooltip">White</span>
 									</label>
 								</div>
 							</div>
@@ -3189,14 +3189,14 @@
 										<p>S</p>
 									</label> <input type="radio" name="size-1" id="values-m-1"> <label
 										class="style-text" for="values-m-1" data-value="M">
-										<p>M</p>
-									</label> <input type="radio" name="size-1" id="values-l-1"> <label
+									<p>M</p>
+								</label> <input type="radio" name="size-1" id="values-l-1"> <label
 										class="style-text" for="values-l-1" data-value="L">
-										<p>L</p>
-									</label> <input type="radio" name="size-1" id="values-xl-1"> <label
+									<p>L</p>
+								</label> <input type="radio" name="size-1" id="values-xl-1"> <label
 										class="style-text" for="values-xl-1" data-value="XL">
-										<p>XL</p>
-									</label>
+									<p>XL</p>
+								</label>
 								</div>
 							</div>
 						</div>
@@ -3204,29 +3204,29 @@
 							<div class="quantity-title fw-6">Quantity</div>
 							<div class="wg-quantity">
 								<span class="btn-quantity minus-btn">-</span> <input type="text"
-									name="number" value="1"> <span
+																					 name="number" value="1"> <span
 									class="btn-quantity plus-btn">+</span>
 							</div>
 						</div>
 						<div class="tf-product-info-buy-button">
 							<form class="">
 								<a href="javascript:void(0);"
-									class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
+								   class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
 										to cart -&nbsp;</span><span class="tf-qty-price">$8.00</span></a> <a
 									href="javascript:void(0);"
 									class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" onclick="toggleWishlistIcon(this, ${product.id})">
-									<span class="icon icon-heart"></span> <span class="tooltip">Add
+								<span class="icon icon-heart"></span> <span class="tooltip">Add
 										to Wishlist</span> <span class="icon icon-delete"></span>
-								</a> <a href="#compare" data-bs-toggle="offcanvas"
+							</a> <a href="#compare" data-bs-toggle="offcanvas"
 									aria-controls="offcanvasLeft"
 									class="tf-product-btn-wishlist hover-tooltip box-icon bg_white compare btn-icon-action">
-									<span class="icon icon-compare"></span> <span class="tooltip">Add
+								<span class="icon icon-compare"></span> <span class="tooltip">Add
 										to Compare</span> <span class="icon icon-check"></span>
-								</a>
+							</a>
 								<div class="w-100">
 									<a href="#" class="btns-full">Buy with <img
-										src="images/payments/paypal.png" alt=""></a> <a href="#"
-										class="payment-more-option">More payment options</a>
+											src="images/payments/paypal.png" alt=""></a> <a href="#"
+																							class="payment-more-option">More payment options</a>
 								</div>
 							</form>
 						</div>
@@ -3256,57 +3256,57 @@
 					<h6>Size guide</h6>
 					<table class="tf-sizeguide-table">
 						<thead>
-							<tr>
-								<th>Size</th>
-								<th>US</th>
-								<th>Bust</th>
-								<th>Waist</th>
-								<th>Low Hip</th>
-							</tr>
+						<tr>
+							<th>Size</th>
+							<th>US</th>
+							<th>Bust</th>
+							<th>Waist</th>
+							<th>Low Hip</th>
+						</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>XS</td>
-								<td>2</td>
-								<td>32</td>
-								<td>24 - 25</td>
-								<td>33 - 34</td>
-							</tr>
-							<tr>
-								<td>S</td>
-								<td>4</td>
-								<td>34 - 35</td>
-								<td>26 - 27</td>
-								<td>35 - 26</td>
-							</tr>
-							<tr>
-								<td>M</td>
-								<td>6</td>
-								<td>36 - 37</td>
-								<td>28 - 29</td>
-								<td>38 - 40</td>
-							</tr>
-							<tr>
-								<td>L</td>
-								<td>8</td>
-								<td>38 - 29</td>
-								<td>30 - 31</td>
-								<td>42 - 44</td>
-							</tr>
-							<tr>
-								<td>XL</td>
-								<td>10</td>
-								<td>40 - 41</td>
-								<td>32 - 33</td>
-								<td>45 - 47</td>
-							</tr>
-							<tr>
-								<td>XXL</td>
-								<td>12</td>
-								<td>42 - 43</td>
-								<td>34 - 35</td>
-								<td>48 - 50</td>
-							</tr>
+						<tr>
+							<td>XS</td>
+							<td>2</td>
+							<td>32</td>
+							<td>24 - 25</td>
+							<td>33 - 34</td>
+						</tr>
+						<tr>
+							<td>S</td>
+							<td>4</td>
+							<td>34 - 35</td>
+							<td>26 - 27</td>
+							<td>35 - 26</td>
+						</tr>
+						<tr>
+							<td>M</td>
+							<td>6</td>
+							<td>36 - 37</td>
+							<td>28 - 29</td>
+							<td>38 - 40</td>
+						</tr>
+						<tr>
+							<td>L</td>
+							<td>8</td>
+							<td>38 - 29</td>
+							<td>30 - 31</td>
+							<td>42 - 44</td>
+						</tr>
+						<tr>
+							<td>XL</td>
+							<td>10</td>
+							<td>40 - 41</td>
+							<td>32 - 33</td>
+							<td>45 - 47</td>
+						</tr>
+						<tr>
+							<td>XXL</td>
+							<td>12</td>
+							<td>42 - 43</td>
+							<td>34 - 35</td>
+							<td>48 - 50</td>
+						</tr>
 						</tbody>
 					</table>
 				</div>
@@ -3323,8 +3323,8 @@
 					</div>
 					<div>
 						<img class="sizechart lazyload"
-							data-src="images/shop/products/size_chart2.jpg"
-							src="images/shop/products/size_chart2.jpg" alt="">
+							 data-src="images/shop/products/size_chart2.jpg"
+							 src="images/shop/products/size_chart2.jpg" alt="">
 					</div>
 				</div>
 			</div>
@@ -3342,8 +3342,8 @@
 		$(".btn-increase").on("click", function() {
 			var currentQuantity = parseInt(quantityInput.val());
 			if (currentQuantity < ${total}) {
-			quantityInput.val(currentQuantity + 1);
-			updateTotalPrice();
+				quantityInput.val(currentQuantity + 1);
+				updateTotalPrice();
 			}
 		});
 
@@ -3363,7 +3363,7 @@
 			$(".total-price-1").text(
 					Math.round(totalPrice).toString().replace(
 							/\B(?=(\d{3})+(?!\d))/g, ",")
-							+ " VND");
+					+ " VND");
 			console.log("currentPrice : " + currentPrice);
 			console.log("totalPrice : " + totalPrice);
 		}
@@ -3373,219 +3373,219 @@
 	totalPriceVariant();
 	//swiper truot anh
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Khởi tạo Swiper cho thumbnails (ảnh thu nhỏ)
-  var thumbsSwiper = new Swiper('.tf-product-media-thumbs', {
-	  direction: 'vertical', // Thumbs là chiều dọc
-    slidesPerView: 4, // Số lượng ảnh thu nhỏ hiển thị mỗi lần
-    spaceBetween: 10, // Khoảng cách giữa các thumbnail
-    freeMode: true, // Cho phép di chuyển tự do
-    watchSlidesVisibility: true, // Quan sát sự hiển thị của slides
-    watchSlidesProgress: true, // Quan sát tiến độ các slide
-  });
+	document.addEventListener("DOMContentLoaded", function() {
+		// Khởi tạo Swiper cho thumbnails (ảnh thu nhỏ)
+		var thumbsSwiper = new Swiper('.tf-product-media-thumbs', {
+			direction: 'vertical', // Thumbs là chiều dọc
+			slidesPerView: 4, // Số lượng ảnh thu nhỏ hiển thị mỗi lần
+			spaceBetween: 10, // Khoảng cách giữa các thumbnail
+			freeMode: true, // Cho phép di chuyển tự do
+			watchSlidesVisibility: true, // Quan sát sự hiển thị của slides
+			watchSlidesProgress: true, // Quan sát tiến độ các slide
+		});
 
-  // Khởi tạo Swiper cho gallery chính (ảnh lớn)
-  var mainSwiper = new Swiper('.tf-product-media-main', {
-    loop: true, // Cho phép vòng lặp các ảnh
-    navigation: {
-      nextEl: '.swiper-button-next', // Nút chuyển sang ảnh tiếp theo
-      prevEl: '.swiper-button-prev', // Nút chuyển về ảnh trước
-    },
-    thumbs: {
-      swiper: thumbsSwiper, // Liên kết Swiper chính với Swiper ảnh thu nhỏ
-    },
-    slidesPerView: 1, // Hiển thị 1 ảnh lớn mỗi lần
-    spaceBetween: 10, // Khoảng cách giữa các slide
-    pagination: {
-      el: '.swiper-pagination', // Phân trang nếu cần
-      clickable: true, // Cho phép click để chuyển trang
-    },
-  });
-});
+		// Khởi tạo Swiper cho gallery chính (ảnh lớn)
+		var mainSwiper = new Swiper('.tf-product-media-main', {
+			loop: true, // Cho phép vòng lặp các ảnh
+			navigation: {
+				nextEl: '.swiper-button-next', // Nút chuyển sang ảnh tiếp theo
+				prevEl: '.swiper-button-prev', // Nút chuyển về ảnh trước
+			},
+			thumbs: {
+				swiper: thumbsSwiper, // Liên kết Swiper chính với Swiper ảnh thu nhỏ
+			},
+			slidesPerView: 1, // Hiển thị 1 ảnh lớn mỗi lần
+			spaceBetween: 10, // Khoảng cách giữa các slide
+			pagination: {
+				el: '.swiper-pagination', // Phân trang nếu cần
+				clickable: true, // Cho phép click để chuyển trang
+			},
+		});
+	});
 	// them vao favorite product
-function toggleWishlistIcon(element, productId) {
-    // Lấy các phần tử icon trong thẻ <a>
-    var heartIcon = element.querySelector('.icon-heart');
-    var deleteIcon = element.querySelector('.icon-delete');
-    //console.log("display : ",window.getComputedStyle(heartIcon).getPropertyValue('display'));
-    if (window.getComputedStyle(heartIcon).getPropertyValue('display') !== 'none') {
-    	 console.log("productId111111111 : ", productId);
-        addToFavoriteProducts(productId);
-       
-    } else {
-    	console.log("remove");
-    	 removeFromFavoriteProducts(productId);
-    }
-}
-    function addToFavoriteProducts(productId) {
-        const data = { productId: productId};
+	function toggleWishlistIcon(element, productId) {
+		// Lấy các phần tử icon trong thẻ <a>
+		var heartIcon = element.querySelector('.icon-heart');
+		var deleteIcon = element.querySelector('.icon-delete');
+		//console.log("display : ",window.getComputedStyle(heartIcon).getPropertyValue('display'));
+		if (window.getComputedStyle(heartIcon).getPropertyValue('display') !== 'none') {
+			console.log("productId111111111 : ", productId);
+			addToFavoriteProducts(productId);
 
-        // Gửi yêu cầu POST tới API của Spring Boot
-        fetch('/product-detail/add-favorite-product', {
-            method: 'POST', // Sử dụng phương thức POST
-            headers: {
-                'Content-Type': 'application/json' // Đảm bảo dữ liệu gửi lên là JSON
-            },
-            body: JSON.stringify(data) // Chuyển đổi đối tượng dữ liệu thành chuỗi JSON
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Parse dữ liệu JSON từ response
-            }
-            throw new Error('Network response was not ok');
-        })
-        .then(data => {
-            // Kiểm tra kết quả trả về từ server
-            if (data.success) {
-            	console.log('Product added to favorite product!');
-                // Có thể thay đổi giao diện sau khi thêm vào wishlist (ví dụ: đổi icon hoặc cập nhật số lượng)
-            } else {
-            	console.log('Failed to add to favorite product.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            //alert('An error occurred while adding the product to wishlist.');
-        });
-    }
-    
-    function removeFromFavoriteProducts(productId) {
-        // Tạo đối tượng dữ liệu gửi lên server
-        const data = { productId: productId};
+		} else {
+			console.log("remove");
+			removeFromFavoriteProducts(productId);
+		}
+	}
+	function addToFavoriteProducts(productId) {
+		const data = { productId: productId};
 
-        // Gửi yêu cầu POST tới API của Spring Boot
-        fetch('/product-detail/remove-favorite-product', {
-            method: 'POST', // Sử dụng phương thức POST
-            headers: {
-                'Content-Type': 'application/json' // Đảm bảo dữ liệu gửi lên là JSON
-            },
-            body: JSON.stringify(data) // Chuyển đổi đối tượng dữ liệu thành chuỗi JSON
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Parse dữ liệu JSON từ response
-            }
-            throw new Error('Network response was not ok');
-        })
-        .then(data => {
-            // Kiểm tra kết quả trả về từ server
-            if (data.success) {
-                console.log('Product removed from favorite product!');
-                // Có thể thay đổi giao diện sau khi thêm vào wishlist (ví dụ: đổi icon hoặc cập nhật số lượng)
-            } else {
-            	console.log('Failed to remove from favorite product.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    
-    //nut tra loi comment
-    function toggleReplyForm(id) {
-        var form = document.getElementById("reply-form-" + id);
-        // Kiểm tra xem form có đang hiển thị hay không, nếu có thì ẩn đi, nếu không thì hiển thị
-        if (form.style.display === "none" || form.style.display === "") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    }
-    
-    //nut tra loi comment
-    function toggleReviewForm() {
-        var form = document.getElementById("add-review");
-        // Kiểm tra xem form có đang hiển thị hay không, nếu có thì ẩn đi, nếu không thì hiển thị
-        if (form.style.display === "none" || form.style.display === "") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    }
- // Hàm ẩn/hiện phần bình luận
-    function toggleComments() {
-        var commentWrap = document.querySelector('.reply-comment-wrap');
-        var button = document.querySelector('.btn-toggle-comments');
-        
-        if (commentWrap.style.display === "none") {
-            commentWrap.style.display = "block";
-            button.innerText = "Hide comments"; // Đổi chữ thành "Ẩn Bình luận"
-        } else {
-            commentWrap.style.display = "none";
-            button.innerText = "Show comments"; // Đổi chữ thành "Hiện Bình luận"
-        }
-    }
- 	//lắng nghe sự kiện click của button add to cart
-    $(document).on("click", ".btn-add-to-cart", function (e) {
-        e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+		// Gửi yêu cầu POST tới API của Spring Boot
+		fetch('/product-detail/add-favorite-product', {
+			method: 'POST', // Sử dụng phương thức POST
+			headers: {
+				'Content-Type': 'application/json' // Đảm bảo dữ liệu gửi lên là JSON
+			},
+			body: JSON.stringify(data) // Chuyển đổi đối tượng dữ liệu thành chuỗi JSON
+		})
+				.then(response => {
+					if (response.ok) {
+						return response.json(); // Parse dữ liệu JSON từ response
+					}
+					throw new Error('Network response was not ok');
+				})
+				.then(data => {
+					// Kiểm tra kết quả trả về từ server
+					if (data.success) {
+						console.log('Product added to favorite product!');
+						// Có thể thay đổi giao diện sau khi thêm vào wishlist (ví dụ: đổi icon hoặc cập nhật số lượng)
+					} else {
+						console.log('Failed to add to favorite product.');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					//alert('An error occurred while adding the product to wishlist.');
+				});
+	}
 
-        // Lấy product ID từ thuộc tính data
-        const productId = $(this).data("product-id");
-        console.log("Product ID:", productId);
-     // Lấy giá trị của trường input
-        const quantityInput = document.querySelector(".quantity-product-1");
-        const quantityValue = quantityInput.value;
+	function removeFromFavoriteProducts(productId) {
+		// Tạo đối tượng dữ liệu gửi lên server
+		const data = { productId: productId};
 
-        // Gửi yêu cầu AJAX đến controller
-        $.ajax({
-            url: "/product-detail/add-to-cart", // URL đến controller xử lý
-            method: "POST", // Phương thức POST
-            contentType: "application/json", // Loại dữ liệu gửi
-            data: JSON.stringify({ productId: productId,
-            	quantity : quantityValue}), // Dữ liệu gửi đến server
-            success: function (response) {
-                console.log("Product added to cart successfully:", response);
-                //alert("Product added to cart!");
-                // Chuyển hướng đến một controller khác (URL khác)
-        		window.location.href = "/user/cart"; // URL đến trang mới
-            },
-            error: function (xhr, status, error) {
-            	if (xhr.status === 401) {
-                    // Nếu người dùng chưa đăng nhập, chuyển hướng tới trang login
-                    alert("You need to log in to add products to your cart.");
-                    window.location.href = "/login"; // URL của trang đăng nhập
-                    return;
-                }
-            }
-        });
-    });
- 
-  //lắng nghe sự kiện click của button buy product
-    $(document).on("click", ".btn-buy-product", function (e) {
-        e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+		// Gửi yêu cầu POST tới API của Spring Boot
+		fetch('/product-detail/remove-favorite-product', {
+			method: 'POST', // Sử dụng phương thức POST
+			headers: {
+				'Content-Type': 'application/json' // Đảm bảo dữ liệu gửi lên là JSON
+			},
+			body: JSON.stringify(data) // Chuyển đổi đối tượng dữ liệu thành chuỗi JSON
+		})
+				.then(response => {
+					if (response.ok) {
+						return response.json(); // Parse dữ liệu JSON từ response
+					}
+					throw new Error('Network response was not ok');
+				})
+				.then(data => {
+					// Kiểm tra kết quả trả về từ server
+					if (data.success) {
+						console.log('Product removed from favorite product!');
+						// Có thể thay đổi giao diện sau khi thêm vào wishlist (ví dụ: đổi icon hoặc cập nhật số lượng)
+					} else {
+						console.log('Failed to remove from favorite product.');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+	}
 
-        // Lấy product ID từ thuộc tính data
-        const productId = $(this).data("product-id");
-        console.log("Product ID:", productId);
-     // Lấy giá trị của trường input
-        const quantityInput = document.querySelector(".quantity-product-1");
-        const quantityValue = quantityInput.value;
+	//nut tra loi comment
+	function toggleReplyForm(id) {
+		var form = document.getElementById("reply-form-" + id);
+		// Kiểm tra xem form có đang hiển thị hay không, nếu có thì ẩn đi, nếu không thì hiển thị
+		if (form.style.display === "none" || form.style.display === "") {
+			form.style.display = "block";
+		} else {
+			form.style.display = "none";
+		}
+	}
 
-        // Gửi yêu cầu AJAX đến controller
-        $.ajax({
-            url: "/product-detail/add-to-cart", // URL đến controller xử lý
-            method: "POST", // Phương thức POST
-            contentType: "application/json", // Loại dữ liệu gửi
-            data: JSON.stringify({ productId: productId,
-            	quantity : quantityValue}), // Dữ liệu gửi đến server
-            success: function (response) {
-                console.log("Product added to cart successfully:", response);
-                //alert("Product added to cart!");
-                // Chuyển hướng đến một controller khác (URL khác)
-        		//window.location.href = "/user/cart"; // URL đến trang mới
-            },
-            error: function (xhr, status, error) {
-            	console.log("status : ",status);
-            	console.log("xhr.status : ",xhr.status);
-            	if (xhr.status === 401) {
-                    // Nếu người dùng chưa đăng nhập, chuyển hướng tới trang login
-                    alert("You need to log in to add products to your cart.");
-                    window.location.href = "/login"; // URL của trang đăng nhập
-                    return;
-                }
-            }
-        });
-    });
+	//nut tra loi comment
+	function toggleReviewForm() {
+		var form = document.getElementById("add-review");
+		// Kiểm tra xem form có đang hiển thị hay không, nếu có thì ẩn đi, nếu không thì hiển thị
+		if (form.style.display === "none" || form.style.display === "") {
+			form.style.display = "block";
+		} else {
+			form.style.display = "none";
+		}
+	}
+	// Hàm ẩn/hiện phần bình luận
+	function toggleComments() {
+		var commentWrap = document.querySelector('.reply-comment-wrap');
+		var button = document.querySelector('.btn-toggle-comments');
+
+		if (commentWrap.style.display === "none") {
+			commentWrap.style.display = "block";
+			button.innerText = "Hide comments"; // Đổi chữ thành "Ẩn Bình luận"
+		} else {
+			commentWrap.style.display = "none";
+			button.innerText = "Show comments"; // Đổi chữ thành "Hiện Bình luận"
+		}
+	}
+	//lắng nghe sự kiện click của button add to cart
+	$(document).on("click", ".btn-add-to-cart", function (e) {
+		e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+		// Lấy product ID từ thuộc tính data
+		const productId = $(this).data("product-id");
+		console.log("Product ID:", productId);
+		// Lấy giá trị của trường input
+		const quantityInput = document.querySelector(".quantity-product-1");
+		const quantityValue = quantityInput.value;
+
+		// Gửi yêu cầu AJAX đến controller
+		$.ajax({
+			url: "/product-detail/add-to-cart", // URL đến controller xử lý
+			method: "POST", // Phương thức POST
+			contentType: "application/json", // Loại dữ liệu gửi
+			data: JSON.stringify({ productId: productId,
+				quantity : quantityValue}), // Dữ liệu gửi đến server
+			success: function (response) {
+				console.log("Product added to cart successfully:", response);
+				//alert("Product added to cart!");
+				// Chuyển hướng đến một controller khác (URL khác)
+				window.location.href = "/user/cart"; // URL đến trang mới
+			},
+			error: function (xhr, status, error) {
+				if (xhr.status === 401) {
+					// Nếu người dùng chưa đăng nhập, chuyển hướng tới trang login
+					alert("You need to log in to add products to your cart.");
+					window.location.href = "/login"; // URL của trang đăng nhập
+					return;
+				}
+			}
+		});
+	});
+
+	//lắng nghe sự kiện click của button buy product
+	$(document).on("click", ".btn-buy-product", function (e) {
+		e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+		// Lấy product ID từ thuộc tính data
+		const productId = $(this).data("product-id");
+		console.log("Product ID:", productId);
+		// Lấy giá trị của trường input
+		const quantityInput = document.querySelector(".quantity-product-1");
+		const quantityValue = quantityInput.value;
+
+		// Gửi yêu cầu AJAX đến controller
+		$.ajax({
+			url: "/product-detail/add-to-cart", // URL đến controller xử lý
+			method: "POST", // Phương thức POST
+			contentType: "application/json", // Loại dữ liệu gửi
+			data: JSON.stringify({ productId: productId,
+				quantity : quantityValue}), // Dữ liệu gửi đến server
+			success: function (response) {
+				console.log("Product added to cart successfully:", response);
+				//alert("Product added to cart!");
+				// Chuyển hướng đến một controller khác (URL khác)
+				window.location.href = "/user/cart"; // URL đến trang mới
+			},
+			error: function (xhr, status, error) {
+				console.log("status : ",status);
+				console.log("xhr.status : ",xhr.status);
+				if (xhr.status === 401) {
+					// Nếu người dùng chưa đăng nhập, chuyển hướng tới trang login
+					alert("You need to log in to add products to your cart.");
+					window.location.href = "/login"; // URL của trang đăng nhập
+					return;
+				}
+			}
+		});
+	});
 
 
 </script>

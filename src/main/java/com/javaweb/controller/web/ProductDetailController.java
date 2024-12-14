@@ -89,6 +89,10 @@ public class ProductDetailController {
             Long total = storeProductService.getTotalQuantityByProductId(id);
          // Lấy giá trị trung bình của rating
             Double averageRating = reviewService.calculateAverageRating(id);
+            if (averageRating == null) {
+                averageRating = 0.0; // Gán giá trị mặc định là 0
+            }
+
             averageRating = Math.round(averageRating * 10.0) / 10.0;
          // Lấy số lượng review theo rating từ 1 đến 5
             List<Object[]> ratingCounts = reviewService.countReviewsByRating(id);
