@@ -34,6 +34,6 @@ public class TransactionEntity extends BaseEntity {
     @Column(name = "ispaid")
     private Boolean isPaid;
 
-    @Column(name = "amount", columnDefinition = "Decimal(10, 2)")
+    @Column(name = "amount", columnDefinition = "Decimal(15, 2)")
     private Double amount;
 }

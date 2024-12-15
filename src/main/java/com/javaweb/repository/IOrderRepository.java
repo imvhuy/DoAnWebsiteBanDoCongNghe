@@ -34,24 +34,27 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
                                                Pageable pageable);
 
     @Query("SELECT o FROM OrderEntity o LEFT JOIN FETCH o.delivery d " +
-            "WHERE d.carrier.id = :carrierId AND o.status = :status")
-    Page<OrderEntity> findByCarrierIdAndStatusWithDelivery(@Param("carrierId") Long carrierId,
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = :status")
+    Page<OrderEntity> findByCarrierIdAndStatusWithDelivery(@Param("shipperId") Long shipperId,
                                                            @Param("status") String status,
                                                            Pageable pageable);
 
     @Query("SELECT o.status, COUNT(o.id) AS totalOrders " +
             "FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND s.orderId = o.id " +
             "GROUP BY o.status")
-    List<Object[]> countOrdersByStatus(@Param("carrierId") Long carrierId);
+    List<Object[]> countOrdersByStatus(@Param("shipperId") Long shipperId);
 
 
     @Query("SELECT SUM(o.amountToGD) " +
             "FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId AND o.status = 'Đã vận chuyển'")
-    Double calculateTotalAmount(@Param("carrierId") Long carrierId);
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'Đã vận chuyển' AND s.orderId = o.id")
+    Double calculateTotalAmount(@Param("shipperId") Long shipperId);
 
 
     @Query("SELECT o FROM OrderEntity o WHERE o.user.username = :username")
@@ -63,29 +66,33 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query("SELECT o.status, COUNT(o.id) AS totalOrders, SUM(o.amountToGD) AS totalMoney " +
             "FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND s.orderId = o.id " +
             "GROUP BY o.status")
-    List<Object[]> countOrdersAndTotalMoneyByStatus(@Param("carrierId") Long carrierId);
+    List<Object[]> countOrdersAndTotalMoneyByStatus(@Param("shipperId") Long shipperId);
 
     @Query("SELECT o FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId AND o.status IN :statuses")
-    Page<OrderEntity> findByCarrierIdAndStatuses(@Param("carrierId") Long carrierId,
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId  AND o.status IN :statuses")
+    Page<OrderEntity> findByCarrierIdAndStatuses(@Param("shipperId") Long shipperId,
                                                  @Param("statuses") List<String> statuses,
                                                  Pageable pageable);
 
     @Query("SELECT o FROM OrderEntity o " +
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId AND o.status = 'đã vận chuyển'")
-    Page<OrderEntity> findCompletedOrdersByCarrierId(@Param("carrierId") Long carrierId, Pageable pageable);
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'đã vận chuyển'")
+    Page<OrderEntity> findCompletedOrdersByCarrierId(@Param("shipperId") Long shipperId, Pageable pageable);
 
 
     @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId  " +
             "AND o.status = :status " +
             "AND (LOWER(o.address) LIKE LOWER(CONCAT('%', :search, '%')) " +
             "OR LOWER(o.user.fullName) LIKE LOWER(CONCAT('%', :search, '%')))")
-    Page<OrderEntity> findByCarrierIdStatusAndSearch(@Param("carrierId") Long carrierId,
+    Page<OrderEntity> findByCarrierIdStatusAndSearch(@Param("shipperId") Long shipperId,
                                                      @Param("status") String status,
                                                      @Param("search") String search,
                                                      Pageable pageable);
@@ -101,28 +108,41 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
                                                        Pageable pageable);
 
     @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId " +
             "AND (LOWER(o.address) LIKE LOWER(CONCAT('%', :search, '%')) " +
             "OR LOWER(o.user.fullName) LIKE LOWER(CONCAT('%', :search, '%')))")
-    Page<OrderEntity> findByCarrierIdAndSearch(@Param("carrierId") Long carrierId,
+    Page<OrderEntity> findByCarrierIdAndSearch(@Param("shipperId") Long shipperId,
                                                @Param("search") String search,
                                                Pageable pageable);
 
     @Query("SELECT MONTH(o.modifiedDate) AS month, YEAR(o.modifiedDate) AS year, SUM(o.amountToGD) AS totalRevenue " +
             "FROM OrderEntity o " +
-            "WHERE o.status = 'đã vận chuyển' " +
+            "JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'đã vận chuyển' AND s.orderId = o.id  " +
             "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) " +
             "ORDER BY YEAR(o.modifiedDate), MONTH(o.modifiedDate)")
-    List<Object[]> calculateMonthlyRevenue();
+    List<Object[]> calculateMonthlyRevenue(@Param("shipperId") Long shipperId);
 
-    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'đang vận chuyển'")
-    Long countInProgressOrders();
+    @Query("SELECT COUNT(o) FROM OrderEntity o " +
+            "JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'đang vận chuyển' AND s.orderId = o.id ")
+    Long countInProgressOrders(@Param("shipperId") Long shipperId);
 
-    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'đã vận chuyển'")
-    Long countDeliveredOrders();
+    @Query("SELECT COUNT(o) FROM OrderEntity o " +
+            "JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'đã vận chuyển' AND s.orderId = o.id ")
+    Long countDeliveredOrders(@Param("shipperId") Long shipperId);
 
-    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.status = 'chờ vận chuyển'")
-    Long countPendingOrders();
+    @Query("SELECT COUNT(o) FROM OrderEntity o " +
+            "JOIN DeliveryEntity d ON o.id = d.order.id " +
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId AND o.status = 'chờ vận chuyển' AND s.orderId = o.id ")
+    Long countPendingOrders(@Param("shipperId") Long shipperId);
+
 
     @Query("SELECT o.id, o.address, o.status " +
             "FROM OrderEntity o " +
@@ -131,8 +151,9 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     List<Object[]> findOrdersByCarrierAndStatuses(@Param("carrierId") Long carrierId, @Param("statuses") List<String> statuses);
 
     @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
-            "WHERE d.carrier.id = :carrierId ORDER BY o.createdDate DESC LIMIT 1")
-    OrderEntity findLatestOrderByCarrierId(@Param("carrierId") Long carrierId);
+            "JOIN ShipperCarrierEntity s ON s.carrier.id = d.carrier.id " +
+            "WHERE s.user.id = :shipperId ORDER BY o.createdDate DESC LIMIT 1")
+    OrderEntity findLatestOrderByCarrierId(@Param("shipperId") Long shipperId);
 
     @Query("SELECT o FROM OrderEntity o " +
             "WHERE o.id = :id AND o.status = :status AND " +

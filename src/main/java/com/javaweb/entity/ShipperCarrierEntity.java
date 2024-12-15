@@ -21,7 +21,9 @@ public class ShipperCarrierEntity extends BaseEntity {
     private CarrierEntity carrier; // Liên kết đến CarrierEntity
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user; // Liên kết đến UserEntity và đảm bảo user_id là unique
 
+    @Column(name = "order_id")
+    private Long orderId;
 }

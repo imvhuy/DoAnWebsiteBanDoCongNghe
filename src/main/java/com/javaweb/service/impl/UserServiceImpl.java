@@ -12,12 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,6 +34,12 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserConverter userConverter;
+
+
+    @Override
+    public String getAddressOfShipper(Long id) {
+        return userRepository.getAddressOfShipper(id);
+    }
 
     @Override
     public Boolean authenticate(String username, String password) {

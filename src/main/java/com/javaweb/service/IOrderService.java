@@ -31,7 +31,7 @@ public interface IOrderService {
 
 	Boolean createOrderForStore(UserEntity user, Long userAddressId);
     // Lấy đơn hàng theo carrierId và trạng thái
-    Page<OrderEntity> findByCarrierIdAndStatus(Long carrierId, String status, int page, int size);
+    Page<OrderEntity> findByCarrierIdAndStatus(Long shipperId, String status, int page, int size);
 
 	void createOrders(Long userId,Long carrierId,Long address,String method,Long voucherId);
     void updateStatus(Long orderId, String newStatus);
@@ -42,27 +42,27 @@ public interface IOrderService {
 
     List<OrderStatisticsDTO> getStatisticsByStatus(Long carrierId);
 
-    Page<OrderEntity> findByCarrierIdAndStatuses(Long carrierId, List<String> statuses, int page, int size);
+    Page<OrderEntity> findByCarrierIdAndStatuses(Long shipperId, List<String> statuses, int page, int size);
 
 	//vũ làm nha a Thao iu
 	 List<OrderEntity> findOrdersByUsername(String username);
 
-    Page<OrderEntity> findCompletedOrdersByCarrierId(Long carrierId, int page, int size);
+    Page<OrderEntity> findCompletedOrdersByCarrierId(Long shipperId, int page, int size);
 	Page<OrderEntity> findOrdersByUsername(String username, Pageable pageable);
 
-    Page<OrderEntity> findByCarrierIdStatusAndSearch(Long carrierId, String status, String search, int page, int size);
+    Page<OrderEntity> findByCarrierIdStatusAndSearch(Long shipperId, String status, String search, int page, int size);
 
     Page<OrderEntity> findByCarrierIdStatusesAndSearch(Long carrierId, List<String> statuses, String search, int page, int size);
 
-    Page<OrderEntity> findByCarrierIdAndSearch(Long carrierId, String search, int page, int size);
+    Page<OrderEntity> findByCarrierIdAndSearch(Long shipperId, String search, int page, int size);
 
-    List<MonthlyRevenueDTO> getMonthlyRevenue();
+    List<MonthlyRevenueDTO> getMonthlyRevenue(Long shipperId);
 
-    Long getInProgressOrdersCount();
+    Long getInProgressOrdersCount(Long shipperId);
 
-    Long getDeliveredOrdersCount();
+    Long getDeliveredOrdersCount(Long shipperId);
 
-    Long getPendingOrdersCount();
+    Long getPendingOrdersCount(Long shipperId);
 
     List<Object[]> findOrdersByCarrierAndStatuses(Long carrierId, List<String> statuses);
 

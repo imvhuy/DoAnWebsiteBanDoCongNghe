@@ -23,6 +23,9 @@ public interface IUserService {
     UserDTO insert(UserDTO userModel);
     UserDTO update(Long id, UserEntity userEntity);
     void delete(long[] ids);
+
+    String getAddressOfShipper(Long id);
+
     Boolean authenticate(String username, String password);
 	UserEntity findByUserNameEntity(String userName);
 

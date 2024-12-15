@@ -45,21 +45,20 @@ public class OrderController {
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
-
+        UserDTO userDTO = null;
         // Lấy Carrier của shipper đăng nhập
         Long carrierId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO userDTO = userService.findByUserName(owner);
+            userDTO = userService.findByUserName(owner);
             ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
             carrierId = shipperCarrier.getCarrier().getId();
         }
-
 
 
         // Chuyển đổi trạng thái không dấu thành có dấu
@@ -81,16 +80,16 @@ public class OrderController {
         Page<OrderEntity> orderPage;
         if (convertedStatus != null && search != null && !search.isEmpty()) {
             // Lọc theo trạng thái và từ khóa tìm kiếm
-            orderPage = orderService.findByCarrierIdStatusAndSearch(carrierId, convertedStatus, search, page, size);
+            orderPage = orderService.findByCarrierIdStatusAndSearch(userDTO.getId(), convertedStatus, search, page, size);
         } else if (convertedStatus != null) {
             // Lọc theo trạng thái
-            orderPage = orderService.findByCarrierIdAndStatus(carrierId, convertedStatus, page, size);
+            orderPage = orderService.findByCarrierIdAndStatus(userDTO.getId(), convertedStatus, page, size);
         } else if (search != null && !search.isEmpty()) {
             // Lọc theo từ khóa tìm kiếm
-            orderPage = orderService.findByCarrierIdAndSearch(carrierId, search, page, size);
+            orderPage = orderService.findByCarrierIdAndSearch(userDTO.getId(), search, page, size);
         } else {
             // Lọc theo trạng thái mặc định
-            orderPage = orderService.findByCarrierIdAndStatuses(carrierId, List.of("đang vận chuyển", "chờ vận chuyển"), page, size);
+            orderPage = orderService.findByCarrierIdAndStatuses(userDTO.getId(), List.of("đang vận chuyển", "chờ vận chuyển"), page, size);
         }
 
 
