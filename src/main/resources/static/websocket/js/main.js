@@ -1,8 +1,5 @@
 'use strict';
 
-
-
-
 var chatPage = document.querySelector('#chat-page');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
@@ -16,11 +13,11 @@ var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
-
+var hasSentSystemMessage = false; // Biến cờ để kiểm tra tin nhắn hệ thống đã gửi hay chưa
 // Kết nối WebSocket khi modal mở
 function connect() {
     username = chatPage.dataset.username; // Lấy tên người dùng từ `data-username`
-
+	if (!stompClient || !stompClient.connected) {
     if (username) {
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -29,26 +26,34 @@ function connect() {
     } else {
         console.error("Username is required to connect!");
     }
+    }
 }
 
 // Ngắt kết nối WebSocket khi modal đóng
 function disconnect() {
+	 
     if (stompClient) {
         stompClient.disconnect();
         console.log("Disconnected");
     }
+    
 }
 
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
-
+	
+	if (!hasSentSystemMessage) {
+        // Gửi tin nhắn hệ thống chỉ một lần
+	
     // Thông báo tham gia phòng
     stompClient.send(
         "/app/chat.addUser",
         {},
         JSON.stringify({ sender: username, type: 'JOIN' })
     );
+    hasSentSystemMessage = true; // Đánh dấu đã gửi tin nhắn hệ thống
+    }
 
     connectingElement.classList.add('hidden');
 }
