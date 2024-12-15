@@ -212,26 +212,23 @@
 										</div>
 									</div>
 								</div>
+								<strong class="tf-cart-tax">
+									Taxes and shipping
+									calculated at checkout
+								</strong>
 								<div class="cart-checkbox">
 									<input type="checkbox" class="tf-check" id="cart-gift-checkbox">
 									<label for="cart-gift-checkbox" class="fw-4"> <span>Do
 											you want a gift wrap?</span> Only <span class="fw-5">$5.00</span>
 									</label>
 								</div>
-								<div class="tf-cart-totals-discounts">
-									<h3>Subtotal</h3>
-									<span class="total-value">$18.00 USD</span>
-								</div>
-								<p class="tf-cart-tax">
-									Taxes and <a href="shipping-delivery.html">shipping</a>
-									calculated at checkout
-								</p>
 								<div class="cart-checkbox">
 									<input type="checkbox" class="tf-check" id="check-agree">
 									<label for="check-agree" class="fw-4"> I agree with the
 										<a href="terms-conditions.html">terms and conditions</a>
 									</label>
 								</div>
+
 								<div class="cart-checkout-btn">
 									<a href="${pageContext.request.contextPath}/user/cart/checkout"
 										class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">

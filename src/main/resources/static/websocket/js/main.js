@@ -85,12 +85,12 @@ function onMessageReceived(payload) {
     // Xử lý tin nhắn loại JOIN
     if (message.type === 'JOIN') {
         messageElement.classList.add('event-message'); // Lớp riêng cho sự kiện JOIN
-        messageElement.textContent = message.sender + ' Has Joined!';
+        messageElement.textContent = message.sender + ' has joined the chat!';
     } 
     // Xử lý tin nhắn loại LEAVE
     else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message'); // Lớp riêng cho sự kiện LEAVE
-        messageElement.textContent = message.sender + ' Has Left!';
+        messageElement.textContent = message.sender + ' has left the chat!';
     } 
     // Xử lý tin nhắn từ hệ thống
     else if (message.sender === 'System') {
@@ -137,7 +137,7 @@ function onMessageReceived(payload) {
 
         var usernameElement = document.createElement('div');
         usernameElement.classList.add('username');
-        usernameElement.textContent = message.sender.toUpperCase();
+        usernameElement.textContent = message.sender;
 
         var textElement = document.createElement('div');
         textElement.classList.add('text-content');

@@ -264,7 +264,7 @@
                                         <li><a class="dropdown-item"
                                                href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+                                        <li><a class="dropdown-item" href="/profile/checkorderlist/${pageContext.request.userPrincipal.name}">My Orders</a></li>
                                         <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
