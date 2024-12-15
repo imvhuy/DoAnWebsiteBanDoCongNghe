@@ -120,15 +120,13 @@ button:hover {
 
 /* Tin nhắn chat */
 .chat-message {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    padding: 10px;
+    background-color: #ffffff; /* Nền màu trắng */
+    border: 2px solid #ddd; /* Đường viền xám nhạt */
     margin-left: 60px;
     position: relative;
+    align-items: flex-start; /* Canh trên cùng */
 }
+
 
 .chat-message i {
     position: absolute;
@@ -237,16 +235,9 @@ button:hover {
 
 .message-content .username {
     font-weight: bold;
+    margin-bottom: 5px; /* Khoảng cách giữa tên và nội dung tin nhắn */
     color: #333;
-    margin-bottom: 5px; /* Khoảng cách với nội dung tin nhắn */
-    word-wrap: break-word; /* Cho phép xuống dòng khi tên quá dài */
 }
 
-/* Nội dung tin nhắn */
-.message-content .text-content {
-    color: #333;
-    word-wrap: break-word; /* Cho phép xuống dòng khi nội dung quá dài */
-    overflow-wrap: break-word;
-    white-space: normal; /* Cho phép ngắt dòng tự động */
-}
+
 
