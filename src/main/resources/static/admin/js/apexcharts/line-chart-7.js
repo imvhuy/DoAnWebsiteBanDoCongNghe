@@ -6,13 +6,9 @@
       
         var options = {
             series: [{
-            name: 'Revenue',
+            name: 'Doanh thu',
             type: 'column',
-            data: [51, 40, 58, 51, 42, 89, 80, 51, 60, 78, 81, 92]
-          }, {
-            name: 'Order',
-            type: 'line',
-            data: [31, 32, 45, 32, 34, 52, 41, 31, 40, 28, 51, 42]
+            data: jsonChartMonthlyData.revenueList
           }],
           chart: {
             height: 404,
@@ -41,7 +37,7 @@
               borderRadius: 5,
               borderRadiusApplication: 'end', // 'around', 'end'
               borderRadiusWhenStacked: 'last', // 'all', 'last'
-              columnWidth: '20px'
+              columnWidth: '40px'
             }
           },
           dataLabels: {
@@ -64,7 +60,7 @@
             tooltip: {
               enabled: false
             },
-            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            categories: jsonChartMonthlyData.monthList
           },
           responsive: [{
             breakpoint: 991,

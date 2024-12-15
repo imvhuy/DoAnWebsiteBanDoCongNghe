@@ -8,16 +8,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.javaweb.entity.VoucherEntity;
 import com.javaweb.repository.IPromotionRepository;
 import com.javaweb.service.IPromotionService;
 @Service
 
-public class IPromotionServiceImpl implements IPromotionService {
+public class PromotionServiceImpl implements IPromotionService {
 	private final IPromotionRepository promotionRepository;
 	@Autowired
-	public IPromotionServiceImpl(IPromotionRepository promotionRepository) {
+	public PromotionServiceImpl(IPromotionRepository promotionRepository) {
 	    this.promotionRepository = promotionRepository;
 	}
 
@@ -39,6 +40,10 @@ public class IPromotionServiceImpl implements IPromotionService {
 	    @Override
 	    public List<VoucherEntity> findAll() {
 	        return promotionRepository.findAll();
+	    }
+	    @Override
+		public List<VoucherEntity> findByQuantityGreaterThan(int quantity){
+	    	return promotionRepository.findByQuantityGreaterThan(quantity);
 	    }
 
 public VoucherEntity save(VoucherEntity entity) {
@@ -74,6 +79,7 @@ public VoucherEntity save(VoucherEntity entity) {
 	        return promotionRepository.findById(id);
 	    }
 
+
 	    @Override
 	    public List<VoucherEntity> findByDescriptionContainingIgnoreCase(String description) {
 	        return promotionRepository.findByDescriptionContainingIgnoreCase(description);
@@ -103,8 +109,12 @@ public VoucherEntity save(VoucherEntity entity) {
 	    public void deleteAll() {
 	        promotionRepository.deleteAll();
 	    }
-	    
 
+	    @Transactional // Bọc giao dịch cho phương thức
+	    @Override
+		public void updateQuantity(Long id,int quantity) {
+	    	 promotionRepository.updateQuantity(id, quantity);
+	    }
 	
 	
 }

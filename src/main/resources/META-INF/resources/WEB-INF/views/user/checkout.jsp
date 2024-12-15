@@ -154,6 +154,8 @@
 							<div class="coupon-box">
 								<select id="coupon-select" name="coupon-select"
 									class="tf-select w-100">
+									<option value=0
+											data-discount=""></option>
 									<c:forEach var="voucher" items="${vouchers}">
 										<option value="${voucher.id}"
 											data-discount="${voucher.discount}"
@@ -322,6 +324,10 @@
 							discount = parseInt(selectedCouponOption
 									.getAttribute('data-discount'));
 						}
+						if (isNaN(discount))
+						{
+							discount = 0;
+						}
 
 						// Lấy giá trị Total hiện tại (biến totalAmount đã được tính toán ở phần jsp trên khi lặp qua danh
 						//sách cart items)
@@ -362,7 +368,7 @@
 	function applyDiscount() {
 		// Lấy phần tử <select>
 		const couponSelect = document.getElementById('coupon-select');
-
+		const carrierSelect = document.getElementById('carrier-select');
 		// Lấy tùy chọn đang được chọn
 		const selectedOption = couponSelect.options[couponSelect.selectedIndex];
 
@@ -371,9 +377,16 @@
 			alert('Please select a valid coupon!');
 			return;
 		}
-
+		//lấy tiền shi]p
+		const selectedCarrierOption = carrierSelect.options[carrierSelect.selectedIndex];
+		var shippingFee = parseInt(selectedCarrierOption.getAttribute('data-price')) + 50000;
 		// Lấy giá trị của data-discount từ tùy chọn
-		const discount = parseInt(selectedOption.getAttribute('data-discount'));
+		var discount = parseInt(selectedOption.getAttribute('data-discount'));
+		console.log("discount : ",discount);
+		if (isNaN(discount))
+		{
+			discount = 0;
+		}
 
 		// Lấy giá trị Total hiện tại (biến totalAmount đã được tính toán ở phần jsp trên khi lặp qua danh
 		//sách cart items)
@@ -386,7 +399,8 @@
 
 		// Tính toán tổng mới sau khi áp dụng giảm giá
 		const discountAmount = (currentTotal * discount) / 100;
-		const newTotal = currentTotal - discountAmount;
+		console.log("discountAmount : ",discountAmount);
+		const newTotal = currentTotal - discountAmount + shippingFee;
 
 		// Cập nhật Total trên giao diện
 		totalElement.innerHTML = newTotal.toLocaleString() + " VND";

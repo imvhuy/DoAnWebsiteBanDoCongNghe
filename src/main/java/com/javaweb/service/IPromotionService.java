@@ -33,4 +33,6 @@ public interface IPromotionService {
 	    List<VoucherEntity> findAllById(Iterable<Long> ids);
 
 	    void deleteAll();
+		void updateQuantity(Long id, int quantity);
+		List<VoucherEntity> findByQuantityGreaterThan(int quantity);
 }

@@ -1,5 +1,6 @@
 package com.javaweb.repository;
 
+import com.javaweb.dto.MonthRevenuesDTO;
 import com.javaweb.entity.OrderEntity;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.javaweb.entity.OrderEntity;
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     List<OrderEntity> findByStatus(String status);
+
     Page<OrderEntity> findByStatus(String status, Pageable pageable);
 
     @Query("SELECT o FROM OrderEntity o JOIN DeliveryEntity d ON o.id = d.order.id " +
@@ -50,7 +52,6 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
             "JOIN DeliveryEntity d ON o.id = d.order.id " +
             "WHERE d.carrier.id = :carrierId AND o.status = 'Đã vận chuyển'")
     Double calculateTotalAmount(@Param("carrierId") Long carrierId);
-
 
 
     @Query("SELECT o FROM OrderEntity o WHERE o.user.username = :username")
@@ -143,6 +144,18 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
             "WHERE o.id = :id AND o.status = :status")
     Page<OrderEntity> findByIdAndStatus(@Param("id") Long id, @Param("status") String status, Pageable pageable);
 
+    @Query("SELECT  new com.javaweb.dto.MonthRevenuesDTO(MONTH(o.modifiedDate),SUM(o.amountFromUser)) " +
+            "FROM OrderEntity o " +
+            "WHERE o.storeId = :storeId AND o.status = 'đã vận chuyển' AND YEAR(o.modifiedDate) = :year " +
+            "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) ")
+    List<MonthRevenuesDTO> getMonthRevenuesByStoreId(@Param("storeId") Long storeId, @Param("year") int year);
+
+    @Query("SELECT  MONTH(o.modifiedDate),COUNT(o.id) " +
+            "FROM OrderEntity o " +
+            "WHERE o.storeId = :storeId AND o.status = 'đã vận chuyển' AND YEAR(o.modifiedDate) = :year " +
+            "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) ")
+    List<Object[]> getTotalMonthlyOrdersByStoreId(@Param("storeId") Long storeId, @Param("year") int year);
+
     @Query("SELECT o FROM OrderEntity o " +
             "WHERE o.status = :status AND " +
             "(o.user.fullName LIKE %:search%)")
@@ -152,10 +165,6 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query("SELECT o FROM OrderEntity o " +
             "WHERE o.user.fullName LIKE %:search%")
     Page<OrderEntity> findBySearch(@Param("search") String search, Pageable pageable);
-
-
-
-
 
 
 }

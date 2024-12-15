@@ -69,7 +69,7 @@ public class CheckoutController {
 	         //Lấy danh sách địa chỉ của user
 	        List<AddressEntity> addresses = addressService.getAddressesByUserId(userId);
 	        //lấy danh sách tất cả voucher cho user
-	        List<VoucherEntity> vouchers = promotionService.findAll();
+	        List<VoucherEntity> vouchers = promotionService.findByQuantityGreaterThan(0);
 	        //Lấy danh sách carriers
 	        List<CarrierEntity> carrieres = carrierService.findAll();
 	        //
@@ -83,7 +83,7 @@ public class CheckoutController {
 	 //đặt hàng khi user đang ở trong cart
 	 @PostMapping("/placeOrder")
 	 public void placeOrder(@RequestParam Long address,@RequestParam("carrier-select") Long carrierId,
-			 @RequestParam("payment") String paymentMethod) {
+			 @RequestParam("payment") String paymentMethod,@RequestParam("coupon-select") Long voucherId) {
 		 System.out.println("carrierId : " + carrierId);
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  String username = authentication.getName();  
@@ -91,7 +91,7 @@ public class CheckoutController {
 		  //check xem chọn phương thức thanh toán nào
 		  if ("cash".equals(paymentMethod)) {
 			  //Boolean bo = orderService.createOrderForStore(user,address);
-				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod);
+				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod,voucherId);
 				 //System.out.println("placeOrrder : " + bo);
 		    }
 		

@@ -6,13 +6,9 @@
       
         var options = {
             series: [{
-            name: 'Revenue',
+            name: 'Số lượng order',
             type: 'area',
-            data: [51, 40, 58, 51, 42, 89, 80, 51, 60, 78, 81, 92]
-          }, {
-            name: 'Store',
-            type: 'line',
-            data: [131, 132, 145, 132, 134, 152, 101, 81, 50, 38, 51, 42]
+            data: jsonChartMonthlyOrderData.amountList
           }],
           chart: {
             height: 387,
@@ -61,7 +57,7 @@
             tooltip: {
               enabled: false
             },
-            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            categories:jsonChartMonthlyOrderData.monthList
           },
           };
 
