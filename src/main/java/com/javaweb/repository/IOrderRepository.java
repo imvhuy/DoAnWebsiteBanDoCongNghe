@@ -133,6 +133,29 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
             "WHERE d.carrier.id = :carrierId ORDER BY o.createdDate DESC LIMIT 1")
     OrderEntity findLatestOrderByCarrierId(@Param("carrierId") Long carrierId);
 
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.id = :id AND o.status = :status AND " +
+            "(o.user.fullName LIKE %:search%)")
+    Page<OrderEntity> findByIdStatusAndSearch(@Param("id") Long id, @Param("status") String status,
+                                              @Param("search") String search, Pageable pageable);
+
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.id = :id AND o.status = :status")
+    Page<OrderEntity> findByIdAndStatus(@Param("id") Long id, @Param("status") String status, Pageable pageable);
+
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.status = :status AND " +
+            "(o.user.fullName LIKE %:search%)")
+    Page<OrderEntity> findByStatusAndSearch(@Param("status") String status, @Param("search") String search,
+                                            Pageable pageable);
+
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.user.fullName LIKE %:search%")
+    Page<OrderEntity> findBySearch(@Param("search") String search, Pageable pageable);
+
+
+
+
 
 
 }

@@ -23,7 +23,7 @@ public interface IOrderService {
 
     Page<OrderEntity> findAll(int page, int size);
 
-    Page<OrderEntity> findByStatus(String status, int page, int size);
+    Page<OrderEntity> findByStatus(String status, Pageable pageable);
 
     Page<OrderEntity> findByCarrierId(Long carrierId, int page, int size);
 
@@ -67,4 +67,16 @@ public interface IOrderService {
     OrderEntity findLatestOrderByCarrierId(Long carrierId);
 
     Optional<OrderEntity> findById(Long orderId);
+
+    Page<OrderEntity> getOrdersByIdAndStatus(Long id, String status, int page, int size);
+
+    Page<OrderEntity> findAll(Pageable pageable);
+
+    Page<OrderEntity> findByIdStatusAndSearch(Long id, String status, String search, Pageable pageable);
+
+    Page<OrderEntity> findByIdAndStatus(Long id, String status, Pageable pageable);
+
+    Page<OrderEntity> findByStatusAndSearch(String status, String search, Pageable pageable);
+
+    Page<OrderEntity> findBySearch(String search, Pageable pageable);
 }

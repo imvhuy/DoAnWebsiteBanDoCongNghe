@@ -28,13 +28,13 @@ public class OrderEntity extends BaseEntity{
     @Column(columnDefinition = "nvarchar(50)")
     private String status;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountFromUser;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountToStore;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
+    @Column(columnDefinition = "DECIMAL(15,2)")
     private Double amountToGD;
 
     @ManyToOne
@@ -48,5 +48,8 @@ public class OrderEntity extends BaseEntity{
     private List<OrderItemEntity> orderItems;
 
     private Long storeId;
+
+    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private TransactionEntity transaction;
 
 }

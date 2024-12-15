@@ -9,15 +9,12 @@ import com.javaweb.repository.IOrderRepository;
 import com.javaweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -67,7 +64,7 @@ public class OrderServiceImpl implements IOrderService {
         for (StoreEntity store : stores) {
             GeocodingResultDTO storeAddressGeocoding = geocodingService.getCoordinates(store.getAddress());
             double distance = geocodingService.calculateDistance(Double.parseDouble(userAddressGeocoding.getLat()),
-                    Double.parseDouble(userAddressGeocoding.getLon()), Double.parseDouble(storeAddressGeocoding.getLat()),Double.parseDouble( storeAddressGeocoding.getLon()));
+                    Double.parseDouble(userAddressGeocoding.getLon()), Double.parseDouble(storeAddressGeocoding.getLat()), Double.parseDouble(storeAddressGeocoding.getLon()));
 
             // Kiểm tra xem store này có khoảng cách gần hơn store hiện tại không
             if (distance < shortestDistance) {
@@ -78,9 +75,10 @@ public class OrderServiceImpl implements IOrderService {
 
         return nearestStore;
     }
+
     //Tạo đơn hàng cho store gần nhất
     @Override
-    public Boolean createOrderForStore(UserEntity user,Long userAddressId) {
+    public Boolean createOrderForStore(UserEntity user, Long userAddressId) {
         //lấy địa chỉ của khách hàng
         AddressEntity userAddress = addressService.findByIdNotOptional(userAddressId);
 
@@ -101,6 +99,7 @@ public class OrderServiceImpl implements IOrderService {
 
         return false;
     }
+
     //Trương hợp đặt hàng khi user đang trong giỏ hàng
     //nhóm các cartItem theo các store, tìm các store có đủ quantity của cartItem
     public Map<Long, List<CartProductDTO>> groupCartItemsByStore(Long userId, AddressEntity userAddress) {
@@ -123,7 +122,7 @@ public class OrderServiceImpl implements IOrderService {
                 for (StoreEntity store : stores) {
                     GeocodingResultDTO storeAddressGeocoding = geocodingService.getCoordinates(store.getAddress());
                     double distance = geocodingService.calculateDistance(Double.parseDouble(userAddressGeocoding.getLat()),
-                            Double.parseDouble(userAddressGeocoding.getLon()), Double.parseDouble(storeAddressGeocoding.getLat()),Double.parseDouble( storeAddressGeocoding.getLon()));
+                            Double.parseDouble(userAddressGeocoding.getLon()), Double.parseDouble(storeAddressGeocoding.getLat()), Double.parseDouble(storeAddressGeocoding.getLon()));
 
                     // Kiểm tra xem store này có khoảng cách gần hơn store hiện tại không
                     if (distance < shortestDistance) {
@@ -142,10 +141,11 @@ public class OrderServiceImpl implements IOrderService {
 
         return storeCartMap;
     }
+
     //Trương hợp đặt hàng khi user đang trong giỏ hàng
     //Tạo các order sau khi nhóm các cartItem theo stores
     @Override
-    public void createOrders(Long userId,Long carrierId,Long address,String method) {
+    public void createOrders(Long userId, Long carrierId, Long address, String method) {
         //biến lưu tổng tiền(amount_from_user)
         Long totalAmount = 0L;
         //lấy địa chỉ của khách hàng
@@ -153,13 +153,13 @@ public class OrderServiceImpl implements IOrderService {
         //user
         UserEntity user = userService.findByIdNotOptional(userId);
         //danh sách store:list product
-        Map<Long, List<CartProductDTO>> storeCartMap = groupCartItemsByStore(userId,userAddress);
+        Map<Long, List<CartProductDTO>> storeCartMap = groupCartItemsByStore(userId, userAddress);
         //Số lượng store
         int count = storeCartMap.size();
         //lấy carrier
         CarrierEntity carrier = carrierService.findById(carrierId).get();
         //Tổng tiền ship sau khi cộng thêm 50000 phí thêm
-        Long shippingFee = (carrier.getPrice() + 50000)/count;
+        Long shippingFee = (carrier.getPrice() + 50000) / count;
         for (Map.Entry<Long, List<CartProductDTO>> entry : storeCartMap.entrySet()) {
             Long storeId = entry.getKey();
             List<CartProductDTO> items = entry.getValue();
@@ -188,13 +188,13 @@ public class OrderServiceImpl implements IOrderService {
                 // Thay đổi số lượng trong kho (quantity, sold)
                 storeProductService.updateQuantityAfterUserPlaceOrderItem(storeId, item.getId(), item.getQuantity());
             }
-            totalAmount +=shippingFee;
+            totalAmount += shippingFee;
             //tiền phải thu từ user
             order.setAmountFromUser(Double.parseDouble(totalAmount.toString()));
             //tiền cho carrier
             order.setAmountToGD(Double.parseDouble(carrier.getPrice().toString()));
             //tiền cho store
-            Long amountToStore = totalAmount- carrier.getPrice();
+            Long amountToStore = totalAmount - carrier.getPrice();
             order.setAmountToStore(Double.parseDouble(amountToStore.toString()));
             order.setStatus("chờ vận chuyển");
             //lưu order
@@ -240,6 +240,7 @@ public class OrderServiceImpl implements IOrderService {
 
         return savedOrder;
     }
+
     @Override
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
@@ -263,8 +264,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public Page<OrderEntity> findByStatus(String status, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<OrderEntity> findByStatus(String status, Pageable pageable) {
         return orderRepository.findByStatus(status, pageable);
     }
 
@@ -311,6 +311,7 @@ public class OrderServiceImpl implements IOrderService {
     public Double getTotalAmount(Long carrierId) {
         return orderRepository.calculateTotalAmount(carrierId);
     }
+
     @Override
     public List<OrderStatisticsDTO> getStatisticsByStatus(Long carrierId) {
         List<Object[]> results = orderRepository.countOrdersAndTotalMoneyByStatus(carrierId);
@@ -415,13 +416,65 @@ public class OrderServiceImpl implements IOrderService {
     public List<OrderEntity> findOrdersByUsername(String username) {
         return orderRepository.findByUsername(username);
     }
+
     @Override
     public Page<OrderEntity> findOrdersByUsername(String username, Pageable pageable) {
         return orderRepository.findByUser_Username(username, pageable);
     }
+
     @Override
     public Optional<OrderEntity> findById(Long orderId) {
         return orderRepository.findById(orderId);
     }
 
+    @Override
+    public Page<OrderEntity> getOrdersByIdAndStatus(Long id, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Kiểm tra nếu cả ID và status đều có giá trị, tìm kiếm theo cả hai điều kiện
+        if (id != null && status != null && !status.isEmpty()) {
+            return orderRepository.findByIdAndStatus(id, status, pageable);
+        }
+
+        // Kiểm tra nếu chỉ có status, tìm kiếm theo trạng thái
+        if (status != null && !status.isEmpty()) {
+            return orderRepository.findByStatus(status, pageable);
+        }
+
+        // Kiểm tra nếu chỉ có id, tìm kiếm theo ID
+        if (id != null) {
+            Optional<OrderEntity> orderOptional = orderRepository.findById(id);
+            return new PageImpl<>(orderOptional.isPresent() ? List.of(orderOptional.get()) : Collections.emptyList(), pageable, orderOptional.isPresent() ? 1 : 0);
+        }
+
+        // Nếu không có id và status, trả về tất cả đơn hàng
+        return orderRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<OrderEntity> findAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
+    }
+
+
+    @Override
+    public Page<OrderEntity> findByIdStatusAndSearch(Long id, String status, String search, Pageable pageable) {
+        return orderRepository.findByIdStatusAndSearch(id, status, search, pageable);
+    }
+
+
+    @Override
+    public Page<OrderEntity> findByIdAndStatus(Long id, String status, Pageable pageable) {
+        return orderRepository.findByIdAndStatus(id, status, pageable);
+    }
+
+    @Override
+    public Page<OrderEntity> findByStatusAndSearch(String status, String search, Pageable pageable) {
+        return orderRepository.findByStatusAndSearch(status, search, pageable);
+    }
+
+    @Override
+    public Page<OrderEntity> findBySearch(String search, Pageable pageable) {
+        return orderRepository.findBySearch(search, pageable);
+    }
 }
