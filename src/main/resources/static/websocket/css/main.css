@@ -1,0 +1,252 @@
+/* Đặt lại box-sizing cho toàn bộ phần tử */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tổng quan */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f9f9f9; /* Nền tổng thể */
+    color: #333;
+    line-height: 1.6;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #1c1c1d;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+    border-radius: 8px; /* Bo góc mềm mại */
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Trang Username */
+#username-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.username-page-container {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.username-page-container h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.username-page-container input {
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease-in-out;
+}
+
+.username-page-container input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #000000;
+}
+
+.username-submit {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* Chat Container */
+.chat-container {
+    background-color: #ffffff;
+    max-width: 750px;
+    height: 93%;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+
+.chat-header {
+    background-color: #deddd9;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#chat-page ul {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    height: 74%;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+
+#chat-page ul li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Tin nhắn chat */
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 10px;
+    margin-left: 60px;
+    position: relative;
+}
+
+.chat-message i {
+    position: absolute;
+    left: -50px;
+    width: 40px;
+    height: 40px;
+    background-color: #deddd9;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2em;
+    font-style: normal;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-message {
+    text-align: center;
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* Form gửi tin nhắn */
+#messageForm {
+    display: flex;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#messageForm input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+#messageForm input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #deddd9;
+}
+
+#messageForm button {
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
+}
+
+/* Trạng thái kết nối */
+.connecting {
+    text-align: center;
+    color: #777;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .chat-container {
+        margin: 10px;
+    }
+
+    #messageForm {
+        flex-direction: column;
+    }
+
+    #messageForm input {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+/* Mở rộng chiều rộng modal */
+.modal-dialog {
+    max-width: 900px; /* Tăng chiều rộng modal */
+    width: 90%; /* Cho phép co giãn */
+    margin: 20px auto;
+}
+
+/* Kéo dài chiều cao modal */
+.modal-content {
+    height: 80vh; /* Chiều cao modal chiếm 80% màn hình */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modal body co giãn linh hoạt */
+.modal-body {
+    flex: 1;
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+    padding: 20px; /* Khoảng cách hợp lý */
+}
+/* Đảm bảo tin nhắn xuống dòng khi quá dài */
+#chat-page ul li p {
+    word-wrap: break-word; /* Cho phép xuống dòng khi từ quá dài */
+    overflow-wrap: break-word; /* Hỗ trợ xuống dòng cho từ dài */
+    white-space: normal; /* Cho phép xuống dòng bình thường */
+    max-width: 93%; /* Giới hạn chiều rộng tối đa */
+    margin: 0; /* Loại bỏ margin mặc định */
+}
+
+
+.message-content .username {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Khoảng cách với nội dung tin nhắn */
+    word-wrap: break-word; /* Cho phép xuống dòng khi tên quá dài */
+}
+
+/* Nội dung tin nhắn */
+.message-content .text-content {
+    color: #333;
+    word-wrap: break-word; /* Cho phép xuống dòng khi nội dung quá dài */
+    overflow-wrap: break-word;
+    white-space: normal; /* Cho phép ngắt dòng tự động */
+}
+

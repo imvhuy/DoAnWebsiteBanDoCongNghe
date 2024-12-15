@@ -14,10 +14,10 @@ import com.javaweb.repository.IPromotionRepository;
 import com.javaweb.service.IPromotionService;
 @Service
 
-public class IPromotionServiceImpl implements IPromotionService {
+public class PromotionServiceImpl implements IPromotionService {
 	private final IPromotionRepository promotionRepository;
 	@Autowired
-	public IPromotionServiceImpl(IPromotionRepository promotionRepository) {
+	public PromotionServiceImpl(IPromotionRepository promotionRepository) {
 	    this.promotionRepository = promotionRepository;
 	}
 
