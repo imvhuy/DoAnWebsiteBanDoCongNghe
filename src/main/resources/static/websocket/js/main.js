@@ -14,45 +14,42 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 var hasSentSystemMessage = false; // Biến cờ để kiểm tra tin nhắn hệ thống đã gửi hay chưa
+
 // Kết nối WebSocket khi modal mở
 function connect() {
     username = chatPage.dataset.username; // Lấy tên người dùng từ `data-username`
-	if (!stompClient || !stompClient.connected) {
-    if (username) {
-        var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
+    if (!stompClient || !stompClient.connected) {
+        if (username) {
+            var socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, onConnected, onError);
-    } else {
-        console.error("Username is required to connect!");
-    }
+            stompClient.connect({}, onConnected, onError);
+        } else {
+            console.error("Username is required to connect!");
+        }
     }
 }
 
 // Ngắt kết nối WebSocket khi modal đóng
 function disconnect() {
-	 
     if (stompClient) {
         stompClient.disconnect();
         console.log("Disconnected");
     }
-    
 }
 
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
-	
-	if (!hasSentSystemMessage) {
+
+    if (!hasSentSystemMessage) {
         // Gửi tin nhắn hệ thống chỉ một lần
-	
-    // Thông báo tham gia phòng
-    stompClient.send(
-        "/app/chat.addUser",
-        {},
-        JSON.stringify({ sender: username, type: 'JOIN' })
-    );
-    hasSentSystemMessage = true; // Đánh dấu đã gửi tin nhắn hệ thống
+        stompClient.send(
+            "/app/chat.addUser",
+            {},
+            JSON.stringify({ sender: username, type: 'JOIN' })
+        );
+        hasSentSystemMessage = true; // Đánh dấu đã gửi tin nhắn hệ thống
     }
 
     connectingElement.classList.add('hidden');
@@ -80,10 +77,6 @@ function sendMessage(event) {
     }
 }
 
-
-
-
-
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
 
@@ -104,11 +97,11 @@ function onMessageReceived(payload) {
         messageElement.classList.add('chat-message'); // Lớp chung cho tin nhắn
         messageElement.classList.add('system-message'); // Lớp bổ sung cho tin nhắn hệ thống
 
-	  // Tạo avatar giống như người dùng
-	    var avatarElement = document.createElement('i');
-	    avatarElement.textContent = 'S'; // Chữ cái đầu cho "System"
-	    avatarElement.classList.add('avatar'); 
-	    avatarElement.style.backgroundColor = '#ff5652'; // Màu cho avatar System
+        // Tạo avatar giống như người dùng
+        var avatarElement = document.createElement('i');
+        avatarElement.textContent = 'S'; // Chữ cái đầu cho "System"
+        avatarElement.classList.add('avatar');
+        avatarElement.style.backgroundColor = '#ff5652'; // Màu cho avatar System
 
         var messageContent = document.createElement('div');
         messageContent.classList.add('message-content');
@@ -164,12 +157,6 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight; // Cuộn xuống cuối cùng
 }
 
-
-
-
-
-
-
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -201,8 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
         disconnect();
     });
 });
-
-
 
 // Gửi tin nhắn
 messageForm.addEventListener('submit', sendMessage, true);
