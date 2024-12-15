@@ -9,5 +9,5 @@ import com.javaweb.entity.StoreLevelEntity;
 @Repository
 public interface IStoreLevelRepository extends JpaRepository<StoreLevelEntity, Long> {
 
-	Optional<StoreLevelEntity> findTopByMinPointLessThanEqualOrderByMinPointDesc(int points);
+	Optional<StoreLevelEntity> findTopByMinPointLessThanEqualOrderByMinPointDesc(Long minPoint);
 }

@@ -394,6 +394,45 @@
                                                    placeholder="video" value="${product.video}"
                                                    aria-required="true" required="true"></form:textarea>
                                 </fieldset>
+                                <fieldset class="mb-24">
+                                    <div class="body-title mb-10">Is Active</div>
+                                    <div class="radio-buttons">
+                                        <div class="item">
+                                            <!-- Status 'Active' -->
+                                            <form:radiobutton path="isActive" value="true" id="store-status1"
+                                                        class=""
+                                                        label="Active"
+                                                        checked="${store.isActive == true}"/>
+                                        </div>
+                                        <div class="item">
+                                            <!-- Status 'Inactive' -->
+                                            <form:radiobutton path="isActive" value="false" id="store-status2"
+                                                        class=""
+                                                        label="Inactive"
+                                                        checked="${store.isActive == false}"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="mb-24">
+                                    <div class="body-title mb-10">Is Selling</div>
+                                    <div class="radio-buttons">
+                                        <div class="item">
+                                            <!-- Status 'Active' -->
+                                            <form:radiobutton path="isSelling" value="true" id="store-selling1"
+                                                        class=""
+                                                        label="Active"
+                                                        checked="${store.isSelling == true}"/>
+                                        </div>
+                                        <div class="item">
+                                            <!-- Status 'Inactive' -->
+                                            <form:radiobutton path="isSelling" value="false" id="store-selling2"
+                                                        class=""
+                                                        label="Inactive"
+                                                        checked="${store.isSelling == false}"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
                                 <button class="tf-button w208" type="submit">
                                         ${product.id == null ? 'Add Product' : 'Update Product'}</button>
                             </div>

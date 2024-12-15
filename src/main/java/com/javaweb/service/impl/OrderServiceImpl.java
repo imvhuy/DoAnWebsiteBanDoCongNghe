@@ -193,12 +193,12 @@ public class OrderServiceImpl implements IOrderService{
 	        }
 	        totalAmount +=shippingFee;
 	        //tiền phải thu từ user
-	        order.setAmountFromUser(Double.parseDouble(totalAmount.toString()));
+	        order.setAmountFromUser(Long.parseLong(totalAmount.toString()));
 	        //tiền cho carrier
-	        order.setAmountToGD(Double.parseDouble(carrier.getPrice().toString()));
+	        order.setAmountToGD(Long.parseLong(carrier.getPrice().toString()));
 	        //tiền cho store
 	        Long amountToStore = totalAmount- carrier.getPrice();
-	        order.setAmountToStore(Double.parseDouble(amountToStore.toString()));
+	        order.setAmountToStore(Long.parseLong(amountToStore.toString()));
 	        order.setStatus("chờ vận chuyển");
 	        //lưu order
 	        orderRepository.save(order);
@@ -209,7 +209,14 @@ public class OrderServiceImpl implements IOrderService{
 	        transaction.setIsPaid(false);
 	        transaction.setOrder(order);
 	        //lấy payment
-	        PaymentEntity payment = paymentService.findPaymentEntityByUserAndMethod(user, method);
+            PaymentEntity tmp = paymentService.findPaymentEntityByUserAndMethod(user, method);
+            PaymentEntity payment = new PaymentEntity();
+            if (tmp == null) {
+                payment.setMethod(method);
+                payment.setUser(user);
+                paymentService.save(payment);
+            }
+            else payment = tmp;
 	        transaction.setPayment(payment);
 	        transactionService.save(transaction);
 	    }

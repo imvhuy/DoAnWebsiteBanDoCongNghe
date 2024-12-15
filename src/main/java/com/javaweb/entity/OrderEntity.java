@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import lombok.ToString;
 import org.hibernate.mapping.Join;
 
 @Entity
@@ -28,16 +29,14 @@ public class OrderEntity extends BaseEntity{
     @Column(columnDefinition = "nvarchar(50)")
     private String status;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
-    private Double amountFromUser;
+    private Long amountFromUser;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
-    private Double amountToStore;
+    private Long amountToStore;
 
-    @Column(columnDefinition = "DECIMAL(10,2)")
-    private Double amountToGD;
+    private Long amountToGD;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

@@ -4,5 +4,5 @@ import com.javaweb.entity.StoreLevelEntity;
 
 public interface IStoreLevelService {
 
-	public StoreLevelEntity findByMinPoint(int points);
+	StoreLevelEntity findByMinPoint(Long points);
 }
