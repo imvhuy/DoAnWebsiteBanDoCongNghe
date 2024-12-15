@@ -49,14 +49,13 @@
 				</li>
 
 				<li class="item-title"><span class="inner">Courier</span></li>
-				<c:if test="${order.status == 'Success'}">
+				<c:if test="${order.status == 'đã vận chuyển'}">
 					<li class="item-title"><span class="inner">Receiver</span></li>
 				</c:if>
 			</ul>
 			<div class="widget-content-tab">
 				<div class="widget-content-inner active">
 					<div class="widget-timeline">
-					
 						<ul class="timeline">
 							<li>
 								<div class="timeline-badge success"></div>
@@ -89,11 +88,11 @@
 								</div>
 							</li>
 							<li>
-							    <div class="<c:out value='${order.status == "Success" ? "timeline-badge success" : "timeline-badge"}' />"></div>
+							    <div class="<c:out value='${order.status == "đã vận chuyển" ? "timeline-badge success" : "timeline-badge"}' />"></div>
 							    <div class="timeline-box">
 							        <a class="timeline-panel" href="javascript:void(0);">
 							            <div class="text-2 fw-6">Order Placed</div>
-							          	  <c:if test="${order.status == 'Success'}">
+							          	  <c:if test="${order.status == 'đã vận chuyển'}">
 								                <strong>Date:</strong>  
 								                <span>
 								                    <fmt:formatDate value="${order.modifiedDate}" pattern="MMMM d, yyyy hh:mm:ss a" />
@@ -185,7 +184,7 @@
 						internationally. Choose our service for a seamless and efficient
 						delivery experience.</p>
 				</div>
-				<c:if test="${order.status == 'Success'}">
+				<c:if test="${order.status == 'đã vận chuyển'}">
 					<div class="widget-content-inner">
 						<p class="text-2 text_success">Thank you Your order has been
 							received</p>

@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<link rel="stylesheet" href="websocket/css/main.css"/>
 <!-- Top bar -->
 <div class="tf-top-bar bg_dark line">
     <div class="px_15 lg-px_40">
@@ -215,30 +216,39 @@
                         </li>
 
 
-                        <li class="menu-item search-bar">
-                            <form class="search-form" action="search-results.html" method="get"
-                                  style="padding: 0 10px;">
-                                <input type="text" placeholder="Search..." onclick="openCanvasSearch()"
-                                       class="form-control">
-                            </form>
-                        </li>
-                        <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i
-                                    class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu submenu-default">
-                                <!-- Submenu content -->
-                            </div>
-                        </li>
-                        <li class="menu-item position-relative">
-                            <a href="/vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+						<li class="menu-item search-bar">
+							<form class="search-form" action="search-results.html"
+								method="get" style="padding: 0 10px;">
+								<input type="text" placeholder="Search..."
+									onclick="openCanvasSearch()" class="form-control">
+							</form>
+						</li>
+						<li class="menu-item position-relative"><a href="#"
+							class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i
+								class="icon icon-arrow-down"></i></a>
+							<div class="sub-menu submenu-default">
+								<!-- Submenu content -->
+							</div></li>
+						<li class="menu-item position-relative"><a
+							href="vendor/manage-store" class="item-link"
+							style="font-size: 14px; padding: 5px 10px;">Store</a></li>
+					</ul>
+				</nav>
+			</div>
 
             <!-- Icons for Account, Wishlist, Cart -->
             <div class="col-xl-5 col-md-4 col-3">
                 <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
+                    <!-- Nút Live Chat nằm sát mép phải -->
+                    <div>
+                        <div class="footer-newsletter footer-col-block">
+                            <button type="button"
+                                    class=" tf-btn btn-sm radius-3 btn-fill btn-icon btn-icon animate-hover-btn
+                         live-chat-btn"
+                                    data-bs-toggle="modal" data-bs-target="#chatModal">
+                                Chat with us</button>
+                        </div>
+                    </div>
                     <!-- Kiểm tra nếu người dùng đã đăng nhập -->
                     <li class="nav-account">
                         <c:choose>
@@ -479,9 +489,9 @@
             }
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
-        $('#searchInput').on('input', function() {
+        $('#searchInput').on('input', function () {
             var query = $(this).val(); // Lấy giá trị của ô tìm kiếm
 
             if (query.length >= 2) {
@@ -489,13 +499,13 @@
                 $.ajax({
                     url: '/api/products', // Địa chỉ API tìm kiếm
                     method: 'GET',
-                    data: { query: query },
-                    success: function(data) {
+                    data: {query: query},
+                    success: function (data) {
                         var suggestions = '';
                         if (data.length > 0) {
                             // Hiển thị sản phẩm gợi ý
                             var limitedProducts = data.slice(0, 3);
-                            limitedProducts.forEach(function(product) {
+                            limitedProducts.forEach(function (product) {
                                 suggestions += '<div class="tf-loop-item">';
                                 suggestions += '<div class="image">';
                                 suggestions += '<a href="/products/' + product.id + '">';
@@ -522,7 +532,49 @@
         });
 
     });
-
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/websocket/js/main.js" defer></script>
+
+
+<!-- Modal cho Live Chat -->
+<!-- Modal cho Live Chat -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Live Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+               <div id="chat-page" class="chat-container" data-username="${pageContext.request.userPrincipal.name}">
+                    <!-- Header Chat -->
+
+                    <div class="chat-header">
+                        <h5>Welcome, ${pageContext.request.userPrincipal.name}! Start chatting with us!</h5>
+                    </div>
+                    <!-- Connecting Info -->
+                    <div class="connecting">Connecting...</div>
+                    <!-- Message Area -->
+                    <ul id="messageArea"></ul>
+                    <!-- Message Form -->
+					<form id="messageForm" name="messageForm" onsubmit="return false;">
+					    <div class="form-group">
+					        <div class="input-group clearfix">
+					            <input type="text" id="message" placeholder="Type your message..." autocomplete="off" class="form-control" />
+					            <button type="submit" class="btn btn-dark">Send</button>
+					        </div>
+					    </div>
+					</form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
