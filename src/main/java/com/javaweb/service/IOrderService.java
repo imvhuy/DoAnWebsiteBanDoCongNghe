@@ -1,6 +1,7 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.UserEntity;
+import com.javaweb.dto.MonthRevenuesDTO;
 import com.javaweb.dto.MonthlyRevenueDTO;
 import com.javaweb.dto.OrderStatisticsDTO;
 import com.javaweb.entity.OrderEntity;
@@ -29,7 +30,7 @@ public interface IOrderService {
     // Lấy đơn hàng theo carrierId và trạng thái
     Page<OrderEntity> findByCarrierIdAndStatus(Long carrierId, String status, int page, int size);
 
-	void createOrders(Long userId,Long carrierId,Long address,String method);
+	void createOrders(Long userId,Long carrierId,Long address,String method,Long voucherId);
     void updateStatus(Long orderId, String newStatus);
 
     List<OrderStatisticsDTO> getOrderStatistics(Long carrierId);
@@ -59,4 +60,8 @@ public interface IOrderService {
     List<Object[]> findOrdersByCarrierAndStatuses(Long carrierId, List<String> statuses);
 
     OrderEntity findLatestOrderByCarrierId(Long carrierId);
+
+	List <MonthRevenuesDTO> getMonthRevenuesByStoreId(Long storeId,int year);
+
+	List<Object[]> getTotalMonthlyOrdersByStoreId(Long storeId, int year);
 }

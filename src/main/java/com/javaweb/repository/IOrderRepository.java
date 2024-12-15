@@ -1,5 +1,6 @@
 package com.javaweb.repository;
 
+import com.javaweb.dto.MonthRevenuesDTO;
 import com.javaweb.entity.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -119,5 +120,16 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
             "WHERE d.carrier.id = :carrierId ORDER BY o.createdDate DESC LIMIT 1")
     OrderEntity findLatestOrderByCarrierId(@Param("carrierId") Long carrierId);
 
+    @Query("SELECT  new com.javaweb.dto.MonthRevenuesDTO(MONTH(o.modifiedDate),SUM(o.amountFromUser)) "+
+    "FROM OrderEntity o "+
+    "WHERE o.storeId = :storeId AND o.status = 'đã vận chuyển' AND YEAR(o.modifiedDate) = :year "+
+    "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) ")
+    List<MonthRevenuesDTO> getMonthRevenuesByStoreId(@Param("storeId") Long storeId,@Param("year") int year);
+    
+    @Query("SELECT  MONTH(o.modifiedDate),COUNT(o.id) "+
+    "FROM OrderEntity o "+
+    "WHERE o.storeId = :storeId AND o.status = 'đã vận chuyển' AND YEAR(o.modifiedDate) = :year "+
+    "GROUP BY YEAR(o.modifiedDate), MONTH(o.modifiedDate) ")
+    List<Object[]> getTotalMonthlyOrdersByStoreId(@Param("storeId") Long storeId,@Param("year") int year);
 
 }

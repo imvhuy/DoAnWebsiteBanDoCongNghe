@@ -50,7 +50,10 @@ public class OrderServiceImpl implements IOrderService{
 	IAddressService addressService;
 	@Autowired
 	IProductService productService;
-
+	@Autowired
+	IPromotionService promotionService;
+	@Autowired
+	IPromotionCustomerService promotionCustomerService;
 	@Autowired
 	IOrderItemService orderItemService;
 	@Autowired
@@ -148,7 +151,9 @@ public class OrderServiceImpl implements IOrderService{
 	//Trương hợp đặt hàng khi user đang trong giỏ hàng
 	//Tạo các order sau khi nhóm các cartItem theo stores
 	@Override
-	public void createOrders(Long userId,Long carrierId,Long address,String method) {
+	public void createOrders(Long userId,Long carrierId,Long address,String method,Long voucherId) {
+		//lấy voucher
+		VoucherEntity voucher = promotionService.findById(voucherId).orElse(null);
 		//biến lưu tổng tiền(amount_from_user)
 		Long totalAmount = 0L;
 		//lấy địa chỉ của khách hàng
@@ -191,6 +196,17 @@ public class OrderServiceImpl implements IOrderService{
 	            // Thay đổi số lượng trong kho (quantity, sold)
 	            storeProductService.updateQuantityAfterUserPlaceOrderItem(storeId, item.getId(), item.getQuantity());
 	        }
+	        if(voucher != null)
+	        {
+	        	 totalAmount = totalAmount - (totalAmount* voucher.getDiscount()/100 );
+	        	 promotionService.updateQuantity(voucherId, voucher.getQuantity() -1);
+	        	 VoucherCustomerEntity voucherCustomer = new VoucherCustomerEntity();
+	        	 voucherCustomer.setUser(user);
+	        	 voucherCustomer.setVoucher(voucher);
+	        	 voucherCustomer.setStatus("đã áp dụng");
+	        	 promotionCustomerService.save(voucherCustomer);
+	        }
+	       
 	        totalAmount +=shippingFee;
 	        //tiền phải thu từ user
 	        order.setAmountFromUser(Double.parseDouble(totalAmount.toString()));
@@ -400,8 +416,14 @@ public class OrderServiceImpl implements IOrderService{
         return orderRepository.findLatestOrderByCarrierId(carrierId);
     }
     
-//    public int countOrderByStoreId(Long id) {
-//    	
-//    }
+    @Override
+	public List <MonthRevenuesDTO> getMonthRevenuesByStoreId(Long storeId,int year){
+    	return orderRepository.getMonthRevenuesByStoreId(storeId,year);
+    }
+    
+    @Override
+	public List<Object[]> getTotalMonthlyOrdersByStoreId(Long storeId,int year){
+    	return orderRepository.getTotalMonthlyOrdersByStoreId(storeId, year);
+    }
 
 }
