@@ -110,7 +110,7 @@ function onMessageReceived(payload) {
 
         var usernameElement = document.createElement('div');
         usernameElement.classList.add('username');
-        usernameElement.textContent = 'SYSTEM'; // Tên hệ thống
+        usernameElement.textContent = 'CyberTech Zone'; // Tên hệ thống
 
         var textElement = document.createElement('div');
         textElement.classList.add('text-content');

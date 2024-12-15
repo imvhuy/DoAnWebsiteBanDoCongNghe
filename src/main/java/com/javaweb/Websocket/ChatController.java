@@ -30,10 +30,11 @@ public class ChatController {
         // Add username in WebSocket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         
-     // Nếu username không phải là "VENDOR", gửi tin nhắn hệ thống
-        if (!"VENDOR".equalsIgnoreCase(chatMessage.getSender())) {
+     // Nếu username không chứa "vendor", gửi tin nhắn hệ thống
+        if (!chatMessage.getSender().toLowerCase().contains("vendor")) {
             sendWelcomeMessage(chatMessage.getSender());
         }
+
         return chatMessage;
     }
 
