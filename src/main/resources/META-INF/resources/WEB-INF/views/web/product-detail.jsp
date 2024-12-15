@@ -195,7 +195,7 @@
 
 									<div class="price-on-sale-1">
 										<fmt:formatNumber
-												value="${product.price - product.price * product.promotionalPrice  / 100}"
+												value="${product.promotionalPrice}"
 												type="number" maxFractionDigits="0" />
 										VND
 									</div>
@@ -208,11 +208,14 @@
 									<div class="badges-on-sale">
 										<c:choose>
 											<c:when test="${not empty product.promotionalPrice}">
-												<span>${product.promotionalPrice}</span>% OFF
-        									</c:when>
+
+                                                <span><fmt:formatNumber
+														value="${100 - product.promotionalPrice/product.price * 100}" type="number"
+														maxFractionDigits="0" /></span>% OFF
+											</c:when>
 											<c:otherwise>
 												<span>0</span>% OFF
-        									</c:otherwise>
+											</c:otherwise>
 										</c:choose>
 									</div>
 								</div>
