@@ -76,46 +76,93 @@ function sendMessage(event) {
 }
 
 
+
+
+
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
 
-    var messageElement = document.createElement('li');
+    var messageElement = document.createElement('li'); // Tạo phần tử tin nhắn
 
+    // Xử lý tin nhắn loại JOIN
     if (message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' Has Joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' Has Left!';
-    } else {
-        messageElement.classList.add('chat-message');
+        messageElement.classList.add('event-message'); // Lớp riêng cho sự kiện JOIN
+        messageElement.textContent = message.sender + ' Has Joined!';
+    } 
+    // Xử lý tin nhắn loại LEAVE
+    else if (message.type === 'LEAVE') {
+        messageElement.classList.add('event-message'); // Lớp riêng cho sự kiện LEAVE
+        messageElement.textContent = message.sender + ' Has Left!';
+    } 
+    // Xử lý tin nhắn từ hệ thống
+    else if (message.sender === 'System') {
+        messageElement.classList.add('chat-message'); // Lớp chung cho tin nhắn
+        messageElement.classList.add('system-message'); // Lớp bổ sung cho tin nhắn hệ thống
+
+	  // Tạo avatar giống như người dùng
+	    var avatarElement = document.createElement('i');
+	    avatarElement.textContent = 'S'; // Chữ cái đầu cho "System"
+	    avatarElement.classList.add('avatar'); 
+	    avatarElement.style.backgroundColor = '#ff5652'; // Màu cho avatar System
+
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('message-content');
+
+        var usernameElement = document.createElement('div');
+        usernameElement.classList.add('username');
+        usernameElement.textContent = 'SYSTEM'; // Tên hệ thống
+
+        var textElement = document.createElement('div');
+        textElement.classList.add('text-content');
+        textElement.textContent = message.content;
+
+        // Gắn các phần tử vào `messageContent`
+        messageContent.appendChild(usernameElement);
+        messageContent.appendChild(textElement);
+
+        // Gắn avatar và nội dung vào `messageElement`
+        messageElement.appendChild(avatarElement);
+        messageElement.appendChild(messageContent);
+    } 
+    // Xử lý tin nhắn người dùng
+    else {
+        messageElement.classList.add('chat-message'); // Lớp chung cho tin nhắn
 
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0].toUpperCase()); // Lấy ký tự đầu tiên
+        var avatarText = document.createTextNode(message.sender[0].toUpperCase());
         avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        avatarElement.classList.add('avatar');
+        avatarElement.style.backgroundColor = getAvatarColor(message.sender);
 
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('message-content');
+
+        var usernameElement = document.createElement('div');
+        usernameElement.classList.add('username');
+        usernameElement.textContent = message.sender.toUpperCase();
+
+        var textElement = document.createElement('div');
+        textElement.classList.add('text-content');
+        textElement.textContent = message.content;
+
+        // Gắn các phần tử vào `messageContent`
+        messageContent.appendChild(usernameElement);
+        messageContent.appendChild(textElement);
+
+        // Gắn avatar và nội dung vào `messageElement`
         messageElement.appendChild(avatarElement);
-
-        // Thêm tên người gửi
-        var usernameElement = document.createElement('span');
-        usernameElement.textContent = message.sender; // Chỉ hiển thị tên người gửi
-        usernameElement.style.fontWeight = '600'; // Làm nổi bật tên người gửi
-        usernameElement.style.marginRight = '10px';
-
-        messageElement.appendChild(usernameElement);
+        messageElement.appendChild(messageContent);
     }
 
-    // Chỉ hiển thị nội dung tin nhắn
-    var textElement = document.createElement('p');
-    textElement.textContent = message.content; // Nội dung tin nhắn
-    textElement.style.margin = '0'; // Loại bỏ khoảng cách dư thừa
-
-    messageElement.appendChild(textElement);
+    // Gắn tin nhắn vào khu vực hiển thị
     messageArea.appendChild(messageElement);
-
-    messageArea.scrollTop = messageArea.scrollHeight;
+    messageArea.scrollTop = messageArea.scrollHeight; // Cuộn xuống cuối cùng
 }
+
+
+
+
+
 
 
 function getAvatarColor(messageSender) {
