@@ -42,6 +42,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         } else if (isUser(roles)) {
             return SystemConstant.HOME; // Chuyển hướng đến trang người dùng
         }
+        else if (isVendor(roles)) {
+            return SystemConstant.VENDOR_HOME;
+        }
         return SystemConstant.DEFAULT_PAGE; // Trang mặc định nếu không có vai trò phù hợp
     }
 
@@ -49,6 +52,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         return roles.contains(SystemConstant.ADMIN_ROLE);
 //                roles.contains(SystemConstant.MANAGER_ROLE) ||
 //                roles.contains(SystemConstant.STAFF_ROLE);
+    }
+    private boolean isVendor(List<String> roles) {
+        return roles.contains(SystemConstant.VENDOR_ROLE);
     }
 
     private boolean isUser(List<String> roles) {

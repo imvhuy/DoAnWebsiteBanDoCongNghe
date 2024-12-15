@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/vendor/manage-store")
+@RequestMapping("/vendor")
 public class StoreController {
     @Autowired
     IStoreService storeService;
@@ -32,10 +32,10 @@ public class StoreController {
     @Autowired
     UserConverter userConverter;
 
-    @GetMapping
+    @GetMapping("/manage-store")
     public String showStoreManagementPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {return "redirect:/login";}
+        if (authentication.getPrincipal().equals("anonymousUser")) { return "redirect:/login"; }
         UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
         String owner = userDetails.getUsername();
         StoreEntity currentStore = storeService.findByOwner(owner);

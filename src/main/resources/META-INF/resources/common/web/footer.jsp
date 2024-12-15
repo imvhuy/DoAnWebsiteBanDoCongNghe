@@ -16,14 +16,14 @@
                             </div>
                             <ul>
                                 <li>
-                                    <p>Address: 1234 Fashion Street, Suite 567, <br> New York, NY 10001</p>
+                                    <p>Address: HCMUTE <br> Thủ Đức, Việt Nam</p>
                                 </li>
                                 <li>
-                                    <p>Email: <a href="#">info@fashionshop.com</a></p>
+                                    <p>Email: <a href="#">info@student.hcmute.edu.vn</a></p>
                                 </li>
-                                <li>
-                                    <p>Phone: <a href="#">(212) 555-1234</a></p>
-                                </li>
+<%--                                <li>--%>
+<%--                                    <p>Phone: <a href="#">(212) 555-1234</a></p>--%>
+<%--                                </li>--%>
                             </ul>
                             <a href="contact-1.html" class="tf-btn btn-line">Get direction<i class="icon icon-arrow1-top-left"></i></a>
                             <ul class="tf-social-icon d-flex gap-10 style-white">
@@ -121,13 +121,6 @@
                     <div class="col-12">
                         <div class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
                             <div class="footer-menu_item">© 2024 Ecomus Store. All Rights Reserved</div>
-                            <div class="tf-payment">
-                                <img src="/web/images/payments/visa.png" alt="">
-                                <img src="/web/images/payments/img-1.png" alt="">
-                                <img src="/web/images/payments/img-2.png" alt="">
-                                <img src="/web/images/payments/img-3.png" alt="">
-                                <img src="/web/images/payments/img-4.png" alt="">
-                            </div>
                         </div>
                     </div>
                 </div>

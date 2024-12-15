@@ -35,7 +35,7 @@ public class ProductEntity extends BaseEntity {
     @Lob
     private String configuration;
 
-    private Double promotionalPrice;
+    private Long promotionalPrice;
 
 
     private Boolean isActive;

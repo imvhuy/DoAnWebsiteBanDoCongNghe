@@ -230,7 +230,7 @@
                             </div>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
+                            <a href="/vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
                         </li>
                     </ul>
                 </nav>
@@ -275,15 +275,13 @@
                     <!-- Các phần khác: wishlist, cart -->
                     <li class="nav-wishlist">
                         <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-heart"></i><span class="count-box bg-dark"
-                                                                 style="font-size: 10px; width: 16px; height: 16px;">5</span>
+                            <i class="icon icon-heart"></i>
                         </a>
                     </li>
                     <li class="nav-cart">
                         <a href="${pageContext.request.contextPath}/user/cart" class="nav-icon-item"
                            style="font-size: 16px; padding: 3px;">
-                            <i class="icon icon-bag"></i><span class="count-box bg-dark"
-                                                               style="font-size: 10px; width: 16px; height: 16px;">2</span>
+                            <i class="icon icon-bag"></i>
                         </a>
                     </li>
                 </ul>

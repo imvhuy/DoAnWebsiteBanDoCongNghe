@@ -149,7 +149,7 @@ public class StoreController {
 				.orElseThrow(() -> new RuntimeException("Store not found"));
 
 		// Lấy điểm của cửa hàng
-		int storePoints = storeEntity.getPoint(); // Điều chỉnh theo trường thực tế của StoreEntity
+		Long storePoints = storeEntity.getPoint(); // Điều chỉnh theo trường thực tế của StoreEntity
 
 		// Tìm cấp độ của cửa hàng từ bảng storelevel
 		StoreLevelEntity storeLevel = storeLevelService.findByMinPoint(storePoints);

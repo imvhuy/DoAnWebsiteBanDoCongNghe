@@ -12,4 +12,6 @@ public interface ISubCategoryValueService {
     List<SubcategoryValueEntity> findByCategoryEntity_Id(Long id);
 
     List<SubcategoryValueEntity> findByIds(List<Long> ids);
+
+    List<SubcategoryValueEntity> findByNames(List<String> name);
 }

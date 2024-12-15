@@ -7,4 +7,5 @@ public class SystemConstant {
     public static final String HOME = "/home";
     public static final String ADMIN_HOME = "/admin/home";
     public static final String DEFAULT_PAGE = "/home";
+    public static final String VENDOR_HOME = "/vendor/manage-store";
 }

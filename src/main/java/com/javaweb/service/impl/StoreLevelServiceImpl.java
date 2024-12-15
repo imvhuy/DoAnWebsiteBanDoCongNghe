@@ -13,7 +13,7 @@ public class StoreLevelServiceImpl implements IStoreLevelService {
 	private IStoreLevelRepository storeLevelRepository;
 
 	    // Tìm cấp độ của cửa hàng dựa trên điểm (kiểu int)
-	    public StoreLevelEntity findByMinPoint(int points) {
+	    public StoreLevelEntity findByMinPoint(Long points) {
 	        // Tìm cấp độ có minPoint nhỏ nhất nhưng không lớn hơn điểm của cửa hàng
 	        return storeLevelRepository
 	            .findTopByMinPointLessThanEqualOrderByMinPointDesc(points)

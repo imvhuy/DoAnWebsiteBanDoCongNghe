@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -19,4 +20,6 @@ public interface ISubcategoryValueRepository extends JpaRepository<SubcategoryVa
     List<SubcategoryValueEntity> findByCategoryEntity_Id(Long categoryId);
     SubcategoryValueEntity findBySlug(String slug);
     List<SubcategoryValueEntity> findByIdIn(List<Long> ids);
+
+    List<SubcategoryValueEntity> findByValueIn(Collection<String> values);
 }

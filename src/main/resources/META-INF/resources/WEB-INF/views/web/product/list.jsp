@@ -114,7 +114,7 @@
                 <c:forEach var="product" items="${productPages.content}">
                     <div class="card-product" data-price="${product.price}">
                         <div class="card-product-wrapper">
-                            <a href="product-detail.html" class="product-img">
+                            <a href="${pageContext.request.contextPath}/product-detail/${product.id}" class="product-img">
                                 <img class="lazyload img-product"
                                      src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg"
                                      alt="image-product">

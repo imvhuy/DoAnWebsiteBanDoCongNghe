@@ -40,7 +40,7 @@ public class StoreEntity extends BaseEntity{
     private String avatar;
 
     @Column(name = "point")
-    private Integer point;
+    private Long point;
 
     @Column(name = "rating")
     private Integer  rating;

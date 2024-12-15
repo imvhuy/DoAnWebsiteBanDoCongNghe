@@ -461,7 +461,7 @@ public class OrderServiceImpl implements IOrderService{
     public OrderEntity findLatestOrderByCarrierId(Long carrierId) {
         return orderRepository.findLatestOrderByCarrierId(carrierId);
     }
-    
+
     @Override
 	public List <MonthRevenuesDTO> getMonthRevenuesByStoreId(Long storeId, int year){
     	return orderRepository.getMonthRevenuesByStoreId(storeId,year);
