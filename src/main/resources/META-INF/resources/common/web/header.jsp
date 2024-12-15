@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<link rel="stylesheet" href="websocket/css/main.css"/>
+
 <!-- Top bar -->
 <div class="tf-top-bar bg_dark line">
     <div class="px_15 lg-px_40">
@@ -533,11 +533,6 @@
 
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/websocket/js/main.js" defer></script>
-
-
 <!-- Modal cho Live Chat -->
 <!-- Modal cho Live Chat -->
 <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
