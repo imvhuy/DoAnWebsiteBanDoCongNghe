@@ -146,7 +146,23 @@
         height: auto; /* Duy trì tỷ lệ ảnh */
         margin-top: 10px;
     }
+    .cols-lg {
+        display: flex; /* Sử dụng flexbox */
+        flex-wrap: wrap; /* Cho phép các phần tử xuống dòng nếu cần */
+        gap: 20px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .cols-lg > fieldset {
+        flex: 1; /* Các phần tử sẽ chia đều khoảng trống */
+        min-width: 300px; /* Đảm bảo ô input không bị quá nhỏ */
+        margin: 0; /* Xóa margin thừa nếu có */
+    }
+     .full-width {
+         width: 100%; /* Ensures it takes up the full width of its parent */
+         display: block; /* Makes sure it behaves as a block element */
+     }
 </style>
+
 
 <!-- #wrapper -->
 <div id="wrapper">
@@ -347,32 +363,36 @@
                                         </option>
                                     </form:select>
                                 </fieldset>
-                                <div class="cols-lg gap22">
+                                <div class="cols-lg gap22 full-width">
                                     <fieldset class="price">
                                         <div class="body-title">Price</div>
                                         <form:input path="price" class="body-title mb-10"
                                                     type="number" placeholder="Price" value="${product.price}"
                                                     aria-required="true" required="true"/>
                                     </fieldset>
-                                    <fieldset class="promotion-price">
+                                    <fieldset class="promotion-price ">
                                         <div class="body-title">Promotion Price</div>
                                         <form:input path="promotionalPrice" class="body-title mb-10"
                                                     type="number" placeholder="Promotion Price"
                                                     value="${product.promotionalPrice}" aria-required="true"
                                                     required="true"/>
                                     </fieldset>
-                                    <fieldset class="sold">
-                                        <div class="body-title">Total Sold</div>
-                                        <form:input path="totalSold" class="body-title mb-10"
-                                                    type="number" placeholder="Sold"
-                                                    value="${product.totalSold}" readonly="true"/>
-                                    </fieldset>
-                                    <fieldset class="quantity">
-                                        <div class="body-title">Total Quantity</div>
-                                        <form:input path="totalQuantity" class="body-title mb-10"
-                                                    type="number" placeholder="Total Quantity"
-                                                    value="${product.totalQuantity}" readonly="true"/>
-                                    </fieldset>
+                                    <c:if test="${not empty product.id}">
+                                        <!-- Edit Mode: Show fields -->
+                                        <fieldset class="sold">
+                                            <div class="body-title">Total Sold</div>
+                                            <form:input path="totalSold" class="body-title mb-10"
+                                                        type="number" placeholder="Sold"
+                                                        value="${product.totalSold}" readonly="true"/>
+                                        </fieldset>
+
+                                        <fieldset class="quantity">
+                                            <div class="body-title">Total Quantity</div>
+                                            <form:input path="totalQuantity" class="body-title mb-10"
+                                                        type="number" placeholder="Total Quantity"
+                                                        value="${product.totalQuantity}" readonly="true"/>
+                                        </fieldset>
+                                    </c:if>
                                 </div>
                                 <fieldset class="configuration">
                                     <div class="body-title">Configuration</div>

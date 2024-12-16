@@ -83,7 +83,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="my-account-orders.html" class="my-account-nav-item ${currentPage == 'orders' ? 'active' : ''}">
+                            <a href="/profile/checkorderlist/${pageContext.request.userPrincipal.name}" class="my-account-nav-item ${currentPage == 'orders' ? 'active' : ''}">
                                 Orders
                             </a>
                         </li>

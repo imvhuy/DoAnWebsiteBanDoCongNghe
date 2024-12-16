@@ -38,6 +38,8 @@
 							</div>
 							<div class="text-tiny">entries</div>
 						</div>
+						<!-- Lọc trạng thái -->
+
 						<form class="form-search" action="<c:url value='/admin/stores'/>"
 							method="get">
 							<fieldset class="name">
@@ -50,6 +52,17 @@
 								</button>
 							</div>
 						</form>
+						<div class="select">
+							<select id="statusSelect" name="statusSelect" class="select"
+								onchange="if(this.value) window.location.href = '/admin/stores?status=' + this.value;">
+								<option value="">All</option>
+								<option value="active"
+									${param.status == 'active' ? 'selected' : ''}>Active</option>
+								<option value="inactive"
+									${param.status == 'inactive' ? 'selected' : ''}>Inactive</option>
+							</select>
+
+						</div>
 					</div>
 
 				</div>
@@ -71,9 +84,13 @@
 							<!-- Thay storeList thành stores -->
 							<li class="wg-product item-row gap20">
 								<div class="name">
-									<div class="image">
-										<img src="${store.avatar}" alt="Avatar">
-									</div>
+							<div class="image">
+							    <img src="${store.avatar}" 
+							         alt="Avatar" 
+							         onerror="this.onerror=null; this.src='https://pixsector.com/cache/a35c7d7b/avd437689ef3a02914ac1.png';">
+							</div>
+
+
 									<div class="title line-clamp-2 mb-0">
 										<a href="#" class="body-text">${store.name}</a>
 									</div>
@@ -109,11 +126,10 @@
 										</a>
 									</div>
 									<div class="item trash">
-										<a
-											href="<c:url value='/admin/stores/delete/${store.id}'/>">
+										<a href="<c:url value='/admin/stores/delete/${store.id}'/>">
 											<i class="icon-trash-2"></i>
 										</a>
-									</div>									
+									</div>
 								</div>
 							</li>
 						</c:forEach>
@@ -199,3 +215,20 @@
 		window.location.href = url.toString();
 	}
 </script>
+<script>
+    document.getElementById('statusSelect').addEventListener('change', function () {
+        const selectedStatus = this.value; // Lấy trạng thái được chọn
+        const url = new URL(window.location.href); // Lấy URL hiện tại
+
+        // Cập nhật tham số `status` trong URL
+        if (selectedStatus) {
+            url.searchParams.set('status', selectedStatus);
+        } else {
+            url.searchParams.delete('status'); // Xóa nếu chọn "All"
+        }
+
+        // Chuyển hướng tới URL mới
+        window.location.href = url.toString();
+    });
+</script>
+

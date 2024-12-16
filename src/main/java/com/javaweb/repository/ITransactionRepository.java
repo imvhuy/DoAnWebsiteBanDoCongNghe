@@ -2,7 +2,9 @@ package com.javaweb.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import com.javaweb.entity.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +27,5 @@ public interface ITransactionRepository extends JpaRepository<TransactionEntity,
     	       "AND FUNCTION('DATE', t.createdDate) <= :endDate")
     	Page<TransactionEntity> findByUserIdAndTransactionDateBetween(Long userId, LocalDate startDate, LocalDate endDate, Pageable pageable);
 
+    Optional<TransactionEntity> findByOrder(Optional<OrderEntity> order);
 }

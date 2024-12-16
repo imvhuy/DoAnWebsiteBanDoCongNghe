@@ -2,16 +2,20 @@ package com.javaweb.controller.user;
 
 import com.javaweb.dto.ChangePasswordDTO;
 import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.OrderEntity;
+import com.javaweb.entity.OrderItemEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.dto.AddressDTO;
 import com.javaweb.dto.UserDTO;
 import com.javaweb.service.IAddressService;
+import com.javaweb.service.IOrderService;
 import com.javaweb.service.IUserService;
 import com.javaweb.service.auth.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +32,9 @@ public class ProfileController {
     @Autowired
     private IAddressService addressService;
     @Autowired
-    private AuthenticationService authenticationService;
-
+    private IOrderService orderService;
+    @Autowired
+    AuthenticationService authenticationService;
     @GetMapping
     public String profile(ModelMap model) {
         return "redirect:/profile/{username}";
@@ -169,4 +174,42 @@ public class ProfileController {
         }
         return new ModelAndView("redirect:/profile/detail/" + username);
     }
+
+    @GetMapping("checkorderlist/{username}")
+    public String checkOrderlist(@PathVariable("username") String username, Model model) {
+        // Kiểm tra nếu người dùng đăng nhập không khớp username được yêu cầu
+
+        // Lấy danh sách đơn hàng của người dùng
+        List<OrderEntity> orders = orderService.findOrdersByUsername(username);
+
+        // Truyền dữ liệu vào model để hiển thị
+        model.addAttribute("orders", orders);
+
+        return "user/order"; // Trả về trang JSP "order"
+    }
+    public class RandomCodeGenerator {
+        public static String generateRandomCode() {
+            Random random = new Random();
+            int part1 = 1000 + random.nextInt(9000); // Random 4 chữ số
+            int part2 = 1000 + random.nextInt(9000); // Random 4 chữ số
+            int part3 = 1000 + random.nextInt(9000); // Random 4 chữ số
+            return String.format("%04d-%04d-%04d", part1, part2, part3);
+        }
+    }
+
+    @GetMapping("ordersdetails/{orderId}")
+    public String getOrderDetails(@PathVariable Long orderId, Model model) {
+        OrderEntity order = orderService.findById(orderId)
+                                        .orElseThrow(() -> new RuntimeException("Order not found"));
+        List<OrderItemEntity> orderItems = order.getOrderItems(); // Lấy danh sách sản phẩm trong đơn hàng
+
+        String trackingCode = RandomCodeGenerator.generateRandomCode();
+        model.addAttribute("trackingCode", trackingCode);
+        model.addAttribute("order", order);
+        model.addAttribute("orderItems", orderItems);
+
+        return "user/orderDetail"; // Đường dẫn tới JSP
+
+    }
+
 }

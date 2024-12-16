@@ -43,9 +43,23 @@ public class ShipperController {
     @GetMapping(value = "/home")
     public String home(Model model) {
         // Lấy dữ liệu từ service
-        Long inProgressCount = orderService.getInProgressOrdersCount();
-        Long deliveredCount = orderService.getDeliveredOrdersCount();
-        Long pendingCount = orderService.getPendingOrdersCount();
+        Long carrierId = null;
+        // Lấy carrierId từ thông tin đăng nhập
+        UserDTO userDTO= null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
+            String owner = userDetails.getUsername();
+            userDTO = userService.findByUserName(owner);
+            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            if (shipperCarrier == null) {
+                throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
+            }
+            carrierId = shipperCarrier.getCarrier().getId();
+        }
+        Long inProgressCount = orderService.getInProgressOrdersCount(userDTO.getId());
+        Long deliveredCount = orderService.getDeliveredOrdersCount(userDTO.getId());
+        Long pendingCount = orderService.getPendingOrdersCount(userDTO.getId());
 
         // Thêm dữ liệu vào model để gửi sang JSP
         model.addAttribute("inProgressCount", inProgressCount);
@@ -96,11 +110,12 @@ public class ShipperController {
     public Map<String, String> getLatestOrder() {
         Long carrierId = null;
         // Lấy carrierId từ thông tin đăng nhập
+        UserDTO userDTO= null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO userDTO = userService.findByUserName(owner);
+             userDTO = userService.findByUserName(owner);
             ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
@@ -109,7 +124,7 @@ public class ShipperController {
         }
 
         // Lấy order gần nhất
-        OrderEntity latestOrder = orderService.findLatestOrderByCarrierId(carrierId);
+        OrderEntity latestOrder = orderService.findLatestOrderByCarrierId(userDTO.getId());
 
         // Chuẩn bị dữ liệu trả về
         Map<String, String> response = new HashMap<>();

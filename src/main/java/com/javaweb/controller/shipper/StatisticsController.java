@@ -37,11 +37,12 @@ public class StatisticsController {
     public String getStatistics(@AuthenticationPrincipal UserEntity currentUser, Model model) {
         // Lấy carrierId từ shipper đăng nhập
         Long carrierId = null;
+        UserDTO userDTO =null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO userDTO = userServiceImpl.findByUserName(owner);
+            userDTO = userServiceImpl.findByUserName(owner);
             ShipperCarrierEntity shipperCarrier = shipperCarrierServiceImpl.getShipperByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
@@ -50,10 +51,10 @@ public class StatisticsController {
         }
 
         // Lấy thống kê
-        List<OrderStatisticsDTO> statistics = orderStatisticsService.getOrderStatistics(carrierId);
-        Double totalAmount = orderStatisticsService.getTotalAmount(carrierId);
-        List<OrderStatisticsDTO> statistics2 = orderStatisticsService.getStatisticsByStatus(carrierId);
-        List<MonthlyRevenueDTO> monthlyRevenue = orderStatisticsService.getMonthlyRevenue();
+        List<OrderStatisticsDTO> statistics = orderStatisticsService.getOrderStatistics(userDTO.getId());
+        Double totalAmount = orderStatisticsService.getTotalAmount(userDTO.getId());
+        List<OrderStatisticsDTO> statistics2 = orderStatisticsService.getStatisticsByStatus(userDTO.getId());
+        List<MonthlyRevenueDTO> monthlyRevenue = orderStatisticsService.getMonthlyRevenue(userDTO.getId());
         model.addAttribute("monthlyRevenue", monthlyRevenue);
         // Truyền dữ liệu vào model
         model.addAttribute("statistics2", statistics2);

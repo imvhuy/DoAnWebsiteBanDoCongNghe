@@ -75,4 +75,5 @@ public class ProductEntity extends BaseEntity {
     )
     private List<SubcategoryValueEntity> subCategoryValues;
 
+
 }

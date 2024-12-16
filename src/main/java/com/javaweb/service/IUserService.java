@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IUserService {
@@ -19,8 +20,8 @@ public interface IUserService {
 
     UserDTO findByUserName(String username);
 
-    UserDTO findUserById(long id);
 
+    String getAddressOfShipper(Long id);
 
     List<UserEntity> findByEmailOrUsername(String email, String username);
 

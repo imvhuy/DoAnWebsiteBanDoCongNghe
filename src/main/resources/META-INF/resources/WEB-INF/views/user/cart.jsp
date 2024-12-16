@@ -57,21 +57,33 @@
 								</thead>
 								<tbody>
 									<c:forEach var="cartProduct" items="${cartProducts}">
-										<tr class="tf-cart-item file-delete" data-cart-id="${cartProduct.carItemtId}">
+										<tr class="tf-cart-item file-delete"
+											data-cart-id="${cartProduct.carItemtId}">
 											<td class="tf-cart-item_product"><a
 												href="product-detail.html" class="img-box"> <img
-													src="/admin/images/products/${cartProduct.image}" alt="img-product">
+													src="/admin/images/products/${cartProduct.image}"
+													alt="img-product">
 											</a>
 												<div class="cart-info">
 													<a href="product-detail.html" class="cart-title link">${cartProduct.name}</a>
-													<span class="remove-cart link remove" data-id="${cartProduct.carItemtId}">Remove</span>
+													<span class="remove-cart link remove"
+														data-id="${cartProduct.carItemtId}">Remove</span>
 												</div></td>
 											<td class="tf-cart-item_price" cart-data-title="Price">
 												<div class="cart-price">
-													<fmt:formatNumber value="${cartProduct.price}"
-														type="number" maxFractionDigits="0" />
+													<c:choose>
+														<c:when test="${not empty cartProduct.promotionalPrice}">
+															<fmt:formatNumber value="${cartProduct.promotionalPrice}"
+																type="number" maxFractionDigits="0" />
+														</c:when>
+														<c:otherwise>
+															<fmt:formatNumber value="${cartProduct.price}"
+																type="number" maxFractionDigits="0" />
+														</c:otherwise>
+													</c:choose>
 													VND
 												</div>
+
 											</td>
 											<td class="tf-cart-item_quantity" cart-data-title="Quantity">
 												<div class="cart-quantity">
@@ -95,11 +107,21 @@
 											<td class="tf-cart-item_total" cart-data-title="Total"
 												data-total-available="${cartProduct.availableQuantity}">
 												<div class="cart-total">
-													<fmt:formatNumber
-														value="${cartProduct.price * cartProduct.quantity}"
-														type="number" maxFractionDigits="0" />
+													<c:choose>
+														<c:when test="${not empty cartProduct.promotionalPrice}">
+															<fmt:formatNumber
+																value="${cartProduct.promotionalPrice * cartProduct.quantity}"
+																type="number" maxFractionDigits="0" />
+														</c:when>
+														<c:otherwise>
+															<fmt:formatNumber
+																value="${cartProduct.price * cartProduct.quantity}"
+																type="number" maxFractionDigits="0" />
+														</c:otherwise>
+													</c:choose>
 													VND
 												</div>
+
 											</td>
 										</tr>
 									</c:forEach>
@@ -212,26 +234,23 @@
 										</div>
 									</div>
 								</div>
+								<strong class="tf-cart-tax">
+									Taxes and shipping
+									calculated at checkout
+								</strong>
 								<div class="cart-checkbox">
 									<input type="checkbox" class="tf-check" id="cart-gift-checkbox">
 									<label for="cart-gift-checkbox" class="fw-4"> <span>Do
 											you want a gift wrap?</span> Only <span class="fw-5">$5.00</span>
 									</label>
 								</div>
-								<div class="tf-cart-totals-discounts">
-									<h3>Subtotal</h3>
-									<span class="total-value">$18.00 USD</span>
-								</div>
-								<p class="tf-cart-tax">
-									Taxes and <a href="shipping-delivery.html">shipping</a>
-									calculated at checkout
-								</p>
 								<div class="cart-checkbox">
 									<input type="checkbox" class="tf-check" id="check-agree">
 									<label for="check-agree" class="fw-4"> I agree with the
 										<a href="terms-conditions.html">terms and conditions</a>
 									</label>
 								</div>
+
 								<div class="cart-checkout-btn">
 									<a href="${pageContext.request.contextPath}/user/cart/checkout"
 										class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">

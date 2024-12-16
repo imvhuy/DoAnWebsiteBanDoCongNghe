@@ -34,7 +34,7 @@ public class PaymentAPIController {
             String vnp_TmnCode = PaymentConfig.vnp_TmnCode;
 
             // Convert price to amount in cents
-            int amount = Integer.parseInt(paymentDTO.getTotalPrice()) * 100;
+            Long amount = Long.parseLong(paymentDTO.getTotalPrice()) * 100;
 
             // Prepare parameters for the VNP payment gateway
             Map<String, String> vnp_Params = new HashMap<>();

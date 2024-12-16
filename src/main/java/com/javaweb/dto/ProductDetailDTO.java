@@ -14,6 +14,7 @@ public class ProductDetailDTO {
     private String image;
     private Long totalSold;
     private Double rating;
+    private String video;
 
     public ProductDetailDTO(Long id, String name, Long price, String image, Long totalSold) {
         this.id = id;
@@ -23,6 +24,7 @@ public class ProductDetailDTO {
         this.totalSold = totalSold;
     }
 
+    
     public ProductDetailDTO(Long id, String name, Long price, String image) {
         this.id = id;
         this.name = name;

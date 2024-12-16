@@ -97,21 +97,19 @@
 .category-item a:active {
     color: #0056b3; /* Màu chữ khi click */
 }
-
 .canvas-search {
-    width: 90vw !important; /* Chiếm 90% chiều rộng màn hình */
-    max-width: 1000px; /* Giới hạn tối đa */
-    height: 90vh; /* Chiều cao động */
+    width: 90vw !important;   /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1000px;        /* Giới hạn tối đa */
+    height: 90vh;             /* Chiều cao động */
     max-height: 100vh;
     padding-top: 55px;
     margin: auto;
-    top: 5%; /* Căn giữa màn hình */
+    top: 5%;                 /* Căn giữa màn hình */
     left: 50%;
     transform: translateX(-50%);
     border: 0 !important;
-    overflow-y: auto; /* Cuộn khi cần */
+    overflow-y: auto;        /* Cuộn khi cần */
 }
-
 .canvas-search {
     opacity: 0;
     visibility: hidden;
@@ -124,7 +122,6 @@
     visibility: visible;
     transform: translateY(0) translateX(-50%);
 }
-
 .tf-search-head .title {
     display: flex;
     justify-content: space-between;
@@ -195,20 +192,14 @@
                                 <!-- Submenu content -->
                             </div>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Showroom<i
-                                    class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu mega-menu">
-                                <!-- Submenu content -->
-                            </div>
-                        </li>
+
                         <li class="menu-item">
                             <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Category<i
                                     class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu" style="padding-top: 0px;top: 90px;">
                                 <div class="menu-container">
                                     <!-- Danh sách danh mục bên trái -->
-                                    <div class="menu-left">
+                                    <div class="menu-left" >
                                         <ul class="categories" id="category-list">
 
                                         </ul>
@@ -218,31 +209,33 @@
                         </li>
 
 
-                        <li class="menu-item search-bar">
-                            <form class="search-form" action="search-results.html" method="get"
-                                  style="padding: 0 10px;">
-                                <input type="text" placeholder="Search..." onclick="openCanvasSearch()"
-                                       class="form-control">
-                            </form>
-                        </li>
-                        <li class="menu-item position-relative">
-                            <a href="#" class="item-link" style="font-size: 14px; padding: 5px 10px;">Pages<i
-                                    class="icon icon-arrow-down"></i></a>
-                            <div class="sub-menu submenu-default">
-                                <!-- Submenu content -->
-                            </div>
-                        </li>
-                        <li class="menu-item position-relative">
-                            <a href="/vendor/manage-store" class="item-link"
-                               style="font-size: 14px; padding: 5px 10px;">Store</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+						<li class="menu-item search-bar">
+							<form class="search-form" action="search-results.html"
+								method="get" style="padding: 0 10px;">
+								<input type="text" placeholder="Search..."
+									onclick="openCanvasSearch()" class="form-control">
+							</form>
+						</li>
+						<li class="menu-item position-relative"><a
+							href="vendor/manage-store" class="item-link"
+							style="font-size: 14px; padding: 5px 10px;">Store</a></li>
+					</ul>
+				</nav>
+			</div>
 
             <!-- Icons for Account, Wishlist, Cart -->
             <div class="col-xl-5 col-md-4 col-3">
                 <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
+                    <!-- Nút Live Chat nằm sát mép phải -->
+                    <div>
+                        <div class="footer-newsletter footer-col-block">
+                            <button type="button"
+                                    class=" tf-btn btn-sm radius-3 btn-fill btn-icon btn-icon animate-hover-btn
+                         live-chat-btn"
+                                    data-bs-toggle="modal" data-bs-target="#chatModal">
+                                Chat with us</button>
+                        </div>
+                    </div>
                     <!-- Kiểm tra nếu người dùng đã đăng nhập -->
                     <li class="nav-account">
                         <c:choose>
@@ -263,7 +256,7 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a  class="dropdown-item" href="<c:url value='/logout' />" onclick="logout()">Logout</a></li>
+                                        <li><a class="dropdown-item" href="<c:url value='/logout' />">Logout</a></li>
                                     </ul>
                                 </div>
                             </c:when>
@@ -278,8 +271,7 @@
 
                     <!-- Các phần khác: wishlist, cart -->
                     <li class="nav-wishlist">
-                        <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item"
-                           style="font-size: 16px; padding: 3px;">
+                        <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
                             <i class="icon icon-heart"></i>
                         </a>
                     </li>
@@ -327,7 +319,7 @@
                     </div>
                     <div class="tf-col-content">
                         <div class="tf-search-content-title fw-5">Need some inspiration?</div>
-                        <div class="tf-search-hidden-inner" id="product-suggestions">
+                        <div class="tf-search-hidden-inner" id="product-suggestions" >
                             <!-- Các sản phẩm gợi ý sẽ được chèn vào đây -->
                         </div>
                     </div>
@@ -367,7 +359,7 @@
                                 <span>Log in</span></button>
                         </div>
                         <div class="w-100">
-                            <a href="/register"  class="btn-link fw-6 w-100 link">
+                            <a href="#register" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
                                 New customer? Create your account
                                 <i class="icon icon-arrow1-top-left"></i>
                             </a>
@@ -420,26 +412,25 @@
             <div class="tf-login-form">
                 <form class="">
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="fullName">
-                        <label class="tf-field-label">Full name</label>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
+                        <label class="tf-field-label">First name</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="username">
-                        <label class="tf-field-label">Username</label>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
+                        <label class="tf-field-label">Last name</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="email" name="email">
+                        <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
                         <label class="tf-field-label">Email *</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="password" name="password">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
                         <label class="tf-field-label">Password *</label>
                     </div>
                     <div class="bottom">
                         <div class="w-100">
-                            <form action="/register" method="post"
-                                  class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span>
-                            </form>
+                            <a href="register.html"
+                               class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
                         </div>
                         <div class="w-100">
                             <a href="#login" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
@@ -454,13 +445,15 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/web/js/jquery.min.js"></script>
 <script>
     function openCanvasSearch() {
         const canvasSearch = new bootstrap.Offcanvas(document.getElementById('canvasSearch'));
         canvasSearch.show();
     }
+</script>
 
+<script type="text/javascript" src="/web/js/jquery.min.js"></script>
+<script>
     $(document).ready(function () {
         // Tải danh sách danh mục từ server
         $.ajax({
@@ -483,9 +476,9 @@
             }
         });
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
-        $('#searchInput').on('input', function () {
+        $('#searchInput').on('input', function() {
             var query = $(this).val(); // Lấy giá trị của ô tìm kiếm
 
             if (query.length >= 2) {
@@ -493,13 +486,13 @@
                 $.ajax({
                     url: '/api/products', // Địa chỉ API tìm kiếm
                     method: 'GET',
-                    data: {query: query},
-                    success: function (data) {
+                    data: { query: query },
+                    success: function(data) {
                         var suggestions = '';
                         if (data.length > 0) {
                             // Hiển thị sản phẩm gợi ý
                             var limitedProducts = data.slice(0, 3);
-                            limitedProducts.forEach(function (product) {
+                            limitedProducts.forEach(function(product) {
                                 suggestions += '<div class="tf-loop-item">';
                                 suggestions += '<div class="image">';
                                 suggestions += '<a href="/products/' + product.id + '">';
@@ -586,5 +579,43 @@
 
 
 </script>
+<!-- Modal cho Live Chat -->
+<!-- Modal cho Live Chat -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Live Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+               <div id="chat-page" class="chat-container" data-username="${pageContext.request.userPrincipal.name}">
+                    <!-- Header Chat -->
+
+                    <div class="chat-header">
+                        <h5>Welcome, ${pageContext.request.userPrincipal.name}! Start chatting with us!</h5>
+                    </div>
+                    <!-- Connecting Info -->
+                    <div class="connecting">Connecting...</div>
+                    <!-- Message Area -->
+                    <ul id="messageArea"></ul>
+                    <!-- Message Form -->
+					<form id="messageForm" name="messageForm" onsubmit="return false;">
+					    <div class="form-group">
+					        <div class="input-group clearfix">
+					            <input type="text" id="message" placeholder="Type your message..." autocomplete="off" class="form-control" />
+					            <button type="submit" class="btn btn-dark">Send</button>
+					        </div>
+					    </div>
+					</form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 

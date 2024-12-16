@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface IRoleService {
     List<RoleEntity> findAll();
     Optional<RoleEntity> findById(Long roleId);
+	List<RoleEntity> findByIdIn(List<Long> ids);
 }

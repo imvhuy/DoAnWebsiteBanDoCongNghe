@@ -1,6 +1,8 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.StoreEntity;
+import com.javaweb.entity.UserEntity;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,4 +24,10 @@ public interface IStoreService {
     StoreEntity save(StoreEntity storeEntity);
 
     void deleteById(Long id);
+
+	Page<StoreEntity> findByStatus(Boolean isActive, Pageable pageable);
+
+	Page<StoreEntity> findByStoreNameAndStatus(String storeName, Boolean isActive, Pageable pageable);
+
+	StoreEntity findByOwner(UserEntity owner);
 }

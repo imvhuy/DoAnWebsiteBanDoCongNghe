@@ -78,7 +78,7 @@
 										test="${store.commission == null || store.id == commission.store.id}">
 										<option value="${store.id}"
 											${store.id == (commission.store != null ? commission.store.id : null) ? 'selected' : ''}>
-											${store.storeName}</option>
+											${store.name}</option>
 									</c:if>
 								</c:forEach>
 							</select>

@@ -1,8 +1,10 @@
 package com.javaweb.service.impl;
+
 import java.util.List;
 import java.util.Optional;
 
 import com.javaweb.entity.StoreEntity;
+import com.javaweb.entity.UserEntity;
 import com.javaweb.repository.IStoreRepository;
 import com.javaweb.service.IStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +47,22 @@ public class StoreServiceImpl implements IStoreService {
         return storeRepository.findByOwner_Username(owner);
     }
 
+	@Override
+	public List<StoreEntity> findAll() {
+		return storeRepository.findAll();
+	}
+
+	@Override
+	public StoreEntity findByOwner(UserEntity owner) {
+		return storeRepository.findByOwner(owner);
+	}
+
     @Override
-    public List<StoreEntity> findAll() {
-        return storeRepository.findAll();
+    public Page<StoreEntity> findByStatus(Boolean isActive, Pageable pageable) {
+        return storeRepository.findByIsActive(isActive, pageable);
+    }
+    @Override
+    public Page<StoreEntity> findByStoreNameAndStatus(String storeName, Boolean isActive, Pageable pageable) {
+        return storeRepository.findByNameContainingAndIsActive(storeName, isActive, pageable);
     }
 }

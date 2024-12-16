@@ -2,17 +2,11 @@ package com.javaweb.controller.shipper;
 
 import com.javaweb.config.UserInfoUserDetails;
 import com.javaweb.dto.UserDTO;
-import com.javaweb.entity.OrderEntity;
-import com.javaweb.entity.ShipperCarrierEntity;
-import com.javaweb.entity.StoreEntity;
-import com.javaweb.entity.UserEntity;
+import com.javaweb.entity.*;
 import com.javaweb.service.IOrderService;
 import com.javaweb.service.IShipperCarrierService;
 import com.javaweb.service.IUserService;
-import com.javaweb.service.impl.OrderServiceImpl;
-import com.javaweb.service.impl.ShipperCarrierServiceImpl;
-import com.javaweb.service.impl.StoreServiceImpl;
-import com.javaweb.service.impl.UserServiceImpl;
+import com.javaweb.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -28,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller("OrderShipperController")
 @RequestMapping(value ="/shipper/orders")
@@ -39,6 +34,8 @@ public class OrderController {
     private IShipperCarrierService shipperCarrierService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private TransactionServiceImpl transactionServiceImpl;
 
     @GetMapping
     public ModelAndView list(
@@ -48,21 +45,20 @@ public class OrderController {
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
-
+        UserDTO userDTO = null;
         // Lấy Carrier của shipper đăng nhập
         Long carrierId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO userDTO = userService.findByUserName(owner);
+            userDTO = userService.findByUserName(owner);
             ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
             carrierId = shipperCarrier.getCarrier().getId();
         }
-
 
 
         // Chuyển đổi trạng thái không dấu thành có dấu
@@ -84,16 +80,16 @@ public class OrderController {
         Page<OrderEntity> orderPage;
         if (convertedStatus != null && search != null && !search.isEmpty()) {
             // Lọc theo trạng thái và từ khóa tìm kiếm
-            orderPage = orderService.findByCarrierIdStatusAndSearch(carrierId, convertedStatus, search, page, size);
+            orderPage = orderService.findByCarrierIdStatusAndSearch(userDTO.getId(), convertedStatus, search, page, size);
         } else if (convertedStatus != null) {
             // Lọc theo trạng thái
-            orderPage = orderService.findByCarrierIdAndStatus(carrierId, convertedStatus, page, size);
+            orderPage = orderService.findByCarrierIdAndStatus(userDTO.getId(), convertedStatus, page, size);
         } else if (search != null && !search.isEmpty()) {
             // Lọc theo từ khóa tìm kiếm
-            orderPage = orderService.findByCarrierIdAndSearch(carrierId, search, page, size);
+            orderPage = orderService.findByCarrierIdAndSearch(userDTO.getId(), search, page, size);
         } else {
             // Lọc theo trạng thái mặc định
-            orderPage = orderService.findByCarrierIdAndStatuses(carrierId, List.of("đang vận chuyển", "chờ vận chuyển"), page, size);
+            orderPage = orderService.findByCarrierIdAndStatuses(userDTO.getId(), List.of("đang vận chuyển", "chờ vận chuyển"), page, size);
         }
 
 
@@ -111,13 +107,44 @@ public class OrderController {
             @RequestParam("newStatus") String newStatus,
             RedirectAttributes redirectAttributes) {
         try {
-                orderService.updateStatus(orderId, newStatus);
+            // Cập nhật trạng thái của đơn hàng
+            orderService.updateStatus(orderId, newStatus);
+
+            if ("đã vận chuyển".equals(newStatus)) {
+                // Lấy đối tượng OrderEntity từ orderId
+                Optional<OrderEntity> order = orderService.findById(orderId);
+
+                // Kiểm tra nếu order tồn tại
+                if (order != null) {
+                    // Lấy transaction liên quan đến đơn hàng
+                    TransactionEntity transaction = transactionServiceImpl.findByOrder(order);
+
+                    // Kiểm tra nếu transaction tồn tại
+                    if (transaction != null) {
+                        // Cập nhật isPaid thành true
+                        transaction.setIsPaid(true);
+
+                        // Lưu lại transaction đã cập nhật
+                        transactionServiceImpl.save(transaction);
+                    } else {
+                        throw new RuntimeException("Không tìm thấy giao dịch cho đơn hàng này.");
+                    }
+                } else {
+                    throw new RuntimeException("Không tìm thấy đơn hàng.");
+                }
+            }
+
+            // Thêm thông báo thành công vào flash attributes
             redirectAttributes.addFlashAttribute("message", "Trạng thái đã được cập nhật thành công!");
         } catch (Exception e) {
+            // Thêm thông báo lỗi vào flash attributes
             redirectAttributes.addFlashAttribute("message", "Cập nhật trạng thái thất bại: " + e.getMessage());
         }
+
+        // Chuyển hướng về trang đơn hàng
         return "redirect:/shipper/orders";
     }
+
 
     @GetMapping("/completed")
     public ModelAndView completedOrders(

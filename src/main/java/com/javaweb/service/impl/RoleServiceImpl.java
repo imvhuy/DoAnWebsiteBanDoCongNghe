@@ -22,5 +22,9 @@ public class RoleServiceImpl implements IRoleService {
     public Optional<RoleEntity> findById(Long roleId) {
        return roleRepository.findById(roleId);
     }
+    @Override
+    public List<RoleEntity> findByIdIn(List<Long> ids) {
+        return roleRepository.findAllById(ids); // Sử dụng JpaRepository
+    }
 
 }

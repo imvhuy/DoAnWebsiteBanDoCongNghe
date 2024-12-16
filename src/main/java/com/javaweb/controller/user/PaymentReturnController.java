@@ -40,7 +40,10 @@ public class PaymentReturnController {
             UserEntity user = userService.findByUserNameEntity(username);
             String payDate = params.get("vnp_PayDate");
             try {
-                orderService.createOrders(user.getId(), Long.parseLong(paymentDTO.getCarrierId()), Long.parseLong(paymentDTO.getAddress()), paymentDTO.getPaymentMethod());
+                if(paymentDTO.getVoucher().isEmpty()){
+                    paymentDTO.setVoucher("0");
+                }
+                orderService.createOrders(user.getId(), Long.parseLong(paymentDTO.getCarrierId()), Long.parseLong(paymentDTO.getAddress()), paymentDTO.getPaymentMethod(),Long.parseLong(paymentDTO.getVoucher()));
                 model.addAttribute("message", "Thanh toán thành công");
             } catch (Exception e) {
                 e.printStackTrace();

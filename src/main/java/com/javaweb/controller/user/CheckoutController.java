@@ -91,15 +91,17 @@ public class CheckoutController {
 
 	 @PostMapping("/placeOrder")
 	 public String placeOrder(@RequestParam Long address, @RequestParam("carrier-select") Long carrierId,
-							  @RequestParam("payment") String paymentMethod){
+							  @RequestParam("payment") String paymentMethod,
+							  @RequestParam("coupon-select") Long voucherId){
 		 System.out.println("carrierId : " + carrierId);
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  String username = authentication.getName();
 		  UserEntity user = userService.findByUserNameEntity(username);
 		  //check xem chọn phương thức thanh toán nào
 		  if ("cash".equals(paymentMethod)) {
-				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod);
+				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod,voucherId);
 		  }
+		  System.out.println("voucherId : " + voucherId);
           return "redirect:/user/cart/checkout";
 	 }
 }

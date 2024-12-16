@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="/web/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="/web/css/animate.css">
     <link rel="stylesheet" type="text/css" href="/web/css/styles.css"/>
-
+    
+	<link rel="stylesheet" href="/websocket/css/main.css"/>
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="/web/images/logo/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="/web/images/logo/favicon.png">
@@ -75,5 +76,8 @@
 <script type="text/javascript" src="/web/js/wow.min.js"></script>
 <script type="text/javascript" src="/web/js/multiple-modal.js"></script>
 <script type="text/javascript" src="/web/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/websocket/js/main.js" defer></script>
 </body>
 </html>
