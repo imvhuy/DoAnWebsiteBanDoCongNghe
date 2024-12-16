@@ -99,7 +99,7 @@ function onMessageReceived(payload) {
 
         // Tạo avatar giống như người dùng
         var avatarElement = document.createElement('i');
-        avatarElement.textContent = 'S'; // Chữ cái đầu cho "System"
+        avatarElement.textContent = 'C'; // Chữ cái đầu cho "System"
         avatarElement.classList.add('avatar');
         avatarElement.style.backgroundColor = '#ff5652'; // Màu cho avatar System
 
