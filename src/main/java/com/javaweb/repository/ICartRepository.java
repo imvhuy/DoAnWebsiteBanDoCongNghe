@@ -13,7 +13,7 @@ import com.javaweb.entity.UserEntity;
 
 @Repository
 public interface ICartRepository extends JpaRepository<CartEntity, Long>{
-    @Query("SELECT new com.javaweb.dto.CartProductDTO(ci .id,p.id, p.name, p.price, g.image,ci.quantity) " + 
+    @Query("SELECT new com.javaweb.dto.CartProductDTO(ci .id,p.id, p.name, p.price, g.image,ci.quantity,p.promotionalPrice) " + 
     		"FROM CartItemEntity ci " +
     		"JOIN ci.cart  c "+
     		"JOIN ProductEntity p on p.id = ci.productId " +

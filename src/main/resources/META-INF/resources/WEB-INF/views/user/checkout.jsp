@@ -42,16 +42,24 @@
 				<div class="tf-page-cart-footer">
 					<div class="tf-cart-footer-inner">
 						<h5 class="fw-5 mb_20">Your order</h5>
-						<form class="tf-page-cart-checkout widget-wrap-checkout"
-							action="/user/cart/checkout/placeOrder" method="post">
+						<form class="tf-page-cart-checkout widget-wrap-checkout">
 
 							<ul class="wrap-checkout-product">
 								<c:set var="totalAmount" value="0" />
 								<!-- Khởi tạo tổng ban đầu -->
 								<c:forEach var="cartProduct" items="${cartProducts}">
 									<!-- Cập nhật tổng giá trị sản phẩm -->
-									<c:set var="totalAmount"
-										value="${totalAmount + (cartProduct.price * cartProduct.quantity)}" />
+									<c:set var="totalAmount">
+										<c:choose>
+											<c:when test="${not empty cartProduct.promotionalPrice}">
+            									${totalAmount + (cartProduct.promotionalPrice * cartProduct.quantity)}
+        									</c:when>
+											<c:otherwise>
+           										 ${totalAmount + (cartProduct.price * cartProduct.quantity)}
+       										 </c:otherwise>
+										</c:choose>
+									</c:set>
+
 									<li class="checkout-product-item">
 										<figure class="img-product">
 											<img src="/admin/images/products/${cartProduct.image}"
@@ -62,9 +70,20 @@
 											<div class="info">
 												<p class="name">${cartProduct.name }</p>
 											</div>
-											<span class="price"><fmt:formatNumber
-													value="${cartProduct.price * cartProduct.quantity}"
-													type="number" maxFractionDigits="0" /> VND</span>
+											<span class="price"> <c:choose>
+													<c:when test="${not empty cartProduct.promotionalPrice}">
+														<fmt:formatNumber
+															value="${cartProduct.promotionalPrice * cartProduct.quantity}"
+															type="number" maxFractionDigits="0" />
+													</c:when>
+													<c:otherwise>
+														<fmt:formatNumber
+															value="${cartProduct.price * cartProduct.quantity}"
+															type="number" maxFractionDigits="0" />
+													</c:otherwise>
+												</c:choose> VND
+											</span>
+
 										</div>
 									</li>
 								</c:forEach>
@@ -72,8 +91,7 @@
 							<div class="coupon-box">
 								<select id="coupon-select" name="coupon-select"
 									class="tf-select w-100">
-									<option value=0
-											data-discount=""></option>
+									<option value=0 data-discount=""></option>
 									<c:forEach var="voucher" items="${vouchers}">
 										<option value="${voucher.id}"
 											data-discount="${voucher.discount}"
@@ -89,9 +107,10 @@
 							<div class="coupon-box">
 								<select id="carrier-select" name="carrier-select"
 									class="tf-select w-100">
-									<c:forEach var="carrier" items="${carrieres}">
-										<option value="${carrier.id}" data-price="${carrier.price}">
-											${carrier.name}</option>
+									<c:forEach var="carrier" items="${carrieres}"
+										varStatus="status">
+										<option value="${carrier.id}" data-price="${carrier.price}"
+											${status.first ? 'selected' : ''}>${carrier.name}</option>
 									</c:forEach>
 								</select> <span class="total fw-5" id="shippingFee"> <fmt:formatNumber
 										value="${carrieres[0].price + 50000}" type="number"
@@ -101,11 +120,13 @@
 							<div class="d-flex justify-content-between line pb_20">
 								<h6 class="fw-5">Total</h6>
 								<h6 class="total fw-5" id="total">
-									<fmt:formatNumber value="${totalAmount + carrieres[0].price + 50000}" type="number"
-										maxFractionDigits="0" />
+									<fmt:formatNumber
+										value="${totalAmount + carrieres[0].price + 50000}"
+										type="number" maxFractionDigits="0" />
 									VND
 								</h6>
-								<input type="hidden" name="totalPrice" value="${totalAmount + carrieres[0].price + 50000}">
+								<input type="hidden" name="totalPrice"
+									value="${totalAmount + carrieres[0].price + 50000}">
 							</div>
 
 							<div class="wd-check-payment">
@@ -137,7 +158,7 @@
 							<!-- Các trường dữ liệu bạn muốn gửi, ví dụ như địa chỉ -->
 							<input type="hidden" id="address-hidden" name="address" value=1>
 							<input type="hidden" id="voucher-hidden" name="voucher">
-							<button type="submit" name="submitOrder"
+							<button name="submitOrder"
 								class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Place
 								order</button>
 						</form>
@@ -289,8 +310,8 @@
 		const couponSelect = document.getElementById('coupon-select');
 		const carrierSelect = document.getElementById('carrier-select');
 		// Lấy tùy chọn đang được chọn
+		// Lấy phần tử <select>
 		const selectedOption = couponSelect.options[couponSelect.selectedIndex];
-
 		// Kiểm tra nếu không có tùy chọn nào được chọn hoặc tùy chọn bị disabled
 		if (!selectedOption || selectedOption.disabled) {
 			alert('Please select a valid coupon!');
@@ -334,10 +355,23 @@
 			e.preventDefault();  // Ngừng gửi form thông qua submit thông thường
 
 			const paymentMethod = [...paymentMethodRadios].find(radio => radio.checked).value;
-			const totalPrice = document.querySelector('input[name="totalPrice"]').value;
-			const voucher = document.querySelector('input[name="voucher"]').value;
+			//const totalPrice = document.querySelector('input[name="totalPrice"]').value;
+			//Lấy phần tử chứa tổng tiền
+			const totalElement  = document.getElementById("total");
+			const totalText = totalElement.textContent.trim(); // Lấy nội dung text và loại bỏ khoảng trắng thừa
+			// Loại bỏ 'VND' và chuyển đổi giá trị thành số
+			const totalPrice = parseInt(totalText.replace('VND', '').replaceAll(',', '')); // Loại bỏ 'VND' và dấu phẩy
+			//const voucher = document.querySelector('input[name="voucher"]').value;
+			// Lấy phần tử <select>
+			const couponSelect = document.getElementById('coupon-select');
+			const selectedCouponOption = couponSelect.options[couponSelect.selectedIndex];
+			var voucher = parseInt(selectedCouponOption.value);
+			//console.log("voucher : ", voucher);
 			const address = document.querySelector('input[name="address"]').value;
-			const carrierId = document.querySelector('select[name="carrier-select"]').value;
+			//const carrierId = document.querySelector('select[name="carrier-select"]').value;
+			const carrierSelect = document.getElementById('carrier-select');
+			const selectedCarrierOption = couponSelect.options[carrierSelect.selectedIndex];
+			var carrierId = parseInt(selectedCarrierOption.value);
 
 
 			if (paymentMethod === 'bank') {
@@ -358,9 +392,35 @@
 						})
 						.catch(() => alert('Error processing payment'));
 			} else if (paymentMethod === 'cash') {
-				// Chuyển hướng đến controller /placeOrder
-				window.location.href = '/placeOrder';
+				console.log("cashhhhhhhhhh12222 : ");
+				console.log({
+				    address,
+				    carrierId,
+				    paymentMethod,
+				    voucher
+				});
+
+			    // Gửi yêu cầu POST đến controller
+			    $.ajax({
+			        url: '/user/cart/checkout/placeOrder',
+			        type: 'POST',
+			        data: {
+			            address: address,
+			            'carrier-select': carrierId,
+			            payment: paymentMethod,
+			            'coupon-select': voucher
+			        },
+			        success: function(response) {
+			            // Chuyển hướng nếu cần
+			            window.location.href = '/user/cart/checkout';
+			        },
+			        error: function(xhr, status, error) {
+			            console.error('Error:', error);
+			            alert('Failed to place order.');
+			        }
+			    });
 			}
+
 		});
 	});
 </script>
