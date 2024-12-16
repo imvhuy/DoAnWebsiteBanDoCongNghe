@@ -57,21 +57,33 @@
 								</thead>
 								<tbody>
 									<c:forEach var="cartProduct" items="${cartProducts}">
-										<tr class="tf-cart-item file-delete" data-cart-id="${cartProduct.carItemtId}">
+										<tr class="tf-cart-item file-delete"
+											data-cart-id="${cartProduct.carItemtId}">
 											<td class="tf-cart-item_product"><a
 												href="product-detail.html" class="img-box"> <img
-													src="/admin/images/products/${cartProduct.image}" alt="img-product">
+													src="/admin/images/products/${cartProduct.image}"
+													alt="img-product">
 											</a>
 												<div class="cart-info">
 													<a href="product-detail.html" class="cart-title link">${cartProduct.name}</a>
-													<span class="remove-cart link remove" data-id="${cartProduct.carItemtId}">Remove</span>
+													<span class="remove-cart link remove"
+														data-id="${cartProduct.carItemtId}">Remove</span>
 												</div></td>
 											<td class="tf-cart-item_price" cart-data-title="Price">
 												<div class="cart-price">
-													<fmt:formatNumber value="${cartProduct.price}"
-														type="number" maxFractionDigits="0" />
+													<c:choose>
+														<c:when test="${not empty cartProduct.promotionalPrice}">
+															<fmt:formatNumber value="${cartProduct.promotionalPrice}"
+																type="number" maxFractionDigits="0" />
+														</c:when>
+														<c:otherwise>
+															<fmt:formatNumber value="${cartProduct.price}"
+																type="number" maxFractionDigits="0" />
+														</c:otherwise>
+													</c:choose>
 													VND
 												</div>
+
 											</td>
 											<td class="tf-cart-item_quantity" cart-data-title="Quantity">
 												<div class="cart-quantity">
@@ -95,11 +107,21 @@
 											<td class="tf-cart-item_total" cart-data-title="Total"
 												data-total-available="${cartProduct.availableQuantity}">
 												<div class="cart-total">
-													<fmt:formatNumber
-														value="${cartProduct.price * cartProduct.quantity}"
-														type="number" maxFractionDigits="0" />
+													<c:choose>
+														<c:when test="${not empty cartProduct.promotionalPrice}">
+															<fmt:formatNumber
+																value="${cartProduct.promotionalPrice * cartProduct.quantity}"
+																type="number" maxFractionDigits="0" />
+														</c:when>
+														<c:otherwise>
+															<fmt:formatNumber
+																value="${cartProduct.price * cartProduct.quantity}"
+																type="number" maxFractionDigits="0" />
+														</c:otherwise>
+													</c:choose>
 													VND
 												</div>
+
 											</td>
 										</tr>
 									</c:forEach>

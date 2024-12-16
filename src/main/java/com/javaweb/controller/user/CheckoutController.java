@@ -101,6 +101,7 @@ public class CheckoutController {
 		  if ("cash".equals(paymentMethod)) {
 				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod,voucherId);
 		  }
+		  System.out.println("voucherId : " + voucherId);
           return "redirect:/user/cart/checkout";
 	 }
 }
