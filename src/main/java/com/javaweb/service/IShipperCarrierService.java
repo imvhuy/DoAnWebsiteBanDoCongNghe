@@ -8,6 +8,8 @@ import java.util.List;
 public interface IShipperCarrierService {
     ShipperCarrierEntity getShipperByUserId(Long id);
 
+    List<ShipperCarrierEntity> findAllByUserId(Long userId);
+
     List<UserEntity> getListOfShipperByCarrierId(Long carrierId);
 
     void save(ShipperCarrierEntity shipperCarrier);

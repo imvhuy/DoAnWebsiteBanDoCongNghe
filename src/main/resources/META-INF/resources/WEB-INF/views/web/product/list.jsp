@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- page-title -->
@@ -112,6 +113,7 @@
             <div class="meta-filter-shop"></div>
             <div class="grid-layout wrapper-shop" data-grid="grid-4">
                 <c:forEach var="product" items="${productPages.content}">
+
                     <div class="card-product" data-price="${product.price}">
                         <div class="card-product-wrapper">
                             <a href="${pageContext.request.contextPath}/product-detail/${product.id}" class="product-img">
@@ -157,8 +159,9 @@
                             </div>
                         </div>
                         <div class="card-product-info">
-                            <a href="product-detail.html" class="title link">${product.name}</a>
-                            <span class="price">${product.price}</span>
+                            <a href="${pageContext.request.contextPath}/product-detail/${product.id}" class="title link">${product.name}</a>
+                            <fmt:formatNumber value="${product.price}" pattern="#,###" /> VND
+
                         </div>
                     </div>
                 </c:forEach>

@@ -53,11 +53,11 @@ public class OrderController {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
             userDTO = userService.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierService.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
+           // carrierId = shipperCarrier.getCarrier().getId();
         }
 
 
@@ -154,20 +154,21 @@ public class OrderController {
             @RequestParam(value = "size", defaultValue = "10") int size) {
 
         Long carrierId = null;
+        UserDTO userDTO = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
-            UserDTO userDTO = userService.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            userDTO = userService.findByUserName(owner);
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierService.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
+           // carrierId = shipperCarrier.getCarrier().getId();
         }
 
         // Gọi service để lấy danh sách đơn hàng đã vận chuyển
-        Page<OrderEntity> orderPage = orderService.findCompletedOrdersByCarrierId(carrierId, page, size);
+        Page<OrderEntity> orderPage = orderService.findCompletedOrdersByCarrierId(userDTO.getId(), page, size);
 
         // Thêm dữ liệu vào model
         model.addAttribute("orders", orderPage.getContent());

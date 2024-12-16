@@ -16,4 +16,5 @@ public interface IShipperCarrierRepository extends JpaRepository<ShipperCarrierE
             "JOIN s.user u " +
             "WHERE s.carrier.id = :id ")
     List<UserEntity> getListOfShipperByCarrierId(@Param("id") Long id);
+    List<ShipperCarrierEntity> findAllByUserId(Long userId);
 }

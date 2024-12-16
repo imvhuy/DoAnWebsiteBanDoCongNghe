@@ -414,7 +414,7 @@
 													<div class="reply-comment-item">
 														<div class="user">
 															<div class="image">
-																<img src="${review.user.avatar }" alt="">
+																<img src="https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg" alt="">
 															</div>
 
 															<div>
@@ -458,7 +458,7 @@
 																	<div class="reply-comment-item type-reply">
 																		<div class="user">
 																			<div class="image">
-																				<img src="${review.user.avatar }" alt="">
+																				<img src="https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg" alt="">
 																			</div>
 																			<div>
 																				<h6>

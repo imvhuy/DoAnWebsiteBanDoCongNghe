@@ -75,16 +75,6 @@
 							<li class="sub-menu-item"><a href="/admin/users" class="">
 									<div class="text">All user</div>
 							</a></li>
-							<li class="sub-menu-item"><a href="add-new-user.html"
-								class="">
-									<div class="text">Add new user</div>
-							</a></li>
-							<li class="sub-menu-item"><a href="login.html" class="">
-									<div class="text">Login</div>
-							</a></li>
-							<li class="sub-menu-item"><a href="sign-up.html" class="">
-									<div class="text">Sign up</div>
-							</a></li>
 						</ul></li>
 					<li class="menu-item has-children"><a
 						href="javascript:void(0);" class="menu-item-button">

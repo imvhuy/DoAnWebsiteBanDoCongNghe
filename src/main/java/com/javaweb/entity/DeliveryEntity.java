@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -29,11 +30,13 @@ public class DeliveryEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "carrier_id")
+    @ToString.Exclude
     private CarrierEntity carrier;
 
     private Boolean isDeleted = false;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @ToString.Exclude
     private OrderEntity order;
 }

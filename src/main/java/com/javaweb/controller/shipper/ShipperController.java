@@ -42,8 +42,6 @@ public class ShipperController {
 
     @GetMapping(value = "/home")
     public String home(Model model) {
-        // Lấy dữ liệu từ service
-        Long carrierId = null;
         // Lấy carrierId từ thông tin đăng nhập
         UserDTO userDTO= null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,11 +49,10 @@ public class ShipperController {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
             userDTO = userService.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierService.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
         }
         Long inProgressCount = orderService.getInProgressOrdersCount(userDTO.getId());
         Long deliveredCount = orderService.getDeliveredOrdersCount(userDTO.getId());
@@ -80,11 +77,11 @@ public class ShipperController {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
             UserDTO userDTO = userService.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierService.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
+            //carrierId = shipperCarrier.getCarrier().getId();
         }
 
         // Lấy danh sách đơn hàng chờ vận chuyển và đang vận chuyển
@@ -116,11 +113,11 @@ public class ShipperController {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
              userDTO = userService.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierService.getShipperByUserId(userDTO.getId());
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierService.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
+            //arrierId = shipperCarrier.getCarrier().getId();
         }
 
         // Lấy order gần nhất

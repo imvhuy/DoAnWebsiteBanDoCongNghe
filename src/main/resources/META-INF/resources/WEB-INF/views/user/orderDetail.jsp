@@ -6,7 +6,7 @@
 	<div class="wd-form-order">
 		<div class="order-head">
 			<figure class="img-product">
-				<img src="${order.user.avatar}" alt="product">
+				<img src="https://thumbs.dreamstime.com/b/businessman-avatar-line-icon-vector-illustration-design-79327237.jpg" alt="product">
 			</figure>
 			<div class="content">
 				<div class="badge">${order.status}</div>
@@ -23,11 +23,6 @@
 				</div>
 			</div>
 
-			<div class="item">
-				<div class="text-2 text_black-2">Courier</div>
-				<div class="text-2 mt_4 fw-6">${order.delivery.carrier.name}-
-					${order.delivery.deliveryName}</div>
-			</div>
 			<div class="item">
 				<div class="text-2 text_black-2">Start Time</div>
 				<div class="text-2 mt_4 fw-6">

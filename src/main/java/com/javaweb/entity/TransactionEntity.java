@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "transactions")
@@ -21,10 +22,12 @@ public class TransactionEntity extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @ToString.Exclude
     private OrderEntity order;
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
+    @ToString.Exclude
     private PaymentEntity payment;
 
     @Column(name = "ispaid")

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 <!-- preload -->
 <div class="preload preload-container">
@@ -26,18 +26,21 @@
 					<form class="form-checkout">
 						<fieldset class="box fieldset">
 							<div class="select-custom">
-								<label for="address">Address</label> <select id="address-select"
-									name="address" class="tf-select w-100"
-									onchange="updateHiddenAddress()">
+								<label for="address">Address</label>
+								<select id="address-select" name="address" class="tf-select w-100" onchange="updateHiddenAddress()">
 									<c:forEach var="address" items="${addresses}">
-										<option value="${address.id}">Name:
-											${address.fullName}, Phone: ${address.phone}, Address:
-											${address.address}</option>
+										<option value="${address.id}">Name: ${address.fullName}, Phone: ${address.phone}, Address: ${address.address}</option>
 									</c:forEach>
 								</select>
 							</div>
 						</fieldset>
 					</form>
+					<a href="/profile/address/${pageContext.request.userPrincipal.name}">
+						<button name="addAddress"
+								class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
+							Add Address
+						</button>
+					</a>
 				</div>
 				<div class="tf-page-cart-footer">
 					<div class="tf-cart-footer-inner">
@@ -52,18 +55,18 @@
 									<c:set var="totalAmount">
 										<c:choose>
 											<c:when test="${not empty cartProduct.promotionalPrice}">
-            									${totalAmount + (cartProduct.promotionalPrice * cartProduct.quantity)}
-        									</c:when>
+												${totalAmount + (cartProduct.promotionalPrice * cartProduct.quantity)}
+											</c:when>
 											<c:otherwise>
-           										 ${totalAmount + (cartProduct.price * cartProduct.quantity)}
-       										 </c:otherwise>
+												${totalAmount + (cartProduct.price * cartProduct.quantity)}
+											</c:otherwise>
 										</c:choose>
 									</c:set>
 
 									<li class="checkout-product-item">
 										<figure class="img-product">
 											<img src="/admin/images/products/${cartProduct.image}"
-												alt="product">
+												 alt="product">
 											<span class="quantity">${cartProduct.quantity }</span>
 										</figure>
 										<div class="content">
@@ -71,17 +74,17 @@
 												<p class="name">${cartProduct.name }</p>
 											</div>
 											<span class="price"> <c:choose>
-													<c:when test="${not empty cartProduct.promotionalPrice}">
-														<fmt:formatNumber
+												<c:when test="${not empty cartProduct.promotionalPrice}">
+													<fmt:formatNumber
 															value="${cartProduct.promotionalPrice * cartProduct.quantity}"
 															type="number" maxFractionDigits="0" />
-													</c:when>
-													<c:otherwise>
-														<fmt:formatNumber
+												</c:when>
+												<c:otherwise>
+													<fmt:formatNumber
 															value="${cartProduct.price * cartProduct.quantity}"
 															type="number" maxFractionDigits="0" />
-													</c:otherwise>
-												</c:choose> VND
+												</c:otherwise>
+											</c:choose> VND
 											</span>
 
 										</div>
@@ -90,68 +93,68 @@
 							</ul>
 							<div class="coupon-box">
 								<select id="coupon-select" name="coupon-select"
-									class="tf-select w-100">
+										class="tf-select w-100">
 									<option value=0 data-discount=""></option>
 									<c:forEach var="voucher" items="${vouchers}">
 										<option value="${voucher.id}"
-											data-discount="${voucher.discount}"
-											<c:if test="${voucher.minimumPrice > totalAmount}">disabled</c:if>>
-											${voucher.description}-${voucher.discount}</option>
+												data-discount="${voucher.discount}"
+												<c:if test="${voucher.minimumPrice > totalAmount}">disabled</c:if>>
+												${voucher.description}-${voucher.discount}</option>
 									</c:forEach>
 								</select>
 								<!-- <input type="text" placeholder="Discount code"> -->
 								<button type="button" onclick="applyDiscount()"
-									class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</button>
+										class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</button>
 							</div>
 							<!-- Danh sách carriers -->
 							<div class="coupon-box">
 								<select id="carrier-select" name="carrier-select"
-									class="tf-select w-100">
+										class="tf-select w-100">
 									<c:forEach var="carrier" items="${carrieres}"
-										varStatus="status">
+											   varStatus="status">
 										<option value="${carrier.id}" data-price="${carrier.price}"
 											${status.first ? 'selected' : ''}>${carrier.name}</option>
 									</c:forEach>
 								</select> <span class="total fw-5" id="shippingFee"> <fmt:formatNumber
-										value="${carrieres[0].price + 50000}" type="number"
-										maxFractionDigits="0" /> VND
+									value="${carrieres[0].price + 50000}" type="number"
+									maxFractionDigits="0" /> VND
 								</span>
 							</div>
 							<div class="d-flex justify-content-between line pb_20">
 								<h6 class="fw-5">Total</h6>
 								<h6 class="total fw-5" id="total">
 									<fmt:formatNumber
-										value="${totalAmount + carrieres[0].price + 50000}"
-										type="number" maxFractionDigits="0" />
+											value="${totalAmount + carrieres[0].price + 50000}"
+											type="number" maxFractionDigits="0" />
 									VND
 								</h6>
 								<input type="hidden" name="totalPrice"
-									value="${totalAmount + carrieres[0].price + 50000}">
+									   value="${totalAmount + carrieres[0].price + 50000}">
 							</div>
 
 							<div class="wd-check-payment">
 								<div class="fieldset-radio mb_20">
 									<input type="radio" name="payment" id="bank" class="tf-check"
-										checked value="bank"> <label for="bank">Direct
-										bank transfer</label>
+										   checked value="bank"> <label for="bank">Direct
+									bank transfer</label>
 
 								</div>
 								<div class="fieldset-radio mb_20">
 									<input type="radio" name="payment" id="delivery"
-										class="tf-check" value="cash"> <label for="delivery">Cash
-										on delivery</label>
+										   class="tf-check" value="cash"> <label for="delivery">Cash
+									on delivery</label>
 								</div>
 								<p class="text_black-2 mb_20">
 									Your personal data will be used to process your order, support
 									your experience throughout this website, and for other purposes
 									described in our <a href="privacy-policy.html"
-										class="text-decoration-underline">privacy policy</a>.
+														class="text-decoration-underline">privacy policy</a>.
 								</p>
 								<div class="box-checkbox fieldset-radio mb_20">
 									<input type="checkbox" id="check-agree" class="tf-check">
 									<label for="check-agree" class="text_black-2">I have
 										read and agree to the website <a href="terms-conditions.html"
-										class="text-decoration-underline">terms and conditions</a>.
+																		 class="text-decoration-underline">terms and conditions</a>.
 									</label>
 								</div>
 							</div>
@@ -159,7 +162,7 @@
 							<input type="hidden" id="address-hidden" name="address" value=1>
 							<input type="hidden" id="voucher-hidden" name="voucher">
 							<button name="submitOrder"
-								class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Place
+									class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Place
 								order</button>
 						</form>
 					</div>
@@ -174,10 +177,10 @@
 <!-- gotop -->
 <div class="progress-wrap">
 	<svg class="progress-circle svg-content" width="100%" height="100%"
-		viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
-			style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
-        </svg>
+		 viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+			  style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
+	</svg>
 </div>
 <!-- /gotop -->
 
@@ -185,7 +188,7 @@
 <div class="tf-toolbar-bottom type-1150">
 	<div class="toolbar-item">
 		<a href="#toolbarShopmb" data-bs-toggle="offcanvas"
-			aria-controls="offcanvasLeft">
+		   aria-controls="offcanvasLeft">
 			<div class="toolbar-icon">
 				<i class="icon-shop"></i>
 			</div>
@@ -195,7 +198,7 @@
 
 	<div class="toolbar-item">
 		<a href="#canvasSearch" data-bs-toggle="offcanvas"
-			aria-controls="offcanvasLeft">
+		   aria-controls="offcanvasLeft">
 			<div class="toolbar-icon">
 				<i class="icon-search"></i>
 			</div>
@@ -290,10 +293,10 @@
 						console.log("shippingFee : ", shippingFee);
 						// Cập nhật giá trị trong h6
 						document.getElementById("shippingFee").innerHTML = shippingFee
-								.toLocaleString()
+										.toLocaleString()
 								+ " VND";
 						document.getElementById("total").innerHTML = newTotal
-								.toLocaleString()
+										.toLocaleString()
 								+ " VND";
 					});
 
@@ -406,33 +409,51 @@
 			} else if (paymentMethod === 'cash') {
 				console.log("cashhhhhhhhhh12222 : ");
 				console.log({
-				    address,
-				    carrierId,
-				    paymentMethod,
-				    voucher
+					address,
+					carrierId,
+					paymentMethod,
+					voucher
 				});
 
-			    // Gửi yêu cầu POST đến controller
-			    $.ajax({
-			        url: '/user/cart/checkout/placeOrder',
-			        type: 'POST',
-			        data: {
-			            address: address,
-			            'carrier-select': carrierId,
-			            payment: paymentMethod,
-			            'coupon-select': voucher
-			        },
-			        success: function(response) {
-			            // Chuyển hướng nếu cần
-			            window.location.href = '/user/cart/checkout';
-			        },
-			        error: function(xhr, status, error) {
-			            console.error('Error:', error);
-			            alert('Failed to place order.');
-			        }
-			    });
+				// Gửi yêu cầu POST đến controller
+				$.ajax({
+					url: '/user/cart/checkout/placeOrder',
+					type: 'POST',
+					data: {
+						address: address,
+						'carrier-select': carrierId,
+						payment: paymentMethod,
+						'coupon-select': voucher
+					},
+					success: function(response) {
+						alert('Đặt hàng thành công')
+						window.location.href = '${pageContext.request.contextPath}/profile/checkorderlist/${username}';
+					},
+					error: function(xhr, status, error) {
+						console.error('Error:', error);
+						alert('Không tìm thấy địa chỉ của bạn.');
+					}
+				});
 			}
 
 		});
 	});
+
+
+	// Hàm kiểm tra và xử lý khi trang load
+	window.onload = function() {
+		var addressSelect = document.getElementById("address-select");
+		//var noAddressMessage = document.getElementById("no-address-message");
+
+		// Kiểm tra xem có option nào không
+		if (addressSelect.options.length === 0) {
+			// Nếu không có option, hiển thị thông báo
+			alert("Vui lòng thêm địa chi");
+
+			// Sau 3 giây, điều hướng tới một controller khác
+			setTimeout(function() {
+				window.location.href = '${pageContext.request.contextPath}/profile/address/${username}';  // Thay '/your-controller-url' bằng URL controller của bạn
+			}, 3000);  // 3000 ms = 3 giây
+		}
+	};
 </script>

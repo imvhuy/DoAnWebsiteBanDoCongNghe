@@ -21,6 +21,12 @@ public class ShipperCarrierServiceImpl implements IShipperCarrierService {
     }
 
     @Override
+    public List<ShipperCarrierEntity> findAllByUserId(Long userId) {
+        return shipperCarrierRepository.findAllByUserId(userId);
+    }
+
+
+    @Override
     public List<UserEntity> getListOfShipperByCarrierId(Long carrierId) {
         return shipperCarrierRepository.getListOfShipperByCarrierId(carrierId);
     }

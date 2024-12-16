@@ -98,13 +98,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="my-account-wishlist.html" class="my-account-nav-item ${currentPage == 'wishlist' ? 'active' : ''}">
+                            <a href="${pageContext.request.contextPath}/user/favorite-products" class="my-account-nav-item ${currentPage == 'wishlist' ? 'active' : ''}">
                                 Wishlist
-                            </a>
-                        </li>
-                        <li>
-                            <a href="login.html" class="my-account-nav-item ${currentPage == 'logout' ? 'active' : ''}">
-                                Logout
                             </a>
                         </li>
                     </ul>

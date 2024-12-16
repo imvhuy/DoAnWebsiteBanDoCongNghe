@@ -256,7 +256,10 @@ public class OrderServiceImpl implements IOrderService{
 	        TransactionEntity transaction = new TransactionEntity();
 	        transaction.setAmount(Double.parseDouble(totalAmount.toString()));
 	        //đang lưu đối với trả bằng tiền mặt
-	        transaction.setIsPaid(false);
+            if (method.equals("bank")) {
+                transaction.setIsPaid(true);
+            }
+	        else transaction.setIsPaid(false);
 	        transaction.setOrder(order);
             // lưu delivery
             DeliveryEntity delivery = new DeliveryEntity();

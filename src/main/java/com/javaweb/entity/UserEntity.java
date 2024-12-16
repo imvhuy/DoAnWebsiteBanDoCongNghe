@@ -40,6 +40,7 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AddressEntity> addressEntities = new ArrayList<>();
 
+
     @Column(name = "avatar", columnDefinition =  "nvarchar(500)")
     private String avatar;
 
@@ -47,15 +48,20 @@ public class UserEntity extends BaseEntity {
     private Integer status;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<CartEntity> cartEntities;
     
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<FavoriteProductEntity> favoriteProductEntities;
 
     @OneToMany(mappedBy = "owner")
+    @ToString.Exclude
     private List<StoreEntity> storeEntities;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<OrderEntity> orderEntities;
 
     @ToString.Exclude

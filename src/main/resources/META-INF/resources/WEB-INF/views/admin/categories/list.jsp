@@ -101,7 +101,7 @@
                                 <li class="wg-product item-row gap20">
                                     <div class="name">
                                         <div class="image">
-                                            <img src="images/categories/cate1.png" alt="">
+                                            <img src="https://static.vecteezy.com/system/resources/previews/005/129/872/non_2x/category-black-filled-icon-style-free-vector.jpg" alt="">
                                         </div>
                                         <div class="title line-clamp-2 mb-0">
                                             <a href="#" class="body-text">${category.name }</a>

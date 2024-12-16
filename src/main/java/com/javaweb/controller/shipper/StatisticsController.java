@@ -43,11 +43,11 @@ public class StatisticsController {
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String owner = userDetails.getUsername();
             userDTO = userServiceImpl.findByUserName(owner);
-            ShipperCarrierEntity shipperCarrier = shipperCarrierServiceImpl.getShipperByUserId(userDTO.getId());
+            List<ShipperCarrierEntity> shipperCarrier = shipperCarrierServiceImpl.findAllByUserId(userDTO.getId());
             if (shipperCarrier == null) {
                 throw new RuntimeException("Shipper này chưa được liên kết với bất kỳ Carrier nào.");
             }
-            carrierId = shipperCarrier.getCarrier().getId();
+          //  carrierId = shipperCarrier.getCarrier().getId();
         }
 
         // Lấy thống kê

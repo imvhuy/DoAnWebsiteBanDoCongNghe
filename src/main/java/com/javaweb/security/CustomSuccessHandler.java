@@ -45,6 +45,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         else if (isVendor(roles)) {
             return SystemConstant.VENDOR_HOME;
         }
+        else if (isShipper(roles)) {
+            return SystemConstant.SHIPPER_HOME;
+        }
         return SystemConstant.DEFAULT_PAGE; // Trang mặc định nếu không có vai trò phù hợp
     }
 
@@ -59,6 +62,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private boolean isUser(List<String> roles) {
         return roles.contains(SystemConstant.USER_ROLE);
+    }
+
+    private boolean isShipper(List<String> roles) {
+        return roles.contains(SystemConstant.SHIPPER_ROLE);
     }
 
 }

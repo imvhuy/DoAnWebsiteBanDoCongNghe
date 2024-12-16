@@ -12,9 +12,12 @@ import com.javaweb.config.PaymentConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,8 @@ import com.javaweb.service.*;
 
 @Controller
 @RequestMapping("/user/cart/checkout")
+@EnableMethodSecurity
+@PreAuthorize( "hasRole('ROLE_USER')")
 public class CheckoutController {
 	 	@Autowired
 	    private IGeocodingService geocodingService;
@@ -82,6 +87,7 @@ public class CheckoutController {
 	        List<CarrierEntity> carrieres = carrierService.findAll();
 	        //
 	        ModelAndView mav = new ModelAndView("/user/checkout");
+		 	mav.addObject("username", username);
 	        mav.addObject("cartProducts", cartProducts);
 	        mav.addObject("addresses", addresses);
 	        mav.addObject("vouchers", vouchers);
@@ -92,7 +98,7 @@ public class CheckoutController {
 	 @PostMapping("/placeOrder")
 	 public String placeOrder(@RequestParam Long address, @RequestParam("carrier-select") Long carrierId,
 							  @RequestParam("payment") String paymentMethod,
-							  @RequestParam("coupon-select") Long voucherId){
+							  @RequestParam("coupon-select") Long voucherId, Model model){
 		 System.out.println("carrierId : " + carrierId);
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  String username = authentication.getName();
@@ -100,8 +106,10 @@ public class CheckoutController {
 		  //check xem chọn phương thức thanh toán nào
 		  if ("cash".equals(paymentMethod)) {
 				 orderService.createOrders(user.getId(),carrierId,address,paymentMethod,voucherId);
+				 model.addAttribute("username", username);
 		  }
 		  System.out.println("voucherId : " + voucherId);
-          return "redirect:/user/cart/checkout";
+
+          return "redirect:/profile/checkorderlist/" + username;
 	 }
 }
