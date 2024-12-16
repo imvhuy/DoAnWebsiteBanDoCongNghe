@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -47,6 +48,8 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value ="/admin/products")
+@EnableMethodSecurity
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class ProductController {
     @Autowired
     private IProductService productService;

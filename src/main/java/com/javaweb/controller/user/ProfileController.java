@@ -7,6 +7,7 @@ import com.javaweb.dto.AddressDTO;
 import com.javaweb.dto.UserDTO;
 import com.javaweb.service.IAddressService;
 import com.javaweb.service.IUserService;
+import com.javaweb.service.auth.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class ProfileController {
     private IUserService userService;
     @Autowired
     private IAddressService addressService;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @GetMapping
     public String profile(ModelMap model) {
@@ -156,7 +159,7 @@ public class ProfileController {
         }
 
         // Gọi service để xử lý thay đổi mật khẩu (giả sử có UserService)
-        boolean success = userService.changePassword(username, currentPassword, newPassword);
+        boolean success = authenticationService.changePassword(username, currentPassword, newPassword);
 
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Password changed successfully.");

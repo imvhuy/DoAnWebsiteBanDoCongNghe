@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RoleEntity extends BaseEntity {
+public class RoleEntity {
     private static final long serialVersionUID = 1L;
 
     @Id

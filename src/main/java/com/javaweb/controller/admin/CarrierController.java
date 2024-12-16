@@ -27,6 +27,8 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/admin/carriers")
+@EnableMethodSecurity
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class CarrierController {
     @Autowired
     private ICarrierService carrierService;

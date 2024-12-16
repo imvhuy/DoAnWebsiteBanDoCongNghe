@@ -3,6 +3,7 @@ package com.javaweb.controller.admin;
 import com.javaweb.entity.VoucherEntity;
 import com.javaweb.service.IPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/admin/promotions")
+@EnableMethodSecurity
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class PromotionController {
 
     @Autowired

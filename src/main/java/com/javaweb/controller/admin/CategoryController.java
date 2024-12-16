@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -34,12 +36,14 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/admin/categories")
+@EnableMethodSecurity
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class CategoryController {
 	
 	@Autowired
     private ICategoryService categoryService;
-	
-    
+
+
     @GetMapping
     public ModelAndView list(ModelMap model, @RequestParam(value = "message", required = false) String message) {
         //gọi hàm findAll() trong service
@@ -51,7 +55,7 @@ public class CategoryController {
         model.addAttribute("categories", list);
         return new ModelAndView("forward:/admin/categories/searchpaginated", model);
     }
-    
+
     @GetMapping("add")
     public ModelAndView add(@ModelAttribute ModelMap model) {
         CategoryDTO categoryDTO = new CategoryDTO();

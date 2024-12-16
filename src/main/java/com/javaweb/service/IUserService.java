@@ -10,21 +10,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface IUserService {
-    Boolean changePassword(String username, String currentPassword, String newPassword);
 
+    @Transactional
     UserDTO findByUserNameAndStatus(String name, int status);
+
     UserDTO findByUserName(String username);
 
     UserDTO findUserById(long id);
-    UserDTO insert(UserDTO userModel);
-    UserDTO update(Long id, UserEntity userEntity);
-    void delete(long[] ids);
-    Boolean authenticate(String username, String password);
-	UserEntity findByUserNameEntity(String userName);
+
+
+    List<UserEntity> findByEmailOrUsername(String email, String username);
+
+    UserEntity findByUserNameEntity(String userName);
 
     
  // vũ làm   

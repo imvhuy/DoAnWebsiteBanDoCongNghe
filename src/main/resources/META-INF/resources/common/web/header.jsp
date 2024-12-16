@@ -97,19 +97,21 @@
 .category-item a:active {
     color: #0056b3; /* Màu chữ khi click */
 }
+
 .canvas-search {
-    width: 90vw !important;   /* Chiếm 90% chiều rộng màn hình */
-    max-width: 1000px;        /* Giới hạn tối đa */
-    height: 90vh;             /* Chiều cao động */
+    width: 90vw !important; /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1000px; /* Giới hạn tối đa */
+    height: 90vh; /* Chiều cao động */
     max-height: 100vh;
     padding-top: 55px;
     margin: auto;
-    top: 5%;                 /* Căn giữa màn hình */
+    top: 5%; /* Căn giữa màn hình */
     left: 50%;
     transform: translateX(-50%);
     border: 0 !important;
-    overflow-y: auto;        /* Cuộn khi cần */
+    overflow-y: auto; /* Cuộn khi cần */
 }
+
 .canvas-search {
     opacity: 0;
     visibility: hidden;
@@ -122,6 +124,7 @@
     visibility: visible;
     transform: translateY(0) translateX(-50%);
 }
+
 .tf-search-head .title {
     display: flex;
     justify-content: space-between;
@@ -205,7 +208,7 @@
                             <div class="sub-menu mega-menu" style="padding-top: 0px;top: 90px;">
                                 <div class="menu-container">
                                     <!-- Danh sách danh mục bên trái -->
-                                    <div class="menu-left" >
+                                    <div class="menu-left">
                                         <ul class="categories" id="category-list">
 
                                         </ul>
@@ -230,7 +233,8 @@
                             </div>
                         </li>
                         <li class="menu-item position-relative">
-                            <a href="/vendor/manage-store" class="item-link" style="font-size: 14px; padding: 5px 10px;">Store</a>
+                            <a href="/vendor/manage-store" class="item-link"
+                               style="font-size: 14px; padding: 5px 10px;">Store</a>
                         </li>
                     </ul>
                 </nav>
@@ -259,7 +263,7 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="<c:url value='/logout' />">Logout</a></li>
+                                        <li><a  class="dropdown-item" href="<c:url value='/logout' />" onclick="logout()">Logout</a></li>
                                     </ul>
                                 </div>
                             </c:when>
@@ -274,7 +278,8 @@
 
                     <!-- Các phần khác: wishlist, cart -->
                     <li class="nav-wishlist">
-                        <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item" style="font-size: 16px; padding: 3px;">
+                        <a href="${pageContext.request.contextPath}/user/favorite-products" class="nav-icon-item"
+                           style="font-size: 16px; padding: 3px;">
                             <i class="icon icon-heart"></i>
                         </a>
                     </li>
@@ -322,7 +327,7 @@
                     </div>
                     <div class="tf-col-content">
                         <div class="tf-search-content-title fw-5">Need some inspiration?</div>
-                        <div class="tf-search-hidden-inner" id="product-suggestions" >
+                        <div class="tf-search-hidden-inner" id="product-suggestions">
                             <!-- Các sản phẩm gợi ý sẽ được chèn vào đây -->
                         </div>
                     </div>
@@ -362,7 +367,7 @@
                                 <span>Log in</span></button>
                         </div>
                         <div class="w-100">
-                            <a href="#register" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
+                            <a href="/register"  class="btn-link fw-6 w-100 link">
                                 New customer? Create your account
                                 <i class="icon icon-arrow1-top-left"></i>
                             </a>
@@ -415,25 +420,26 @@
             <div class="tf-login-form">
                 <form class="">
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
-                        <label class="tf-field-label">First name</label>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="fullName">
+                        <label class="tf-field-label">Full name</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
-                        <label class="tf-field-label">Last name</label>
+                        <input class="tf-field-input tf-input" placeholder=" " type="text" name="username">
+                        <label class="tf-field-label">Username</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
+                        <input class="tf-field-input tf-input" placeholder=" " type="email" name="email">
                         <label class="tf-field-label">Email *</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" name="password">
                         <label class="tf-field-label">Password *</label>
                     </div>
                     <div class="bottom">
                         <div class="w-100">
-                            <a href="register.html"
-                               class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
+                            <form action="/register" method="post"
+                                  class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span>
+                            </form>
                         </div>
                         <div class="w-100">
                             <a href="#login" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
@@ -448,15 +454,13 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/web/js/jquery.min.js"></script>
 <script>
     function openCanvasSearch() {
         const canvasSearch = new bootstrap.Offcanvas(document.getElementById('canvasSearch'));
         canvasSearch.show();
     }
-</script>
 
-<script type="text/javascript" src="/web/js/jquery.min.js"></script>
-<script>
     $(document).ready(function () {
         // Tải danh sách danh mục từ server
         $.ajax({
@@ -479,9 +483,9 @@
             }
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
-        $('#searchInput').on('input', function() {
+        $('#searchInput').on('input', function () {
             var query = $(this).val(); // Lấy giá trị của ô tìm kiếm
 
             if (query.length >= 2) {
@@ -489,13 +493,13 @@
                 $.ajax({
                     url: '/api/products', // Địa chỉ API tìm kiếm
                     method: 'GET',
-                    data: { query: query },
-                    success: function(data) {
+                    data: {query: query},
+                    success: function (data) {
                         var suggestions = '';
                         if (data.length > 0) {
                             // Hiển thị sản phẩm gợi ý
                             var limitedProducts = data.slice(0, 3);
-                            limitedProducts.forEach(function(product) {
+                            limitedProducts.forEach(function (product) {
                                 suggestions += '<div class="tf-loop-item">';
                                 suggestions += '<div class="image">';
                                 suggestions += '<a href="/products/' + product.id + '">';
@@ -522,6 +526,64 @@
         });
 
     });
+
+    // $(document).ready(function () {
+    //     // Kiểm tra JWT khi người dùng truy cập vào một trang yêu cầu xác thực
+    //     $.ajax({
+    //         type: "GET", // Yêu cầu GET để kiểm tra token
+    //         url: "/api/auth/authenticate", // URL endpoint để kiểm tra token
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem('token')  // Gửi token từ localStorage trong header
+    //
+    //         },
+    //         success: function (data) {
+    //             console.log("Xác thực thành công", data);
+    //         },
+    //         error: function (xhr, status, error) {
+    //             alert("Token không hợp lệ hoặc hết hạn. Vui lòng đăng nhập lại.");
+    //             window.location.href = "/login";  // Chuyển hướng về trang đăng nhập
+    //         }
+    //     });
+    // });
+    //
+    // function logout() {
+    //     // Xóa token khỏi localStorage
+    //     localStorage.removeItem('token');
+    //
+    //     // Chuyển hướng về trang đăng nhập
+    //     window.location.href = "/login"; // Điều chỉnh URL cho phù hợp với ứng dụng của bạn
+    // }
+
+    // Hàm Login
+    // $('#submitLogin').click(function(event) {
+    //     event.preventDefault();  // Ngăn chặn hành vi mặc định của form (tải lại trang)
+    //
+    //     var username = document.getElementById('username').value;
+    //     var password = document.getElementById('password').value;
+    //
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/api/auth/login",  // Đảm bảo URL đúng
+    //         data: {username: username, password: password},  // Gửi dữ liệu dưới dạng JSON// Đảm bảo content type là JSON
+    //         success: function(data) {
+    //             if (data.token) {
+    //                 // Lưu token vào localStorage
+    //                 localStorage.setItem('token', data.token);
+    //                 if (document.referrer) {
+    //                     window.location.href = document.referrer;
+    //                 } else {
+    //                     window.location.href = '/';
+    //                 }
+    //             } else {
+    //                 window.location.href = '/login';
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert("Lỗi đăng nhập: " + error);
+    //         }
+    //     });
+    // });
+
 
 </script>
 

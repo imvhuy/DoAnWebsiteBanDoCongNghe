@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!-- page-title -->
 <div class="tf-page-title style-2">
     <div class="container-full">
@@ -62,7 +63,7 @@
             <div class="tf-login-content">
                 <h5 class="mb_36">I'm new here</h5>
                 <p class="mb_20">Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails.</p>
-                <a href="register.html" class="tf-btn btn-line">Register<i class="icon icon-arrow1-top-left"></i></a>
+                <a href="/register" class="tf-btn btn-line">Register<i class="icon icon-arrow1-top-left"></i></a>
             </div>
         </div>
     </div>
