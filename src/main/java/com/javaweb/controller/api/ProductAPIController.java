@@ -1,6 +1,8 @@
 package com.javaweb.controller.api;
 
+import com.javaweb.dto.GalleryDTO;
 import com.javaweb.dto.ProductDTO;
+import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 import com.javaweb.service.IProductService;
 import org.springframework.beans.BeanUtils;

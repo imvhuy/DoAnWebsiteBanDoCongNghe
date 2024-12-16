@@ -313,7 +313,7 @@
 
                                 <fieldset class="category">
                                     <div class="body-title">Category</div>
-                                    <form:select path="categoryName" class="body-title mb-10" aria-required="true" required="true" name="categoryName" onchange="loadSubcategories()">
+                                    <form:select path="categoryName" class="body-title mb-10" aria-required="true" name="categoryName" onchange="loadSubcategories()">
                                         <form:option value="">Choose Category</form:option>
                                         <!-- Sử dụng c:forEach từ JSTL để duyệt danh sách categories -->
                                         <c:forEach var="category" items="${categories}">
@@ -326,7 +326,7 @@
 
                                 <fieldset class="subcategory">
                                     <div class="body-title">SubcategoryValue</div>
-                                    <form:select path="subcategoryName" class="body-title mb-10" aria-required="true" required="true" multiple="multiple" id="subcategorySelect" onchange="handleSubcategorySelection()">
+                                    <form:select path="subcategoryName" class="body-title mb-10" aria-required="true" multiple="multiple" id="subcategorySelect" onchange="handleSubcategorySelection()">
 
                                         <!-- Subcategory options will be dynamically loaded here -->
                                     </form:select>

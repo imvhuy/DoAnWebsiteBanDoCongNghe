@@ -115,12 +115,22 @@
                     <div class="card-product" data-price="${product.price}">
                         <div class="card-product-wrapper">
                             <a href="${pageContext.request.contextPath}/product-detail/${product.id}" class="product-img">
-                                <img class="lazyload img-product"
-                                     src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg"
-                                     alt="image-product">
-                                <img class="lazyload img-hover"
-                                     src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/329149/iphone-16-pro-max-titan-den-1-638638962017739954-750x500.jpg"
-                                     alt="image-product">
+                                <c:forEach var="gallery" items="${product.galleryEntities}">
+                                    <c:if test="${gallery.type == 'front'}">
+                                        <img src="/admin/images/products/${gallery.image}"
+                                             alt="Behind Image" class="image-preview"
+                                             id="behindPreview"
+                                             style="display: block; max-width: 200px;"/>
+                                        <img class="lazyload img-product"
+                                             src="/admin/images/products/${gallery.image}"
+                                             alt="image-product">
+                                        <img class="lazyload img-hover"
+                                             src="/admin/images/products/${gallery.image}"
+                                             alt="image-product">
+                                    </c:if>
+                                </c:forEach>
+
+
                             </a>
                             <div class="list-product-btn absolute-2">
                                 <a href="#quick_add" data-bs-toggle="modal"

@@ -1,9 +1,12 @@
 package com.javaweb.controller.web;
 
+import com.javaweb.dto.GalleryDTO;
 import com.javaweb.entity.CategoryEntity;
+import com.javaweb.entity.GalleryEntity;
 import com.javaweb.entity.ProductEntity;
 import com.javaweb.entity.SubcategoryEntity;
 import com.javaweb.service.ICategoryService;
+import com.javaweb.service.IGalleryService;
 import com.javaweb.service.IProductService;
 import com.javaweb.service.ISubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,8 @@ public class ProductController {
     IProductService productService;
     @Autowired
     ISubCategoryService subcategoryService;
+    @Autowired
+    IGalleryService galleryService;
 
     @GetMapping("/{categoryslug}")
     public ModelAndView getProduct(@PathVariable("categoryslug") String categorySlug,
@@ -83,6 +88,7 @@ public class ProductController {
 
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
         List<SubcategoryEntity> subcategoryEntities = subcategoryService.getSubcategoryByCategoryId(category.getId());
         model.addAttribute("subcategories", subcategoryEntities);
         model.addAttribute("productPages", resultPage);

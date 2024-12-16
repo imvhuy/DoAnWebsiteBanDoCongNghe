@@ -29,6 +29,7 @@ public class ProductDTO {
     private CategoryEntity category;
 
     private List<GalleryDTO> galleries = new ArrayList<>();
+    private List<GalleryEntity> galleryEntities = new ArrayList<>();
 
     private Long categoryId;
     private String categoryName; // Trường để lưu tên danh mục (category name)

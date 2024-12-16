@@ -1,5 +1,6 @@
 package com.javaweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,20 +50,25 @@ public class ProductEntity extends BaseEntity {
     private CategoryEntity categoryEntity;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<GalleryEntity> galleryEntities;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<StoreProductEntity> productStore;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ReviewEntity> rating;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItemEntity> orderItems;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<FavoriteProductEntity> favortieProductEntitys;
     

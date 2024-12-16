@@ -217,7 +217,7 @@
 							</form>
 						</li>
 						<li class="menu-item position-relative"><a
-							href="vendor/manage-store" class="item-link"
+							href="${pageContext.request.contextPath}/vendor/manage-store" class="item-link"
 							style="font-size: 14px; padding: 5px 10px;">Store</a></li>
 					</ul>
 				</nav>
@@ -251,8 +251,7 @@
                                         <li><a class="dropdown-item"
                                                href="<c:url value='/profile/${pageContext.request.userPrincipal.name}'/>">Profile</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="/orders">My Orders</a></li>
-                                        <li><a class="dropdown-item" href="/settings">Settings</a></li>
+                                        <li><a class="dropdown-item" href="/profile/checkorderlist/${pageContext.request.userPrincipal.name}">My Orders</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
@@ -495,13 +494,14 @@
                             limitedProducts.forEach(function(product) {
                                 suggestions += '<div class="tf-loop-item">';
                                 suggestions += '<div class="image">';
-                                suggestions += '<a href="/products/' + product.id + '">';
-                                suggestions += '<img src="' + product.imageUrl + '" alt="' + product.name + '">';
+                                suggestions += '<a href="/product-detail/' + product.id + '">';
+                                suggestions += '<img src="/admin/images/products/' + product.galleryEntities[3].image + '" alt="' + product.name + '">';
+                                console.log();
                                 suggestions += '</a></div>';
                                 suggestions += '<div class="content">';
-                                suggestions += '<a href="/products/' + product.id + '">' + product.name + '</a>';
+                                suggestions += '<a href="/product-detail/' + product.id + '">' + product.name + '</a>';
                                 suggestions += '<div class="tf-product-info-price">';
-                                suggestions += '<div class="price fw-6">$' + product.price + '</div>';
+                                suggestions += '<div class="price fw-6">' + product.price + 'VND</div>';
                                 suggestions += '</div></div></div>';
                             });
                         } else {
